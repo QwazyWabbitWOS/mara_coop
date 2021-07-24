@@ -88,6 +88,8 @@ cvar_t *flood_waitdelay;
 cvar_t *sv_maplist;
 cvar_t *sv_stopspeed; /* FS: Coop: Rogue specific */
 
+cvar_t *plasma_alpha;
+
 cvar_t *gamerules; /* FS: Coop: Rogue specific */
 cvar_t *huntercam; /* FS: Coop: Rogue specific */
 cvar_t *strong_mines; /* FS: Coop: Rogue specific */
@@ -122,7 +124,7 @@ static qboolean firstStart = true;
 void
 ShutdownGame(void)
 {
-	gi.dprintf(DEVELOPER_MSG_GAME, "==== ShutdownGame ====\n");
+	gi.dprintf("==== ShutdownGame ====\n");
 
 	gi.FreeTags (TAG_LEVEL);
 	gi.FreeTags (TAG_GAME);
@@ -199,7 +201,7 @@ void Com_Printf (char *msg, ...)
 	va_end (argptr);
 	text[sizeof(text)-1] = 0;
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%s", text);
+	gi.dprintf("%s", text);
 }
 
 void Sys_Mkdir (char *path) /* FS: Coop: FIXME -- This could be added to something like gi.FS_CreatePath instead or similiar, but that would be non-standard to other port authors.  However, it's trivial to add.  So what-do? */
@@ -604,7 +606,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->freetime)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set freetime for freed entity: %f\n", ent->freetime);
+					gi.dprintf("Set freetime for freed entity: %f\n", ent->freetime);
 					ent->freetime = level.time;
 				}
 				continue;
@@ -617,81 +619,81 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 
 			if(ent->monsterinfo.search_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set search_time for %s: %f\n", className, ent->monsterinfo.search_time);
+				gi.dprintf("Set search_time for %s: %f\n", className, ent->monsterinfo.search_time);
 				ent->monsterinfo.search_time = level.time + 0.1f;
 				setSearch = true;
 			}
 
 			if(ent->monsterinfo.trail_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set trail_time for %s: %f\n", className, ent->monsterinfo.trail_time);
+				gi.dprintf("Set trail_time for %s: %f\n", className, ent->monsterinfo.trail_time);
 				ent->monsterinfo.trail_time = level.time + 0.1f;
 			}
 			if(ent->monsterinfo.idle_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set idle_time for %s: %f\n", className, ent->monsterinfo.idle_time);
+				gi.dprintf("Set idle_time for %s: %f\n", className, ent->monsterinfo.idle_time);
 				ent->monsterinfo.idle_time = level.time + 0.1f;
 				setIdle = true;
 			}
 
 			if(ent->monsterinfo.pausetime)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set pausetime for %s: %f\n", className, ent->monsterinfo.pausetime);
+				gi.dprintf("Set pausetime for %s: %f\n", className, ent->monsterinfo.pausetime);
 				ent->monsterinfo.pausetime = level.time + 100000000;
 				setStand = true;
 			}
 
 			if(ent->monsterinfo.last_hint_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set last_hint_time for %s: %f\n", className, ent->monsterinfo.last_hint_time);
+				gi.dprintf("Set last_hint_time for %s: %f\n", className, ent->monsterinfo.last_hint_time);
 				ent->monsterinfo.last_hint_time = level.time + 0.1f;
 			}
 
 			if(ent->monsterinfo.next_duck_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set next_duck_time for %s: %f\n", className, ent->monsterinfo.next_duck_time);
+				gi.dprintf("Set next_duck_time for %s: %f\n", className, ent->monsterinfo.next_duck_time);
 				ent->monsterinfo.next_duck_time = level.time + 0.1f;
 			}
 
 			if(ent->monsterinfo.duck_wait_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set duck_wait_time for %s: %f\n", className, ent->monsterinfo.duck_wait_time);
+				gi.dprintf("Set duck_wait_time for %s: %f\n", className, ent->monsterinfo.duck_wait_time);
 				ent->monsterinfo.duck_wait_time = level.time + 0.1f;
 			}
 
 			if(ent->monsterinfo.blind_fire_delay)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set blind_fire_delay for %s: %f\n", className, ent->monsterinfo.blind_fire_delay);
+				gi.dprintf("Set blind_fire_delay for %s: %f\n", className, ent->monsterinfo.blind_fire_delay);
 				ent->monsterinfo.blind_fire_delay = level.time + 0.1f;
 			}
 
 			if(ent->monsterinfo.quad_framenum)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set quad_framenum for %s: %f\n", className, ent->monsterinfo.quad_framenum);
+				gi.dprintf("Set quad_framenum for %s: %f\n", className, ent->monsterinfo.quad_framenum);
 				ent->monsterinfo.quad_framenum = 0.0f;
 			}
 
 			if(ent->monsterinfo.invincible_framenum)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set invincible_framenum for %s: %f\n", className, ent->monsterinfo.invincible_framenum);
+				gi.dprintf("Set invincible_framenum for %s: %f\n", className, ent->monsterinfo.invincible_framenum);
 				ent->monsterinfo.invincible_framenum = 0.0f;
 			}
 
 			if(ent->monsterinfo.double_framenum)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set double_framenum for %s: %f\n", className, ent->monsterinfo.double_framenum);
+				gi.dprintf("Set double_framenum for %s: %f\n", className, ent->monsterinfo.double_framenum);
 				ent->monsterinfo.double_framenum = 0.0f;
 			}
 
 			if(ent->air_finished)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set air_finished for %s: %f\n", className, ent->air_finished);
+				gi.dprintf("Set air_finished for %s: %f\n", className, ent->air_finished);
 				ent->air_finished = level.time + 1.0f;
 			}
 
 			if(ent->powerarmor_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set powerarmor_time for %s: %f\n", className, ent->powerarmor_time);
+				gi.dprintf("Set powerarmor_time for %s: %f\n", className, ent->powerarmor_time);
 				ent->powerarmor_time = level.time + 0.2f;
 			}
 
@@ -699,43 +701,43 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 
 			if(ent->last_sound_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set last_sound_time for %s: %f\n", className, ent->last_sound_time);
+				gi.dprintf("Set last_sound_time for %s: %f\n", className, ent->last_sound_time);
 				ent->last_sound_time = level.time;
 			}
 
 			if(ent->touch_debounce_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set touch_debounce_time for %s: %f\n", className, ent->touch_debounce_time);
+				gi.dprintf("Set touch_debounce_time for %s: %f\n", className, ent->touch_debounce_time);
 				ent->touch_debounce_time = level.time + 0.1f;
 			}
 
 			if(ent->pain_debounce_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set pain_debounce_time for %s: %f\n", className, ent->pain_debounce_time);
+				gi.dprintf("Set pain_debounce_time for %s: %f\n", className, ent->pain_debounce_time);
 				ent->pain_debounce_time = level.time + 0.1f;
 			}
 
 			if(ent->damage_debounce_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set damage_debounce_time for %s: %f\n", className, ent->damage_debounce_time);
+				gi.dprintf("Set damage_debounce_time for %s: %f\n", className, ent->damage_debounce_time);
 				ent->damage_debounce_time = level.time + 0.1f;
 			}
 
 			if(ent->fly_sound_debounce_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set fly_sound_debounce_time for %s: %f\n", className, ent->fly_sound_debounce_time);
+				gi.dprintf("Set fly_sound_debounce_time for %s: %f\n", className, ent->fly_sound_debounce_time);
 				ent->fly_sound_debounce_time = level.time + 0.1f;
 			}
 
 			if(ent->last_move_time)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set last_move_time for %s: %f\n", className, ent->last_move_time);
+				gi.dprintf("Set last_move_time for %s: %f\n", className, ent->last_move_time);
 				ent->last_move_time = 0.1f;
 			}
 
 			if(ent->timestamp)
 			{
-				gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set timestamp for %s: %f\n", className, ent->timestamp);
+				gi.dprintf("Set timestamp for %s: %f\n", className, ent->timestamp);
 				ent->timestamp = level.time + 0.1f;
 			}
 
@@ -743,7 +745,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->nextthink)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set nextthink for %s: %f\n", className, ent->nextthink);
+					gi.dprintf("Set nextthink for %s: %f\n", className, ent->nextthink);
 					ent->nextthink = level.time + 0.1f;
 				}
 			}
@@ -752,7 +754,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->monsterinfo.stand)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set Stand AI for %s\n", className);
+					gi.dprintf("Set Stand AI for %s\n", className);
 					ent->monsterinfo.stand(ent);
 				}
 			}
@@ -760,7 +762,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->monsterinfo.search)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set Search AI for %s\n", className);
+					gi.dprintf("Set Search AI for %s\n", className);
 					ent->monsterinfo.search(ent);
 				}
 			}
@@ -768,7 +770,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->monsterinfo.idle)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Set Idle AI for %s\n", className);
+					gi.dprintf("Set Idle AI for %s\n", className);
 					ent->monsterinfo.idle(ent);
 				}
 			}
@@ -776,7 +778,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			{
 				if(ent->monsterinfo.stand)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: Unknown what monster is doing.  Seting stand AI by default for %s\n", className);
+					gi.dprintf("WARNING: Unknown what monster is doing.  Seting stand AI by default for %s\n", className);
 					ent->monsterinfo.stand(ent);
 				}
 			}

@@ -101,7 +101,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 					
 					if ( *cp != '\"' )
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
+							gi.dprintf("Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
 							continue;
 						}
 						
@@ -116,7 +116,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 						
 					if ( *cp == 0 )
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
+							gi.dprintf("Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
 							continue;
 						}
 						
@@ -124,7 +124,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 					
 					if ( isBlank ( checkvarList[maxcheckvars].variablename ) )
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, blank variable name\n", uptoLine, checkvarname);
+							gi.dprintf("Error loading CHECKVAR from line %d in file %s, blank variable name\n", uptoLine, checkvarname);
 							continue;
 						}
 						
@@ -135,7 +135,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 						{
 							if ( *cp != '\"' )
 								{
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
+									gi.dprintf("Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
 									continue;
 								}
 								
@@ -149,7 +149,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 								
 							if ( *cp != '\"' )
 							{
-								gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
+								gi.dprintf("Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
 								continue;
 							}
 									
@@ -165,7 +165,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 									
 							if ( *cp == 0 )
 							{
-								gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
+								gi.dprintf("Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
 								continue;
 							}
 									
@@ -174,7 +174,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 								
 							if ( *cp != '\"' )
 							{
-								gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
+								gi.dprintf("Error loading CHECKVAR from line %d in file %s, \" not found\n", uptoLine, checkvarname);
 								continue;
 							}
 									
@@ -195,7 +195,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp) ))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHECKVAR from line %d in file %s\n", uptoLine, checkvarname);
+					gi.dprintf("Error loading CHECKVAR from line %d in file %s\n", uptoLine, checkvarname);
 				}
 		}
 		
@@ -219,7 +219,7 @@ void readCheckVarLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " CHECKVARFILE " could not be found\n");
+			gi.dprintf("WARNING: " CHECKVARFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, CHECKVARFILE " could not be found", IW_CHECKVARSETUPLOAD, 0.0);
 		}
 }

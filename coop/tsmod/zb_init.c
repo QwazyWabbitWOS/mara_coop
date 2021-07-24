@@ -132,7 +132,7 @@ int randomwaitreporttime = 55;
 
 int maxMsgLevel = 3;
 
-char *zbotversion = "Q2Admin Version " Q2ADMINVERSION "\n";
+char *zbotversion = "==== Q2Admin Version " Q2ADMINVERSION " ====\n";
 qboolean serverinfoenable = TRUE;
 
 char zbotmotd[256];
@@ -360,13 +360,13 @@ void InitGame (void)
 	INITPERFORMANCE(2);
 	
 	proxyinfo = NULL; //UPDATE - Harven fix
-	gi.dprintf(DEVELOPER_MSG_VERBOSE, zbotversion);
+	gi.dprintf(zbotversion);
 	
 	if(!dllloaded) return;
 	
 	if(q2adminrunmode < 100)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "(Q2Admin runlevel %d)\n", q2adminrunmode);
+			gi.dprintf("(Q2Admin runlevel %d)\n", q2adminrunmode);
 		}
 		
 	if(q2adminrunmode == 0)
@@ -465,7 +465,7 @@ void InitGame (void)
 	{
 		whois_details = gi.TagMalloc (whois_active * sizeof(user_details), TAG_GAME);
 		memset(whois_details, 0, whois_active * sizeof(user_details));
-		gi.dprintf(DEVELOPER_MSG_VERBOSE,"Reading whois file...\n");
+		gi.dprintf("Reading whois file...\n");
 		whois_read_file();
 	}
 //*** UPDATE END ***
@@ -681,7 +681,7 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 //*** UPDATE START ***
 	if (!*serverip)
 	{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE,"You have not set a server ip.  Please add the following to q2admin.txt\nserverip \"ip\" where ip matches the outgoing one of the server.\n");
+			gi.dprintf("You have not set a server ip.  Please add the following to q2admin.txt\nserverip \"ip\" where ip matches the outgoing one of the server.\n");
 	}
 //*** UPDATE END ***
 
@@ -1488,22 +1488,25 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 //	srv_ip = gi.cvar("ip", "0.0.0.0", 0);
 //	gi.bprintf (PRINT_HIGH, "DEBUG: %s\n", srv_ip->string);
 
+	//QwazyWabbit
+	// This section computes userinfo changes per minute (USERINFOCHANGE_TIME).
+	// If we exceed USERINFOCHANGE_COUNT within that time then kick the user for flooding.
 	proxyinfo[client].userinfo_changed_count++;
-	//gi.bprintf(PRINT_HIGH,"userinfo %d\n",proxyinfo[client].userinfo_changed_count);
-	if (proxyinfo[client].userinfo_changed_count>USERINFOCHANGE_COUNT)
+	//gi.bprintf(PRINT_HIGH, "%s userinfo change %d\n", proxyinfo[client].name, proxyinfo[client].userinfo_changed_count);
+	temp = ltime - proxyinfo[client].userinfo_changed_start;
+	if (proxyinfo[client].userinfo_changed_count > USERINFOCHANGE_COUNT)
 	{
-		temp = ltime - proxyinfo[client].userinfo_changed_start;
-		if (temp<USERINFOCHANGE_TIME)
+		if (temp > USERINFOCHANGE_TIME)
 		{
-			gi.bprintf (PRINT_HIGH, "%s tried to flood the server (2)\n", proxyinfo[client].name);
-			sprintf(tmptext, "kick %d\n", client);
-			gi.AddCommandString(tmptext);
+			// Enough time passed, reset count
+			proxyinfo[client].userinfo_changed_count = 0;
+			proxyinfo[client].userinfo_changed_start = ltime;
 		}
 		else
 		{
-			//enuf time passed, reset count
-			proxyinfo[client].userinfo_changed_count = 0;
-			proxyinfo[client].userinfo_changed_start = ltime;
+			gi.bprintf(PRINT_HIGH, "%s tried to flood the server (2)\n", proxyinfo[client].name);
+			sprintf(tmptext, "kick %d\n", client);
+			gi.AddCommandString(tmptext);
 		}
 	}
 
@@ -1594,7 +1597,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 		//my check here, if maxfps = 0 and it has length we will NOT allow
 		if (proxyinfo[client].maxfps == 0)
 		{
-			gi.bprintf(PRINT_HIGH, (PRV_KICK_MSG,proxyinfo[client].name));
+			gi.bprintf(PRINT_HIGH, PRV_KICK_MSG, proxyinfo[client].name);
 			if (proxyinfo[client].inuse)
 			{
 				//r1ch: wtf is going on here?
@@ -1603,7 +1606,11 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 			}
 
 			// %%quadz -- leaving this kick for now, will remove it it's contributing to the bogus modified client kicks
-			addCmdQueue(client, QCMD_DISCONNECT, 1, 0, (PRV_KICK_MSG, proxyinfo[client].name));
+			//QW// Buffer the implicit string manipulation of addCmdQueue. PRV_KICK_MSG was not being output.
+			sprintf(buffer, "%s", PRV_KICK_MSG);
+			sprintf(buffer2, buffer, proxyinfo[client].name);
+			addCmdQueue(client, QCMD_DISCONNECT, 1, 0, buffer2);
+			//addCmdQueue(client, QCMD_DISCONNECT, 1, 0, (PRV_KICK_MSG, proxyinfo[client].name));
 		}
 		else
 		if(maxfpsallowed)

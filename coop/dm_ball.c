@@ -114,12 +114,12 @@ DBall_ClientBegin(edict_t *ent)
 
 	if (team1 > team2)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "assigned to team 2\n");
+		gi.dprintf("assigned to team 2\n");
 		Info_SetValueForKey(ent->client->pers.userinfo, "skin", dball_team2_skin->string);
 	}
 	else
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "assigned to team 1\n");
+		gi.dprintf("assigned to team 1\n");
 		Info_SetValueForKey(ent->client->pers.userinfo, "skin", dball_team1_skin->string);
 	}
 
@@ -127,7 +127,7 @@ DBall_ClientBegin(edict_t *ent)
 
 	if (unassigned)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%d unassigned players present!\n", unassigned);
+		gi.dprintf("%d unassigned players present!\n", unassigned);
 	}
 }
 
@@ -228,7 +228,7 @@ DBall_PostInitSetup(void)
 
 	if (dball_ball_startpt_count == 0)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "No Deathball start points!\n");
+		gi.dprintf("No Deathball start points!\n");
 	}
 }
 
@@ -280,7 +280,7 @@ DBall_ChangeKnockback(edict_t *targ, edict_t *attacker, int knockback, int mod)
 		}
 		else
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "zero knockback, mod %d\n", mod);
+			gi.dprintf("zero knockback, mod %d\n", mod);
 		}
 	}
 	else
@@ -413,18 +413,18 @@ DBall_GoalTouch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 			}
 			else
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "unassigned player!!!!\n");
+				gi.dprintf("unassigned player!!!!\n");
 			}
 		}
 	}
 
 	if (other->enemy)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "score for team %d by %s\n", team_score, other->enemy->client->pers.netname);
+		gi.dprintf("score for team %d by %s\n", team_score, other->enemy->client->pers.netname);
 	}
 	else
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "score for team %d by someone\n", team_score);
+		gi.dprintf("score for team %d by someone\n", team_score);
 	}
 
 	DBall_BallDie(other, other->enemy, other->enemy, 0, vec3_origin);
@@ -458,7 +458,7 @@ PickBallStart(edict_t *ent)
 
 	if (current == 0)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "No ball start points found!\n");
+		gi.dprintf("No ball start points found!\n");
 	}
 
 	return G_Find(NULL, FOFS(classname), "dm_dball_ball_start");

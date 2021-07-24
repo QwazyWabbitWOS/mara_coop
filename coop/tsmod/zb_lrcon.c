@@ -122,7 +122,7 @@ qboolean ReadLRconFile(char *lrcname)
 						
 					if(!len || *pp == 0)
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+							gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 							// no command or zero length password
 							continue;
 						}
@@ -147,7 +147,7 @@ qboolean ReadLRconFile(char *lrcname)
 					if(!len)
 						{
 							gi.TagFree(lrconcmds[maxlrcon_cmds].password);
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+							gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 							continue;
 						}
 						
@@ -167,7 +167,7 @@ qboolean ReadLRconFile(char *lrcname)
 									lrconcmds[maxlrcon_cmds].r = 0;
 									
 									// malformed re... skip this lrcon
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+									gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 									continue;
 								}
 						}
@@ -185,7 +185,7 @@ qboolean ReadLRconFile(char *lrcname)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+					gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 				}
 		}
 		
@@ -225,7 +225,7 @@ void readLRconLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " LRCONFILE " could not be found\n");
+			gi.dprintf("WARNING: " LRCONFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, LRCONFILE " could not be found", IW_LRCONSETUPLOAD, 0.0);
 		}
 }
@@ -325,7 +325,7 @@ void run_lrcon(edict_t *ent, int client)
 										sprintf(buffer, "rcon %s %s\n", cbuffer, cp);
 										stuffcmd(ent, buffer);
 										
-										sprintf(buffer, "rcon %s sv !resetrcon\n", cbuffer, cp);
+										sprintf(buffer, "rcon %s sv !resetrcon\n", cbuffer);
 										
 									}
 								else

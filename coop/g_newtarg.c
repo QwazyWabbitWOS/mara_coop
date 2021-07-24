@@ -110,7 +110,7 @@ target_steam_start(edict_t *self)
 
 		if (!ent)
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s: %s is a bad target\n", self->classname,
+			gi.dprintf("%s at %s: %s is a bad target\n", self->classname,
 					vtos(self->s.origin), self->target);
 		}
 
@@ -193,7 +193,7 @@ target_anger_use(edict_t *self, edict_t *other /* unused */, edict_t *activator 
 		{
 			if (t == self)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "WARNING: entity used itself.\n");
+				gi.dprintf("WARNING: entity used itself.\n");
 			}
 			else
 			{
@@ -212,7 +212,7 @@ target_anger_use(edict_t *self, edict_t *other /* unused */, edict_t *activator 
 
 			if (!self->inuse)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "entity was removed while using targets\n");
+				gi.dprintf("entity was removed while using targets\n");
 				return;
 			}
 		}
@@ -238,14 +238,14 @@ SP_target_anger(edict_t *self)
 
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_anger without target!\n");
+		gi.dprintf("target_anger without target!\n");
 		G_FreeEdict(self);
 		return;
 	}
 
 	if (!self->killtarget)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_anger without killtarget!\n");
+		gi.dprintf("target_anger without killtarget!\n");
 		G_FreeEdict(self);
 		return;
 	}

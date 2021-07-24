@@ -206,7 +206,7 @@ G_PickTarget(char *targetname)
 
 	if (!targetname)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "G_PickTarget called with NULL targetname\n");
+		gi.dprintf("G_PickTarget called with NULL targetname\n");
 		return NULL;
 	}
 
@@ -229,7 +229,7 @@ G_PickTarget(char *targetname)
 
 	if (!num_choices)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "G_PickTarget: target %s not found\n", targetname);
+		gi.dprintf("G_PickTarget: target %s not found\n", targetname);
 		return NULL;
 	}
 
@@ -285,7 +285,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 
 		if (!activator)
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "Think_Delay with no activator\n");
+			gi.dprintf("Think_Delay with no activator\n");
 		}
 
 		t->message = ent->message;
@@ -369,7 +369,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 
 			if (!ent->inuse)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "entity was removed while using killtargets\n");
+				gi.dprintf("entity was removed while using killtargets\n");
 				return;
 			}
 		}
@@ -392,7 +392,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 
 			if (t == ent)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "WARNING: Entity used itself.\n");
+				gi.dprintf("WARNING: Entity used itself.\n");
 			}
 			else
 			{
@@ -404,7 +404,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 
 			if (!ent->inuse)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "entity was removed while using targets\n");
+				gi.dprintf("entity was removed while using targets\n");
 				return;
 			}
 		}

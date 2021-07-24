@@ -293,7 +293,7 @@ turret_breach_finish_init(edict_t *self)
 	/* get and save info for muzzle location */
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s needs a target\n", self->classname, vtos(self->s.origin));
+		gi.dprintf("%s at %s needs a target\n", self->classname, vtos(self->s.origin));
 	}
 	else
 	{
@@ -306,7 +306,7 @@ turret_breach_finish_init(edict_t *self)
 		}
 		else
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "could not find target entity for %s at %s\n", self->classname, vtos(self->s.origin));
+			gi.dprintf("could not find target entity for %s at %s\n", self->classname, vtos(self->s.origin));
 		}
 	}
 
@@ -592,7 +592,7 @@ SP_turret_driver(edict_t *self)
 
 		if (!self->item)
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s has bad item: %s\n", self->classname, vtos(self->s.origin), st.item);
+			gi.dprintf("%s at %s has bad item: %s\n", self->classname, vtos(self->s.origin), st.item);
 		}
 	}
 
@@ -800,14 +800,14 @@ SP_turret_invisible_brain(edict_t *self) /* FS: Coop: Rogue specific */
 
 	if (!self->killtarget)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "turret_invisible_brain with no killtarget!\n");
+		gi.dprintf("turret_invisible_brain with no killtarget!\n");
 		G_FreeEdict(self);
 		return;
 	}
 
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "turret_invisible_brain with no target!\n");
+		gi.dprintf("turret_invisible_brain with no target!\n");
 		G_FreeEdict(self);
 		return;
 	}

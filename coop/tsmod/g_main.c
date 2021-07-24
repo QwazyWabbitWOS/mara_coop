@@ -52,15 +52,25 @@ void *hdll = NULL;
 #elif defined(SOLARIS_SPARC)
 	#define DLLNAME   "gamesparc.real.so"
 #elif defined (LINUX)
+#if defined __i386__
 	#define DLLNAME "gamei386.real.so"
+#elif defined __x86_64__
+	#define DLLNAME "gamex86_64.real.so"
+#elif defined __arm__ 
+	#define DLLNAME "gamearm.real.so"
+#elif defined __aarch64__
+	#define DLLNAME "gameaarch64.real.so"
+#else
+	#error Unknown architecture
+#endif
 #else
 	#error Unknown GNUC OS
 #endif
 
-#elif defined(WIN32) /* FS: FIXME: This is stupid -- is/was gamex86.real.dll */
+#elif defined(_WIN32)
 HINSTANCE hdll;
-#define DLLNAME   "gamex86.dll"  // Not sure how this was suppsoed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
-#define DLLNAMEMODDIR "gamex86.dll"
+#define DLLNAME   "gamex86.real.dll"  // Not sure how this was supposed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
+#define DLLNAMEMODDIR "gamex86.real.dll"
 #else
 #error Unknown OS
 #endif
@@ -84,14 +94,14 @@ void ShutdownGame (void)
 	if(!dllloaded) return;
 
 //*** UPDATE START ***
-	if (whois_active)
+	if (whois_details)
 	{
 		whois_write_file();
 		gi.TagFree (whois_details);
 	}
 //*** UPDATE END ***
 
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			STARTPERFORMANCE(1);
 			logEvent(LT_SERVEREND, 0, NULL, NULL, 0, 0.0);
@@ -102,10 +112,11 @@ void ShutdownGame (void)
 	lrcon_reset_rcon_password(0, 0, 0);
 	dllglobals->Shutdown();
 	
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			STOPPERFORMANCE(2, "mod->ShutdownGame", 0, NULL);
 		}
+	gi.dprintf ("==== Shutdown (Q2Admin) ====\n");
 		
 #ifdef __GNUC__
 	dlclose(hdll);
@@ -171,12 +182,12 @@ qboolean Load_Game_DLL (game_import_t *import)
 			
 			if(hdll == NULL)
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Unable to load DLL %s.\n", dllname);
+					gi.dprintf("Unable to load DLL %s.\n", dllname);
 					return false;
 				}
 			else
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Unable to load DLL %s, loading baseq2 DLL.\n", dllname);
+					gi.dprintf("Unable to load DLL %s, loading baseq2 DLL.\n", dllname);
 				}
 		}
 		
@@ -194,7 +205,7 @@ qboolean Load_Game_DLL (game_import_t *import)
 			FreeLibrary(hdll);
 #endif
 			
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "No \"GetGameApi\" entry in DLL %s.\n", dllname);
+			gi.dprintf("No \"GetGameApi\" entry in DLL %s.\n", dllname);
 			return false;
 		}
 		
@@ -349,7 +360,7 @@ void Com_Printf (char *msg, ...)
 	va_end (argptr);
 	text[sizeof(text)-1] = 0;
 
-	gi.dprintf(DEVELOPER_MSG_VERBOSE, "%s", text);
+	gi.dprintf("%s", text);
 }
 
 void Sys_Mkdir (char *path) /* FS: Coop: FIXME -- This could be added to something like gi.FS_CreatePath instead or similiar, but that would be non-standard to other port authors.  However, it's trivial to add.  So what-do? */

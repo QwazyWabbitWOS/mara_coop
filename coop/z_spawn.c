@@ -155,5 +155,5 @@ void Z_SpawnDMItems()
 			}
 		}
 	}
-	gi.dprintf(DEVELOPER_MSG_GAME, "%i Zaero entities added\n", added);
+	gi.dprintf("%i Zaero entities added\n", added);
 }

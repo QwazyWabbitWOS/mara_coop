@@ -238,12 +238,12 @@ qboolean loadLogListFile(char *filename)
 											else
 												{
 													logFiles[lognum].inuse = FALSE;
-													gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LOGFILE from line %d in file %s\n", uptoLine, filename);
+													gi.dprintf("Error loading LOGFILE from line %d in file %s\n", uptoLine, filename);
 												}
 										}
 									else
 										{
-											gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LOGFILE from line %d in file %s\n", uptoLine, filename);
+											gi.dprintf("Error loading LOGFILE from line %d in file %s\n", uptoLine, filename);
 										}
 								}
 						}
@@ -324,12 +324,12 @@ qboolean loadLogListFile(char *filename)
 																		}
 																	else
 																		{
-																			gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
+																			gi.dprintf("Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
 																		}
 																}
 															else
 																{
-																	gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
+																	gi.dprintf("Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
 																}
 														}
 												}
@@ -344,7 +344,7 @@ qboolean loadLogListFile(char *filename)
 								
 							if(i >= LOGTYPES_MAX)
 								{
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
+									gi.dprintf("Error loading LOGTYPE from line %d in file %s\n", uptoLine, filename);
 								}
 						}
 				}
@@ -380,7 +380,7 @@ void loadLogList(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " LOGLISTFILE " could not be found\n");
+			gi.dprintf("WARNING: " LOGLISTFILE " could not be found\n");
 			//    logEvent(LT_INTERNALWARN, 0, NULL, LOGLISTFILE " could not be found", IW_LOGSETUPLOAD, 0.0);
 		}
 }

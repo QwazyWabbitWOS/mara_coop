@@ -439,7 +439,7 @@ ED_CallSpawn(edict_t *ent)
 
 	if (!ent->classname)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "ED_CallSpawn: NULL classname\n");
+		gi.dprintf("ED_CallSpawn: NULL classname\n");
 		G_FreeEdict(ent);
 		return;
 	}
@@ -493,7 +493,7 @@ ED_CallSpawn(edict_t *ent)
 		}
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%s doesn't have a spawn function\n", ent->classname);
+	gi.dprintf("%s doesn't have a spawn function\n", ent->classname);
 }
 
 char *
@@ -601,7 +601,7 @@ ED_ParseField(const char *key, const char *value, edict_t *ent)
 		}
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%s is not a field\n", key);
+	gi.dprintf("%s is not a field\n", key);
 }
 
 /*
@@ -754,7 +754,7 @@ G_FixTeams(void) /* FS: Coop: Rogue specific */
 		}
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%i teams repaired\n", c);
+	gi.dprintf("%i teams repaired\n", c);
 }
 
 void
@@ -822,7 +822,7 @@ G_FindTeams(void)
 		G_FixTeams();
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%i teams with %i entities.\n", c, c2);
+	gi.dprintf("%i teams with %i entities.\n", c, c2);
 }
 
 /*
@@ -1037,7 +1037,7 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 		inhibit += G_SpawnCheckpoints(ent);
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%i entities inhibited.\n", inhibit);
+	gi.dprintf("%i entities inhibited.\n", inhibit);
 
 	G_FindTeams();
 

@@ -62,7 +62,7 @@ trigger_teleport_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused 
 
 	if (!dest)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Teleport Destination not found!\n");
+		gi.dprintf("Teleport Destination not found!\n");
 		return;
 	}
 

@@ -187,7 +187,7 @@ CarrierGrenade(edict_t *self)
 		direction = 1.0;
 	}
 
-	mytime = (int)((level.time - self->timestamp) / 0.4);
+	mytime = (int)((level.time - self->timestamp) / 0.4f);
 
 	if (mytime == 0)
 	{
@@ -572,7 +572,7 @@ carrier_ready_spawn(edict_t *self)
 
 	current_yaw = anglemod(self->s.angles[YAW]);
 
-	if (fabs(current_yaw - self->ideal_yaw) > 0.1)
+	if (fabsf(current_yaw - self->ideal_yaw) > 0.1f)
 	{
 		self->monsterinfo.aiflags |= AI_HOLD_FRAME;
 		self->timestamp += FRAMETIME;
@@ -615,7 +615,7 @@ carrier_start_spawn(edict_t *self)
 		return;
 	}
 
-	mytime = (int)((level.time - self->timestamp) / 0.5);
+	mytime = (int)((level.time - self->timestamp) / 0.5f);
 
 	VectorSubtract(self->enemy->s.origin, self->s.origin, temp);
 	enemy_yaw = vectoyaw2(temp);

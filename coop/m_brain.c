@@ -1099,7 +1099,7 @@ brain_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 	}
 	else
 	{
-		self->monsterinfo.duck_wait_time = level.time + eta + (0.1 * (3 - skill->value));
+		self->monsterinfo.duck_wait_time = level.time + eta + (0.1f * (3 - skill->value));
 	}
 
 	self->monsterinfo.currentmove = &brain_move_duck_rogue;

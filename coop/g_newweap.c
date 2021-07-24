@@ -957,7 +957,7 @@ tesla_remove(edict_t *self)
 	}
 	else if (self->air_finished)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "tesla without a field!\n");
+		gi.dprintf("tesla without a field!\n");
 	}
 
 	self->owner = self->teammaster; /* Going away, set the owner correctly. */

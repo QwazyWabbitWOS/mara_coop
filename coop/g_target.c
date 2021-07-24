@@ -114,7 +114,7 @@ SP_target_speaker(edict_t *ent)
 
 	if (!st.noise)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_speaker with no noise set at %s\n", vtos(ent->s.origin));
+		gi.dprintf("target_speaker with no noise set at %s\n", vtos(ent->s.origin));
 		return;
 	}
 
@@ -201,7 +201,7 @@ SP_target_help(edict_t *ent)
 
 	if (!ent->message)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s with no message at %s\n", ent->classname, vtos(ent->s.origin));
+		gi.dprintf("%s with no message at %s\n", ent->classname, vtos(ent->s.origin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -559,7 +559,7 @@ SP_target_changelevel(edict_t *ent)
 
 	if (!ent->map)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_changelevel with no map at %s\n", vtos(ent->s.origin));
+		gi.dprintf("target_changelevel with no map at %s\n", vtos(ent->s.origin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -1066,7 +1066,7 @@ target_laser_start(edict_t *self)
 
 			if (!ent)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s: %s is a bad target\n", self->classname,
+				gi.dprintf("%s at %s: %s is a bad target\n", self->classname,
 						vtos(self->s.origin), self->target);
 			}
 
@@ -1322,8 +1322,8 @@ target_lightramp_use(edict_t *self, edict_t *other /* unused */, edict_t *activa
 
 			if (!e->classname || strcmp(e->classname, "light") != 0)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s ", self->classname, vtos(self->s.origin));
-				gi.dprintf(DEVELOPER_MSG_GAME, "target %s (%s at %s) is not a light\n", self->target,
+				gi.dprintf("%s at %s ", self->classname, vtos(self->s.origin));
+				gi.dprintf("target %s (%s at %s) is not a light\n", self->target,
 						e->classname, vtos(e->s.origin));
 			}
 			else
@@ -1334,7 +1334,7 @@ target_lightramp_use(edict_t *self, edict_t *other /* unused */, edict_t *activa
 
 		if (!self->enemy)
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "%s target %s not found at %s\n", self->classname,
+			gi.dprintf("%s target %s not found at %s\n", self->classname,
 					self->target, vtos(self->s.origin));
 			G_FreeEdict(self);
 			return;
@@ -1358,7 +1358,7 @@ SP_target_lightramp(edict_t *self)
 		(self->message[1] < 'a') || (self->message[1] > 'z') ||
 		(self->message[0] == self->message[1]))
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_lightramp has bad ramp (%s) at %s\n", self->message, vtos(self->s.origin));
+		gi.dprintf("target_lightramp has bad ramp (%s) at %s\n", self->message, vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -1371,7 +1371,7 @@ SP_target_lightramp(edict_t *self)
 
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s with no target at %s\n", self->classname, vtos(self->s.origin));
+		gi.dprintf("%s with no target at %s\n", self->classname, vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -1481,7 +1481,7 @@ SP_target_earthquake(edict_t *self)
 
 	if (!self->targetname)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "untargeted %s at %s\n", self->classname, vtos( self->s.origin));
+		gi.dprintf("untargeted %s at %s\n", self->classname, vtos( self->s.origin));
 	}
 
 	if (!self->count)

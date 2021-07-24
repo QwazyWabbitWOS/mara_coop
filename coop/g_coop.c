@@ -1589,7 +1589,7 @@ void CoopGamemodeInit (void)
 
 			if((gamemode[0]) && (CoopGamemodeExists(gamemode) == GAMEMODE_AVAILABLE))
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "CoopGamemodeInit: Adding %s %s %s\n", mapname, gamemode, realgamemode);
+				gi.dprintf("CoopGamemodeInit: Adding %s %s %s\n", mapname, gamemode, realgamemode);
 				CoopGamemodeAdd(gamemode, realgamemode, mapname);
 			}
 		}

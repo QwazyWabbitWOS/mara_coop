@@ -164,31 +164,39 @@ qboolean Coop_Respawn (void) /* FS: Coop */
 	return false;
 }
 
-void
-DoRespawn(edict_t *ent)
+void DoRespawn(edict_t* ent)
 {
-	if (!ent)
+	if (ent == NULL)
 	{
+		gi.dprintf("NULL ent passed to %s\n", __func__);
 		return;
 	}
 
 	if (ent->team)
 	{
-		edict_t *master;
-		int count;
-		int choice;
+		edict_t* master;
+		unsigned	count;
+		unsigned	choice;
+
+		if (ent == NULL)
+		{
+			gi.dprintf("NULL ent passed to %s\n", __func__);
+			return;
+		}
 
 		master = ent->teammaster;
+		if (master == NULL)
+			return;
 
-		for (count = 0, ent = master; ent; ent = ent->chain, count++)
-		{
-		}
+		count = 0;
+		for (ent = master; ent; ent = ent->chain)
+			count++;
 
 		choice = count ? rand() % count : 0;
 
-		for (count = 0, ent = master; count < choice; ent = ent->chain, count++)
-		{
-		}
+		count = 0;
+		for (ent = master; count < choice; ent = ent->chain)
+			count++;
 	}
 
 	if (randomrespawn && randomrespawn->value) /* FS: Coop: Rogue specific */
@@ -281,7 +289,7 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 			}
 			else /* FS: Coop: Rogue specific.  Looks like a possible fix.  Probably OK as-is. */
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "Powerup has no use function!\n");
+				gi.dprintf("Powerup has no use function!\n");
 			}
 		}
 		else if (((int)dmflags->value & DF_INSTANT_ITEMS) || /* FS: Coop: Xatrix specific */
@@ -907,7 +915,7 @@ Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 {
 	int quantity;
 
-	if (!ent || !other)
+	if (!ent || !other || !other->client)
 	{
 		return false;
 	}
@@ -947,7 +955,7 @@ Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 			}
 			else
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "Powerup has no use function!\n");
+				gi.dprintf("Powerup has no use function!\n");
 			}
 		}
 	}
@@ -958,7 +966,7 @@ Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 void
 Use_Defender(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 {
-	if (!ent || !item)
+	if (!ent || !item || !ent->client)
 	{
 		return;
 	}
@@ -978,7 +986,7 @@ Use_Defender(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 void
 Use_Hunter(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 {
-	if (!ent || !item)
+	if (!ent || !item || !ent->client)
 	{
 		return;
 	}
@@ -998,7 +1006,7 @@ Use_Hunter(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 void
 Use_Vengeance(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 {
-	if (!ent || !item)
+	if (!ent || !item || !ent->client)
 	{
 		return;
 	}
@@ -1349,7 +1357,7 @@ Add_Ammo(edict_t *ent, gitem_t *item, int count)
 // evolve]
 	else
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "undefined ammo type\n");
+		gi.dprintf("undefined ammo type\n");
 		return false;
 	}
 
@@ -2169,7 +2177,7 @@ droptofloor(edict_t *ent)
 		}
 		else
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "droptofloor: %s startsolid at %s\n",
+			gi.dprintf("droptofloor: %s startsolid at %s\n",
 					ent->classname, vtos(ent->s.origin));
 			G_FreeEdict(ent);
 			return;
@@ -2389,7 +2397,7 @@ SpawnItem(edict_t *ent, gitem_t *item)
 			if (!(item->flags & IT_KEY) && !(item->flags & IT_AMMO))
 			{
 				ent->spawnflags = 0;
-				gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s has invalid spawnflags set\n", ent->classname, vtos(ent->s.origin));
+				gi.dprintf("%s at %s has invalid spawnflags set\n", ent->classname, vtos(ent->s.origin));
 			}
 		}
 	}
@@ -2401,7 +2409,7 @@ SpawnItem(edict_t *ent, gitem_t *item)
 			if ((ent->classname) && (strcmp(ent->classname, "key_power_cube") != 0))
 			{
 				ent->spawnflags = 0;
-				gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s has invalid spawnflags set\n",
+				gi.dprintf("%s at %s has invalid spawnflags set\n",
 						ent->classname, vtos(ent->s.origin));
 			}
 		}
@@ -4731,7 +4739,7 @@ SP_xatrix_item(edict_t *self) /* FS: Coop: Rogue specific */
 			continue;
 		}
 
-		if (!strcmp(item->classname, spawnClass))
+		if (spawnClass && !strcmp(item->classname, spawnClass))
 		{
 			/* found it */
 			SpawnItem(self, item);
@@ -4748,14 +4756,14 @@ void Spawn_CoopBackpack(edict_t *ent)
 
 	if (!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_VERBOSE, "Spawn_CoopBackpack: ent or ent->client is NULL!\n");
+		gi.dprintf("Spawn_CoopBackpack: ent or ent->client is NULL!\n");
 		return;
 	}
 
 	it = FindItem("Coop Backpack");
 	if(!it)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Spawn_CoopBackpack: Can't find Coop Backpack.\n");
+		gi.dprintf("Spawn_CoopBackpack: Can't find Coop Backpack.\n");
 		return;
 	}
 
@@ -4772,11 +4780,15 @@ void Spawn_CoopBackpack(edict_t *ent)
 
 	backpack->coopBackpackMaxHealth = ent->max_health;
 	backpack->coopBackpackNetname = gi.TagMalloc(strlen(ent->client->pers.netname) + 1, TAG_GAME);
-	strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
+	if (!backpack) {
+		gi.error("TagMalloc failed in %s\n", __func__);
+		return;
+	}
+		strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
 
 	backpack->coopBackpackAmmoUpgrade = ent->client->pers.ammoUpgrade;
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "Spawn_CoopBackpack: Spawn Coop Back for %s.\n", ent->client->pers.netname);
+	gi.dprintf("Spawn_CoopBackpack: Spawn Coop Back for %s.\n", ent->client->pers.netname);
 }
 
 qboolean

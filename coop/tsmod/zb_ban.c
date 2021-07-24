@@ -485,7 +485,7 @@ qboolean ReadBanFile(char *bfname)
 										}
 									gi.TagFree(newentry);
 									
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading BAN from line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf("Error loading BAN from line %d in file %s\n", uptoLine, bfname);
 								}
 							else
 								{
@@ -626,7 +626,7 @@ qboolean ReadBanFile(char *bfname)
 										}
 									gi.TagFree(cnewentry);
 									
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading CHATBAN from line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf("Error loading CHATBAN from line %d in file %s\n", uptoLine, bfname);
 								}
 							else
 								{
@@ -659,17 +659,17 @@ qboolean ReadBanFile(char *bfname)
 										}
 									else
 										{
-											gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
+											gi.dprintf("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
 										}
 								}
 							else
 								{
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
 								}
 						}
 					else
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Unknown ban line from line %d in file %s\n", uptoLine, bfname);
+							gi.dprintf("Unknown ban line from line %d in file %s\n", uptoLine, bfname);
 						}
 				}
 		}
@@ -751,7 +751,7 @@ void readBanLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " BANLISTFILE " could not be found\n");
+			gi.dprintf("WARNING: " BANLISTFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, BANLISTFILE " could not be found", IW_BANSETUPLOAD, 0.0);
 		}
 }
@@ -1903,7 +1903,7 @@ int checkBanList(edict_t *ent, int client)
 //*** UPDATE START ***
 							sprintf(strbuffer,"INCLUDE - %s", s);
 							logEvent(LT_ADMINLOG, client, ent, strbuffer, 0, 0.0);
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "%s\n", strbuffer);
+							gi.dprintf("%s\n", strbuffer);
 //*** UPDATE END ***
 							
 							if(q2a_strcmp(checkentry->password, s))

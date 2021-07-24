@@ -1305,7 +1305,7 @@ void dprintf_internal (unsigned int flags, char *fmt, ...)
 	
 	if(q2adminrunmode == 0 || !proxyinfo)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s", cbuffer);
+			gi.dprintf("%s", cbuffer);
 			return;
 		}
 		
@@ -1370,7 +1370,7 @@ void dprintf_internal (unsigned int flags, char *fmt, ...)
 				}
 		}
 		
-	gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s", cbuffer);
+	gi.dprintf("%s", cbuffer);
 	
 	if(clienti != -1 && (floodinfo.chatFloodProtect || proxyinfo[clienti].floodinfo.chatFloodProtect))
 		{
@@ -1470,7 +1470,7 @@ void cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...)
 							*cp=' ';
 						}
 						
-					*cp++;
+					cp++;
 				}
 		}
 		
@@ -1560,7 +1560,7 @@ void bprintf_internal(int printlevel, char *fmt,...)
 									*cp = ' ';
 								}
 								
-							*cp++;
+							cp++;
 						}
 				}
 				
@@ -1837,19 +1837,18 @@ void readCfgFiles(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " CFGFILE " could not be found\n");
+			gi.dprintf("WARNING: " CFGFILE " could not be found\n");
 			//    logEvent(LT_INTERNALWARN, 0, NULL, CFGFILE " could not be found", IW_Q2ADMINCFGLOAD, 0.0);
 		}
 }
 
-
+static 	char strbuffer[sizeof(buffer)]; //QW// for get ClientsFromArg and GetClientFromArg
 
 int getClientsFromArg(int client, edict_t *ent, char *cp, char **text)
 {
 	int clienti;
 	unsigned int like, maxi;
 	regex_t r;
-	char strbuffer[sizeof(buffer)];
 	
 	maxi = 0;
 	
@@ -2041,14 +2040,11 @@ int getClientsFromArg(int client, edict_t *ent, char *cp, char **text)
 	return 0;
 }
 
-
-
 edict_t *getClientFromArg(int client, edict_t *ent, int *cleintret, char *cp, char **text)
 {
 	int clienti, foundclienti;
 	unsigned int like;
 	regex_t r;
-	char strbuffer[sizeof(buffer)];
 	
 	foundclienti = -1;
 	
@@ -2543,7 +2539,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 					snprintf(abuffer, sizeof(abuffer)-1, "EXPLOIT - %s", response);
 					abuffer[sizeof(abuffer)-1] = 0;
 					logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-					gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s\n",abuffer);
+					gi.dprintf("%s\n",abuffer);
 	                
 					return FALSE;
 			}
@@ -2875,7 +2871,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 			abuffer[sizeof(abuffer)-1] = 0;
 			//r1ch 2005-05-11: snprintf to avoid buffer overflow END
 			logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-			gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s\n",abuffer);
+			gi.dprintf("%s\n",abuffer);
 		}
 
 	if (proxyinfo[client].private_command>ltime)
@@ -3016,7 +3012,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 								proxyinfo[client].gl_driver_changes++;
 								dont_print = false;
 								if (gl_driver_check & 4)
-				  					gi.dprintf(DEVELOPER_MSG_VERBOSE, "%s %s.\n", proxyinfo[client].name,gi.args());
+				  					gi.dprintf("%s %s.\n", proxyinfo[client].name,gi.args());
 							}
 						}
 						else
@@ -3025,7 +3021,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 							proxyinfo[client].gl_driver_changes++;
 							dont_print = false;
 							if (gl_driver_check & 4)
-					  			gi.dprintf(DEVELOPER_MSG_VERBOSE, "%s %s.\n", proxyinfo[client].name,gi.args());
+					  			gi.dprintf("%s %s.\n", proxyinfo[client].name,gi.args());
 						}
 
 						if (gl_driver_max_changes)
@@ -3232,7 +3228,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 				{
 					sprintf(abuffer,"ADMIN - %s %s %d",gi.argv(2),gi.argv(1),alevel);
 					logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-					gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s\n",abuffer);
+					gi.dprintf("%s\n",abuffer);
 
 					proxyinfo[client].q2a_admin = alevel;
 					//gi.bprintf(PRINT_HIGH, "%s has become a level %d admin.\n", proxyinfo[client].name,alevel);
@@ -3256,7 +3252,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 				{
 					sprintf(abuffer,"CLIENT BYPASS - %s %s %d",gi.argv(2),gi.argv(1),alevel);
 					logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-					gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s\n",abuffer);
+					gi.dprintf("%s\n",abuffer);
 
 					proxyinfo[client].q2a_bypass = alevel;
 				}			

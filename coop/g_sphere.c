@@ -777,7 +777,7 @@ Sphere_Spawn(edict_t *owner, int spawnflags)
 			VectorSet(sphere->avelocity, 30, 30, 0);
 			break;
 		default:
-			gi.dprintf(DEVELOPER_MSG_GAME, "Tried to create an invalid sphere\n");
+			gi.dprintf("Tried to create an invalid sphere\n");
 			G_FreeEdict(sphere);
 			return NULL;
 	}

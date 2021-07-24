@@ -28,20 +28,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // q_shared.h -- included first by ALL program modules
 
-#ifdef _MSC_VER
-// unknown pragmas are SUPPOSED to be ignored, but....
-#pragma warning(disable : 4244)     // MIPS
-#pragma warning(disable : 4136)     // X86
-#pragma warning(disable : 4051)     // ALPHA
+#pragma once
 
-#pragma warning(disable : 4018)     // signed/unsigned mismatch
-#pragma warning(disable : 4305)  // truncation from const double to float
-#pragma warning(disable : 4996)		/* FS: Shut up about VS2005 shit */
+#ifdef _WIN32
+// unknown pragmas are SUPPOSED to be ignored, but....
+#pragma warning(disable : 4244)	// float to int conversion warning
+#pragma warning(disable : 4100)	// unreferenced formal parameter
+#pragma warning(disable : 4131)	// uses old-style declarator (regex.c is ancient)
+#pragma warning(disable : 4127)	// conditional expression is constant
+#pragma warning(disable : 4018)	// signed/unsigned mismatch
+#pragma warning(disable : 4305)	// truncation from const double to float
+#if _MSC_VER > 1500
+#pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#pragma warning(disable : 4459)	// declaration of 'var' hides global declaration.
+#endif
+#endif
 
 //r1ch
-#define	snprintf _snprintf
+//#define	snprintf _snprintf
 
-#endif
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
@@ -64,9 +69,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define idaxp 0
 #endif
 
-typedef unsigned char byte;
-typedef enum{false, true} qboolean;
+typedef unsigned char 		byte;
+typedef enum { false, true }	qboolean;
 
+#ifdef _WIN32
+#ifndef __func__	// C++11 mandated identifier
+#define __func__ __FUNCTION__ // else use the ANSI C (C9x)
+#endif
+#endif
 
 #ifndef NULL
 #define NULL ((void *)0)

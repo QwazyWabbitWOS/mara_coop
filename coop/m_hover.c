@@ -602,7 +602,7 @@ hover_reattack(edict_t *self)
 				}
 				else
 				{
-					gi.dprintf(DEVELOPER_MSG_GAME, "hover_reattack: unexpected state %d\n", self->monsterinfo.attack_state);
+					gi.dprintf("hover_reattack: unexpected state %d\n", self->monsterinfo.attack_state);
 				}
 			}
 		}

@@ -202,8 +202,8 @@ field_t clientfields[] = {
 void
 InitGame(void)
 {
-	gi.dprintf(DEVELOPER_MSG_GAME, "Game is starting up.\n");
-	gi.dprintf(DEVELOPER_MSG_GAME, "Game is %s built on %s.\n", GAMEVERSION, __DATE__);
+	gi.dprintf("Game is starting up.\n");
+	gi.dprintf("Game is %s built on %s.\n", GAMEVERSION, __DATE__);
 
 	gun_x = gi.cvar ("gun_x", "0", 0);
 	gun_y = gi.cvar ("gun_y", "0", 0);
@@ -327,26 +327,26 @@ InitGame(void)
 
 	if(!strcmp(sv_coop_gamemode->string, "rogue")) /* FS: Coop: Set the proper coop gamemode */
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Game code is rogue\n");
+		gi.dprintf("Game code is rogue\n");
 		game.gametype = rogue_coop;
 	}
 	else if (!strcmp(sv_coop_gamemode->string, "xatrix"))
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Game code is xatrix\n");
+		gi.dprintf("Game code is xatrix\n");
 		game.gametype = xatrix_coop;
 	}
 	else if (!strcmp(sv_coop_gamemode->string, "zaero"))
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Game code is zaero\n");
+		gi.dprintf("Game code is zaero\n");
 		game.gametype = zaero_coop;
 	}
 	else
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Game code is vanilla\n");
+		gi.dprintf("Game code is vanilla\n");
 		game.gametype = vanilla_coop;
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "Gamemode is %s\n", sv_coop_gamemode_vote->string);
+	gi.dprintf("Gamemode is %s\n", sv_coop_gamemode_vote->string);
 	gi.cvar_forceset("sv_coop_gamemode", sv_coop_gamemode_vote->string);
 
 	/* items */

@@ -125,7 +125,7 @@ qboolean ReadVoteFile(char *votename)
 					// zero length command
 					if(!len)
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+							gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 							continue;
 						}
 						
@@ -145,7 +145,7 @@ qboolean ReadVoteFile(char *votename)
 									votecmds[maxvote_cmds].r = 0;
 									
 									// malformed re... skip this vote command
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+									gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 									continue;
 								}
 						}
@@ -163,7 +163,7 @@ qboolean ReadVoteFile(char *votename)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+					gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 				}
 		}
 		
@@ -204,7 +204,7 @@ void readVoteLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " VOTEFILE " could not be found\n");
+			gi.dprintf("WARNING: " VOTEFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, VOTEFILE " could not be found", IW_VOTESETUPLOAD, 0.0);
 		}
 }

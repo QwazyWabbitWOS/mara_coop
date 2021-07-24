@@ -315,6 +315,8 @@ typedef struct
 #define WEAP_HYPERBLASTER		9 
 #define WEAP_RAILGUN			10
 #define WEAP_BFG				11
+#define WEAP_PLASMARIFLE		20
+//#define WEAP_CLUSTERLAUNCHER	21
 
 #define WEAP_DISRUPTOR			12 /* FS: Coop: Rogue specific */
 #define WEAP_ETFRIFLE			13 /* FS: Coop: Rogue specific */
@@ -326,6 +328,7 @@ typedef struct
 #define WEAP_BOOMER				18 /* FS: Coop: Xatrix specific */
 
 #define WEAP_NONE				19 /* FS: Coop: Zaero specifc */
+
 
 /* FS: Zaero specific game dll changes */
 // hide flags
@@ -743,6 +746,8 @@ extern	int lastgibframe;
 #define MOD_SONICCANNON		  60 /* FS: Zaero specific changes */
 #define MOD_AUTOCANNON		  61 /* FS: Zaero specific changes */
 #define MOD_GL_POLYBLEND	62 /* FS: Zaero specific changes */
+#define MOD_PLASMA_RIFLE	63 /* Stross & Asa */
+#define MOD_GRAPPLE         64 /* Stross & Asa */
 
 extern	int	meansOfDeath;
 
@@ -821,6 +826,10 @@ extern	cvar_t	*flood_persecond;
 extern	cvar_t	*flood_waitdelay;
 
 extern	cvar_t	*sv_maplist;
+
+cvar_t	*plasma_alpha;
+
+//cvar_t	*clusterlauncher_aplha; //TODO
 
 extern	cvar_t	*sv_stopspeed;		// PGM - this was a define in g_phys.c
 
@@ -1100,7 +1109,10 @@ void fire_ionripper (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int
 void fire_heat (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
 void fire_blueblaster (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, int effect);
 void fire_plasma (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
+//Plasma rifle mod
+void fire_plasma2(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed);
 void fire_trap (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held);
+void fire_cluster (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius);
 
 //
 // g_ptrail.c
@@ -1305,6 +1317,11 @@ void Tag_PlayerDeath(edict_t *targ, edict_t *inflictor, edict_t *attacker);
 void fire_doppleganger (edict_t *ent, vec3_t start, vec3_t aimdir);
 
 //
+// g_radio.c
+//
+void stuffcmd(edict_t* ent, char* s); //QW// for use in g_offworld.c
+
+//
 // g_spawn.c
 //
 edict_t *CreateMonster(vec3_t origin, vec3_t angles, char *classname);
@@ -1442,6 +1459,7 @@ typedef struct
 	qboolean	isVIP; /* FS: Coop: VIP goodies */
 	qboolean	didMotd; /* FS: Coop: MOTD */
 	qboolean	noSummon; /* FS: Blinky Cam */
+    int         radio_power; // Its a toggle that functions as the power
 } client_respawn_t;
 
 // this structure is cleared on each PutClientInServer(),
@@ -1575,6 +1593,16 @@ struct gclient_s
 
 	float summon_time; /* FS: Added */
 	float dropTimeout; /* FS: Added */
+
+	// AirStrike Variables
+	qboolean airstrike_called; 	// TRUE if Airstrike called
+	vec3_t airstrike_start; 	// Position of Targeted Entity
+	vec3_t airstrike_targetdir; // Position of Targeted Entity
+	float airstrike_time; 		// Timer for incoming missiles
+	int airstrike_type; 		// 1=Rocket, 2=Cluster
+
+	int             hook_state;
+    edict_t        *hook;
 };
 
 struct edict_s
@@ -1797,6 +1825,8 @@ struct edict_s
 
 	float bossFireTimeout;
 	int bossFireCount;
+
+	edict_t		*hook_laser;
 };
 
 //zaero debug includes (need type info)

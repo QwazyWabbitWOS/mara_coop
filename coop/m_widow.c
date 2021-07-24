@@ -90,7 +90,7 @@ showme(edict_t *self)
 		return;
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "frame %d\n", self->s.frame);
+	gi.dprintf("frame %d\n", self->s.frame);
 }
 
 void

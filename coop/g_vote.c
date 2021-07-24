@@ -379,7 +379,7 @@ void vote_map (edict_t *ent, const char *mapName)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_map from a non-player!\n");
+		gi.dprintf("Error: vote_map from a non-player!\n");
 		return;
 	}
 
@@ -440,7 +440,7 @@ void vote_warp (edict_t *ent, const char *mapName)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_warp from a non-player!\n");
+		gi.dprintf("Error: vote_warp from a non-player!\n");
 	}
 
 	if (bVoteInProgress)
@@ -503,7 +503,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_gamemode from a non-player!\n");
+		gi.dprintf("Error: vote_gamemode from a non-player!\n");
 	}
 
 	if (bVoteInProgress)
@@ -601,7 +601,7 @@ void vote_coopskill(edict_t *ent, int skillVote)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_coopskill from a non-player!\n");
+		gi.dprintf("Error: vote_coopskill from a non-player!\n");
 		return;
 	}
 
@@ -678,7 +678,7 @@ void vote_restartmap (edict_t *ent)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_map from a non-player!\n");
+		gi.dprintf("Error: vote_map from a non-player!\n");
 	}
 
 	if (bVoteInProgress)
@@ -716,7 +716,7 @@ void vote_stop(edict_t *ent)
 {
 	if(!ent || !ent->client) /* FS: This should never happen, but you never know... */
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_stop from a non-player!\n");
+		gi.dprintf("Error: vote_stop from a non-player!\n");
 		return;
 	}
 
@@ -743,7 +743,7 @@ void vote_yes(edict_t *ent, qboolean bAssume)
 {
 	if(!ent || !ent->client) /* FS: This should never happen, but you never know... */
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_yes from a non-player!\n");
+		gi.dprintf("Error: vote_yes from a non-player!\n");
 		return;
 	}
 
@@ -777,7 +777,7 @@ void vote_no(edict_t *ent)
 {
 	if(!ent || !ent->client) /* FS: This should never happen, but you never know... */
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_no from a non-player!\n");
+		gi.dprintf("Error: vote_no from a non-player!\n");
 		return;
 	}
 
@@ -817,7 +817,7 @@ void vote_disconnect_recalc(edict_t *ent)
 {
 	if(!ent || !ent->client) /* FS: This should never happen, but you never know... */
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_disconnect_recalc from a non-player!\n");
+		gi.dprintf("Error: vote_disconnect_recalc from a non-player!\n");
 		return;
 	}
 
@@ -1131,7 +1131,7 @@ void vote_connect (edict_t *ent)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_connect from a non-player!\n");
+		gi.dprintf("Error: vote_connect from a non-player!\n");
 		return;
 	}
 
@@ -1228,7 +1228,7 @@ void vote_progress (edict_t *ent)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_NewPlayerMessage from a non-player!\n");
+		gi.dprintf("Error: vote_NewPlayerMessage from a non-player!\n");
 		return;
 	}
 
@@ -1368,7 +1368,7 @@ void vote_playerexit (edict_t *ent)
 {
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_playerexit from a non-player!\n");
+		gi.dprintf("Error: vote_playerexit from a non-player!\n");
 		return;
 	}
 
@@ -1421,7 +1421,7 @@ void vote_kickban (edict_t *ent, char *playerName, qboolean banPlayer)
 
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_kickban from a non-player!\n");
+		gi.dprintf("Error: vote_kickban from a non-player!\n");
 		return;
 	}
 
@@ -1490,7 +1490,7 @@ void vote_kickban_menu (edict_t *ent, int entNum, qboolean banPlayer)
 
 	if(!ent || !ent->client)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Error: vote_kickban from a non-player!\n");
+		gi.dprintf("Error: vote_kickban from a non-player!\n");
 		return;
 	}
 

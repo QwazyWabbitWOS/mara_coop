@@ -76,7 +76,7 @@ int internalSoundIndex(char *name)
 		soundNumRejected++;
 		// ok, we cannot precache anymore
 //		if (printSoundRejects->value)
-			gi.dprintf(DEVELOPER_MSG_GAME, "%s precache rejected\n", name);
+			gi.dprintf("%s precache rejected\n", name);
 		return 0;
 	}
 
@@ -89,7 +89,7 @@ int internalSoundIndex(char *name)
 	strcpy(sound->name, name);
 
 	addTail(soundList, sound);
-	//gi.dprintf(DEVELOPER_MSG_GAME, "numSounds = %i\n", listLength(&soundList));
+	//gi.dprintf("numSounds = %i\n", listLength(&soundList));
 
 	return idx;
 }
@@ -97,9 +97,9 @@ int internalSoundIndex(char *name)
 void printSoundNum()
 {
 	int numSounds = listLength(soundList);
-	gi.dprintf(DEVELOPER_MSG_GAME, "%i precached sounds\n", numSounds);
+	gi.dprintf("%i precached sounds\n", numSounds);
 //	if (printSoundRejects->value)
-		gi.dprintf(DEVELOPER_MSG_GAME, "%i sounds rejected\n", soundNumRejected);
+		gi.dprintf("%i sounds rejected\n", soundNumRejected);
 }
 #endif
 
@@ -198,7 +198,7 @@ void SP_trigger_laser(edict_t *self)
 	// if no target
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "trigger_laser without target\n");
+		gi.dprintf("trigger_laser without target\n");
 		G_FreeEdict(self);
 		return;
 	}

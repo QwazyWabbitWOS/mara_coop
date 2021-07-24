@@ -1876,7 +1876,7 @@ Cmd_Ent_Count_f(edict_t *ent) /* FS: Coop: Rogue specific */
 		}
 	}
 
-	gi.dprintf(DEVELOPER_MSG_GAME, "%d entites active\n", x);
+	gi.dprintf("%d entites active\n", x);
 }
 
 void

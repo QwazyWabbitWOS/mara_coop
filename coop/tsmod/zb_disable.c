@@ -110,7 +110,7 @@ qboolean ReadDisableFile(char *disablename)
 					// zero length command
 					if(!len)
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+							gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 							continue;
 						}
 						
@@ -130,7 +130,7 @@ qboolean ReadDisableFile(char *disablename)
 									disablecmds[maxdisable_cmds].r = 0;
 									
 									// malformed re... skip this disable command
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+									gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 									continue;
 								}
 						}
@@ -148,7 +148,7 @@ qboolean ReadDisableFile(char *disablename)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+					gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 				}
 		}
 		
@@ -190,7 +190,7 @@ void readDisableLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " DISABLEFILE " could not be found\n");
+			gi.dprintf("WARNING: " DISABLEFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, DISABLEFILE " could not be found", IW_DISABLESETUPLOAD, 0.0);
 		}
 }

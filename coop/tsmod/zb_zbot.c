@@ -69,14 +69,14 @@ char *impulsemessages[] =
     
 //===================================================================
 
-void generateRandomString(char *buffer, int length)
+void generateRandomString(char* str, int length)
 {
 	unsigned int index;
-	for(index = 0; index < length; index++)
-		{
-			buffer[index] = RANDCHAR();
-		}
-	buffer[index] = 0;
+	for (index = 0; index < length; index++)
+	{
+		str[index] = RANDCHAR();
+	}
+	str[index] = 0;
 }
 
 qboolean checkImpulse(byte impulse)
@@ -1488,61 +1488,60 @@ void List_Admin_Commands(edict_t *ent,int client)
 
 void Read_Admin_cfg(void)
 {
-	FILE	*f;
-	char	name[256];
-	int i,i2;
+	FILE* f;
+	char	name[512];
+	int i;
+	int elements;
 
-	sprintf(name, "%s/q2adminlogin.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminlogin.txt", moddir);
+	f = fopen(name, "r");
+	if (f)
+	{
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char*)&admin_pass[i].name,
+				(char*)&admin_pass[i].password,
+				(int*)&admin_pass[i].level);
 
-	f = fopen (name, "rb");
-	if (!f)
-	{
-		gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: %s could not be found\n", name);
-		goto file2;
-		return;
-	}	
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",&admin_pass[i].name,&admin_pass[i].password,&admin_pass[i].level);
-		i++;
+			if ((elements == 3) && admin_pass[i].level)
+				i++;
+		}
+		num_admins = i;
+		if (num_admins < MAX_ADMINS)
+			for (i = num_admins; i < MAX_ADMINS; i++)
+				admin_pass[i].level = 0;
+
+		fclose(f);
 	}
-	if (!admin_pass[i].level)
-		i--;
-	num_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			admin_pass[i2].level = 0;
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 
-	//read em in
-	fclose(f);
-
-file2:;
-	sprintf(name, "%s/q2adminbypass.txt", moddir);
-
-	f = fopen (name, "rb");
-	if (!f)
+	snprintf(name, sizeof name, "%s/q2adminbypass.txt", moddir);
+	f = fopen(name, "r");
+	if (f)
 	{
-		gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: %s could not be found\n", name);
-		return;
-	}
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",&q2a_bypass_pass[i].name,&q2a_bypass_pass[i].password,&q2a_bypass_pass[i].level);
-		i++;
-	}
-	if (!q2a_bypass_pass[i].level)
-		i--;
-	num_q2a_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			q2a_bypass_pass[i2].level = 0;
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char*)&q2a_bypass_pass[i].name,
+				(char*)&q2a_bypass_pass[i].password,
+				(int*)&q2a_bypass_pass[i].level);
 
-	//read em in
-	fclose(f);
+			if ((elements == 3) && q2a_bypass_pass[i].level)
+				i++;
+		}
+		num_q2a_admins = i;
+		if (num_q2a_admins < MAX_ADMINS)
+			for (i = num_q2a_admins; i < MAX_ADMINS; i++)
+				q2a_bypass_pass[i].level = 0;
+
+		fclose(f);
+	}
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 }
 
 void ADMIN_players(edict_t *ent,int client)
@@ -1709,7 +1708,7 @@ int ADMIN_process_command(edict_t *ent,int client)
 	{
 		sprintf(abuffer,"COMMAND - %s %s",gi.argv(0),gi.args());
 		logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-		gi.dprintf(DEVELOPER_MSG_VERBOSE,"%s\n",abuffer);
+		gi.dprintf("%s\n",abuffer);
 	}
 
 	if (proxyinfo[client].q2a_admin & 1)
@@ -2142,78 +2141,80 @@ void whois_write_file(void)
 
 void whois_read_file(void)
 {
-	FILE	*f;
-	char	name[256];
-	unsigned int i,j;
-	int temp_len,name_len;
+	FILE* f;
+	char	name[512];
+	unsigned int i, j;
+	size_t temp_len, name_len;
+	int elements;
 
-	sprintf(name, "%s/q2adminwhois.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
 
-	f = fopen (name, "rb");
+	f = fopen(name, "rb");
 	if (!f)
 	{
-		gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: %s could not be found\n", name);
+		gi.dprintf("WARNING: %s could not be found\n", name);
 		return;
-	}	
+	}
 
 	WHOIS_COUNT = 0;
 	while ((!feof(f)) && (WHOIS_COUNT < whois_active))
 	{
-		fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
+		elements = fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
-			&whois_details[WHOIS_COUNT].ip,
-			&whois_details[WHOIS_COUNT].seen,
-			&whois_details[WHOIS_COUNT].dyn[0].name,
-			&whois_details[WHOIS_COUNT].dyn[1].name,
-			&whois_details[WHOIS_COUNT].dyn[2].name,
-			&whois_details[WHOIS_COUNT].dyn[3].name,
-			&whois_details[WHOIS_COUNT].dyn[4].name,
-			&whois_details[WHOIS_COUNT].dyn[5].name,
-			&whois_details[WHOIS_COUNT].dyn[6].name,
-			&whois_details[WHOIS_COUNT].dyn[7].name,
-			&whois_details[WHOIS_COUNT].dyn[8].name,
-			&whois_details[WHOIS_COUNT].dyn[9].name);		
-		
-		//convert all ÿ back to spaces
-		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
-		for(i=0; i<temp_len; i++)
-		{
-			if(whois_details[WHOIS_COUNT].ip[i] == 'ÿ')
-			{
-				whois_details[WHOIS_COUNT].ip[i] = ' ';
-			}
-		}
+			(char*)&whois_details[WHOIS_COUNT].ip,
+			(char*)&whois_details[WHOIS_COUNT].seen,
+			(char*)&whois_details[WHOIS_COUNT].dyn[0].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[1].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[2].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[3].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[4].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[5].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[6].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[7].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[8].name,
+			(char*)&whois_details[WHOIS_COUNT].dyn[9].name);
 
-		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
-		for(i=0; i<temp_len; i++)
+		if (elements == 13)
 		{
-			if(whois_details[WHOIS_COUNT].seen[i] == 'ÿ')
+			//convert all 0xff back to spaces
+			temp_len = strlen(whois_details[WHOIS_COUNT].ip);
+			for (i = 0; i < temp_len; i++)
 			{
-				whois_details[WHOIS_COUNT].seen[i] = ' ';
-			}
-		}
-		
-		for (i=0; i<10; i++)
-		{
-			if ((whois_details[WHOIS_COUNT].dyn[i].name[0]==255)
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0]== -1) 
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == 'ÿ'))
-			{
-				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
-			}
-			else
-			{
-				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
-				for(j=0; j<name_len; j++)
+				if (whois_details[WHOIS_COUNT].ip[i] == '\xff')
 				{
-					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == 'ÿ')
+					whois_details[WHOIS_COUNT].ip[i] = ' ';
+				}
+			}
+
+			temp_len = strlen(whois_details[WHOIS_COUNT].seen);
+			for (i = 0; i < temp_len; i++)
+			{
+				if (whois_details[WHOIS_COUNT].seen[i] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].seen[i] = ' ';
+				}
+			}
+
+			for (i = 0; i < 10; i++)
+			{
+				if (whois_details[WHOIS_COUNT].dyn[i].name[0] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
+				}
+				else
+				{
+					name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
+					for (j = 0; j < name_len; j++)
 					{
-						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						if (whois_details[WHOIS_COUNT].dyn[i].name[j] == '\xff')
+						{
+							whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						}
 					}
 				}
 			}
+			WHOIS_COUNT++;
 		}
-		WHOIS_COUNT++;
 	}
 	fclose(f);
 }

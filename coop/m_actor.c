@@ -386,7 +386,7 @@ void actor_use (edict_t *self, edict_t *other, edict_t *activator)
 	self->goalentity = self->movetarget = G_PickTarget(self->target);
 	if ((!self->movetarget) || (!self->movetarget->classname) || (strcmp(self->movetarget->classname, "target_actor") != 0))
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s has bad target %s at %s\n", self->classname, self->target, vtos(self->s.origin));
+		gi.dprintf("%s has bad target %s at %s\n", self->classname, self->target, vtos(self->s.origin));
 		self->target = NULL;
 		self->monsterinfo.pausetime = 100000000;
 		self->monsterinfo.stand (self);
@@ -413,14 +413,14 @@ void SP_misc_actor (edict_t *self)
 
 	if (!self->targetname)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "untargeted %s at %s\n", self->classname, vtos(self->s.origin));
+		gi.dprintf("untargeted %s at %s\n", self->classname, vtos(self->s.origin));
 		G_FreeEdict (self);
 		return;
 	}
 
 	if (!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s with no target at %s\n", self->classname, vtos(self->s.origin));
+		gi.dprintf("%s with no target at %s\n", self->classname, vtos(self->s.origin));
 		G_FreeEdict (self);
 		return;
 	}
@@ -556,7 +556,7 @@ void target_actor_touch (edict_t *self, edict_t *other, cplane_t *plane, csurfac
 		other->monsterinfo.pausetime = level.time + 100000000;
 		other->monsterinfo.stand (other);
 	}
-	else if (other->movetarget == other->goalentity)
+	else if (other->movetarget && (other->movetarget == other->goalentity))
 	{
 		VectorSubtract (other->movetarget->s.origin, other->s.origin, v);
 		other->ideal_yaw = vectoyaw (v);
@@ -566,7 +566,7 @@ void target_actor_touch (edict_t *self, edict_t *other, cplane_t *plane, csurfac
 void SP_target_actor (edict_t *self)
 {
 	if (!self->targetname)
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s with no targetname at %s\n", self->classname, vtos(self->s.origin));
+		gi.dprintf("%s with no targetname at %s\n", self->classname, vtos(self->s.origin));
 
 	self->solid = SOLID_TRIGGER;
 	self->touch = target_actor_touch;

@@ -2877,7 +2877,7 @@ ClientConnect(edict_t *ent, char *userinfo)
 
 	if (game.maxclients > 1)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s connected\n", ent->client->pers.netname);
+		gi.dprintf("%s connected\n", ent->client->pers.netname);
 	}
 
 	ent->svflags = 0; /* make sure we start with known default */
@@ -3012,7 +3012,7 @@ PrintPmove(pmove_t *pm)
 
 	c1 = CheckBlock(&pm->s, sizeof(pm->s));
 	c2 = CheckBlock(&pm->cmd, sizeof(pm->cmd));
-	gi.dprintf(DEVELOPER_MSG_GAME, "sv %3i:%i %i\n", pm->cmd.impulse, c1, c2);
+	gi.dprintf("sv %3i:%i %i\n", pm->cmd.impulse, c1, c2);
 }
 
 /*

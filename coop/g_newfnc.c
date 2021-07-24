@@ -278,7 +278,7 @@ SP_func_door_secret2(edict_t *ent)
 	}
 	else
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "Secret door not at 0,90,180,270!\n");
+		gi.dprintf("Secret door not at 0,90,180,270!\n");
 	}
 
 	if (ent->spawnflags & SEC_MOVE_FORWARD)

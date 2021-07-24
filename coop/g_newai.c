@@ -1003,7 +1003,7 @@ SP_hint_path(edict_t *self)
 
 	if (!self->targetname && !self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "unlinked hint_path at %s\n", vtos(self->s.origin));
+		gi.dprintf("unlinked hint_path at %s\n", vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -1048,7 +1048,7 @@ InitHintPaths(void)
 			{
 				if (e->targetname) /* this is a bad end, ignore it */
 				{
-					gi.dprintf(DEVELOPER_MSG_GAME, "Hint path at %s marked as endpoint with both target (%s) and targetname (%s)\n",
+					gi.dprintf("Hint path at %s marked as endpoint with both target (%s) and targetname (%s)\n",
 							vtos(e->s.origin), e->target, e->targetname);
 				}
 				else
@@ -1077,7 +1077,7 @@ InitHintPaths(void)
 
 		if (G_Find(e, field, current->target))
 		{
-			gi.dprintf(DEVELOPER_MSG_GAME, "\nForked hint path at %s detected for chain %d, target %s\n",
+			gi.dprintf("\nForked hint path at %s detected for chain %d, target %s\n",
 					vtos(current->s.origin), num_hint_paths, current->target);
 			hint_path_start[i]->hint_chain = NULL;
 			continue;
@@ -1087,7 +1087,7 @@ InitHintPaths(void)
 		{
 			if (e->hint_chain)
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "\nCircular hint path at %s detected for chain %d, targetname %s\n",
+				gi.dprintf("\nCircular hint path at %s detected for chain %d, targetname %s\n",
 						vtos(e->s.origin), num_hint_paths, e->targetname);
 				hint_path_start[i]->hint_chain = NULL;
 				break;
@@ -1107,7 +1107,7 @@ InitHintPaths(void)
 
 			if (G_Find(e, field, current->target))
 			{
-				gi.dprintf(DEVELOPER_MSG_GAME, "\nForked hint path at %s detected for chain %d, target %s\n",
+				gi.dprintf("\nForked hint path at %s detected for chain %d, target %s\n",
 						vtos(current->s.origin), num_hint_paths, current->target);
 				hint_path_start[i]->hint_chain = NULL;
 				break;

@@ -629,7 +629,7 @@ FoundTarget(edict_t *self)
 	{
 		self->goalentity = self->movetarget = self->enemy;
 		HuntTarget(self);
-		gi.dprintf(DEVELOPER_MSG_GAME, "%s at %s, combattarget %s not found\n",
+		gi.dprintf("%s at %s, combattarget %s not found\n",
 				self->classname, vtos(self->s.origin),
 				self->combattarget);
 		return;
@@ -1109,7 +1109,7 @@ M_CheckAttack(edict_t *self)
 	}
 
 	/* go ahead and shoot every time if it's a info_notnull */
-	if ((random() < chance) || ((game.gametype == rogue_coop) && (self->enemy->solid == SOLID_NOT)) ) /* FS: Coop: Rogue specific */
+	if ((random() < chance) || ((game.gametype == rogue_coop) && (self->enemy) && (self->enemy->solid == SOLID_NOT)) ) /* FS: Coop: Rogue specific */
 	{
 		self->monsterinfo.attack_state = AS_MISSILE;
 		self->monsterinfo.attack_finished = level.time + 2 * random();

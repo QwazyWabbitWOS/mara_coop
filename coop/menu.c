@@ -47,7 +47,7 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 
 	if (ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning, ent already has a menu\n");
+		gi.dprintf("warning, ent already has a menu\n");
 		PMenu_Close(ent);
 	}
 
@@ -200,7 +200,7 @@ PMenu_Do_Update(edict_t *ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 
@@ -279,7 +279,7 @@ PMenu_Update(edict_t *ent)
 {
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 
@@ -305,7 +305,7 @@ PMenu_Next(edict_t *ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 
@@ -349,7 +349,7 @@ PMenu_Prev(edict_t *ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 
@@ -395,7 +395,7 @@ PMenu_Select(edict_t *ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 
@@ -427,7 +427,7 @@ PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "warning:  ent has no menu\n");
+		gi.dprintf("warning:  ent has no menu\n");
 		return;
 	}
 

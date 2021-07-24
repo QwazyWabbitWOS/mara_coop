@@ -1931,7 +1931,7 @@ void SP_target_zboss_target(edict_t *self)
 
 	if(!self->target)
 	{
-		gi.dprintf(DEVELOPER_MSG_GAME, "target_zboss_target does not have a target");
+		gi.dprintf("target_zboss_target does not have a target");
 		G_FreeEdict (self);
 		return;
 	}

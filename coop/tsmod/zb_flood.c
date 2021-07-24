@@ -144,7 +144,7 @@ qboolean ReadFloodFile(char *floodname)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading FLOOD from line %d in file %s\n", uptoLine, floodname);
+					gi.dprintf("Error loading FLOOD from line %d in file %s\n", uptoLine, floodname);
 				}
 		}
 		
@@ -185,7 +185,7 @@ void readFloodLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " FLOODFILE " could not be found\n");
+			gi.dprintf("WARNING: " FLOODFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, FLOODFILE " could not be found", IW_FLOODSETUPLOAD, 0.0);
 		}
 }
@@ -561,9 +561,10 @@ void muteRun(int startarg, edict_t *ent, int client)
 	SKIPBLANK(text);
 	
 	enti = getClientFromArg(client, ent, &clienti, text, &text);
+	seconds = q2a_atoi(text);
 	
 	// make sure the text doesn't overflow the internal buffer...
-	if(enti && isdigit(*text) && (seconds = q2a_atoi(text)) >= 0)
+	if(enti && isdigit(*text) && seconds >= 0)
 		{
 			if(seconds)
 				{

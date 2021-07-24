@@ -116,7 +116,7 @@ qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag)
 					// zero length command
 					if(!len)
 						{
-							gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
+							gi.dprintf("Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
 							continue;
 						}
 						
@@ -136,7 +136,7 @@ qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag)
 									spawncmds[maxspawn_cmds].r = 0;
 									
 									// malformed re... skip this spawn command
-									gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
+									gi.dprintf("Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
 									continue;
 								}
 						}
@@ -154,7 +154,7 @@ qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf(DEVELOPER_MSG_VERBOSE, "Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
+					gi.dprintf("Error loading SPAWN from line %d in file %s\n", uptoLine, spawnname);
 				}
 		}
 		
@@ -226,7 +226,7 @@ void readSpawnLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf(DEVELOPER_MSG_VERBOSE, "WARNING: " SPAWNFILE " could not be found\n");
+			gi.dprintf("WARNING: " SPAWNFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, SPAWNFILE " could not be found", IW_SPAWNSETUPLOAD, 0.0);
 		}
 }
