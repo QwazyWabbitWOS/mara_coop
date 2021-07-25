@@ -116,7 +116,7 @@ fire_flechette(edict_t *self, vec3_t start, vec3_t dir, int damage,
 
 	flechette->owner = self;
 	flechette->touch = flechette_touch;
-	flechette->nextthink = level.time + 8000 / speed;
+	flechette->nextthink = level.time + 8000.0f / speed;
 	flechette->think = G_FreeEdict;
 	flechette->dmg = damage;
 	flechette->dmg_radius = kick;
