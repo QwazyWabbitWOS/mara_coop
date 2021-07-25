@@ -1242,7 +1242,7 @@ void sentien_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 	{
 		gi.sound (self, CHAN_VOICE, gi.soundindex ("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
-		for (n= 0; n < 1 /*4*/; n++)
+//		for (n= 0; n < 1 /*4*/; n++)
 		{
 			ThrowGib (self, "models/objects/gibs/sm_meat/tris.md2", damage, GIB_ORGANIC);
 		}
@@ -1359,7 +1359,7 @@ void SP_monster_sentien(edict_t *self)
 
 	self->monsterinfo.reducedDamageAmount = 0.85;
 
-//	self->laser = NULL;
+	self->laser = NULL;
 	gi.linkentity(self);
 
 	create_sentien_laser(self);

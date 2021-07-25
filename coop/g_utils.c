@@ -1015,10 +1015,10 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 		return NULL;
 	}
 
-	if(!strncmp(name, "LIKE ", 5))
+	if (!strncmp(name, "LIKE ", 5))
 	{
-		name+=5;
-		if(!name || !name[0])
+		name += 5;
+		if (!name || !name[0])
 		{
 			gi.cprintf(ent, PRINT_HIGH, "No name specified after LIKE.  Aborting search!\n");
 			return NULL;
@@ -1028,7 +1028,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 	i = count = 0;
 
 	nameLwrd = Q_strlwr(name);
-	if(!nameLwrd)
+	if (!nameLwrd)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Name is NULL.  Aborting search!\n");
 		return NULL;
@@ -1037,9 +1037,9 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 	for (i = 0; i < maxclients->value; i++)
 	{
 		char *netName;
-		player = &g_edicts[i+1];
+		player = &g_edicts[i + 1];
 
-		if(!player || !player->inuse || !player->client)
+		if (!player || !player->inuse || !player->client)
 		{
 			continue;
 		}
@@ -1048,9 +1048,9 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 
 		netName = Q_strlwr(netName);
 
-		if(exactMatch)
+		if (exactMatch)
 		{
-			if(!Q_stricmp(netName, nameLwrd))
+			if (!Q_stricmp(netName, nameLwrd))
 			{
 				foundPlayer = player;
 				count++;
@@ -1065,7 +1065,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 			}
 		}
 
-		if(netName)
+		if (netName)
 		{
 			free(netName);
 			netName = NULL;

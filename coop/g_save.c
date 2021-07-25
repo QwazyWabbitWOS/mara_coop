@@ -571,7 +571,7 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 #endif
 #endif
 					gi.error ("WriteField1: function not in list, can't save game");
-					return; // error never returns
+					return;
 				}
 				else
 					len = strlen(func->funcStr)+1;
@@ -592,7 +592,7 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 				if (!mmove)
 				{
 					gi.error ("WriteField1: mmove not in list, can't save game");
-					return; // error never returns, satisfy compiler.
+					return;
 				}
 				else
 					len = strlen(mmove->mmoveStr)+1;
@@ -640,7 +640,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 				if (!func)
 				{
 					gi.error ("WriteField2: function not in list, can't save game");
-					return; // error never returns, satisfy compiler.
+					return;
 				}
 				
 				len = strlen(func->funcStr)+1;
@@ -657,6 +657,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 				if (!mmove)
 				{
 					gi.error ("WriteField2: mmove not in list, can't save game");
+					return;
 				}
 				else
 				{

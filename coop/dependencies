@@ -4,7 +4,7 @@ dm_tag.o: dm_tag.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 g_ai.o: g_ai.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 g_chase.o: g_chase.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 g_cmds.o: g_cmds.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
- m_player.h
+ p_hook.h m_player.h p_radio.h
 g_combat.o: g_combat.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h
 g_coop.o: g_coop.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
@@ -115,7 +115,7 @@ m_widow2.o: m_widow2.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h m_widow2.h
 menu.o: menu.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 p_client.o: p_client.c g_local.h q_shared.h z_anim.h game.h menu.h \
- b_cam.h m_player.h
+ b_cam.h p_hook.h m_player.h
 p_hook.o: p_hook.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
  p_hook.h m_player.h
 p_hud.o: p_hud.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
@@ -123,7 +123,7 @@ p_radio.o: p_radio.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
  p_radio.h
 p_trail.o: p_trail.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 p_view.o: p_view.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
- m_player.h
+ p_hook.h m_player.h
 p_weapon.o: p_weapon.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h m_player.h
 q_shared.o: q_shared.c q_shared.h

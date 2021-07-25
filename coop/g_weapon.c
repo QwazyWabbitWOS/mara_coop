@@ -1883,3 +1883,364 @@ void fire_trap (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int spee
 
 	trap->timestamp = level.time + 30;
 }
+
+//======================================================================
+//======================================================================
+// Marsilainen's Plasma Rifle mod
+
+
+void plasma_explode(edict_t *self)
+{
+	//just the exposion animation sprite. damage is made in hit
+
+	self->nextthink = level.time + FRAMETIME;
+	self->s.frame++;
+	
+	//free the entity after last frame
+	if (self->s.frame == 4) {		
+		self->think = G_FreeEdict;
+	}
+
+
+}
+
+void plasma_touch2(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+{
+	int	mod;
+	int damagetype;
+
+	if (other == self->owner)
+		return;
+
+	if (surf && (surf->flags & SURF_SKY))
+	{			
+		G_FreeEdict(self);
+		return;
+	}	
+
+	if (self->owner->client)		
+		PlayerNoise(self->owner, self->s.origin, PNOISE_IMPACT);		
+
+	self->solid = SOLID_NOT;
+	self->touch = NULL;
+	
+	// calculate position for the explosion entity	
+	VectorMA(self->s.origin, -0.02, self->velocity, self->s.origin);
+
+	VectorClear(self->velocity);
+	self->s.modelindex = 0;
+	
+	//change the sprite to explosion
+	self->s.modelindex = gi.modelindex("sprites/s_pls2.sp2");
+
+	self->s.frame = 0;	
+	self->s.sound = 0;
+
+	//disable blue light effect for the explosion sprite
+	self->s.effects &= ~EF_BLUEHYPERBLASTER;
+
+	//disable translucency for the explosion
+	if (plasma_alpha->value == 2) {
+		self->s.renderfx &= ~RF_TRANSLUCENT;
+	}
+
+	self->think = plasma_explode;
+	self->nextthink = level.time + FRAMETIME;
+
+	//explosion sound
+	gi.sound(self, CHAN_VOICE, gi.soundindex("weapons/plsmexpl.wav"), 1, ATTN_STATIC, 0);
+
+	if (other->takedamage)
+	{			
+		damagetype = DAMAGE_ENERGY;
+		mod = MOD_PLASMA_RIFLE;
+		T_Damage(other, self, self->owner, self->velocity, self->s.origin, plane->normal, self->dmg, 1, damagetype, mod);
+	}
+	else
+	{
+		gi.WriteByte(svc_temp_entity);	
+		gi.WriteByte(TE_FLECHETTE);
+	//	gi.WriteByte(TE_BLASTER);
+		gi.WritePosition(self->s.origin);
+
+		//effect direction
+		if (!plane)
+			gi.WriteDir(vec3_origin);
+		else
+			gi.WriteDir(plane->normal);		
+
+		gi.multicast(self->s.origin, MULTICAST_PVS);
+	}
+}
+
+/*
+void plasma_think(edict_t *self)
+{
+	self->nextthink = level.time + FRAMETIME;
+}
+*/
+
+void fire_plasma2(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed)
+{
+
+	edict_t	*plasma;
+	trace_t	tr;
+	vec3_t	end;
+
+	vec3_t scaledv;
+	vec3_t spawnpos;
+
+	plasma = G_Spawn();
+	
+	//check if wall too close
+	VectorMA(start, 8, dir, end);
+	tr = gi.trace(self->s.origin, NULL, NULL, end, self, MASK_SOLID);
+
+	//move spawn position back a little
+	if (tr.fraction < 1) {
+		if (tr.surface) {
+			VectorScale(dir, 42, scaledv);			
+			VectorInverse(scaledv);			
+			VectorAdd(scaledv, start, spawnpos);
+		}
+	}
+	else {
+		VectorCopy(start, spawnpos);		
+	}
+
+	VectorCopy(spawnpos, plasma->s.origin);
+	VectorCopy(dir, plasma->movedir);
+
+	vectoangles(dir, plasma->s.angles);
+	VectorScale(dir, speed, plasma->velocity);
+
+	plasma->movetype = MOVETYPE_FLYMISSILE;
+	plasma->clipmask = MASK_SHOT | MASK_WATER;
+	plasma->solid = SOLID_BBOX;
+
+	// blue light, 10hz sprite animation loop
+	plasma->s.effects |= EF_ANIM_ALLFAST | EF_BLUEHYPERBLASTER;
+
+	//set alpha effect
+	if (plasma_alpha->value == 1 || plasma_alpha->value == 2) {
+		plasma->s.renderfx = RF_TRANSLUCENT;
+	}	
+	
+	VectorClear(plasma->mins);
+	VectorClear(plasma->maxs);
+		
+	plasma->s.modelindex = gi.modelindex("sprites/s_pls1.sp2");
+	
+	plasma->owner = self;
+	plasma->touch = plasma_touch2;
+	
+	plasma->nextthink = level.time + 2;
+	plasma->think = G_FreeEdict;
+	
+	plasma->dmg = damage;
+	plasma->classname = "plasma";
+
+	//plasma->think = plasma_think;
+	//plasma->nextthink = level.time + FRAMETIME;
+
+	if (self->client)
+		check_dodge(self, plasma->s.origin, dir, speed);
+
+	gi.linkentity(plasma);
+
+	
+}
+
+//======================================================================
+// Cluster Grenade Launcher mod
+//======================================================================
+
+void Cluster_Explode (edict_t *ent)
+
+{
+    vec3_t   origin;
+
+    //Sean added these 4 vectors
+
+    vec3_t   grenade1;
+    vec3_t   grenade2;
+    vec3_t   grenade3;
+    vec3_t   grenade4;
+
+    if (ent->owner->client)
+        PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
+
+    //FIXME: if we are onground then raise our Z just a bit since we are a point?
+    T_RadiusDamage(ent, ent->owner, ent-> dmg, NULL, ent->dmg_radius, MOD_GRENADE);
+
+    VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
+    gi.WriteByte (svc_temp_entity);
+    if (ent->waterlevel)
+    {
+        if (ent->groundentity)
+            gi.WriteByte (TE_GRENADE_EXPLOSION_WATER);
+        else
+            gi.WriteByte (TE_ROCKET_EXPLOSION_WATER);
+    }
+    else
+    {
+        if (ent->groundentity)
+            gi.WriteByte (TE_GRENADE_EXPLOSION);
+        else
+            gi.WriteByte (TE_ROCKET_EXPLOSION);
+    }
+    gi.WritePosition (origin);
+    gi.multicast (ent->s.origin, MULTICAST_PVS);
+
+    // SumFuka did this bit : give grenades up/outwards velocities
+    VectorSet(grenade1,20,20,40);
+    VectorSet(grenade2,20,-20,40);
+    VectorSet(grenade3,-20,20,40);
+    VectorSet(grenade4,-20,-20,40);
+
+    // Sean : explode the four grenades outwards
+    fire_grenade2(ent->owner, origin, grenade1, 120, 10, 1.0, 120, false);
+    fire_grenade2(ent->owner, origin, grenade2, 120, 10, 1.0, 120, false);
+    fire_grenade2(ent->owner, origin, grenade3, 120, 10, 1.0, 120, false);
+    fire_grenade2(ent->owner, origin, grenade4, 120, 10, 1.0, 120, false);
+
+    G_FreeEdict (ent);
+}
+
+void Cluster_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+{
+    if (other == ent->owner)
+        return;
+
+    if (surf && (surf->flags & SURF_SKY))
+    {
+        G_FreeEdict (ent);
+        return;
+    }
+
+    if (!other->takedamage)
+    {
+        if (ent->spawnflags & 1)
+        {
+            if (random() > 0.5)
+                gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/hgrenb1a.wav"), 1, ATTN_NORM, 0);
+            else
+                gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/hgrenb2a.wav"), 1, ATTN_NORM, 0);
+        }
+        else
+        {
+            gi.sound (ent, CHAN_VOICE, gi.soundindex ("weapons/grenlb1b.wav"), 1, ATTN_NORM, 0);
+        }
+        return;
+    }
+
+    ent->enemy = other;
+    Cluster_Explode (ent);
+}
+
+void
+fire_cluster(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
+        int speed, float timer, float damage_radius)
+{
+    edict_t *grenade;
+    vec3_t dir;
+    vec3_t forward, right, up;
+
+    if (!self)
+    {
+        return;
+    }
+
+    vectoangles(aimdir, dir);
+    AngleVectors(dir, forward, right, up);
+
+    grenade = G_Spawn();
+    VectorCopy(start, grenade->s.origin);
+    VectorScale(aimdir, speed, grenade->velocity);
+    VectorMA(grenade->velocity, 200 + crandom() * 10.0, up, grenade->velocity);
+    VectorMA(grenade->velocity, crandom() * 10.0, right, grenade->velocity);
+    VectorSet(grenade->avelocity, 300, 300, 300);
+    grenade->movetype = MOVETYPE_BOUNCE;
+    grenade->clipmask = MASK_SHOT;
+    grenade->solid = SOLID_BBOX;
+    grenade->s.effects |= EF_GRENADE;
+    VectorClear(grenade->mins);
+    VectorClear(grenade->maxs);
+    grenade->s.modelindex = gi.modelindex("models/objects/grenade/tris.md2");
+    grenade->owner = self;
+    grenade->touch = Cluster_Touch;
+    grenade->nextthink = level.time + timer;
+    grenade->think = Cluster_Explode;
+    grenade->dmg = damage;
+    grenade->dmg_radius = damage_radius;
+    grenade->classname = "grenade";
+
+    gi.linkentity(grenade);
+}
+
+void drop_rocket_bomb(edict_t *shooter, vec3_t start, vec3_t dir, int damage,int speed){
+	edict_t *bomb=NULL;
+
+	bomb=G_Spawn();
+	VectorCopy(start, bomb->s.origin);
+	VectorCopy(dir, bomb->movedir);
+	vectoangles(dir, bomb->s.angles);
+	VectorScale(dir, speed, bomb->velocity);
+	bomb->movetype=MOVETYPE_FLY;
+	bomb->clipmask=MASK_SHOT;
+	bomb->solid=SOLID_BBOX;
+	bomb->s.effects |= EF_ROTATE;
+	VectorClear(bomb->mins);
+	VectorClear(bomb->maxs);
+	bomb->s.modelindex=gi.modelindex(ROCKET_MODEL);
+	// Alternate bomb model if you'd like something different..
+	// bomb->s.modelindex=gi.modelindex(BOMB_MODEL);
+	bomb->owner=shooter;
+	bomb->touch=rocket_touch;
+	bomb->nextthink=PRESENT_TIME+8000/speed;
+	bomb->think=G_FreeEdict;
+	bomb->dmg=damage;
+	bomb->radius_dmg=250;
+	bomb->dmg_radius=200;
+	bomb->s.sound=rockflysound;
+	bomb->classname="rocket";
+
+	gi.linkentity(bomb);
+}
+
+//======================================================
+void drop_clusterbomb(edict_t *shooter, vec3_t start, vec3_t aimdir) {
+	int damage=125;
+	float timer=7+crandom()*2.7;
+	float damage_radius=165;
+	edict_t *grenade=NULL;
+	vec3_t dir={0,0,0}, forward={0,0,0},
+	right={0,0,0}, up={0,0,0};
+
+	vectoangles(aimdir, dir);
+	AngleVectors(dir, forward, right, up);
+
+	grenade=G_Spawn();
+	VectorCopy(start, grenade->s.origin);
+	VectorScale(aimdir, (int)(581+(crandom()*17.9)+(crandom()*89.3)), grenade->velocity);
+	VectorMA(grenade->velocity, (float)(83+(crandom()*13.7)), up, grenade->velocity);
+	VectorMA(grenade->velocity, (float)(57+(crandom()*19.1)), right, grenade->velocity);
+	VectorSet(grenade->avelocity, 277+crandom()*123.6, 333+crandom()*175.2,
+	313+crandom()*211.8);
+	grenade->movetype=MOVETYPE_BOUNCE;
+	grenade->clipmask=MASK_SHOT;
+	grenade->solid=SOLID_BBOX;
+	grenade->s.effects |= EF_GRENADE;
+	VectorClear(grenade->mins);
+	VectorClear(grenade->maxs);
+	grenade->s.modelindex=gi.modelindex(GRENADE_MODEL);
+	grenade->owner=shooter;
+	grenade->touch=Grenade_Touch;
+	grenade->nextthink=PRESENT_TIME+timer;
+	grenade->think=Grenade_Explode;
+	grenade->dmg=damage;
+	grenade->dmg_radius=damage_radius;
+	grenade->classname="grenade";
+
+	gi.linkentity(grenade);
+}

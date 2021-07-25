@@ -1,4 +1,5 @@
 #include "g_local.h"
+#include "p_hook.h"
 #include "m_player.h"
 
 edict_t *pm_passent;
@@ -8,6 +9,7 @@ void SP_misc_teleporter_dest(edict_t *ent);
 void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);
 void zCam_SetLocalCopy(struct edict_s *player, char *s);  /* FS: Zaero specific game dll changes */
 void stopCamera(edict_t *ent); /* FS: Zaero specific game dll changes */
+void spawn_aircraft(edict_t *ent);
 
 /*
  * The ugly as hell coop spawnpoint fixup function.
@@ -406,7 +408,7 @@ SP_info_player_coop_lava(edict_t *self) /* FS: Coop: Rogue specific */
 void
 SP_info_coop_checkpoint_touch ( edict_t * self , edict_t * other , cplane_t * plane , csurface_t * surf )
 {
-	if(!self || self->dmg || !other || !other->client || !other->client->pers.netname)
+	if(!self || self->dmg || !other || !other->client || !other->client->pers.netname[0])
 	{
 		return;
 	}
@@ -761,6 +763,9 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 					message = "was melted by";
 					message2 = "'s hyperblaster";
 					break;
+				case MOD_PLASMA_RIFLE:
+					message = "was incinerated by";
+					message2 = "'s plasma rifle";
 				case MOD_RAILGUN:
 					message = "was railed by";
 					break;
@@ -881,6 +886,10 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 					message = "got microwaved by";
 					message2 = "";
 					break;
+				case MOD_GRAPPLE:
+        			message = "was caught by";
+        			message2 = "'s grapple";
+        			break;
 				default:
 					break;
 			}
@@ -1123,7 +1132,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 {
 	int n;
 
-	if (!self || !inflictor || !attacker)
+	if (!self || !self->client || !inflictor || !attacker)
 	{
 		return;
 	}
@@ -1162,6 +1171,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		LookAtKiller(self, inflictor, attacker);
 		self->client->ps.pmove.pm_type = PM_DEAD;
 		ClientObituary(self, inflictor, attacker);
+		hook_reset(self->client->hook);
 		TossClientWeapon(self);
 
 		if (deathmatch->value)
@@ -1317,6 +1327,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		}
 	}
 
+	self->client->airstrike_called=false;
 	self->deadflag = DEAD_DEAD;
 	gi.linkentity(self);
 }
@@ -1955,7 +1966,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 	{
 		index = ent->client - game.clients;
 
-		if (spot->classname && Q_stricmp(spot->classname, "info_player_start") == 0 && index != 0)
+		if (spot && spot->classname && Q_stricmp(spot->classname, "info_player_start") == 0 && index != 0)
 		{
 			while(counter < 3)
 			{
@@ -2144,8 +2155,8 @@ spectator_respawn(edict_t *ent)
 		char *value = Info_ValueForKey(ent->client->pers.userinfo, "spectator");
 
 		if (*spectator_password->string &&
-			strcmp(spectator_password->string, "none") &&
-			strcmp(spectator_password->string, value))
+			strcmp(spectator_password->string, "none") != 0 &&
+			strcmp(spectator_password->string, value) != 0)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Spectator password incorrect.\n");
 			ent->client->pers.spectator = false;
@@ -2187,8 +2198,8 @@ spectator_respawn(edict_t *ent)
 		   game he must have the right password */
 		char *value = Info_ValueForKey(ent->client->pers.userinfo, "password");
 
-		if (*password->string && strcmp(password->string, "none") &&
-			strcmp(password->string, value))
+		if (*password->string && strcmp(password->string, "none") != 0 &&
+			strcmp(password->string, value) != 0)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Password incorrect.\n");
 			ent->client->pers.spectator = true;
@@ -2541,6 +2552,9 @@ ClientBeginDeathmatch(edict_t *ent)
 void
 ClientBegin(edict_t *ent)
 {
+    FILE *motd_file;
+    char motd[8192];
+    char line[80];
 	int i;
 
 	if (!ent)
@@ -2615,6 +2629,29 @@ ClientBegin(edict_t *ent)
 		}
 	}
 
+	gi.WriteByte (11);
+    gi.WriteString ("alias +hook \"cmd hook\"\n");
+    gi.unicast(ent, true);
+
+    gi.WriteByte (11);
+    gi.WriteString ("alias -hook \"cmd unhook\"\n");
+    gi.unicast(ent, true);
+
+	if (motd_file = fopen("motd.txt", "r"))
+    {
+		if (motd_file = fopen("motd.txt", "r")) {
+                 
+                 if (fgets(motd, 8192, motd_file)) 
+				 {
+                     while (fgets(line, 80, motd_file))
+					 {
+                         strcat(motd, line);
+					 }
+                     gi.centerprintf(ent, "%s", motd);
+                 }
+                 fclose(motd_file);
+             }
+	}
 	ent->client->pers.connected = true; /* FS: Fix for players command and q2admin commands */
 
 	/* make sure all view stuff is valid */
@@ -2634,7 +2671,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	qboolean bAllowNameChange = true;
 	int playernum;
 
-	if (!ent || !userinfo)
+	if (!ent || !ent->client || !userinfo)
 	{
 		return;
 	}
@@ -2822,8 +2859,8 @@ ClientConnect(edict_t *ent, char *userinfo)
 		int i, numspec;
 
 		if (*spectator_password->string &&
-			strcmp(spectator_password->string, "none") &&
-			strcmp(spectator_password->string, value))
+			strcmp(spectator_password->string, "none") != 0 &&
+			strcmp(spectator_password->string, value) != 0)
 		{
 			Info_SetValueForKey(userinfo, "rejmsg", "Spectator password required or incorrect.");
 			return false;
@@ -2849,8 +2886,8 @@ ClientConnect(edict_t *ent, char *userinfo)
 		/* check for a password */
 		value = Info_ValueForKey(userinfo, "password");
 
-		if (*password->string && strcmp(password->string, "none") &&
-			strcmp(password->string, value))
+		if (*password->string && strcmp(password->string, "none") != 0 &&
+			strcmp(password->string, value) != 0)
 		{
 			Info_SetValueForKey(userinfo, "rejmsg", "Password required or incorrect.");
 			return false;
@@ -2872,7 +2909,7 @@ ClientConnect(edict_t *ent, char *userinfo)
 			InitClientPersistant(ent->client);
 		}
 	}
-
+	ent->client->resp.radio_power = 1;
 	ClientUserinfoChanged(ent, userinfo);
 
 	if (game.maxclients > 1)
@@ -2920,6 +2957,8 @@ ClientDisconnect(edict_t *ent)
 	{
 		vote_disconnect_recalc(ent);
 	}
+
+	hook_reset(ent->client->hook);
 
 	gi.bprintf(PRINT_HIGH, "%s disconnected\n", ent->client->pers.netname);
 
@@ -3035,6 +3074,9 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 	level.current_entity = ent;
 	client = ent->client;
 
+	if ((client->hook_state == HOOK_ON) && client->hook)
+        hook_service(client->hook);
+
 	Blinky_RunRun(ent, ucmd);
 
 	if (level.intermissiontime)
@@ -3087,13 +3129,19 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 			client->ps.pmove.pm_type = PM_NORMAL;
 		}
 
-		if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
-		{
-			client->ps.pmove.gravity = sv_gravity->value * ent->gravity;
-		}
+		if (client -> hook_state == HOOK_ON) {
+    		client -> ps.pmove.gravity = 0;
+		} 
 		else
 		{
-			client->ps.pmove.gravity = sv_gravity->value;
+    		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+			{
+        		client -> ps.pmove.gravity = sv_gravity -> value * ent -> gravity;
+    		} 
+			else
+			{
+        		client -> ps.pmove.gravity = sv_gravity -> value;
+    		}
 		}
 
 		pm.s = client->ps.pmove;
@@ -3108,7 +3156,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 			pm.s.velocity[i] = tmpVel;
 		}
 
-		if (memcmp(&client->old_pmove, &pm.s, sizeof(pm.s)))
+		if (memcmp(&client->old_pmove, &pm.s, sizeof(pm.s)) != 0)
 		{
 			pm.snapinitial = true;
 		}
@@ -3290,6 +3338,18 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		}
 	}
 
+	if ((client->hook_state == HOOK_ON) && (VectorLength(ent->velocity) < 10))
+	{
+        client->ps.pmove.pm_flags |= PMF_NO_PREDICTION;
+	}
+	else
+	{
+        client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
+    }
+
+	if (ENT_CALLED_AIRSTRIKE && (PRESENT_TIME > ENTS_TIME_TO_AIRSTRIKE))
+		spawn_aircraft(ent);
+
 	vote_Think(); /* FS: Coop: Voting */
 
 	if (client->menudirty && (client->menutime <= level.time))
@@ -3300,6 +3360,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		client->menudirty = false;
 	}
 }
+
 
 /*
  * This will be called once for each server frame,
@@ -3423,7 +3484,7 @@ int P_Clients_Connected (qboolean spectators) /* FS: Coop: Find out how many pla
 		ent = &g_edicts [i + 1];
 		if (ent->inuse && ent->client)
 		{
-			if(ent->client->pers.netname && !Q_stricmp(ent->client->pers.netname, "WallFly[BZZZ]")) /* FS: TODO FIXME: Waiting on tastyspleen for additional details to reliably detect WallFly */
+			if(ent->client->pers.netname[0] && !Q_stricmp(ent->client->pers.netname, "WallFly[BZZZ]")) /* FS: TODO FIXME: Waiting on tastyspleen for additional details to reliably detect WallFly */
 			{
 				continue;
 			}

@@ -1,5 +1,7 @@
 #include "g_local.h"
+#include "p_hook.h"
 #include "m_player.h"
+#include "p_radio.h"
 
 extern void SP_info_coop_checkpoint (edict_t * self );
 extern void stopCamera(edict_t *self); /* FS: Zaero specific game dll changes */
@@ -327,14 +329,11 @@ Cmd_Give_f(edict_t *ent)
 	}
 
 	name = gi.args();
-
+	give_all = false;
 	if (Q_stricmp(name, "all") == 0)
 	{
-		give_all = true;
-	}
-	else
-	{
-		give_all = false;
+		gi.cprintf(ent, PRINT_HIGH, "The Give All Command Has been disabled for this server.\n");
+		//give_all = true;
 	}
 
 	if (give_all || (Q_stricmp(gi.argv(1), "health") == 0))
@@ -1522,8 +1521,8 @@ Cmd_Players_f(edict_t *ent)
 	int i;
 	int count;
 	char small[64];
-	char large[1280];
-	int index[256];
+	char large[1280] = { 0 };
+	int index[256] = { 0 };
 
 	if (!ent)
 	{
@@ -1884,7 +1883,7 @@ Cmd_PlayerList_f(edict_t *ent)
 {
 	int i;
 	char st[80];
-	char text[1400];
+	char text[1400] = { 0 };
 	edict_t *e2;
 
 	if (!ent)
@@ -2281,6 +2280,124 @@ Cmd_SayPerson_f(edict_t *ent) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
 	gi.cprintf(ent, PRINT_CHAT, "%s", entHeader);
 }
 
+/*
+=================
+Plasma rifle
+=================
+*/
+
+void Cmd_Plasma_f(edict_t *ent)
+{
+	
+
+	gi.cprintf(ent, PRINT_HIGH, "\nHot Plasma!\n");	
+	gi.cprintf(ent, PRINT_HIGH, "Quake 2 Plasma Rifle mod by marsilainen \n\n");
+
+//	gi.cprintf(ent, PRINT_HIGH, "\Commands:\n");
+
+	gi.cprintf(ent, PRINT_HIGH, "plasma_alpha - Toggles plasma translucency\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "Values\n");
+	gi.cprintf(ent, PRINT_HIGH, "0 : opaque plasma \n");
+	gi.cprintf(ent, PRINT_HIGH, "1 : translucent plasma \n");
+	gi.cprintf(ent, PRINT_HIGH, "2 : translucent plasma, opaque explosions \n");
+
+}
+
+void Get_Target_Position(edict_t *ent, vec3_t endpos);
+
+//======================================================
+void Cmd_Airstrike_f(edict_t *ent, char *cmd) {
+	int index;
+	vec3_t start={0,0,0}, forward={0,0,0}, world_up={0,0,0}, end={0,0,0};
+	trace_t tr;
+
+	// Which airstrike type was called?
+	if (Q_stricmp(cmd, "airstrike1") == 0)
+	ENTS_AIRSTRIKE_TYPE=ROCKET_BOMBS;
+	else if (Q_stricmp(cmd, "airstrike2") == 0)
+	ENTS_AIRSTRIKE_TYPE=CLUSTER_BOMBS;
+	else if (Q_stricmp(cmd, "airstrike3") == 0)
+	ENTS_AIRSTRIKE_TYPE=BFG_NUKE;
+
+	// Deduct proper ammo amounts?
+	if (!DMFLAGS_IS_INFINITE_AMMO)
+	{
+	switch (ENTS_AIRSTRIKE_TYPE)
+	{
+	case CLUSTER_BOMBS:
+	index = ITEM_INDEX(FindItem("grenades"));
+	if (ent->client->pers.inventory[index] >= 10)
+	ITEM_IN_ENTS_INVENTORY -= 10;
+	else
+	{
+	gi.cprintf(ent, PRINT_HIGH, "Airstrike requires 10 Grenades!!\n");
+	return;
+	}
+	break;
+
+	case ROCKET_BOMBS:
+	index = ITEM_INDEX(FindItem("rockets"));
+	if (ent->client->pers.inventory[index] >= 6)
+	ITEM_IN_ENTS_INVENTORY -= 6;
+	else
+	{
+	gi.cprintf(ent, PRINT_HIGH, "Airstrike requires 6 Rockets!!\n");
+	return;
+	}
+	break;
+	case BFG_NUKE:
+	index = ITEM_INDEX(FindItem("cells"));
+	if (ent->client->pers.inventory[index] >= 50 )
+	ITEM_IN_ENTS_INVENTORY -= 50;
+	else
+	{
+	gi.cprintf(ent, PRINT_HIGH, "Airstrike requires 50 PowerCells!!\n");
+	return;
+	}
+	break;
+	} // switch
+	} // if
+
+	// Zero out the airstrike positioning vectors.
+	VectorCopy(start, ENTS_AIRSTRIKE_START);
+	VectorCopy(start, ENTS_AIRSTRIKE_TARGETDIR);
+
+	// cancel airstrike if it's already been called
+	if (ENT_CALLED_AIRSTRIKE) {
+	ENT_CALLED_AIRSTRIKE=false;
+	gi.cprintf(ent, PRINT_HIGH, "Airstrike has been called off!!\n");
+	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.4, ATTN_NORM, 0);
+	return; }
+
+	// see if we're pointed at the sky
+	VectorCopy(ENTS_S_ORIGIN, start);
+	start[2] += ENTS_VIEW_HEIGHT;
+	AngleVectors(ENTS_V_ANGLE, forward, NULL, NULL);
+	VectorMA(start, MAX_WORLD_HEIGHT, forward, end);
+	tr=gi.trace(start, NULL, NULL, end, ent, MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+
+	// We hit something but it wasn't sky, see if there is sky above it!
+	if (tr.surface && !(tr.surface->flags & SURF_SKY)) {
+	VectorCopy(tr.endpos,start);
+	VectorSet(world_up, 0, 0, 1);
+	VectorMA(start, MAX_WORLD_HEIGHT, world_up, end);
+	tr=gi.trace(start, NULL, NULL, end, ent, MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+	if (tr.surface && !(tr.surface->flags & SURF_SKY)) {
+	gi.cprintf(ent, PRINT_HIGH, "No direct airstrike path to target!\n");
+	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.4, ATTN_NORM, 0);
+	return; }
+	// Not pointing at sky and sky above so proceed with strike!
+	ENT_CALLED_AIRSTRIKE=true;
+	ENTS_TIME_TO_AIRSTRIKE=PRESENT_TIME+10; // Time to Airstrike
+	Get_Target_Position(ent, tr.endpos);
+	gi.cprintf(ent, PRINT_HIGH, "Target Locked! ETA 10 secs.\n");
+	gi.sound(ent, CHAN_ITEM, PILOT2_SOUND, 0.8, ATTN_NORM, 0);
+	} // if
+	else
+	gi.cprintf(ent, PRINT_HIGH, "Target not acquired!! Retarget...\n");
+}
+
+
 void
 ClientCommand(edict_t *ent)
 {
@@ -2366,6 +2483,11 @@ ClientCommand(edict_t *ent)
 	{
 		Cmd_Help_f(ent);
 		return;
+	}
+
+	if (Q_stricmp(cmd, "plasma") == 0){	
+		Cmd_Plasma_f(ent);
+		return;	
 	}
 
 	if (Q_stricmp(cmd, "menu") == 0) /* FS: Added */
@@ -2475,6 +2597,12 @@ ClientCommand(edict_t *ent)
 	{
 		Cmd_Wave_f(ent);
 	}
+	else if ((Q_stricmp(cmd, "airstrike1") == 0)||
+			(Q_stricmp(cmd, "airstrike2") == 0)||
+			(Q_stricmp(cmd, "airstrike3") == 0))
+		{
+			Cmd_Airstrike_f(ent,cmd); // AirStrikes
+		}
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 	{
 		Cmd_PlayerList_f(ent);
@@ -2552,10 +2680,23 @@ ClientCommand(edict_t *ent)
 	}
 	else if ((Q_stricmp(cmd, "push") == 0) || (Q_stricmp(cmd,"pull") == 0))
 	{
-		/* FS: Purposely do nothing.  This somehow got in my cfgs, and some other users.  
-		I see this happen to people during vid_restarts and vid_restarts are firing off 
-		mwheelup and mwheeldown for some reason... */
+		/* FS: Purposely do nothing.  This somehow got in my cfgs, and some other users.  I see this happen to people during vid_restarts and vid_restarts are firing off mwheelup and mwheeldown for some reason... */
 	}
+	else if (Q_stricmp (cmd, "hook") == 0)
+    {
+        hook_fire (ent);
+    }
+    else if (Q_stricmp (cmd, "unhook") == 0)
+    {
+        if (ent->client->hook)
+            hook_reset(ent->client->hook);
+    }
+	else if (Q_stricmp (cmd, "radio") == 0)  // Radio Toggle
+        	RadioToggle_f(ent);
+	else if (Q_stricmp (cmd, "play_world") == 0 && !ent->client->resp.spectator)  // Radio to everybody
+            Radio_f(ent, "ALL", gi.argv(1));
+	else if (Q_stricmp (cmd, "play_voice") == 0 && !ent->client->resp.spectator)  // Talk to Everyone within a Earshot
+            Radio_f(ent, "ROOM", gi.argv(1));
 	else /* anything that doesn't match a command will be a chat */
 	{
 		Cmd_Say_f(ent, false, true);

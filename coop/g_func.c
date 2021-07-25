@@ -63,7 +63,7 @@
 #define DOOR_ACTIVE_TOGGLE		1 /* FS: Zaero specific game dll changes */
 #define DOOR_ACTIVE_ON			2 /* FS: Zaero specific game dll changes */
 
-#define AccelerationDistance(target, rate) (target * ((target / rate) + 1) / 2)
+#define AccelerationDistance(target, rate) ((target) * (((target) / (rate)) + 1) / 2)
 
 #define PLAT2_CALLED			1
 #define PLAT2_MOVING			2
@@ -939,7 +939,7 @@ plat_spawn_inside_trigger(edict_t *ent)
 	tmax[1] = ent->maxs[1] - 25;
 	tmax[2] = ent->maxs[2] + 8;
 
-	tmin[2] = tmax[2] - (ent->pos1[2] - ent->pos2[2] + st.lip);
+	tmin[2] = tmax[2] - (ent->pos1[2] - ent->pos2[2] + st.lip); /* FS: TODO: What the hell?  We just set tmin[2] above. */
 
 	if (ent->spawnflags & PLAT_LOW_TRIGGER)
 	{
@@ -2982,7 +2982,7 @@ door_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 
 	self->touch_debounce_time = level.time + 5.0;
 
-	if(coop->value && other->client && other->client->pers.netname) /* FS: Coop: Print any use target stuff as global map message to all players */
+	if(coop->value && other->client && other->client->pers.netname[0]) /* FS: Coop: Print any use target stuff as global map message to all players */
 	{
 		gi.bprintf(PRINT_HIGH, "\x02[MAPMSG][%s]: ", other->client->pers.netname);
 		gi.bprintf(PRINT_HIGH, "%s\n", self->message);

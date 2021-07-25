@@ -1215,21 +1215,6 @@ void vote_connect (edict_t *ent);
 void vote_disconnect_recalc(edict_t *ent);
 void vote_stop (edict_t *ent);
 
-/* FS: Flags for sv_vote_disallow_flags */
-#define	VOTE_NOGAMEMODE			0x00000001 /* 1 */
-#define	VOTE_NOVANILLA			0x00000002 /* 2 */
-#define	VOTE_NOXATRIX			0x00000004 /* 4 */
-#define	VOTE_NOROGUE			0x00000008 /* 8 */
-#define	VOTE_NOZAERO			0x00000010 /* 16 */
-#define	VOTE_NOCOOPSKILL		0x00000020 /* 32 */
-#define	VOTE_NOMAP				0x00000040 /* 64 */
-#define	VOTE_NORANDOMMAPS		0x00000080 /* 128 */
-#define VOTE_NORESETMAP			0x00000100 /* 256 */
-#define VOTE_NOPLAYEREXIT		0x00000200 /* 512 */
-#define VOTE_NOPLAYERKICK		0x00000400 /* 1024 */
-#define VOTE_NOPLAYERBAN		0x00000800 /* 2048 */
-
-
 //
 // g_coop.c
 //
@@ -1605,7 +1590,6 @@ struct gclient_s
 
 	int             hook_state;
     edict_t        *hook;
-
 };
 
 struct edict_s
@@ -1750,6 +1734,8 @@ struct edict_s
 	vec3_t		move_origin;
 	vec3_t		move_angles;
 
+	float		timer;		//for supergrenades
+
 	// move this to clientinfo?
 	int			light_level;
 
@@ -1828,7 +1814,6 @@ struct edict_s
 
 	float bossFireTimeout;
 	int bossFireCount;
-	float timer;	//QW// for supergrenade
 
 	edict_t		*hook_laser;
 };

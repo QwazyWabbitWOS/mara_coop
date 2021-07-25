@@ -23,6 +23,12 @@ void Weapon_GrenadeLauncher(edict_t *ent);
 void Weapon_Railgun(edict_t *ent);
 void Weapon_BFG(edict_t *ent);
 
+//Plasma rifle mod
+void Weapon_PlasmaRifle(edict_t *ent);
+
+//Cluster grande mod
+void Weapon_ClusterLauncher (edict_t *ent);
+
 void Weapon_ChainFist(edict_t *ent); /* FS: Coop: Rogue specific */
 void Weapon_Disintegrator(edict_t *ent); /* FS: Coop: Rogue specific */
 void Weapon_ETF_Rifle(edict_t *ent); /* FS: Coop: Rogue specific */
@@ -166,7 +172,7 @@ qboolean Coop_Respawn (void) /* FS: Coop */
 
 void DoRespawn(edict_t* ent)
 {
-	if (ent == NULL)
+	if (!ent)
 	{
 		gi.dprintf("NULL ent passed to %s\n", __func__);
 		return;
@@ -1006,7 +1012,7 @@ Use_Hunter(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 void
 Use_Vengeance(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 {
-	if (!ent || !item || !ent->client)
+	if (!ent || !ent->client || !item)
 	{
 		return;
 	}
@@ -1246,7 +1252,7 @@ Pickup_Key(edict_t *ent, edict_t *other)
 				coopReturn = true;
 		}
 
-		if(ent->item && ent->item->pickup_name && other->client->pers.netname && coopReturn == true)
+		if(ent->item && ent->item->pickup_name && other->client->pers.netname[0] && coopReturn == true)
 		{
 			gi.bprintf(PRINT_HIGH,"\x02[%s]: ", other->client->pers.netname);
 			gi.bprintf(PRINT_HIGH, "Team, everyone has the %s!\n", ent->item->pickup_name);
@@ -1427,7 +1433,7 @@ Pickup_Ammo(edict_t *ent, edict_t *other)
 		/* don't switch to tesla */
 		if ((other->client->pers.weapon != ent->item) &&
 			(!deathmatch->value || (other->client->pers.weapon == FindItem("blaster"))) &&
-			(ent->classname && strcmp(ent->classname, "ammo_tesla"))) /* FS: Coop: Rogue specific -- ammo_tesla */
+			(ent->classname && strcmp(ent->classname, "ammo_tesla") != 0)) /* FS: Coop: Rogue specific -- ammo_tesla */
 		{
 			other->client->newweapon = ent->item;
 		}
@@ -1752,7 +1758,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 {
 	int index;
 
-	if (!ent || !item)
+	if (!ent || !ent->client || !item)
 	{
 		return;
 	}
@@ -1766,7 +1772,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 			ent->client->resp.coop_respawn.savedFlags &= ~FL_POWER_ARMOR;
 		}
 
-		gi.sound(ent, CHAN_AUTO, gi.soundindex( "misc/power2.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("misc/power2.wav"), 1, ATTN_NORM, 0);
 	}
 	else
 	{
@@ -2773,6 +2779,30 @@ always owned, never in the world
 /* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
 	},
 
+/*QUAKED weapon_clusterlauncher  (.3 .3 1) (-16 -16 -16) (16 16 16)
+*/
+// Cluster Launcher mod
+{
+        "weapon_clusterlauncher",
+        Pickup_Weapon,
+        Use_Weapon,
+        Drop_Weapon,
+        Weapon_ClusterLauncher,
+        "misc/w_pkup.wav",
+        "models/weapons/g_plaunch/tris.md2", EF_ROTATE,
+        "models/weapons/v_plaunch/tris.md2",
+/* icon */        "w_proxlaunch",
+/* pickup */    "Cluster Launcher",
+        0,
+        5,
+        "Grenades",
+        IT_WEAPON|IT_STAY_COOP,
+        WEAP_GRENADELAUNCHER,
+        NULL,
+        0,
+/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
+    },
+
 /*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
 */
 	{
@@ -3287,6 +3317,29 @@ always owned, never in the world
 		HIDE_FROM_SELECTION
 	},
 
+/*QUAKED weapon_plasmarifle (.3 .3 1) (-16 -16 -16) (16 16 16)
+*/
+// Marsilainen's Plasma Rifle mod
+	{
+		"weapon_plasmarifle",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_PlasmaRifle,
+		"misc/w_pkup.wav",
+		"models/weapons/g_plasmr/tris.md2", EF_ROTATE,
+		"models/weapons/v_plasmr/tris.md2",
+		"w_plasmarifle",
+		"Plasma Rifle",
+		0,
+		2,
+		"Cells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_PLASMARIFLE,
+		NULL,
+		0,
+		"weapons/plsmfire.wav weapons/plsmexpl.wav"
+	},
 	//
 	// AMMO ITEMS
 	//

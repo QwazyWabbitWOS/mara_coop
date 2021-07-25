@@ -372,7 +372,7 @@ void SVCmd_StuffCmd_f (void)
 		{
 			client = &g_edicts[i];
 
-			if(!client || !client->inuse || !client->client /* || !client->client->pers.connected */ || !client->client->pers.netname) /* FS: FIXME: Unreliable check */
+			if(!client || !client->inuse || !client->client /* || !client->client->pers.connected */ || !client->client->pers.netname[0]) /* FS: FIXME: Unreliable check */
 			{
 				continue;
 			}

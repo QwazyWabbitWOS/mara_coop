@@ -23,6 +23,9 @@ byte		is_silenced;
 
 void weapon_grenade_fire(edict_t *ent, qboolean held);
 void weapon_trap_fire (edict_t *ent, qboolean held); /* FS: Coop: Xatrix specific */
+void drop_clusterbomb(edict_t *shooter, vec3_t start, vec3_t aimdir);
+void drop_rocket_bomb(edict_t *shooter, vec3_t start, vec3_t dir, int damage,int speed);
+
 
 byte
 P_DamageModifier(edict_t *ent) /* FS: Coop: Rogue addition.  Set damage_multiplier. */
@@ -65,9 +68,7 @@ void playQuadSound(edict_t *ent) /* FS: Zaero specific */
 		gi.sound(ent, CHAN_ITEM, gi.soundindex("items/damage3.wav"), 1, ATTN_NORM, 0);
 }
 
-void
-P_ProjectSource(gclient_t *client, vec3_t point, vec3_t distance, vec3_t forward,
-		vec3_t right, vec3_t result)
+void P_ProjectSource (gclient_t *client, vec3_t point, vec3_t distance, vec3_t forward, vec3_t right, vec3_t result)
 {
 	vec3_t _distance;
 
@@ -501,6 +502,8 @@ Think_Weapon(edict_t *ent)
 		ent->client->pers.weapon->weaponthink(ent);
 	}
 }
+
+
 
 /*
  * Make the weapon ready if there is ammo
@@ -1790,12 +1793,12 @@ Weapon_Blaster(edict_t *ent)
 		return;
 	}
 
-	Weapon_Generic(ent, 4, 8, 52, 55, pause_frames,
+	Weapon_Generic(ent, 4, 6, 52, 55, pause_frames,
 			fire_frames, Weapon_Blaster_Fire);
 
 	// RAFAEL
 	if (is_quadfire) /* FS: Coop: Xatrix specific */
-		Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+		Weapon_Generic (ent, 4, 6, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
 
 void
@@ -2259,16 +2262,8 @@ weapon_shotgun_fire(edict_t *ent)
 		kick *= damage_multiplier;
 	}
 
-	if (deathmatch->value)
-	{
-		fire_shotgun(ent, start, forward, damage, kick, 500, 500,
-				DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
-	}
-	else
-	{
-		fire_shotgun(ent, start, forward, damage, kick, 500, 500,
-				DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
-	}
+	fire_shotgun(ent, start, forward, damage, kick, 500, 500,
+			DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 
 	/* send muzzle flash */
 	gi.WriteByte(svc_muzzleflash);
@@ -2296,12 +2291,12 @@ Weapon_Shotgun(edict_t *ent)
 		return;
 	}
 
-	Weapon_Generic(ent, 7, 18, 36, 39, pause_frames,
+	Weapon_Generic(ent, 7, 13, 36, 39, pause_frames,
 			fire_frames, weapon_shotgun_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 7, 18, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
+		Weapon_Generic (ent, 7, 13, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
 }
 
 void
@@ -3444,3 +3439,295 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 	}
 }
 
+//======================================================================
+//======================================================================
+// Marsilainen's Plasma Rifle mod
+
+
+void Plasma_Fire(edict_t *ent, vec3_t g_offset, int damage)
+{
+	vec3_t	forward, right;
+	vec3_t	start;
+	vec3_t	offset;
+	int consume = 1;
+
+	int sr;
+
+	if (is_quad)
+		damage *= 4;
+
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
+
+	//small randomization
+	sr = (int)(random() * 10.0);
+
+	//Z, X, Y //
+	VectorSet(offset, 50, 12, ent->viewheight - (9 + sr));
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
+	
+	VectorScale(forward, -2, ent->client->kick_origin);
+
+	ent->client->kick_angles[0] = -1;
+
+	//launch plasmaball
+	fire_plasma2(ent, start, forward, damage, 1500);
+
+	//eats cells
+	if (!((int)dmflags->value & DF_INFINITE_AMMO))
+		ent->client->pers.inventory[ent->client->ammo_index] -= consume;
+
+	//play firing sound
+	gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/plsmfire.wav"), 1, ATTN_NORM, 0);
+
+	// send muzzle flash
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
+
+	gi.WriteByte(MZ_BLUEHYPERBLASTER | is_silenced);
+
+	gi.multicast(ent->s.origin, MULTICAST_PVS);
+
+	PlayerNoise(ent, start, PNOISE_WEAPON);
+
+
+}
+
+void Weapon_PlasmaRifle_Fire(edict_t *ent)
+{
+	int		damage;
+
+	if (!(ent->client->buttons & BUTTON_ATTACK))
+	{
+		ent->client->ps.gunframe++;
+
+	}
+	else
+	{
+
+		if (!ent->client->pers.inventory[ent->client->ammo_index])
+		{
+			if (level.time >= ent->pain_debounce_time)
+			{
+				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"), 1, ATTN_NORM, 0);
+				ent->pain_debounce_time = level.time + 1;
+			}
+
+			NoAmmoWeaponChange(ent);
+		}
+		else
+		{
+
+			if (deathmatch->value)
+				damage = 20;
+			else
+				damage = 30;
+
+			Plasma_Fire(ent, vec3_origin, damage);
+
+			ent->client->anim_priority = ANIM_ATTACK;
+			
+			if (ent->client->ps.pmove.pm_flags & PMF_DUCKED)
+			{
+				ent->s.frame = FRAME_crattak1 - 1;
+				ent->client->anim_end = FRAME_crattak9;
+			}
+			else
+			{
+				ent->s.frame = FRAME_attack1 - 1;
+				ent->client->anim_end = FRAME_attack8;
+			}
+
+		}
+
+		ent->client->ps.gunframe++;
+
+		//loop
+		if (ent->client->ps.gunframe == 11 && ent->client->pers.inventory[ent->client->ammo_index]) {			
+			ent->client->ps.gunframe = 9;						
+		}
+
+
+
+	}
+
+	/*
+	//shooting ends
+	if (ent->client->ps.gunframe == 11)
+	{
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/plsmend.wav"), 1, ATTN_NORM, 0);
+		//ent->client->weapon_sound = 0;
+	}
+	*/
+
+}
+
+
+void Weapon_PlasmaRifle(edict_t *ent)
+{
+
+	//pause idle animations
+	static int	pause_frames[] = { 25, 29, 39 };
+
+	//weapon fire frames
+	static int	fire_frames[] = {9, 10 };
+
+	Weapon_Generic(ent, 8, 18, 43, 50,  pause_frames, fire_frames, Weapon_PlasmaRifle_Fire);
+
+}
+
+//======================================================================
+// Cluster Grenade Launcher mod
+//======================================================================
+
+void weapon_clusterlauncher_fire (edict_t *ent)
+{
+    vec3_t    offset;
+    vec3_t    forward, right;
+    vec3_t    start;
+    int        damage = 120;
+    float    radius;
+
+    radius = damage+40;
+    if (is_quad)
+        damage *= 4;
+
+    VectorSet(offset, 8, 8, ent->viewheight-8);
+    AngleVectors (ent->client->v_angle, forward, right, NULL);
+    P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+
+    VectorScale (forward, -2, ent->client->kick_origin);
+    ent->client->kick_angles[0] = -1;
+
+    fire_cluster (ent, start, forward, damage, 600, 2.5, radius);
+
+    gi.WriteByte (svc_muzzleflash);
+    gi.WriteShort (ent-g_edicts);
+    gi.WriteByte (MZ_GRENADE | is_silenced);
+    gi.multicast (ent->s.origin, MULTICAST_PVS);
+
+    ent->client->ps.gunframe++;
+
+    PlayerNoise(ent, start, PNOISE_WEAPON);
+
+    if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
+        ent->client->pers.inventory[ent->client->ammo_index] -= 5;
+}
+
+void Weapon_ClusterLauncher (edict_t *ent)
+{
+    static int    pause_frames[]    = {34, 51, 59, 0};
+    static int    fire_frames[]    = {6, 0};
+
+    Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_clusterlauncher_fire);
+}
+
+//=====================================================
+//=========== Airstrike 'Rocket Salvo' Routine ========
+//=====================================================
+void launch_airstrike_salvo(edict_t *ent, int strike_type) {
+	vec3_t start={0,0,0},targetdir={0,0,0},zvec={0,0,0};
+	int i;
+
+	VectorCopy(ENTS_AIRSTRIKE_START, start);
+	VectorCopy(ENTS_AIRSTRIKE_TARGETDIR, targetdir);
+
+	switch (strike_type) {
+	case CLUSTER_BOMBS:
+	for (i=1;i<=10;i++)
+	drop_clusterbomb(ent, start, targetdir);
+	break;
+	case ROCKET_BOMBS:
+	drop_rocket_bomb(ent, start, targetdir, 400, 250);
+	drop_rocket_bomb(ent, start, targetdir, 500, 450);
+	drop_rocket_bomb(ent, start, targetdir, 600, 150);
+	drop_rocket_bomb(ent, start, targetdir, 700, 210);
+	drop_rocket_bomb(ent, start, targetdir, 800, 430);
+	drop_rocket_bomb(ent, start, targetdir, 800, 330);
+	break;
+	case BFG_NUKE:
+	fire_bfg(ent, start, targetdir, 200, 400, 1000);
+	break;
+	} // switch
+
+	// Clear out the airstrike positioning vectors.
+	VectorCopy(zvec, ENTS_AIRSTRIKE_START);
+	VectorCopy(zvec, ENTS_AIRSTRIKE_TARGETDIR);
+
+	ENT_CALLED_AIRSTRIKE=false;
+}
+
+//=====================================================
+void craft_touch(edict_t *craft, edict_t *other, cplane_t *plane, csurface_t *surf){
+	G_FreeEdict(craft);
+}
+
+//======================================================
+//============ Airstrike 'AirCraft' Routine ============
+//======================================================
+void spawn_aircraft(edict_t *ent) {
+	vec3_t start={0,0,0}, dir={0,1,0};
+	edict_t *craft=NULL;
+
+	VectorCopy(ENTS_AIRSTRIKE_START, start);
+
+	craft=G_Spawn(); // Spawn Craft Entity
+	craft->classname="aircraft";
+	VectorCopy(start, craft->s.origin);
+	VectorCopy(dir, craft->movedir); // Craft Move direction
+	vectoangles(dir, craft->s.angles); // Vector angle of direction
+	craft->velocity[0]=0;
+	craft->velocity[1]=120; // pretty slow velocity...
+	craft->velocity[2]=0;
+	craft->clipmask=MASK_SHOT;
+	craft->movetype=MOVETYPE_FLYMISSILE;// Movetype = FLY
+	craft->solid=SOLID_BBOX; // Craft Body Box
+	VectorClear(craft->mins); // Must Clear these out
+	VectorClear(craft->maxs); // Must Clear these out.
+	craft->s.modelindex=gi.modelindex(STROGG_SHIP_MODEL);
+	craft->owner=ent;
+	craft->takedamage=DAMAGE_YES;
+	craft->touch=craft_touch;
+	craft->nextthink=PRESENT_TIME+30;
+	craft->think=G_FreeEdict;
+	gi.linkentity(craft);
+
+	launch_airstrike_salvo(ent,ENTS_AIRSTRIKE_TYPE);
+
+	gi.sound(craft, CHAN_AUTO, FLYBY1_SOUND, 0.7, ATTN_NORM, 0);
+}
+
+//======================================================
+//============ Airstrike Targeting Routine =============
+//======================================================
+void Get_Target_Position(edict_t *ent, vec3_t endpos) {
+	vec3_t zvec={0,0,0}, start={0,0,0}, forward={0,0,0},
+	endpt={0,0,0}, targetdir={0,0,0};
+	trace_t tr, tr_2;
+
+	// find the target's end point
+	VectorCopy(ent->s.origin, start);
+	start[2] += ENTS_VIEW_HEIGHT;
+	AngleVectors(ent->client->v_angle, forward, NULL, NULL);
+	VectorMA(start, MAX_WORLD_HEIGHT, forward, endpt);
+	tr=gi.trace(start, NULL, NULL, endpt, ent, MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+
+	// find the direction from the entry point to the target
+	VectorSubtract(tr.endpos, endpos, targetdir);
+	VectorNormalize(targetdir);
+	VectorAdd(endpos, targetdir, start);
+
+	tr_2=gi.trace(start, NULL, NULL, tr.endpos, ent,
+	MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+
+	// Do we have a clear line of fire?
+	if (gi.pointcontents(start) == CONTENTS_SOLID || tr_2.fraction < 1.0) {
+	// Clear out the airstrike positioning vectors.
+	ENT_CALLED_AIRSTRIKE=false; // Call off airstrike..
+	gi.cprintf(ent, PRINT_HIGH, "No Line-Of-Fire to Target!!\n");
+	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.8, ATTN_NORM, 0);
+	return; }
+
+	// Clear path to target - prepare for Airstrike.
+	VectorCopy(start, ENTS_AIRSTRIKE_START);
+	VectorCopy(targetdir, ENTS_AIRSTRIKE_TARGETDIR);
+}

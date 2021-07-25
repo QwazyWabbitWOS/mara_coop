@@ -1,5 +1,6 @@
 
 #include "g_local.h"
+#include "p_hook.h"
 #include "m_player.h"
 
 static edict_t *current_player;
@@ -844,6 +845,11 @@ P_FallingDamage(edict_t *ent)
 	if (ent->waterlevel == 3)
 	{
 		return;
+	}
+
+	if (ent->client->hook_state == HOOK_ON)
+	{
+        return;
 	}
 
 	if (ent->waterlevel == 2)

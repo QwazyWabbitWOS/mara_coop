@@ -514,7 +514,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 			if((targ->svflags & SVF_MONSTER) &&
 				attacker &&
 				attacker->client &&
-				attacker->client->pers.netname &&
+				attacker->client->pers.netname[0] &&
 				targ->classname &&
 				!Q_stricmp(targ->classname, "monster_turret")) /* FS: Coop: monster_turrets have MOVETYPE_NONE so they stop here. */
 			{
@@ -528,7 +528,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 	if ((targ->svflags & SVF_MONSTER) && (targ->deadflag != DEAD_DEAD))
 	{
 		targ->touch = NULL;
-		if(attacker && attacker->client && attacker->client->pers.netname && targ && targ->classname) /* FS: Coop: Announce who we killed */
+		if(attacker && attacker->client && attacker->client->pers.netname[0] && targ && targ->classname) /* FS: Coop: Announce who we killed */
 		{
 			GetCoopMeansOfDeath(targ->classname, attacker->client->pers.netname);
 		}
@@ -1046,14 +1046,14 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	/* friendly fire avoidance. If enabled you can't
 	   hurt teammates (but you can hurt yourself)
 	   knockback still occurs */
-	if ((targ != attacker) && ((deathmatch->value &&
+	if ((targ != attacker) && (((int)deathmatch->value &&
 		 ((int)(dmflags->value) & (DF_MODELTEAMS | DF_SKINTEAMS))) ||
-		 coop->value))
+		 (int)coop->value))
 	{
 		if (OnSameTeam(targ, attacker))
 		{
 			/* nukes kill everyone */
-			if ((((int)(dmflags->value) & DF_NO_FRIENDLY_FIRE) || coop->value) && (mod != MOD_TELEFRAG) && /* FS: Coop: No friendly fire in Coop, except for telefrags */
+			if ((((int)(dmflags->value) & DF_NO_FRIENDLY_FIRE) || (int)coop->value) && (mod != MOD_TELEFRAG) && /* FS: Coop: No friendly fire in Coop, except for telefrags */
 				(mod != MOD_NUKE)) /* FS: Coop: Rogue specific */
 			{
 				damage = 0;

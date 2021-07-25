@@ -1255,3 +1255,44 @@ extern int vidref_val;
 #define DEVELOPER_MSG_UNUSED2		0x00008000 // 32768
 #define DEVELOPER_MSG_VERBOSE		0x00010000 // 65536
 #define DEVELOPER_MSG_GAMESPY		0x00020000 // 131072
+
+// AIRSTRIKE CODE
+#define MAX_WORLD_HEIGHT 8192
+
+#define PRESENT_TIME level.time
+//QW// defined in g_local.h, not here
+//#define FRAMETIME 0.1f
+
+#define DMFLAGS_IS_INFINITE_AMMO ((int)dmflags->value & DF_INFINITE_AMMO)
+
+#define ENTS_AMMO_INDEX ent->client->ammo_index
+#define ITEM_IN_ENTS_INVENTORY ent->client->pers.inventory[index]
+
+#define BOMB_MODEL "models/objects/bomb/tris.md2"
+#define ROCKET_MODEL "models/objects/rocket/tris.md2"
+#define GRENADE_MODEL "models/objects/grenade/tris.md2"
+#define STROGG_SHIP_MODEL "models/ships/viper/tris.md2"
+
+// Global sound definitions.
+#define PILOT1_SOUND gi.soundindex("world/pilot1.wav")
+#define PILOT2_SOUND gi.soundindex("world/pilot2.wav")
+#define PILOT3_SOUND gi.soundindex("world/pilot3.wav")
+#define FLYBY1_SOUND gi.soundindex("world/flyby1.wav")
+
+#define rockflysound gi.soundindex("weapons/rockfly.wav")
+
+// Type of airstrike desired
+#define ROCKET_BOMBS 0x00000001 // airstrike1
+#define CLUSTER_BOMBS 0x00000002 // airstrike2
+#define BFG_NUKE 0x00000003 // airstrike3
+
+// Airstrike Global Substitutions.
+#define ENTS_TIME_TO_AIRSTRIKE ent->client->airstrike_time
+#define ENT_CALLED_AIRSTRIKE ent->client->airstrike_called
+#define ENTS_AIRSTRIKE_TYPE ent->client->airstrike_type
+#define ENTS_AIRSTRIKE_START ent->client->airstrike_start
+#define ENTS_AIRSTRIKE_TARGETDIR ent->client->airstrike_targetdir
+
+#define ENTS_VIEW_HEIGHT ent->viewheight
+#define ENTS_V_ANGLE ent->client->v_angle
+#define ENTS_S_ORIGIN ent->s.origin

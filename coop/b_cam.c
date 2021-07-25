@@ -179,6 +179,8 @@ static void ShowStats(edict_t *ent, edict_t *player)
 		return;
 	}
 
+	armor = 0;
+
 	if (CellsIndex == -1)
 	{
 		CellsIndex = ITEM_INDEX(FindItem("cells"));
@@ -859,7 +861,6 @@ void Cmd_Summon_f(edict_t *ent)
 void Cmd_Teleport_f(edict_t *ent)
 {
 	char *name = gi.args();
-	int i = 0;
 	edict_t *player;
 	qboolean exactMatch = true;
 

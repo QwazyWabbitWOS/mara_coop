@@ -103,6 +103,7 @@ void SP_misc_blackhole(edict_t *self);
 void SP_misc_eastertank(edict_t *self);
 void SP_misc_easterchick(edict_t *self);
 void SP_misc_easterchick2(edict_t *self);
+void SP_misc_teleporter_offworld (edict_t *self);
 
 void SP_monster_berserk(edict_t *self);
 void SP_monster_gladiator(edict_t *self);
@@ -313,6 +314,7 @@ spawn_t spawns[] = {
 	{"misc_eastertank", SP_misc_eastertank},
 	{"misc_easterchick", SP_misc_easterchick},
 	{"misc_easterchick2", SP_misc_easterchick2},
+	{"misc_offworld_teleporter", SP_misc_teleporter_offworld},
 	{"misc_crashviper", SP_misc_crashviper}, /* FS: Coop: Xatrix specific */
 	{"misc_viper_missile", SP_misc_viper_missile}, /* FS: Coop: Xatrix specific */
 	{"misc_amb4", SP_misc_amb4}, /* FS: Coop: Xatrix specific */

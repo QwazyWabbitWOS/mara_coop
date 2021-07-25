@@ -38,7 +38,7 @@ flechette_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf
 {
 	vec3_t dir;
 
-	if (!self || !other || !plane || !surf)
+	if (!self || !other || !surf)
 	{
 		return;
 	}
@@ -190,7 +190,7 @@ prox_die(edict_t *self, edict_t *inflictor, edict_t *attacker /* unused */,
 		return;
 	}
 
-	if (inflictor->classname && strcmp(inflictor->classname, "prox"))
+	if (inflictor->classname && strcmp(inflictor->classname, "prox") != 0)
 	{
 		self->takedamage = DAMAGE_NO;
 		Prox_Explode(self);
@@ -410,11 +410,12 @@ prox_land(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 	{
 		/* Here we need to check to see if we can stop on this entity. */
 		vec3_t out;
+		vec3_t zeroVec = { 0 };
 
 		float backoff, change;
 		int i;
 
-		if (!plane->normal) /* this happens if you hit a point object, maybe other cases */
+		if (VectorCompare(plane->normal, zeroVec)) /* this happens if you hit a point object, maybe other cases */
 		{
 			Prox_Explode(ent);
 			return;
@@ -746,7 +747,7 @@ void
 nuke_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker, int damage, vec3_t point)
 {
-	if (!self || !attacker)
+	if (!self)
 	{
 		return;
 	}

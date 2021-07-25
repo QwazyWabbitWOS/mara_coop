@@ -26,7 +26,7 @@
 
 #include "g_local.h"
 
-#define COOP_VERSION			0.01b
+#define COOP_VERSION			1.00t
 #define COOP_VSTRING2(x) #x
 #define COOP_VSTRING(x) COOP_VSTRING2(x)
 #define COOP_STRING_VERSION  COOP_VSTRING(COOP_VERSION)
@@ -70,7 +70,7 @@ extern void VoteMenuOpen(edict_t *ent);
 
 pmenu_t creditsmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Programming", PMENU_ALIGN_CENTER, NULL},
@@ -96,7 +96,7 @@ static const int jmenu_motd = 15;
 
 pmenu_t joinmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -118,7 +118,7 @@ pmenu_t joinmenu[] = {
 
 pmenu_t nochasemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
@@ -129,7 +129,7 @@ pmenu_t nochasemenu[] = {
 
 pmenu_t votemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
@@ -152,7 +152,7 @@ pmenu_t votemenu[] = {
 
 pmenu_t votegamemodemenuheader[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Gamemode", PMENU_ALIGN_CENTER, NULL},
@@ -171,7 +171,7 @@ pmenu_t *votegamemodemenu = NULL;
 
 pmenu_t voteskillmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Difficulty", PMENU_ALIGN_CENTER, NULL},
@@ -188,10 +188,10 @@ pmenu_t voteskillmenu[] = {
 
 #define MOTDMENU_START 4
 #define MOTDMENU_END 16
-#define MOTDMENU_MAXLINES MOTDMENU_END-MOTDMENU_START
+#define MOTDMENU_MAXLINES ((MOTDMENU_END)-(MOTDMENU_START))
 pmenu_t motdmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -214,7 +214,7 @@ pmenu_t motdmenu[] = {
 #define BLINKYMENU_SUMMON 10
 pmenu_t blinkymenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Blinky Camera", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -237,7 +237,7 @@ pmenu_t blinkymenu[] = {
 #define SUMMONMENU_START 6
 pmenu_t summonmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Summon Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -260,7 +260,7 @@ pmenu_t summonmenu[] = {
 #define TELEPORTMENU_START 6
 pmenu_t teleportmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Teleport to Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -283,7 +283,7 @@ pmenu_t teleportmenu[] = {
 #define CHASEMENU_START 6
 pmenu_t chasemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Chase Cam Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -306,7 +306,7 @@ pmenu_t chasemenu[] = {
 #define PLAYERKICKMENU_START 6
 pmenu_t playerkickmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Kick Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -329,7 +329,7 @@ pmenu_t playerkickmenu[] = {
 #define PLAYERBANMENU_START 6
 pmenu_t playerbanmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Ban Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -351,7 +351,7 @@ pmenu_t playerbanmenu[] = {
 
 pmenu_t votemapheadermenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"*Mara'akate and Freewill", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Maps", PMENU_ALIGN_CENTER, NULL},
@@ -887,6 +887,11 @@ void CoopVoteMap(edict_t *ent, pmenuhnd_t *p /* unused */)
 	votemenu_loadmaplist();
 	size = sizeof(pmenu_t) * (mapCount + 2);
 	votemapmenu = malloc(size);
+	if (!votemapmenu)
+	{
+		gi.error("CoopVoteMap:  Failed allocating memory.\n");
+		return;
+	}
 	memset((pmenu_t *)votemapmenu, 0, size);
 	CoopUpdateVoteMapMenu(ent);
 
@@ -991,7 +996,7 @@ void CoopCheckGamemode(edict_t *ent, pmenuhnd_t *p /* unused */)
 
 void CoopCheckDifficulty(edict_t *ent, pmenuhnd_t *p /* unused */)
 {
-	char votestring[64];
+	char votestring[64] = { 0 };
 
 	if(!ent || !ent->client)
 	{
@@ -1651,6 +1656,11 @@ void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */)
 	votemenu_loadmaplist();
 	size = sizeof(pmenu_t) * (gamemodeCount + 2);
 	votegamemodemenu = malloc(size);
+	if (!votegamemodemenu)
+	{
+		gi.error("CoopVoteGamemodeDynamic:  Failed allocating memory.\n");
+		return;
+	}
 	memset((pmenu_t *)votegamemodemenu, 0, size);
 
 	for (i = 0; i < gamemodeCount; i++)
