@@ -36,6 +36,22 @@ void stuffcmd(edict_t *e, char *s)
 	gi.unicast (e, true);
 }
 
+/** Case independent string compare (strcasecmp)
+ if s1 is contained within s2 then return 0, they are "equal".
+ else return the lexicographic difference between them.
+*/
+int	Q_stricmp(const char *s1, const char *s2)
+{
+	const unsigned char
+		*uc1 = (const unsigned char *)s1,
+		*uc2 = (const unsigned char *)s2;
+
+	while (tolower(*uc1) == tolower(*uc2++))
+		if (*uc1++ == '\0')
+			return (0);
+	return (tolower(*uc1) - tolower(*--uc2));
+}
+
 // required for the RE code
 
 char *q2admin_malloc (int size)
@@ -76,6 +92,74 @@ void q2admin_free (char *mem)
 	gi.TagFree(mem - sizeof(int));
 }
 
+
+/*
+===============
+Info_ValueForKey
+ 
+Searches the string for the given
+key and returns the associated value, or an empty string.
+===============
+*/
+char *Info_ValueForKey(char *s, char *key)
+{
+	char pkey[MAX_INFO_STRING] = { 0 };
+	static char value[2][MAX_INFO_STRING];// use two buffers so compares
+	// work without stomping on each other
+	static int valueindex;
+	char *o;
+	
+	valueindex ^= 1;
+	if (*s == '\\')
+		s++;
+	while (1)
+		{
+			o = pkey;
+			while (*s != '\\')
+				{
+					if (!*s)
+						return "";
+					*o++ = *s++;
+				}
+			*o = 0;
+			s++;
+			
+			o = value[valueindex];
+			
+			while (*s != '\\' && *s)
+				{
+					if (!*s)
+						return "";
+					*o++ = *s++;
+				}
+			*o = 0;
+			
+			if (!q2a_strcmp (key, pkey) )
+				return value[valueindex];
+				
+			if (!*s)
+				return "";
+			s++;
+		}
+}
+
+
+/*
+==================
+Info_Validate
+ 
+Some characters are illegal in info strings because they
+can mess up the server's parsing
+==================
+*/
+qboolean Info_Validate(char *s)
+{
+	if(q2a_strstr(s,"\""))
+		return false;
+	if(q2a_strstr(s,";"))
+		return false;
+	return true;
+}
 
 
 void copyDllInfo(void)
@@ -165,84 +249,90 @@ int isBlank(char *buff1)
 }
 
 
-char *processstring(char *output, char *input, int max, char end)
+char* processstring(char* output, char* input, int max, char end)
 {
 
-	while( *input && *input != end && max)
+	while (*input && *input != end && max)
+	{
+		if (*input == '\\')
 		{
-			if( *input == '\\')
+			input++;
+
+			if ((*input == 'n') || (*input == 'N'))
+			{
+				*output++ = '\n';
+				input++;
+			}
+			else if ((*input == 'd') || (*input == 'D'))
+			{
+				*output++ = '$';
+				input++;
+			}
+			else if ((*input == 'q') || (*input == 'Q'))
+			{
+				*output++ = '\"';
+				input++;
+			}
+			else if ((*input == 's') || (*input == 'S'))
+			{
+				*output++ = ' ';
+				input++;
+			}
+			else if ((*input == 'm') || (*input == 'M'))
+			{
+				int modlen = (int)strlen(moddir);
+				if (max >= modlen && modlen)
 				{
-					*input++;
-					
-					if((*input == 'n') || (*input == 'N'))
-					{
-						*output++ = '\n';
-						input++;
-					}
-					else if((*input == 'd') || (*input == 'D'))
-					{
-						*output++ = '$';
-						input++;
-					}
-					else if((*input == 'q') || (*input == 'Q'))
-					{
-						*output++ = '\"';
-						input++;
-					}
-					else if((*input == 's') || (*input == 'S'))
-					{
-						*output++ = ' ';
-						input++;
-					}
-					else if((*input == 'm') || (*input == 'M'))
-					{
-						int modlen = strlen(moddir);
-						if(max >= modlen && modlen)
-							{
-								q2a_strcpy(output, moddir);
-								output += modlen;
-								max -=(modlen- 1);
-							}
-						input++;
-					}
-					else if((*input == 't') || (*input == 'T'))
-					{
-						struct tm*timestamptm;
-						time_t timestampsec;
-						char *timestampcp;
-						int timestamplen;
-
-						time(&timestampsec);/* Get time in seconds */
-						timestamptm= localtime(&timestampsec);/* Convert time to struct */
-						/* tm form */
-
-						timestampcp= asctime( timestamptm);/* get string version of date / time */
-						timestamplen= strlen( timestampcp)- 1;/* length minus the '\n' */
-
-						if(timestamplen && max>= timestamplen)
-						{
-							q2a_strncpy(output, timestampcp, timestamplen);
-							output += timestamplen;
-							max -=(timestamplen- 1);
-						}
-						input++;
-					}
-					else
-					{
-						*output++ = *input++;
-					}
-						
-					max--;
+					q2a_strcpy(output, moddir);
+					output += modlen;
+					max -= (modlen - 1);
 				}
+				input++;
+			}
+			else if ((*input == 't') || (*input == 'T'))
+			{
+				struct tm* timestamptm;
+				time_t timestampsec;
+				char* timestampcp = NULL;
+				size_t timestamplen;
+				char timestr[32];
+
+				time(&timestampsec);/* Get time in seconds */
+				timestamptm = localtime(&timestampsec);/* Convert time to struct */
+				/* tm form */
+
+				timestampcp = asctime(timestamptm);/* get string version of date / time */
+				if (timestampcp) /* Cover case of asctime failure */
+					timestamplen = strlen(timestampcp) - 1;/* length minus the '\n' */
+				else
+					timestamplen = 0;
+
+				if (timestampcp && timestamplen && max >= timestamplen)
+				{
+					strncpy(timestr, timestampcp, sizeof timestr);
+					timestr[timestamplen] = '\0';
+					strcpy(output, timestr);
+					output += timestamplen;
+					max -= ((int)timestamplen - 1);
+				}
+				input++;
+			}
 			else
-				{
-					*output++ = *input++;
-					max--;
-				}
+			{
+				*output++ = *input++;
+			}
+
+			max--;
 		}
-		
-	*output= 0x0;
-	
+		else
+		{
+			*output++ = *input++;
+			max--;
+		}
+	}
+
+	*output = 0x0;
+
 	return input;
 }
 
@@ -306,15 +396,14 @@ int getLastLine(char *buffer, FILE*dumpfile, long*fpos)
 }
 
 
-void q_strupr(char *c)
+void q_strupr(char* c)
 {
-	while(*c)
+	while (*c)
+	{
+		if (islower((*c)))
 		{
-			if(islower((*c)))
-				{
-					*c = toupper((*c));
-				}
-				
-			c++;
+			*c = toupper((*c));
 		}
+		c++;
+	}
 }

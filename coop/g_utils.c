@@ -89,7 +89,7 @@ G_Find(edict_t *from, int fieldofs, char *match)
 edict_t *
 findradius(edict_t *from, vec3_t org, float rad)
 {
-	vec3_t eorg;
+	vec3_t eorg = { 0 };
 	int j;
 
 	if (!from)
@@ -116,7 +116,7 @@ findradius(edict_t *from, vec3_t org, float rad)
 		for (j = 0; j < 3; j++)
 		{
 			eorg[j] = org[j] - (from->s.origin[j] +
-					   (from->mins[j] + from->maxs[j]) * 0.5);
+					   (from->mins[j] + from->maxs[j]) * 0.5f);
 		}
 
 		if (VectorLength(eorg) > rad)
@@ -137,7 +137,7 @@ edict_t *
 findradius2(edict_t *from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
 {
 	/* rad must be positive */
-	vec3_t eorg;
+	vec3_t eorg = { 0 };
 	int j;
 
 	if (!from)
@@ -173,7 +173,7 @@ findradius2(edict_t *from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
 
 		for (j = 0; j < 3; j++)
 		{
-			eorg[j] = org[j] - (from->s.origin[j] + (from->mins[j] + from->maxs[j]) * 0.5);
+			eorg[j] = org[j] - (from->s.origin[j] + (from->mins[j] + from->maxs[j]) * 0.5f);
 		}
 
 		if (VectorLength(eorg) > rad)
@@ -202,7 +202,7 @@ G_PickTarget(char *targetname)
 {
 	edict_t *ent = NULL;
 	int num_choices = 0;
-	edict_t *choice[MAXCHOICES];
+	edict_t *choice[MAXCHOICES] = { 0 };
 
 	if (!targetname)
 	{
@@ -297,7 +297,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 	/* print the message */
 	if ((activator) && (ent->message) && !(activator->svflags & SVF_MONSTER))
 	{
-		if(coop->intValue && activator->client && activator->client->pers.netname && strcmp("This item must be activated to use it.", ent->message)) /* FS: Coop: Print any use target stuff as global map message to all players */
+		if(coop->value && activator->client && activator->client->pers.netname && strcmp("This item must be activated to use it.", ent->message)) /* FS: Coop: Print any use target stuff as global map message to all players */
 		{
 			gi.bprintf(PRINT_HIGH, "\x02[MAPMSG][%s]: ", activator->client->pers.netname);
 			gi.bprintf(PRINT_HIGH, "%s\n", ent->message);
@@ -418,8 +418,8 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 float *
 tv(float x, float y, float z)
 {
-	static int index;
-	static vec3_t vecs[8];
+	static int index = { 0 };
+	static vec3_t vecs[8] = { 0 };
 	float *v;
 
 	/* use an array so that multiple
@@ -442,8 +442,8 @@ tv(float x, float y, float z)
 char *
 vtos(vec3_t v)
 {
-	static int index;
-	static char str[8][32];
+	static int index = { 0 };
+	static char str[8][32] = { 0 };
 	char *s;
 
 	/* use an array so that multiple vtos won't collide */
@@ -623,7 +623,7 @@ vectoangles(vec3_t value1, vec3_t angles)
 			yaw += 360;
 		}
 
-		forward = sqrt(value1[0] * value1[0] + value1[1] * value1[1]);
+		forward = sqrtf(value1[0] * value1[0] + value1[1] * value1[1]);
 		pitch = (int)(atan2(value1[2], forward) * 180 / M_PI);
 
 		if (pitch < 0)
@@ -681,7 +681,7 @@ vectoangles2(vec3_t value1, vec3_t angles) /* FS: Coop: Rogue specific */
 			yaw += 360;
 		}
 
-		forward = sqrt(value1[0] * value1[0] + value1[1] * value1[1]);
+		forward = sqrtf(value1[0] * value1[0] + value1[1] * value1[1]);
 		pitch = (atan2(value1[2], forward) * 180 / M_PI);
 
 		if (pitch < 0)
@@ -758,7 +758,7 @@ G_Spawn(void)
 		/* the first couple seconds of server time can involve a lot of
 		   freeing and allocating, so relax the replacement policy */
 		if (!e->inuse &&
-			((e->freetime < 2) || (level.time - e->freetime > 0.5)))
+			((e->freetime < 2) || (level.time - e->freetime > 0.5f)))
 		{
 			G_InitEdict(e);
 			return e;
@@ -1034,7 +1034,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 		return NULL;
 	}
 
-	for (i = 0; i < maxclients->intValue; i++)
+	for (i = 0; i < maxclients->value; i++)
 	{
 		char *netName;
 		player = &g_edicts[i+1];
@@ -1058,7 +1058,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 		}
 		else
 		{
-			if(strstr(netName, nameLwrd))
+			if (netName && strstr(netName, nameLwrd))
 			{
 				foundPlayer = player;
 				count++;
@@ -1108,7 +1108,7 @@ qboolean G_SpawnCheck(int cap)
 		/* the first couple seconds of server time can involve a lot of
 		   freeing and allocating, so relax the replacement policy */
 		if (!e->inuse &&
-			((e->freetime < 2) || (level.time - e->freetime > 0.5))
+			((e->freetime < 2) || (level.time - e->freetime > 0.5f))
 			&& (i <= game.maxentities - cap))
 		{
 //			Com_Printf("%d / %d / %d\n", i, game.maxentities-cap, game.maxentities);

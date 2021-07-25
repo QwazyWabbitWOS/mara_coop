@@ -86,7 +86,7 @@ qboolean ReadVoteFile(char *votename)
 	while(fgets(buffer, 256, votefile))
 		{
 			char *cp = buffer;
-			int len;
+			size_t len;
 			
 			// remove '\n'
 			len = q2a_strlen(buffer) - 1;
@@ -125,11 +125,11 @@ qboolean ReadVoteFile(char *votename)
 					// zero length command
 					if(!len)
 						{
-							gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+							gi.dprintf ("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 							continue;
 						}
 						
-					votecmds[maxvote_cmds].votecmd = gi.TagMalloc (len, TAG_LEVEL);
+					votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_LEVEL);
 					q2a_strcpy(votecmds[maxvote_cmds].votecmd, cp);
 					
 					if(votecmds[maxvote_cmds].type == VOTE_RE)
@@ -145,7 +145,7 @@ qboolean ReadVoteFile(char *votename)
 									votecmds[maxvote_cmds].r = 0;
 									
 									// malformed re... skip this vote command
-									gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+									gi.dprintf ("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 									continue;
 								}
 						}
@@ -163,7 +163,7 @@ qboolean ReadVoteFile(char *votename)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
+					gi.dprintf ("Error loading VOTE from line %d in file %s\n", uptoLine, votename);
 				}
 		}
 		
@@ -204,7 +204,7 @@ void readVoteLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf("WARNING: " VOTEFILE " could not be found\n");
+			gi.dprintf ("WARNING: " VOTEFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, VOTEFILE " could not be found", IW_VOTESETUPLOAD, 0.0);
 		}
 }
@@ -305,7 +305,7 @@ void displayNextVote(edict_t *ent, int client, long votecmd)
 void votecmdRun(int startarg, edict_t *ent, int client)
 {
 	char *cmd;
-	int len;
+	size_t len;
 	
 	if(maxvote_cmds >= VOTE_MAXCMDS)
 		{
@@ -349,8 +349,8 @@ void votecmdRun(int startarg, edict_t *ent, int client)
 		
 	len = q2a_strlen(cmd) + 20;
 	
-	votecmds[maxvote_cmds].votecmd = gi.TagMalloc (len, TAG_LEVEL);
-	processstring(votecmds[maxvote_cmds].votecmd, cmd, len - 1, 0);
+	votecmds[maxvote_cmds].votecmd = gi.TagMalloc ((int)len, TAG_LEVEL);
+	processstring(votecmds[maxvote_cmds].votecmd, cmd, (int)len - 1, 0);
 	//  q2a_strcpy(votecmds[maxvote_cmds].votecmd, cmd);
 	
 	if(votecmds[maxvote_cmds].type == VOTE_RE)
@@ -612,19 +612,19 @@ void run_vote(edict_t *ent, int client)
 		{
 			if(voteminclients)
 				{
-					int client;
-					int maxclientsingame = 0;
+					int client_num;
+					int client_count = 0;
 					
 					// count number of clients
-					for(client = 0; client < maxclients->value; client++)
+					for(client_num = 0; client_num < maxclients->value; client_num++)
 						{
-							if(proxyinfo[client].inuse)
+							if(proxyinfo[client_num].inuse)
 								{
-									maxclientsingame++;
+									client_count++;
 								}
 						}
 						
-					if(voteminclients > maxclientsingame)
+					if(voteminclients > client_count)
 						{
 							gi.cprintf(ent, PRINT_HIGH, "Not enough people to vote.\n");
 							return;
@@ -710,82 +710,91 @@ void checkOnVoting(void)
 	unsigned int maxclientsused = 0, voteyes = 0, voteno = 0, novote = 0;
 	double percent;
 	char printstr[100];
-	
-	if(voteinprogress)
+
+	if (voteinprogress)
+	{
+		// count votes and run vote command if successful
+		for (client = 0; client < maxclients->value; client++)
 		{
-			// count votes and run vote command if successful
-			for(client = 0; client < maxclients->value; client++)
+			if (proxyinfo[client].inuse)
+			{
+				if (!(proxyinfo[client].clientcommand & CCMD_VOTED))
 				{
-					if(proxyinfo[client].inuse)
-						{
-							if(!(proxyinfo[client].clientcommand & CCMD_VOTED))
-								{
-									break;
-								}
-						}
+					break;
 				}
-				
-			if(votetimeout < ltime || client >= maxclients->value)
-				{
-					voteinprogress = 0;
-					
-					// count votes and run vote command if successful
-					for(client = 0; client < maxclients->value; client++)
-						{
-							if(proxyinfo[client].inuse)
-								{
-									maxclientsused++;
-									
-									if(proxyinfo[client].clientcommand & CCMD_VOTED)
-										{
-											if(proxyinfo[client].clientcommand & CCMD_VOTEYES)
-												{
-													voteyes++;
-												}
-											else
-												{
-													voteno++;
-												}
-										}
-									else
-										{
-											novote++;
-										}
-								}
-								
-							proxyinfo[client].clientcommand &= ~(CCMD_VOTEYES | CCMD_VOTED);
-						}
-						
-					percent = ((double)voteyes / ((double)maxclientsused - ((double)votecountnovotes ? 0.0 : novote)));
-					
-					if(percent >= ((double)votepasspercent / 100))
-						{
-							q2a_strcpy(printstr, "Vote PASSED!");
-							q2a_strcpy(cmdpassedvote, cmdvote); //UPDATE
-							addCmdQueue(-1, QCMD_RUNVOTECMD, 5, 0, 0);
-						}
-					else
-						{
-							q2a_strcpy(printstr, "Vote FAILED!");
-						}
-						
-					for(client = 0; client < maxclients->value; client++)
-						{
-							if(proxyinfo[client].inuse)
-								{
-									gi.centerprintf(getEnt((client + 1)), "%s\n"
-													"\n"
-													"Vote Summary:\n"
-													"Proposed Vote: %s\n"
-													"Voted Yes: %d    Voted No: %d\n"
-													"Didn't Vote: %d\n", printstr, cmdvote, voteyes, voteno, novote);
-								}
-						}
-				}
-			else if(voteremindtimeout < ltime)
-				{
-					voteremindtimeout = ltime + clientRemindTimeout;
-					displayVote();
-				}
+			}
 		}
+
+		if (votetimeout < ltime || client >= maxclients->value)
+		{
+			voteinprogress = 0;
+
+			// count votes and run vote command if successful
+			for (client = 0; client < maxclients->value; client++)
+			{
+				if (proxyinfo[client].inuse)
+				{
+					maxclientsused++;
+
+					if (proxyinfo[client].clientcommand & CCMD_VOTED)
+					{
+						if (proxyinfo[client].clientcommand & CCMD_VOTEYES)
+						{
+							voteyes++;
+						}
+						else
+						{
+							voteno++;
+						}
+					}
+					else
+					{
+						novote++;
+					}
+				}
+
+				proxyinfo[client].clientcommand &= ~(CCMD_VOTEYES | CCMD_VOTED);
+			}
+
+			percent = ((double)voteyes / ((double)maxclientsused - ((double)votecountnovotes ? 0.0 : novote)));
+
+			if (percent >= ((double)votepasspercent / 100))
+			{
+				q2a_strcpy(printstr, "Vote PASSED!");
+				// was it a map vote?
+				if (q2a_strstr(cmdvote, "map"))
+				{
+					//r1q2 & q2pro won't do "map" so we insert "game" to get "gamemap"
+					q2a_strcpy(cmdpassedvote, "game");
+					q2a_strcat(cmdpassedvote, cmdvote);
+				}
+				else
+					q2a_strcpy(cmdpassedvote, cmdvote);
+
+				addCmdQueue(-1, QCMD_RUNVOTECMD, 5, 0, 0);
+			}
+			else
+			{
+				q2a_strcpy(printstr, "Vote FAILED!");
+			}
+
+			for (client = 0; client < maxclients->value; client++)
+			{
+				if (proxyinfo[client].inuse)
+				{
+					gi.centerprintf(getEnt((client + 1)), "%s\n"
+						"\n"
+						"Vote Summary:\n"
+						"Proposed Vote: %s\n"
+						"Voted Yes: %d    Voted No: %d\n"
+						"Didn't Vote: %d\n", printstr, cmdvote, voteyes, voteno, novote);
+				}
+			}
+		}
+		else if (voteremindtimeout < ltime)
+		{
+			voteremindtimeout = ltime + clientRemindTimeout;
+			displayVote();
+		}
+	}
 }

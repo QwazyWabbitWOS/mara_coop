@@ -1606,7 +1606,7 @@ SP_monster_fixbot(edict_t *self)
 		return;
 	}
 
-	if ((int)deathmatch->value)
+	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
 		return;

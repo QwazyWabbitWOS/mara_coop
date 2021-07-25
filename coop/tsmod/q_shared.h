@@ -28,8 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // q_shared.h -- included first by ALL program modules
 
-#pragma once
-
 #ifdef _WIN32
 // unknown pragmas are SUPPOSED to be ignored, but....
 #pragma warning(disable : 4244)	// float to int conversion warning
@@ -42,20 +40,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #pragma warning(disable : 4459)	// declaration of 'var' hides global declaration.
 #endif
+
 #endif
-
-//r1ch
-//#define	snprintf _snprintf
-
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 /*
 #include <assert.h>
 */
 #include <math.h>
+
+//QwazyWabbit// 
+// From VS2015 with linkage to Visual Studio platform toolset v140 or later
+// snprintf is C99 standard compliant and always '\0' terminates.
+// We can now use the standard library function as long as we take care to
+// link to the correct C runtime and not the older CRT libraries.
+// Even so, usage in q2admin explicitly zero terminates the strings.
+#if defined _WIN32 && _MSC_VER < 1900
+//r1ch
+#define	snprintf _snprintf
+#endif
 
 #if defined _M_IX86 && !defined C_ONLY
 #define id386 1
@@ -69,14 +76,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define idaxp 0
 #endif
 
-typedef unsigned char 		byte;
-typedef enum { false, true }	qboolean;
+typedef unsigned char byte;
+typedef enum{false, true} qboolean;
 
-#ifdef _WIN32
-#ifndef __func__	// C++11 mandated identifier
-#define __func__ __FUNCTION__ // else use the ANSI C (C9x)
-#endif
-#endif
 
 #ifndef NULL
 #define NULL ((void *)0)
@@ -108,11 +110,6 @@ char *strtok_r(char *s, const char *delim, char **last);
 #else
 #define Q_vsnprintf  vsnprintf
 #endif
-
-#define CL_MASTER_ADDR	"maraakate.org" /* FS: master.gamespy.com & co are dead */
-#define CL_MASTER_PORT	"28900"
-#define SV_MASTER_IP	"maraakate.org" /* FS: master.gamespy.com & co are dead */
-#define SV_MASTER_PORT	"27900"
 
 // angle indexes
 #define PITCH    0  // up / down
@@ -180,9 +177,9 @@ typedef float vec_t;
 typedef vec_t vec3_t[3];
 typedef vec_t vec5_t[5];
 
-typedef	int	fixed4_t;
-typedef	int	fixed8_t;
-typedef	int	fixed16_t;
+typedef int fixed4_t;
+typedef int fixed8_t;
+typedef int fixed16_t;
 
 // Knightmare added
 #ifndef min
@@ -222,11 +219,11 @@ extern vec3_t vec3_origin;
 // microsoft's fabs seems to be ungodly slow...
 //float Q_fabs (float f);
 //#define	fabs(f) Q_fabs(f)
-#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
-extern int Q_ftol( float f );
-#else
-#define Q_ftol( f ) ( long ) (f)
-#endif
+//#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
+//extern int Q_ftol( float f );
+//#else
+//#define Q_ftol( f ) ( long ) (f)
+//#endif
 
 #define DotProduct(x,y)			(x[0]*y[0]+x[1]*y[1]+x[2]*y[2])
 #define VectorSubtract(a,b,c)	(c[0]=a[0]-b[0],c[1]=a[1]-b[1],c[2]=a[2]-b[2])
@@ -295,14 +292,14 @@ void COM_DefaultExtension (char *path, char *extension);
 char *COM_Parse (char **data_p, char **command_p);
 // data is an in/out parm, returns a parsed out token
 
-void Com_sprintf (char *dest, int size, char *fmt, ...) __attribute__((__format__(__printf__,3,4)));
+void Com_sprintf (char *dest, int size, char *fmt, ...);
 
 void Com_PageInMemory (byte *buffer, int size);
 
 //=============================================
 
 // portable case insensitive compare
-int Q_stricmp (char *s1, char *s2);
+int Q_stricmp (const char* s1, const char* s2);
 int Q_strcasecmp (char *s1, char *s2);
 int Q_strncasecmp (char *s1, char *s2, int n);
 
@@ -315,8 +312,8 @@ int  LittleLong (int l);
 float BigFloat (float l);
 float LittleFloat (float l);
 
-void	Swap_Init (void);
-char	*va(char *format, ...) __attribute__((__format__(__printf__,1,2)));
+void Swap_Init (void);
+char *va(char *format, ...);
 
 //=============================================
 

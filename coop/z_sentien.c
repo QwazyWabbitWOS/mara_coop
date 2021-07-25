@@ -1359,7 +1359,7 @@ void SP_monster_sentien(edict_t *self)
 
 	self->monsterinfo.reducedDamageAmount = 0.85;
 
-	self->laser = NULL;
+//	self->laser = NULL;
 	gi.linkentity(self);
 
 	create_sentien_laser(self);

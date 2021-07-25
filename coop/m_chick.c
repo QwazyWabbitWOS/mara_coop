@@ -740,7 +740,7 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 	}
 
 	/* lead target (not when blindfiring) */
-	if ((!blindfire) && ((random() < (0.2 + ((3 - skill->value) * 0.15)))))
+	if ((!blindfire) && ((random() < (0.2f + ((3 - skill->value) * 0.15f)))))
 	{
 		float time;
 
@@ -1210,7 +1210,7 @@ chick_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 	}
 	else
 	{
-		self->monsterinfo.duck_wait_time = level.time + eta + (0.1 * (3 - skill->value));
+		self->monsterinfo.duck_wait_time = level.time + eta + (0.1f * (3 - skill->value));
 	}
 
 	/* has to be done immediately otherwise she can get stuck */

@@ -410,6 +410,7 @@ prox_land(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 	{
 		/* Here we need to check to see if we can stop on this entity. */
 		vec3_t out;
+
 		float backoff, change;
 		int i;
 
@@ -1391,7 +1392,7 @@ fire_beams(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
 			}
 			else
 			{
-				if ((!water) && (strncmp(tr.surface->name, "sky", 3)))
+				if ((!water) && (tr.surface) && (strncmp(tr.surface->name, "sky", 3)))
 				{
 					/* This is the truncated steam entry - uses 1+1+2 extra bytes of data */
 					gi.WriteByte(svc_temp_entity);
@@ -1509,7 +1510,7 @@ blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 	{
 		/* the only time players will be firing blaster2
 		   bolts will be from the defender sphere. */
-		if (self->owner->client)
+		if (self->owner && self->owner->client)
 		{
 			mod = MOD_DEFENDER_SPHERE;
 		}

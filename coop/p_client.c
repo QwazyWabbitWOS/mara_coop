@@ -353,6 +353,7 @@ SP_info_player_coop(edict_t *self)
 		{
 			G_FreeEdict(self);
 			self = NULL;
+			return;
 		}
 	}
 
@@ -428,7 +429,7 @@ SP_info_coop_checkpoint (edict_t * self )
 		return;
 	}
 
-	if((!coop->intValue) || (coop->intValue && !coop_checkpoints->intValue))
+	if((!coop->value) || (coop->value && !coop_checkpoints->value))
 	{
 		G_FreeEdict(self);
 		return;
@@ -923,7 +924,7 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 		}
 	}
 
-	if ((coop->intValue) && (attacker->svflags & SVF_MONSTER) && (attacker->classname)) /* FS: Coop: Get a more meaningful death message if we got killed by a monster */
+	if ((coop->value) && (attacker->svflags & SVF_MONSTER) && (attacker->classname)) /* FS: Coop: Get a more meaningful death message if we got killed by a monster */
 	{
 		gi.bprintf(PRINT_MEDIUM, "%s %s %s\n", self->client->pers.netname, GetCoopInsult(), GetProperMonsterName(attacker->classname));
 	}
@@ -1178,7 +1179,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 					self->client->pers.inventory[n];
 			}
 
-			if(!coop->intValue) /* FS: Coop: Keep inventory on respawn. */
+			if(!coop->value) /* FS: Coop: Keep inventory on respawn. */
 			{
 				self->client->pers.inventory[n] = 0;
 			}
@@ -1400,7 +1401,7 @@ InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on re
 
 	if (!ent || !ent->client)
 		return;
-	if (!coop->intValue)
+	if (!coop->value)
 		return;
 
 	client = ent->client;
@@ -1940,6 +1941,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 			if (!spot)
 			{
 				gi.error("Couldn't find spawn point %s\n", game.spawnpoint);
+				return;
 			}
 		}
 	}
@@ -2096,7 +2098,7 @@ respawn(edict_t *self)
 			CopyToBodyQue(self);
 		}
 
-		if(coop->intValue) /* FS: Coop: Respawn with the shotgun selected as the current weapon */
+		if(coop->value) /* FS: Coop: Respawn with the shotgun selected as the current weapon */
 		{
 			self->client->newweapon = self->client->pers.weapon = self->client->resp.coop_respawn.weapon = FindItem("shotgun");
 		}
@@ -2174,7 +2176,7 @@ spectator_respawn(edict_t *ent)
 			return;
 		}
 
-		if (coop->intValue) /* FS: Coop: Spawn a backpack with our stuff */
+		if (coop->value) /* FS: Coop: Spawn a backpack with our stuff */
 		{
 			Spawn_CoopBackpack(ent);
 		}
@@ -2335,7 +2337,7 @@ PutClientInServer(edict_t *ent)
 
 	client->resp = resp;
 
-	if (coop->intValue) /* FS: Coop: Don't move this!  Resets max_health from adrenaline boosts */
+	if (coop->value) /* FS: Coop: Don't move this!  Resets max_health from adrenaline boosts */
 	{
 		ent->client->pers.health = ent->client->resp.coop_respawn.max_health;
 		ent->client->pers.max_health = ent->client->resp.coop_respawn.max_health;
@@ -2455,7 +2457,7 @@ PutClientInServer(edict_t *ent)
 	 	/* could't spawn in? */
 	}
 
-	if ((maxclients->intValue > 1) && (sv_spawn_protection->intValue)) /* FS: Coop: Spawn protection */
+	if ((maxclients->value > 1) && (sv_spawn_protection->value)) /* FS: Coop: Spawn protection */
 	{
 		ent->solid = SOLID_NOT; /* FS: Let players pass through other SOLID_NOT players.  For maps with bad coop spawns.  An idea from Baker. */
 		client->spawn_protection = true;
@@ -2583,7 +2585,7 @@ ClientBegin(edict_t *ent)
 		PutClientInServer(ent);
 		if(!ent->client->pers.didMotd) /* FS: Added */
 		{
-			if(maxclients->intValue <= 1)
+			if(maxclients->value <= 1)
 			{
 				ent->client->pers.didMotd = ent->client->resp.didMotd = true;
 			}
@@ -2648,13 +2650,12 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	if(!s[0] || s[0] == ' ') /* FS: Catch trouble makers */
 	{
 		Info_SetValueForKey(userinfo, "name", "unnamed");
-		strncpy(ent->client->pers.netname, "unnamed", sizeof(ent->client->pers.netname) -
-				1);
+		strncpy(ent->client->pers.netname, "unnamed", sizeof(ent->client->pers.netname)-1);
 		ent->client->pers.name_timeout = level.time + sv_coop_name_timeout->value;
 	}
 	else
 	{
-		if(sv_coop_announce_name_change->intValue && ent->client && ent->client->pers.netname[0] && s[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: Catch trouble makers */
+		if(sv_coop_announce_name_change->value && ent->client && ent->client->pers.netname[0] && s[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: Catch trouble makers */
 		{
 			if(ent->client && ent->client->pers.name_timeout > level.time)
 			{
@@ -2674,8 +2675,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 			{
 				ent->client->pers.name_timeout = level.time + sv_coop_name_timeout->value;
 			}
-			strncpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname) -
-					1);
+			strncpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname)-1);
 		}
 	}
 
@@ -2683,7 +2683,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	s = Info_ValueForKey(userinfo, "spectator");
 
 	/* spectators are only supported in deathmatch */
-	if ((deathmatch->value || coop->intValue) && *s && strcmp(s, "0"))
+	if ((deathmatch->value || coop->value) && *s && strcmp(s, "0"))
 	{
 		ent->client->pers.spectator = true;
 	}
@@ -2735,7 +2735,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	/* FS: Coop: Admin goodies */
 	s = Info_ValueForKey(userinfo, "adminpass");
 
-	if ((maxclients->intValue > 1) && (strlen(s)))
+	if ((maxclients->value > 1) && (strlen(s)))
 	{
 		if(adminpass->string[0] && !Q_stricmp(s, adminpass->string))
 		{
@@ -2754,7 +2754,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	/* FS: Coop: VIP goodies */
 	s = Info_ValueForKey(userinfo, "vippass");
 
-	if ((maxclients->intValue > 1) && (strlen(s)))
+	if ((maxclients->value > 1) && (strlen(s)))
 	{
 		if(vippass->string[0] && !Q_stricmp(s, vippass->string))
 		{
@@ -2906,7 +2906,7 @@ ClientDisconnect(edict_t *ent)
 
 	Blinky_OnClientTerminate(ent); /* FS: Blinky's Coop Camera */
 
-	if (coop->intValue && !ent->client->pers.spectator) /* FS: Coop: Spawn a backpack with our stuff */
+	if (coop->value && !ent->client->pers.spectator) /* FS: Coop: Spawn a backpack with our stuff */
 	{
 		Spawn_CoopBackpack(ent);
 	}
@@ -3323,7 +3323,7 @@ ClientBeginServerFrame(edict_t *ent)
 
 	client = ent->client;
 
-	if ((deathmatch->value || coop->intValue) &&
+	if ((deathmatch->value || coop->value) &&
 		(client->pers.spectator != client->resp.spectator) &&
 		((level.time - client->respawn_time) >= 5))
 	{

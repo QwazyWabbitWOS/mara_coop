@@ -1901,7 +1901,7 @@ medic_spawngrows(edict_t *self) /* FS: Coop: Rogue specific */
 	{
 		current_yaw = anglemod(self->s.angles[YAW]);
 
-		if (fabs(current_yaw - self->ideal_yaw) > 0.1)
+		if (fabsf(current_yaw - self->ideal_yaw) > 0.1)
 		{
 			self->monsterinfo.aiflags |= AI_HOLD_FRAME;
 			return;
@@ -2319,7 +2319,7 @@ medic_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 	}
 	else
 	{
-		self->monsterinfo.duck_wait_time = level.time + eta + (0.1 * (3 - skill->value));
+		self->monsterinfo.duck_wait_time = level.time + eta + (0.1f * (3 - skill->value));
 	}
 
 	/* has to be done immediately otherwise he can get stuck */

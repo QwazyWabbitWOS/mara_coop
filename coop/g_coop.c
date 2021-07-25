@@ -367,7 +367,7 @@ gamemode_t gamemode_array[MAX_GAMEMODES];
 
 char *GetSkillString (void)
 {
-	switch(skill->intValue)
+	switch((int)skill->value)
 	{
 	case 0:
 		return "Easy";
@@ -792,7 +792,7 @@ void CoopUpdateDifficultyMenu(edict_t *ent)
 		return;
 	}
 
-	switch(skill->intValue)
+	switch((int)skill->value)
 	{
 		case 0:
 			voteskillmenu[VSKILLMENU_EASY].text = NULL;

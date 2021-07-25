@@ -450,7 +450,7 @@ qboolean ReadBanFile(char *bfname)
 									SKIPBLANK(cp);
 									
 									
-									num = q2a_strlen(buffer2);
+									num = (int)q2a_strlen(buffer2);
 									
 									if(num)
 										{
@@ -485,7 +485,7 @@ qboolean ReadBanFile(char *bfname)
 										}
 									gi.TagFree(newentry);
 									
-									gi.dprintf("Error loading BAN from line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf ("Error loading BAN from line %d in file %s\n", uptoLine, bfname);
 								}
 							else
 								{
@@ -592,7 +592,7 @@ qboolean ReadBanFile(char *bfname)
 									SKIPBLANK(cp);
 									
 									
-									num = q2a_strlen(buffer2);
+									num = (int)q2a_strlen(buffer2);
 									
 									if(num)
 										{
@@ -626,7 +626,7 @@ qboolean ReadBanFile(char *bfname)
 										}
 									gi.TagFree(cnewentry);
 									
-									gi.dprintf("Error loading CHATBAN from line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf ("Error loading CHATBAN from line %d in file %s\n", uptoLine, bfname);
 								}
 							else
 								{
@@ -659,17 +659,17 @@ qboolean ReadBanFile(char *bfname)
 										}
 									else
 										{
-											gi.dprintf("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
+											gi.dprintf ("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
 										}
 								}
 							else
 								{
-									gi.dprintf("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
+									gi.dprintf ("Error with INCLUDE in line %d in file %s\n", uptoLine, bfname);
 								}
 						}
 					else
 						{
-							gi.dprintf("Unknown ban line from line %d in file %s\n", uptoLine, bfname);
+							gi.dprintf ("Unknown ban line from line %d in file %s\n", uptoLine, bfname);
 						}
 				}
 		}
@@ -751,7 +751,7 @@ void readBanLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf("WARNING: " BANLISTFILE " could not be found\n");
+			gi.dprintf ("WARNING: " BANLISTFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, BANLISTFILE " could not be found", IW_BANSETUPLOAD, 0.0);
 		}
 }
@@ -766,7 +766,7 @@ void banRun(int startarg, edict_t *ent, int client)
 	char *cp;
 	int clienti, num;
 	unsigned int i, save;
-	qboolean like, all, re;
+	qboolean like, all, re = FALSE;
 	baninfo_t *newentry;
 	char savecmd[256];
 	char strbuffer[256];
@@ -1473,7 +1473,7 @@ void banRun(int startarg, edict_t *ent, int client)
 			// copy MSG
 			processstring(buffer2, cp, sizeof(buffer2) - 1, '\"');
 			
-			num = q2a_strlen(buffer2);
+			num = (int)q2a_strlen(buffer2);
 			
 			if(num)
 				{
@@ -2067,7 +2067,7 @@ void displayNextBan(edict_t *ent, int client, long bannum)
 				
 			if(!findentry->exclude && findentry->maxnumberofconnects)
 				{
-					sprintf(buffer + q2a_strlen(buffer), " MAX %d", findentry->maxnumberofconnects);
+					sprintf(buffer + q2a_strlen(buffer), " MAX %ld", findentry->maxnumberofconnects);
 				}
 				
 			if(!findentry->exclude && findentry->floodinfo.chatFloodProtect)
@@ -2084,7 +2084,7 @@ void displayNextBan(edict_t *ent, int client, long bannum)
 				
 			if(findentry->timeout)
 				{
-					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0);
+					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0f);
 				}
 				
 			gi.cprintf (ent, PRINT_HIGH, "%s\n", buffer);
@@ -2297,7 +2297,7 @@ void chatbanRun(int startarg, edict_t *ent, int client)
 			// copy MSG
 			processstring(buffer2, cp, sizeof(buffer2) - 1, '\"');
 			
-			num = q2a_strlen(buffer2);
+			num = (int)q2a_strlen(buffer2);
 			
 			if(num)
 				{
@@ -2442,7 +2442,7 @@ int checkCheckIfChatBanned(char *txt)
 							*cp = ' ';
 						}
 						
-					*cp++;
+					cp++;
 				}
 		}
 		

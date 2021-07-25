@@ -585,7 +585,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 	int i;
 	edict_t *ent;
 
-	if(sv_coop_reset_hack->intValue && (level.time > 10800.0f) && !P_Clients_Connected(true)) /* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
+	if(sv_coop_reset_hack->value && (level.time > 10800.0f) && !P_Clients_Connected(true)) /* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
 	{
 		gi.cprintf(NULL, PRINT_HIGH, "Resetting timers...\n");
 

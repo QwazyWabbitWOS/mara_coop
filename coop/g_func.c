@@ -1497,6 +1497,8 @@ plat2_activate(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* 
 
 	ent->use = Use_Plat2;
 	trigger = plat_spawn_inside_trigger(ent); /* the "start moving" trigger */
+	if (!trigger)
+		return;
 
 	trigger->maxs[0] += 10;
 	trigger->maxs[1] += 10;
@@ -1616,6 +1618,8 @@ SP_func_plat2(edict_t *ent) /* FS: Coop: Rogue specific */
 		ent->use = Use_Plat2;
 
 		trigger = plat_spawn_inside_trigger(ent); /* the "start moving" trigger */
+		if (!trigger)
+			return;
 
 		trigger->maxs[0] += 10;
 		trigger->maxs[1] += 10;
@@ -2978,7 +2982,7 @@ door_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 
 	self->touch_debounce_time = level.time + 5.0;
 
-	if(coop->intValue && other->client && other->client->pers.netname) /* FS: Coop: Print any use target stuff as global map message to all players */
+	if(coop->value && other->client && other->client->pers.netname) /* FS: Coop: Print any use target stuff as global map message to all players */
 	{
 		gi.bprintf(PRINT_HIGH, "\x02[MAPMSG][%s]: ", other->client->pers.netname);
 		gi.bprintf(PRINT_HIGH, "%s\n", self->message);

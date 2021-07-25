@@ -154,8 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\g_main.c" />
-    <ClCompile Include="..\md4.c" />
-    <ClCompile Include="..\q_shared.c" />
     <ClCompile Include="..\regex.c" />
     <ClCompile Include="..\zb_ban.c" />
     <ClCompile Include="..\zb_checkvar.c" />
@@ -175,7 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\game.def" />
-    <None Include="..\Makefile" />
+    <None Include="..\GNUmakefile" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\readme.txt" />

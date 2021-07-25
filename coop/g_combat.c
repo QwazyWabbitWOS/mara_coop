@@ -516,7 +516,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 				attacker->client &&
 				attacker->client->pers.netname &&
 				targ->classname &&
-				!stricmp(targ->classname, "monster_turret")) /* FS: Coop: monster_turrets have MOVETYPE_NONE so they stop here. */
+				!Q_stricmp(targ->classname, "monster_turret")) /* FS: Coop: monster_turrets have MOVETYPE_NONE so they stop here. */
 			{
 				GetCoopMeansOfDeath(targ->classname, attacker->client->pers.netname);
 			}
@@ -1053,7 +1053,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		if (OnSameTeam(targ, attacker))
 		{
 			/* nukes kill everyone */
-			if ((((int)(dmflags->value) & DF_NO_FRIENDLY_FIRE) || coop->intValue) && (mod != MOD_TELEFRAG) && /* FS: Coop: No friendly fire in Coop, except for telefrags */
+			if ((((int)(dmflags->value) & DF_NO_FRIENDLY_FIRE) || coop->value) && (mod != MOD_TELEFRAG) && /* FS: Coop: No friendly fire in Coop, except for telefrags */
 				(mod != MOD_NUKE)) /* FS: Coop: Rogue specific */
 			{
 				damage = 0;

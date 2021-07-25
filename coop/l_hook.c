@@ -283,7 +283,7 @@ void Hook_Think(edict_t *self) {
 
 	// stupid check for NULL pointers ...
  	if(!(self && self->owner && self->owner->owner && self->owner->owner->client)) {
-		gi.dprintf(DEVELOPER_MSG_GAME,"Hook_Think: error\n");
+		gi.dprintf("Hook_Think: error\n");
 		G_FreeEdict(self);
 		return;	
 	}

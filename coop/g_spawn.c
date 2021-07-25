@@ -574,10 +574,14 @@ ED_ParseField(const char *key, const char *value, edict_t *ent)
 					*(char **)(b + f->ofs) = ED_NewString(value);
 					break;
 				case F_VECTOR:
-					sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]);
-					((float *)(b + f->ofs))[0] = vec[0];
-					((float *)(b + f->ofs))[1] = vec[1];
-					((float *)(b + f->ofs))[2] = vec[2];
+					if (sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]) != 3) {
+						gi.dprintf("WARNING: Vector field incomplete in %s, map: %s, field: %s\n", __func__, level.mapname, f->name);
+						VectorClear(vec);
+					}
+					else
+					((float*)(b + f->ofs))[0] = vec[0];
+					((float*)(b + f->ofs))[1] = vec[1];
+					((float*)(b + f->ofs))[2] = vec[2];
 					break;
 				case F_INT:
 					*(int *)(b + f->ofs) = (int)strtol(value, (char **)NULL, 10);
@@ -830,7 +834,7 @@ G_FindTeams(void)
  * parsing textual entity definitions out of an ent file.
  */
 void
-SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
+SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 {
 	edict_t *ent;
 	int inhibit;
@@ -1032,7 +1036,7 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 		ent->s.renderfx |= RF_IR_VISIBLE; /* FS: Coop: Rogue specific.  Probably OK as-is. */
 	}
 
-	if (coop->intValue) /* FS: Coop: Find checkpoints to spawn if we got them */
+	if (coop->value) /* FS: Coop: Find checkpoints to spawn if we got them */
 	{
 		inhibit += G_SpawnCheckpoints(ent);
 	}
@@ -1071,7 +1075,7 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 		Z_SpawnDMItems(); /* FS: Zaero specific game dll changes */
 	}
 
-	if(coop->intValue) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
+	if(coop->value) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
 	{
 		G_CheckCoopVictory();
 	}
@@ -2093,7 +2097,7 @@ SP_SetCDTrack(int track) /* FS: Coop: Added */
 
 qboolean Spawn_CheckCoop_MapHacks (edict_t *ent) /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
 {
-	if(!coop->intValue || !ent)
+	if(!coop->value || !ent)
 	{
 		return false;
 	}

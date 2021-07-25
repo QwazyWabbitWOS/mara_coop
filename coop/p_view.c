@@ -1474,7 +1474,7 @@ ClientEndServerFrame(edict_t *ent)
 
 		if ((game.gametype == zaero_coop) && (level.fadeFrames > 0)) /* FS: Zaero specific game dll changes */
 		{
-			float ratio = (float)(50 - level.fadeFrames) / 50;
+			float ratio = (float)(50 - level.fadeFrames) / 50.0f;
 			SV_AddBlend (1, 1, 1, ratio, current_client->ps.blend);
 		}
 

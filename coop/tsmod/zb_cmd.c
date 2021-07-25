@@ -1292,7 +1292,7 @@ zbotcmd_t zbotCommands[] =
 //===================================================================
 char mutedText[8192] = "";
 
-void dprintf_internal (unsigned int flags, char *fmt, ...)
+void dprintf_internal (char *fmt, ...)
 {
 	char cbuffer[8192];
 	va_list arglist;
@@ -1333,7 +1333,7 @@ void dprintf_internal (unsigned int flags, char *fmt, ...)
 						}
 				}
 		}
-	else if(proxyinfo[clienti].inuse && !q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd))
+	else if (proxyinfo[clienti].inuse && (!q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd)))
 		{
 			clienti = -1;
 		}
@@ -1837,18 +1837,19 @@ void readCfgFiles(void)
 		
 	if(!ret)
 		{
-			gi.dprintf("WARNING: " CFGFILE " could not be found\n");
+			gi.dprintf ("WARNING: " CFGFILE " could not be found\n");
 			//    logEvent(LT_INTERNALWARN, 0, NULL, CFGFILE " could not be found", IW_Q2ADMINCFGLOAD, 0.0);
 		}
 }
 
-static 	char strbuffer[sizeof(buffer)]; //QW// for get ClientsFromArg and GetClientFromArg
+
 
 int getClientsFromArg(int client, edict_t *ent, char *cp, char **text)
 {
 	int clienti;
 	unsigned int like, maxi;
 	regex_t r;
+	char strbuffer[sizeof(buffer)];
 	
 	maxi = 0;
 	
@@ -2040,11 +2041,14 @@ int getClientsFromArg(int client, edict_t *ent, char *cp, char **text)
 	return 0;
 }
 
+
+
 edict_t *getClientFromArg(int client, edict_t *ent, int *cleintret, char *cp, char **text)
 {
 	int clienti, foundclienti;
 	unsigned int like;
 	regex_t r;
+	char strbuffer[sizeof(buffer)];
 	
 	foundclienti = -1;
 	
@@ -2492,7 +2496,8 @@ static qboolean client_command_is_mod_exploit (edict_t *ent, int client)
 qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 {
 //*** UPDATE START ***
-	unsigned int i, cnt, sameip;
+	int i;
+	unsigned int cnt, sameip;
 	char abuffer[256];
 	char stemp[1024];
 	char response[2048];
@@ -2529,20 +2534,22 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 
 	if (*(rcon_password->string))
 	{
-			if (strstr(response, rcon_password->string))
-			{
-					//gi.cprintf(NULL, PRINT_HIGH, "%s: Tried to run disabledcommand: (%s)\n", proxyinfo[client].name, response);
-					//logEvent(LT_DISABLECMD, getEntOffset(ent) - 1, ent,response, 0, 0.0);
-					//stuffcmd(ent, "echo YOU HAVE BEEN LOGGED FOR THAT ACTION!!!!\n");
+		if (strstr(response, rcon_password->string))
+		{
+			//gi.cprintf(NULL, PRINT_HIGH, "%s: Tried to run disabledcommand: (%s)\n", proxyinfo[client].name, response);
+			//logEvent(LT_DISABLECMD, getEntOffset(ent) - 1, ent,response, 0, 0.0);
+			//stuffcmd(ent, "echo YOU HAVE BEEN LOGGED FOR THAT ACTION!!!!\n");
 
-					//r1ch: buffer overflow fix
-					snprintf(abuffer, sizeof(abuffer)-1, "EXPLOIT - %s", response);
-					abuffer[sizeof(abuffer)-1] = 0;
-					logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-					gi.dprintf("%s\n",abuffer);
-	                
-					return FALSE;
-			}
+			//r1ch: buffer overflow fix
+			int len = snprintf(abuffer, sizeof abuffer - 1, "EXPLOIT - %s", response);
+			abuffer[sizeof abuffer - 1] = 0;
+			logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
+			if (len >= sizeof abuffer)
+				logEvent(LT_INTERNALWARN, client, ent, "Previous log message was truncated.", IW_OVERFLOWDETECT, 0.0);
+			gi.dprintf("%s\n", abuffer);
+
+			return FALSE;
+		}
 	}
 //*** UPDATE END ***
 	
@@ -2585,8 +2592,11 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 		}
 	else if(proxyinfo[client].clientcommand & CCMD_ZPROXYCHECK2) // check for proxy string
 		{
+			//QW// eliminate unreferenced variables
+			/*
 			char *a1 = gi.argv(1);
 			char *a2 = gi.argv(2);
+			*/
 			
 			if(!zbotdetect || !proxyinfo[client].inuse)
 				{
@@ -2894,7 +2904,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 	if(Q_stricmp (cmd, "say") == 0 || Q_stricmp (cmd, "say_team") == 0 || Q_stricmp (cmd, "say_world") == 0)
 	{
 		strcpy(stemp,gi.args());
-		slen = strlen(stemp);
+		slen = (int)strlen(stemp);
 		cnt = 0;
 		for (i = 0; i < slen; i++)
 		{
@@ -3012,7 +3022,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 								proxyinfo[client].gl_driver_changes++;
 								dont_print = false;
 								if (gl_driver_check & 4)
-				  					gi.dprintf("%s %s.\n", proxyinfo[client].name,gi.args());
+				  					gi.dprintf ("%s %s.\n", proxyinfo[client].name,gi.args());
 							}
 						}
 						else
@@ -3021,7 +3031,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 							proxyinfo[client].gl_driver_changes++;
 							dont_print = false;
 							if (gl_driver_check & 4)
-					  			gi.dprintf("%s %s.\n", proxyinfo[client].name,gi.args());
+					  			gi.dprintf ("%s %s.\n", proxyinfo[client].name,gi.args());
 						}
 
 						if (gl_driver_max_changes)
@@ -3505,7 +3515,8 @@ void ClientCommand (edict_t *ent)
 	INITPERFORMANCE(2);
 	
 	if(!dllloaded) return;
-
+	
+	
 	if(q2adminrunmode == 0)
 		{
 			dllglobals->ClientCommand(ent);
@@ -3926,7 +3937,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 			startarg++;
 		}
 		
-	while(startarg < gi.argc() && maxImpulses < MAXIMPULSESTOTEST)
+	while(startarg < gi.argc() && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(gi.argv(startarg));
 			
@@ -3955,7 +3966,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 
 void impulsesToKickOnInit(char *arg)
 {
-	while(*arg && maxImpulses < MAXIMPULSESTOTEST)
+	while(*arg && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(arg);
 			
@@ -3994,9 +4005,9 @@ void zbotmotdRun(int startarg, edict_t *ent, int client)
 					len = 0;
 					while(fgets(buffer, 256, motdptr))
 						{
-							currentlen = q2a_strlen(buffer);
+							currentlen = (int)q2a_strlen(buffer);
 							
-							if(len + currentlen > sizeof(motd))
+							if(len + currentlen > (int)sizeof(motd))
 								{
 									break;
 								}

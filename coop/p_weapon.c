@@ -229,7 +229,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 	}
 
 	other->client->pers.inventory[index]++;
-	if (coop->intValue) /* FS: Coop: Global inventory for newcomers to server */
+	if (coop->value) /* FS: Coop: Global inventory for newcomers to server */
 	{
 		game.inventory[index]++;
 	}
@@ -245,7 +245,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 			{
 				Add_Ammo(other, ammo, 1000);
 
-				if(coop->intValue) /* FS: Coop: Global inventory for newcomers to server */
+				if(coop->value) /* FS: Coop: Global inventory for newcomers to server */
 				{
 					game.inventory[ITEM_INDEX(ammo)] = 1000;
 				}
@@ -254,7 +254,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 			{
 				Add_Ammo(other, ammo, ammo->quantity);
 
-				if(coop->intValue) /* FS: Coop: Global inventory for newcomers to server */
+				if(coop->value) /* FS: Coop: Global inventory for newcomers to server */
 				{
 					game.inventory[ITEM_INDEX(ammo)] = ammo->quantity;
 				}

@@ -650,7 +650,7 @@ void trigger_effect (edict_t *self) /* FS: Coop: Xatrix specific */
 
 	for (i = 0; i < 10; i++)
 	{
-		origin[2] += (self->speed * 0.01) * (i + random());
+		origin[2] += (self->speed * 0.01f) * (i + random());
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_TUNNEL_SPARKS);
 		gi.WriteByte(1);

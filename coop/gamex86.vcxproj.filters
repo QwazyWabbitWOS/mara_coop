@@ -267,6 +267,9 @@
     <ClCompile Include="p_radio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="p_hook.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="b_cam.h">
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="p_radio.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p_hook.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

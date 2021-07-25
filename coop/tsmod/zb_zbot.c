@@ -69,13 +69,13 @@ char *impulsemessages[] =
     
 //===================================================================
 
-void generateRandomString(char* str, int length)
+void generateRandomString(char *str, int length)
 {
 	unsigned int index;
-	for (index = 0; index < length; index++)
-	{
-		str[index] = RANDCHAR();
-	}
+	for(index = 0; index < length; index++)
+		{
+			str[index] = RANDCHAR();
+		}
 	str[index] = 0;
 }
 
@@ -180,8 +180,10 @@ int checkForOverflows(edict_t *ent, int client)
 					removeClientCommand(client, QCMD_ZPROXYCHECK2);
 					addCmdQueue(client, QCMD_RESTART, 2 + (5 * random()), 0, 0);
 					
-					sprintf(checkmask1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
+					int len = snprintf(checkmask1, sizeof checkmask1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
 					logEvent(LT_INTERNALWARN, client, ent, checkmask1, IW_OVERFLOWDETECT, 0.0);
+					if (len >= sizeof checkmask1)
+						logEvent(LT_INTERNALWARN, client, ent, "Previous overflow message was truncated", IW_OVERFLOWDETECT, 0.0);
 					break;
 				}
 		}
@@ -258,6 +260,16 @@ void Pmove_internal(pmove_t *pmove)
 	//  pmove_done = 1;
 }
 
+
+int VectorCompare (vec3_t v1, vec3_t v2)
+{
+	if (v1[0] != v2[0] || v1[1] != v2[1] || v1[2] != v2[2])
+		return 0;
+		
+	return 1;
+}
+
+
 void ClientThink (edict_t *ent, usercmd_t *ucmd)
 {
 	int client;
@@ -288,7 +300,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		{
 			if (proxyinfo[client].msec_count == 500)
 			{
-				gi.cprintf(ent, PRINT_HIGH, "%3.2f fps\n", (float)proxyinfo[client].frames_count * 2);
+				gi.cprintf(ent, PRINT_HIGH, "%3.2f fps\n", (float)(proxyinfo[client].frames_count * 2.0));
 			}
 		}
 
@@ -499,8 +511,6 @@ void G_RunFrame(void)
 				{
 					if(reconnectlist[i].reconnecttimeout < ltime)
 						{
-							unsigned int j;
-							
 							// remove the retry list entry if needed...
 							for(j = 0; j < maxReconnectList; j++)
 								{
@@ -626,7 +636,7 @@ void G_RunFrame(void)
 						else if(command == QCMD_RECONNECT)
 						{
 							unsigned int i;
-							char ipbuffer[40];
+							char ipbuffer[40] = { 0 };
 							char *ip = ipbuffer;
 							char *bp = ip;
 
@@ -658,8 +668,6 @@ void G_RunFrame(void)
 										{
 											if(retrylist[i].retry >= 5)
 												{
-													unsigned int j;
-
 													// remove the retry list entry if needed...
 													for(j = 0; j < maxReconnectList; j++)
 														{
@@ -696,7 +704,7 @@ void G_RunFrame(void)
 									maxReconnectList++;
 								}
 
-							q2a_strcpy(buffer, ("%s\n", defaultreconnectmessage));
+							q2a_memcpy(buffer, defaultreconnectmessage, q2a_strlen(defaultreconnectmessage) + 1);
 							gi.cprintf (ent, PRINT_HIGH, buffer);
 
 							generateRandomString(ReconnectString, 5);
@@ -835,7 +843,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
@@ -934,7 +942,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
@@ -1262,7 +1270,11 @@ void G_RunFrame(void)
 				{
 					if(proxyinfo[client].q2a_bypass)
 					{
-						gi.bprintf(PRINT_HIGH, "ƒ  %s has logged on without an anti-cheat client because of an arrangement\nƒ  with the server admin.  This is most likely because %s is using a linux\nƒ  or mac client - contact the server admin if you have issues with %s.\n", proxyinfo[client].name, proxyinfo[client].name, proxyinfo[client].name);
+						gi.bprintf(PRINT_HIGH, 
+							"\x83  %s has logged on without an anti-cheat client because of an arrangement\n"
+							"\x83  with the server admin.  This is most likely because %s is using a linux\n"
+							"\x83  or mac client - contact the server admin if you have issues with %s.\n", 
+							proxyinfo[client].name, proxyinfo[client].name, proxyinfo[client].name);
 					}
 				}
 				else if(command == QCMD_GETCMDQUEUE)
@@ -1488,7 +1500,7 @@ void List_Admin_Commands(edict_t *ent,int client)
 
 void Read_Admin_cfg(void)
 {
-	FILE* f;
+	FILE	*f;
 	char	name[512];
 	int i;
 	int elements;
@@ -1501,16 +1513,16 @@ void Read_Admin_cfg(void)
 		while ((!feof(f)) && (i < MAX_ADMINS))
 		{
 			elements = fscanf(f, "%s %s %d",
-				(char*)&admin_pass[i].name,
-				(char*)&admin_pass[i].password,
-				(int*)&admin_pass[i].level);
+				(char *)&admin_pass[i].name,
+				(char *)&admin_pass[i].password,
+				(int *)&admin_pass[i].level);
 
 			if ((elements == 3) && admin_pass[i].level)
 				i++;
 		}
 		num_admins = i;
 		if (num_admins < MAX_ADMINS)
-			for (i = num_admins; i < MAX_ADMINS; i++)
+			for (i = num_admins; i < MAX_ADMINS; i++) 
 				admin_pass[i].level = 0;
 
 		fclose(f);
@@ -1526,9 +1538,9 @@ void Read_Admin_cfg(void)
 		while ((!feof(f)) && (i < MAX_ADMINS))
 		{
 			elements = fscanf(f, "%s %s %d",
-				(char*)&q2a_bypass_pass[i].name,
-				(char*)&q2a_bypass_pass[i].password,
-				(int*)&q2a_bypass_pass[i].level);
+				(char *)&q2a_bypass_pass[i].name,
+				(char *)&q2a_bypass_pass[i].password,
+				(int *)&q2a_bypass_pass[i].level);
 
 			if ((elements == 3) && q2a_bypass_pass[i].level)
 				i++;
@@ -1544,32 +1556,33 @@ void Read_Admin_cfg(void)
 		gi.dprintf("WARNING: %s could not be found\n", name);
 }
 
-void ADMIN_players(edict_t *ent,int client)
+void ADMIN_players(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"Players\n");
+	gi.cprintf(ent, PRINT_HIGH, "Players\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %s\n",i,proxyinfo[i].name);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH, "  %2i : %s\n", i, proxyinfo[i].name);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
-void ADMIN_dumpmsec(edict_t *ent,int client)
+void ADMIN_dumpmsec(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"MSEC\n");
+	gi.cprintf(ent, PRINT_HIGH, "MSEC\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %-16s %d\n",i,proxyinfo[i].name,proxyinfo[i].msec_last);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH,	"  %2i : %-16s %d\n",
+				i, proxyinfo[i].name, proxyinfo[i].msec_last);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
 void ADMIN_dumpuser(edict_t *ent,int client,int user,qboolean check)
@@ -2076,12 +2089,12 @@ void whois_write_file(void)
 	//maybe create a timer that is checked on each spawnentities
 	//if 1 day has elapsed then write file
 	FILE	*f;
-	char	name[256];
+	char	name[512];
 	char	temp[256];
-	int temp_len;
+	size_t	temp_len;
 	unsigned int i, j, k;
 
-	sprintf(name, "%s/q2adminwhois.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
 
 	f = fopen (name, "wb");
 	if (!f)
@@ -2097,11 +2110,11 @@ void whois_write_file(void)
 		strcpy(temp,whois_details[i].ip);
 		temp_len = strlen(temp);
 
-		//convert spaces to ÿ
+		//convert spaces to ÿ (0xff)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%i %s ",whois_details[i].id,temp);
 
@@ -2111,7 +2124,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%s ",temp);
 
@@ -2125,13 +2138,13 @@ void whois_write_file(void)
 				for (k=0;k<temp_len;k++)
 				{
 					if (temp[k] == ' ')
-						temp[k] = 'ÿ';
+						temp[k] = '\xff';
 				}
 				fprintf(f,"%s ",temp);
 			}
 			else
 			{
-				fprintf(f,"ÿ ");
+				fprintf(f,"\xff ");
 			}
 		}
 		fprintf(f,"\n");
@@ -2141,39 +2154,39 @@ void whois_write_file(void)
 
 void whois_read_file(void)
 {
-	FILE* f;
+	FILE	*f;
 	char	name[512];
-	unsigned int i, j;
-	size_t temp_len, name_len;
+	unsigned int i,j;
+	size_t temp_len,name_len;
 	int elements;
 
 	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
 
-	f = fopen(name, "rb");
+	f = fopen (name, "rb");
 	if (!f)
 	{
-		gi.dprintf("WARNING: %s could not be found\n", name);
+		gi.dprintf ("WARNING: %s could not be found\n", name);
 		return;
-	}
+	}	
 
 	WHOIS_COUNT = 0;
 	while ((!feof(f)) && (WHOIS_COUNT < whois_active))
 	{
 		elements = fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
-			(char*)&whois_details[WHOIS_COUNT].ip,
-			(char*)&whois_details[WHOIS_COUNT].seen,
-			(char*)&whois_details[WHOIS_COUNT].dyn[0].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[1].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[2].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[3].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[4].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[5].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[6].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[7].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[8].name,
-			(char*)&whois_details[WHOIS_COUNT].dyn[9].name);
-
+			(char *) &whois_details[WHOIS_COUNT].ip,
+			(char *) &whois_details[WHOIS_COUNT].seen,
+			(char *) &whois_details[WHOIS_COUNT].dyn[0].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[1].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[2].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[3].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[4].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[5].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[6].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[7].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
+		
 		if (elements == 13)
 		{
 			//convert all 0xff back to spaces

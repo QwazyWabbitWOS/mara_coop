@@ -489,7 +489,7 @@ use_target_changelevel(edict_t *self, edict_t *other, edict_t *activator)
 		return;
 	}
 
-	if (coop->intValue && sv_coop_check_player_exit->intValue)
+	if (coop->value && sv_coop_check_player_exit->value)
 	{
 		if(self->nextthink < level.time)
 		{
@@ -531,7 +531,7 @@ use_target_changelevel(edict_t *self, edict_t *other, edict_t *activator)
 	}
 
 	/* if multiplayer, let everyone know who hit the exit */
-	if (maxclients->intValue > 1) /* FS: Show it in Coop too */
+	if (maxclients->value > 1) /* FS: Show it in Coop too */
 	{
 		if (activator && activator->client)
 		{

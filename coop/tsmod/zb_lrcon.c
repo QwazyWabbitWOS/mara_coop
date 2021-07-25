@@ -79,7 +79,7 @@ qboolean ReadLRconFile(char *lrcname)
 			int len;
 			
 			// remove '\n'
-			len = q2a_strlen(buffer) - 1;
+			len = (int)q2a_strlen(buffer) - 1;
 			if(buffer[len] == '\n')
 				{
 					buffer[len] = 0x0;
@@ -122,7 +122,7 @@ qboolean ReadLRconFile(char *lrcname)
 						
 					if(!len || *pp == 0)
 						{
-							gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+							gi.dprintf ("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 							// no command or zero length password
 							continue;
 						}
@@ -141,13 +141,13 @@ qboolean ReadLRconFile(char *lrcname)
 					SKIPBLANK(cp);
 					*pp = 0;
 					
-					len = q2a_strlen(cp) + 1;
+					len = (int)q2a_strlen(cp) + 1;
 					
 					// zero length command
 					if(!len)
 						{
 							gi.TagFree(lrconcmds[maxlrcon_cmds].password);
-							gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+							gi.dprintf ("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 							continue;
 						}
 						
@@ -167,7 +167,7 @@ qboolean ReadLRconFile(char *lrcname)
 									lrconcmds[maxlrcon_cmds].r = 0;
 									
 									// malformed re... skip this lrcon
-									gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+									gi.dprintf ("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 									continue;
 								}
 						}
@@ -185,7 +185,7 @@ qboolean ReadLRconFile(char *lrcname)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
+					gi.dprintf ("Error loading LRCON from line %d in file %s\n", uptoLine, lrcname);
 				}
 		}
 		
@@ -225,7 +225,7 @@ void readLRconLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf("WARNING: " LRCONFILE " could not be found\n");
+			gi.dprintf ("WARNING: " LRCONFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, LRCONFILE " could not be found", IW_LRCONSETUPLOAD, 0.0);
 		}
 }
@@ -460,7 +460,7 @@ void lrconRun(int startarg, edict_t *ent, int client)
 			return;
 		}
 		
-	len = q2a_strlen(cmd) + 1;
+	len = (int)q2a_strlen(cmd) + 1;
 	
 	lrconcmds[maxlrcon_cmds].password = gi.TagMalloc (len, TAG_LEVEL);
 	
@@ -476,7 +476,7 @@ void lrconRun(int startarg, edict_t *ent, int client)
 			return;
 		}
 		
-	len = q2a_strlen(cmd) + 20;
+	len = (int)q2a_strlen(cmd) + 20;
 	
 	lrconcmds[maxlrcon_cmds].lrconcmd = gi.TagMalloc (len, TAG_LEVEL);
 	processstring(lrconcmds[maxlrcon_cmds].lrconcmd, cmd, len - 1, 0);
@@ -559,7 +559,7 @@ void lrconDelRun(int startarg, edict_t *ent, int client)
 		
 	if(lrcon + 1 < maxlrcon_cmds)
 		{
-			q2a_memmove((lrconcmds + lrcon), (lrconcmds + lrcon + 1), sizeof(lrconcmd_t) * (maxlrcon_cmds - lrcon));
+			q2a_memmove((lrconcmds + lrcon), (lrconcmds + lrcon + 1), sizeof(lrconcmd_t) * ((size_t)maxlrcon_cmds - lrcon));
 		}
 		
 	maxlrcon_cmds--;

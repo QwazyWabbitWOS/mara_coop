@@ -1070,7 +1070,7 @@ void flare_flash(edict_t *ent)
 		// looking to the side get's less
 		AngleVectors(target->s.angles, forward, NULL, NULL);
 		VectorNormalize(delta);
-		dot = Z_MAX(0.0, DotProduct(delta, forward));
+		dot = Z_MAX(0, DotProduct(delta, forward));
 		ratio *= dot;// * 1.25;
 
 		// set the flash counter

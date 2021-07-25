@@ -156,7 +156,7 @@ FindItem(char *pickup_name)
 
 qboolean Coop_Respawn (void) /* FS: Coop */
 {
-	if(coop->intValue && coop_item_respawn->intValue)
+	if(coop->value && coop_item_respawn->value)
 	{
 		return true;
 	}
@@ -337,7 +337,7 @@ Pickup_Adrenaline(edict_t *ent, edict_t *other)
 		other->max_health += 1;
 	}
 
-	if (coop->intValue) /* FS: Coop: Keep +1 bonuses during respawn */
+	if (coop->value) /* FS: Coop: Keep +1 bonuses during respawn */
 	{
 		other->client->resp.coop_respawn.max_health += 1;
 	}
@@ -455,7 +455,7 @@ Pickup_Bandolier(edict_t *ent /* may be null */, edict_t *other)
 		SetRespawn(ent, ent->item->quantity);
 	}
 
-	if (coop->intValue) /* FS: Coop: Keep bandolier during respawn */
+	if (coop->value) /* FS: Coop: Keep bandolier during respawn */
 	{
 		other->client->pers.ammoUpgrade = other->client->resp.coop_respawn.ammoUpgrade = COOP_BANDOLIER;
 	}
@@ -717,7 +717,7 @@ Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
 		SetRespawn(ent, ent->item->quantity);
 	}
 
-	if (coop->intValue)
+	if (coop->value)
 	{
 		other->client->pers.ammoUpgrade = other->client->resp.coop_respawn.ammoUpgrade = COOP_BACKPACK; /* FS: Coop: Keep backpack during respawn */
 	}
@@ -1761,7 +1761,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 	{
 		ent->flags &= ~FL_POWER_ARMOR;
 
-		if(coop->intValue && ent->client) /* FS: Save power armor state for respawn. */
+		if(coop->value && ent->client) /* FS: Save power armor state for respawn. */
 		{
 			ent->client->resp.coop_respawn.savedFlags &= ~FL_POWER_ARMOR;
 		}
@@ -1780,7 +1780,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 
 		ent->flags |= FL_POWER_ARMOR;
 
-		if(coop->intValue && ent->client) /* FS: Save power armor state for respawn. */
+		if(coop->value && ent->client) /* FS: Save power armor state for respawn. */
 		{
 			ent->client->resp.coop_respawn.savedFlags |= FL_POWER_ARMOR;
 		}
@@ -2043,7 +2043,7 @@ Drop_Item(edict_t *ent, gitem_t *item)
 
 	dropped->classname = item->classname;
 	dropped->item = item;
-	if(!coop->intValue || (!(item->flags & IT_STAY_COOP) && !(item->flags & IT_KEY))) /* FS: Zaero stupidly sets it so some enemies drop the key.  So they will drop it once killed and you only get one chance to pick it up. */
+	if(!coop->value || (!(item->flags & IT_STAY_COOP) && !(item->flags & IT_KEY))) /* FS: Zaero stupidly sets it so some enemies drop the key.  So they will drop it once killed and you only get one chance to pick it up. */
 	{
 		dropped->spawnflags = DROPPED_ITEM;
 	}
@@ -4682,7 +4682,7 @@ SP_xatrix_item(edict_t *self) /* FS: Coop: Rogue specific */
 {
 	gitem_t *item;
 	int i;
-	char *spawnClass = NULL;
+	char *spawnClass = "";
 
 	if (!self || !self->classname)
 	{
@@ -4739,7 +4739,7 @@ SP_xatrix_item(edict_t *self) /* FS: Coop: Rogue specific */
 			continue;
 		}
 
-		if (spawnClass && !strcmp(item->classname, spawnClass))
+		if (!strcmp(item->classname, spawnClass))
 		{
 			/* found it */
 			SpawnItem(self, item);

@@ -346,7 +346,7 @@ void Cmd_Stats_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NOSTATS)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NOSTATS)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Summon command disabled on this server!\n");
 		return;
@@ -380,7 +380,7 @@ void Cmd_Cam_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NOCHASE)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NOCHASE)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Chase camera command disabled on this server!\n");
 		return;
@@ -697,7 +697,7 @@ void Cmd_NoSummon_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NOSUMMON)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NOSUMMON)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Summon command disabled on this server!\n");
 		return;
@@ -723,7 +723,7 @@ void Cmd_Runrun_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NORUNRUN)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NORUNRUN)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Auto-run command disabled on this server!\n");
 		return;
@@ -753,7 +753,7 @@ void Cmd_Summon_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NOSUMMON)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NOSUMMON)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Summon command disabled on this server!\n");
 		return;
@@ -868,7 +868,7 @@ void Cmd_Teleport_f(edict_t *ent)
 		return;
 	}
 
-	if (sv_coop_blinky_cam_disallowflags->intValue & BCAM_NOTELEPORT)
+	if ((int)sv_coop_blinky_cam_disallowflags->value & BCAM_NOTELEPORT)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Teleport command disabled on this server!\n");
 		return;
@@ -994,9 +994,9 @@ void Blinky_CalcViewOffsets(edict_t * ent, vec3_t v)
 	v[2] += target->viewheight;
 
 	// move cam forward
-	if (coop_cameraoffset->intValue)
+	if (coop_cameraoffset->value)
 	{
 		AngleVectors (target->client->v_angle, forward, NULL, NULL);
-		VectorMA (v, coop_cameraoffset->intValue, forward, v);
+		VectorMA (v, coop_cameraoffset->value, forward, v);
 	}
 }

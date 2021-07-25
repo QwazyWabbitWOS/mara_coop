@@ -85,6 +85,7 @@
     <ClCompile Include="m_widow.c" />
     <ClCompile Include="m_widow2.c" />
     <ClCompile Include="p_client.c" />
+    <ClCompile Include="p_hook.c" />
     <ClCompile Include="p_hud.c" />
     <ClCompile Include="p_radio.c" />
     <ClCompile Include="p_trail.c" />
@@ -139,6 +140,7 @@
     <ClInclude Include="m_turret.h" />
     <ClInclude Include="m_widow.h" />
     <ClInclude Include="m_widow2.h" />
+    <ClInclude Include="p_hook.h" />
     <ClInclude Include="p_radio.h" />
     <ClInclude Include="q_shared.h" />
     <ClInclude Include="z_anim.h" />

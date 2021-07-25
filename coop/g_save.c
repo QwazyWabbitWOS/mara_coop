@@ -229,41 +229,41 @@ InitGame(void)
 	deathmatch = gi.cvar ("deathmatch", "0", CVAR_LATCH);
 	coop = gi.cvar ("coop", "0", CVAR_LATCH);
 	coop_item_respawn = gi.cvar("coop_item_respawn", "1", CVAR_SERVERINFO); /* FS: Coop: Added */
-	gi.cvar_setdescription("coop_item_respawn", "Respawning weapons, ammo, and other items in coop.");
+	//gi.cvar_setdescription("coop_item_respawn", "Respawning weapons, ammo, and other items in coop.");
 	coop_checkpoints = gi.cvar("coop_checkpoints", "1", 0); /* FS: Coop: Added */
-	gi.cvar_setdescription("coop_checkpoints", "Coop checkpoints.  Uses cmds createcheckpoint, savecheckpoints, and deletecheckpoints.  Requires uses of adminpass to be set.  See source code for additional details.");
+	//gi.cvar_setdescription("coop_checkpoints", "Coop checkpoints.  Uses cmds createcheckpoint, savecheckpoints, and deletecheckpoints.  Requires uses of adminpass to be set.  See source code for additional details.");
 	sv_coop_gamemode = gi.cvar("sv_coop_gamemode", "vanilla", CVAR_NOSET|CVAR_SERVERINFO); /* FS: Coop: Added */
-	gi.cvar_setdescription("sv_coop_gamemode", "Internal CVAR used to keep track of current gamemode during DLL resets.");
+	//gi.cvar_setdescription("sv_coop_gamemode", "Internal CVAR used to keep track of current gamemode during DLL resets.");
 	sv_coop_gamemode_vote = gi.cvar("sv_coop_gamemode_vote", "vanilla", CVAR_NOSET); /* FS: Coop: Added */
-	gi.cvar_setdescription("sv_coop_gamemode_vote", "Internal CVAR used to keep track of current gamemode during DLL resets.");
+	//gi.cvar_setdescription("sv_coop_gamemode_vote", "Internal CVAR used to keep track of current gamemode during DLL resets.");
 	sv_coop_reset_hack = gi.cvar("sv_coop_reset_hack", "1", 0);
-	gi.cvar_setdescription("sv_coop_reset_hack", "Reset the internal timers every 3 hours if no clients are connected.  Works around frametime overflow errors.  Experimental.");
+	//gi.cvar_setdescription("sv_coop_reset_hack", "Reset the internal timers every 3 hours if no clients are connected.  Works around frametime overflow errors.  Experimental.");
 	sv_coop_maplist = gi.cvar("sv_coop_maplist", "mapcoop.txt", 0);
-	gi.cvar_setdescription("sv_coop_maplist", "Map list for voting.");
+	//gi.cvar_setdescription("sv_coop_maplist", "Map list for voting.");
 	sv_coop_announce_name_change = gi.cvar("sv_coop_announce_name_change", "1", 0);
-	gi.cvar_setdescription("sv_coop_announce_name_change", "Announce name changes from players.");
+	//gi.cvar_setdescription("sv_coop_announce_name_change", "Announce name changes from players.");
 	sv_coop_name_timeout = gi.cvar("sv_coop_name_timeout", "30", 0);
-	gi.cvar_setdescription("sv_coop_name_timeout", "Timeout (in seconds) before a player can change their name.");
+	//gi.cvar_setdescription("sv_coop_name_timeout", "Timeout (in seconds) before a player can change their name.");
 	sv_coop_summon_time = gi.cvar("sv_coop_summon_time", "10", 0);
-	gi.cvar_setdescription("sv_coop_summon_time", "Timeout (in secnods) before a player can execute a summon or teleport command.");
+	//gi.cvar_setdescription("sv_coop_summon_time", "Timeout (in secnods) before a player can execute a summon or teleport command.");
 	sv_coop_check_player_exit = gi.cvar("sv_coop_check_player_exit", "0", 0); /* FS: Experimental right now */
-	gi.cvar_setdescription("sv_coop_check_player_exit", "Require at least 51% of players to be near the exit to end the level.  Experimental.");
+	//gi.cvar_setdescription("sv_coop_check_player_exit", "Require at least 51% of players to be near the exit to end the level.  Experimental.");
 	sv_coop_blinky_cam_disallowflags = gi.cvar("sv_coop_blinky_cam_disallowflags", "0", 0); /* FS: Blinky cam flags */
-	gi.cvar_setdescription("sv_coop_blinky_cam_disallowflags", "Flags for disabling certain Blinky Camera features.");
+	//gi.cvar_setdescription("sv_coop_blinky_cam_disallowflags", "Flags for disabling certain Blinky Camera features.");
 	sv_drop_timeout = gi.cvar("sv_drop_timeout", "10", 0); /* FS: Added */
-	gi.cvar_setdescription("sv_drop_timeout", "Timeout (in seconds) before a player can drop items.");
+	//gi.cvar_setdescription("sv_drop_timeout", "Timeout (in seconds) before a player can drop items.");
 	sv_spawn_protection = gi.cvar("sv_spawn_protection", "1", 0); /* FS: Coop: Spawn protection */
-	gi.cvar_setdescription("sv_spawn_protection", "Enable spawn protection by enabling temporary invincibility and immunity from telefragging.  Time set in seconds with sv_spawn_protection_time.");
+	//gi.cvar_setdescription("sv_spawn_protection", "Enable spawn protection by enabling temporary invincibility and immunity from telefragging.  Time set in seconds with sv_spawn_protection_time.");
 	sv_spawn_protection_time = gi.cvar("sv_spawn_protection_time", "3", 0); /* FS: Coop: Spawn protection */
-	gi.cvar_setdescription("sv_spawn_protection_time", "Time (in seconds) for spawn protection.  Requires sv_spawn_protection to be enabled.");
+	//gi.cvar_setdescription("sv_spawn_protection_time", "Time (in seconds) for spawn protection.  Requires sv_spawn_protection to be enabled.");
 	adminpass = gi.cvar("adminpass", "", 0);
-	gi.cvar_setdescription("adminpass", "Administator password for special commands.  Not related to RCON.");
+	//gi.cvar_setdescription("adminpass", "Administator password for special commands.  Not related to RCON.");
 	vippass = gi.cvar("vippass", "", 0);
-	gi.cvar_setdescription("vippass", "VIP password for cheating and special commands.  Not related to RCON.");
+	//gi.cvar_setdescription("vippass", "VIP password for cheating and special commands.  Not related to RCON.");
 	gamedir = gi.cvar("gamedir", "", 0); /* FS: Coop: Added */
 	nextserver = gi.cvar("nextserver", "", 0); /* FS: Coop: Added */
 	coop_cameraoffset = gi.cvar("coop_cameraoffset", "10", 0); /* FS: Blinky's coop camera */
-	gi.cvar_setdescription("coop_cameraoffset", "Camera offset for Blinky's Coop Camera");
+	//gi.cvar_setdescription("coop_cameraoffset", "Camera offset for Blinky's Coop Camera");
 	motd = gi.cvar ("motd", "", 0); /* FS: Coop: Added */
 	skill = gi.cvar ("skill", "1", CVAR_LATCH);
 	maxentities = gi.cvar ("maxentities", "1024", CVAR_LATCH);
@@ -297,15 +297,15 @@ InitGame(void)
 
 	/* FS: Coop: Voting */
 	sv_vote_timer = gi.cvar("sv_vote_timer", "60", 0);
-	gi.cvar_setdescription("sv_vote_timer", "Timer for the voting booth.");
+	//gi.cvar_setdescription("sv_vote_timer", "Timer for the voting booth.");
 	sv_vote_private = gi.cvar("sv_vote_private", "0", 0);
-	gi.cvar_setdescription("sv_vote_private", "Toggle if votes are broadcasted or private.");
+	//gi.cvar_setdescription("sv_vote_private", "Toggle if votes are broadcasted or private.");
 	sv_vote_enabled = gi.cvar("sv_vote_enabled", "1", 0);
-	gi.cvar_setdescription("sv_vote_enabled", "Toggle voting.");
+	//gi.cvar_setdescription("sv_vote_enabled", "Toggle voting.");
 	sv_vote_assume_yes = gi.cvar("sv_vote_assume_yes", "1", 0);
-	gi.cvar_setdescription("sv_vote_assume_yes", "Assume yes for the vote initiator (except for vote random).");
+	//gi.cvar_setdescription("sv_vote_assume_yes", "Assume yes for the vote initiator (except for vote random).");
 	sv_vote_disallow_flags = gi.cvar("sv_vote_disallow_flags", "0", 0);
-	gi.cvar_setdescription("sv_vote_disallow_flags", 
+	/*gi.cvar_setdescription("sv_vote_disallow_flags", 
 		"Disallow flags for voting options by players.  \n"
 		"Available flags: \n"
 		"  * No gamemode changes - 1\n" // VOTE_NOGAMEMODE
@@ -321,9 +321,9 @@ InitGame(void)
 		"  * No player kick - 1024\n"
 		"  * No player ban - 2048\n"
 	);
-
+	*/
 	sv_vote_chat_commands = gi.cvar("sv_vote_chat_commands", "1", 0);
-	gi.cvar_setdescription("sv_vote_chat_commands", "Allow \"yes\" and \"no\" chat messages to send \"vote yes\" and \"vote no\" commands if a vote is in progress.");
+	//gi.cvar_setdescription("sv_vote_chat_commands", "Allow \"yes\" and \"no\" chat messages to send \"vote yes\" and \"vote no\" commands if a vote is in progress.");
 
 	if(!strcmp(sv_coop_gamemode->string, "rogue")) /* FS: Coop: Set the proper coop gamemode */
 	{
@@ -571,9 +571,10 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 #endif
 #endif
 					gi.error ("WriteField1: function not in list, can't save game");
+					return; // error never returns
 				}
-				
-				len = strlen(func->funcStr)+1;
+				else
+					len = strlen(func->funcStr)+1;
 			}
 			
 			*(int *)p = len;
@@ -591,9 +592,10 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 				if (!mmove)
 				{
 					gi.error ("WriteField1: mmove not in list, can't save game");
+					return; // error never returns, satisfy compiler.
 				}
-
-				len = strlen(mmove->mmoveStr)+1;
+				else
+					len = strlen(mmove->mmoveStr)+1;
 			}
 			
 			*(int *)p = len;
@@ -638,6 +640,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 				if (!func)
 				{
 					gi.error ("WriteField2: function not in list, can't save game");
+					return; // error never returns, satisfy compiler.
 				}
 				
 				len = strlen(func->funcStr)+1;
@@ -655,9 +658,11 @@ WriteField2(FILE *f, field_t *field, byte *base)
 				{
 					gi.error ("WriteField2: mmove not in list, can't save game");
 				}
-
-				len = strlen(mmove->mmoveStr)+1;
-				fwrite (mmove->mmoveStr, len, 1, f);
+				else
+				{
+					len = strlen(mmove->mmoveStr) + 1;
+					fwrite(mmove->mmoveStr, len, 1, f);
+				}
 			}
 
 			break;
@@ -766,8 +771,8 @@ ReadField(FILE *f, field_t *field, byte *base)
 					gi.error ("ReadField: function name is longer than buffer (%i chars)",
 							(int)sizeof(funcStr));
 				}
-
-				fread (funcStr, len, 1, f);
+				else
+					fread (funcStr, len, 1, f);
 
 				if ( !(*(byte **)p = FindFunctionByName (funcStr)) )
 				{
@@ -790,8 +795,8 @@ ReadField(FILE *f, field_t *field, byte *base)
 					gi.error ("ReadField: mmove name is longer than buffer (%i chars)",
 							(int)sizeof(funcStr));
 				}
-
-				fread (funcStr, len, 1, f);
+				else
+					fread (funcStr, len, 1, f);
 				
 				if ( !(*(mmove_t **)p = FindMmoveByName (funcStr)) )
 				{
@@ -883,34 +888,38 @@ WriteGame(const char *filename, qboolean autosave)
 	if (!f)
 	{
 		gi.error("Couldn't open %s", filename);
+		return;
 	}
 
-	/* Savegame identification */
-	memset(str_ver, 0, sizeof(str_ver));
-	memset(str_game, 0, sizeof(str_game));
-	memset(str_os, 0, sizeof(str_os));
-	memset(str_arch, 0, sizeof(str_arch));
-
-	strncpy(str_ver, SAVEGAMEVER, sizeof(str_ver) - 1);
-	strncpy(str_game, GAMEVERSION, sizeof(str_game) - 1);
-	strncpy(str_os, OS, sizeof(str_os) - 1);
-	strncpy(str_arch, ARCH, sizeof(str_arch) - 1);
-
-	fwrite(str_ver, sizeof(str_ver), 1, f);
-	fwrite(str_game, sizeof(str_game), 1, f);
-	fwrite(str_os, sizeof(str_os), 1, f);
-	fwrite(str_arch, sizeof(str_arch), 1, f);
-
-	game.autosaved = autosave;
-	fwrite(&game, sizeof(game), 1, f);
-	game.autosaved = false;
-
-	for (i = 0; i < game.maxclients; i++)
+	else
 	{
-		WriteClient(f, &game.clients[i]);
-	}
+		/* Savegame identification */
+		memset(str_ver, 0, sizeof(str_ver));
+		memset(str_game, 0, sizeof(str_game));
+		memset(str_os, 0, sizeof(str_os));
+		memset(str_arch, 0, sizeof(str_arch));
 
-	fclose(f);
+		strncpy(str_ver, SAVEGAMEVER, sizeof(str_ver) - 1);
+		strncpy(str_game, GAMEVERSION, sizeof(str_game) - 1);
+		strncpy(str_os, OS, sizeof(str_os) - 1);
+		strncpy(str_arch, ARCH, sizeof(str_arch) - 1);
+
+		fwrite(str_ver, sizeof(str_ver), 1, f);
+		fwrite(str_game, sizeof(str_game), 1, f);
+		fwrite(str_os, sizeof(str_os), 1, f);
+		fwrite(str_arch, sizeof(str_arch), 1, f);
+
+		game.autosaved = autosave;
+		fwrite(&game, sizeof(game), 1, f);
+		game.autosaved = false;
+
+		for (i = 0; i < game.maxclients; i++)
+		{
+			WriteClient(f, &game.clients[i]);
+		}
+
+		fclose(f);
+	}
 }
 
 /*
@@ -919,14 +928,14 @@ WriteGame(const char *filename, qboolean autosave)
  * savegames is loaded.
  */
 void
-ReadGame(const char *filename)
+ReadGame(const char* filename)
 {
-	FILE *f;
+	FILE* f;
 	int i;
-	char str_ver[32];
-	char str_game[32];
-	char str_os[32];
-	char str_arch[32];
+	char str_ver[32] = { 0 };
+	char str_game[32] = { 0 };
+	char str_os[32] = { 0 };
+	char str_arch[32] = { 0 };
 
 	gi.FreeTags(TAG_GAME);
 
@@ -935,49 +944,56 @@ ReadGame(const char *filename)
 	if (!f)
 	{
 		gi.error("Couldn't open %s", filename);
+		return;
 	}
 
-	/* Sanity checks */
-	fread(str_ver, sizeof(str_ver), 1, f);
-	fread(str_game, sizeof(str_game), 1, f);
-	fread(str_os, sizeof(str_os), 1, f);
-	fread(str_arch, sizeof(str_arch), 1, f);
-
-	if (strcmp(str_ver, SAVEGAMEVER))
+	else
 	{
-		fclose(f);
-		gi.error("Savegame from an incompatible version.\n");
-	}
-	else if (strcmp(str_game, GAMEVERSION))
-	{
-		fclose(f);
-		gi.error("Savegame from an other game.so.\n");
-	}
- 	else if (strcmp(str_os, OS))
-	{
-		fclose(f);
-		gi.error("Savegame from an other os.\n");
-	}
+		/* Sanity checks */
+		fread(str_ver, sizeof(str_ver), 1, f);
+		fread(str_game, sizeof(str_game), 1, f);
+		fread(str_os, sizeof(str_os), 1, f);
+		fread(str_arch, sizeof(str_arch), 1, f);
 
- 	else if (strcmp(str_arch, ARCH))
-	{
-		fclose(f);
-		gi.error("Savegame from an other architecure.\n");
-	}
+		if (strcmp(str_ver, SAVEGAMEVER) != 0)
+		{
+			fclose(f);
+			gi.error("Savegame from an incompatible version.\n");
+			return;
+		}
+		else if (strcmp(str_game, GAMEVERSION) != 0)
+		{
+			fclose(f);
+			gi.error("Savegame from an other game.so.\n");
+			return;
+		}
+		else if (strcmp(str_os, OS) != 0)
+		{
+			fclose(f);
+			gi.error("Savegame from an other os.\n");
+			return;
+		}
+		else if (strcmp(str_arch, ARCH) != 0)
+		{
+			fclose(f);
+			gi.error("Savegame from an other architecure.\n");
+			return;
+		}
 
-	g_edicts = gi.TagMalloc(game.maxentities * sizeof(g_edicts[0]), TAG_GAME);
-	globals.edicts = g_edicts;
+		g_edicts = gi.TagMalloc(game.maxentities * sizeof(g_edicts[0]), TAG_GAME);
+		globals.edicts = g_edicts;
 
-	fread(&game, sizeof(game), 1, f);
-	game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]),
+		fread(&game, sizeof(game), 1, f);
+		game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]),
 			TAG_GAME);
 
-	for (i = 0; i < game.maxclients; i++)
-	{
-		ReadClient(f, &game.clients[i]);
-	}
+		for (i = 0; i < game.maxclients; i++)
+		{
+			ReadClient(f, &game.clients[i]);
+		}
 
-	fclose(f);
+		fclose(f);
+	}
 }
 
 /* ========================================================== */
@@ -1058,33 +1074,37 @@ WriteLevel(const char *filename)
 	if (!f)
 	{
 		gi.error("Couldn't open %s", filename);
+		return;
 	}
 
-	/* write out edict size for checking */
-	i = sizeof(edict_t);
-	fwrite(&i, sizeof(i), 1, f);
-
-	/* write out level_locals_t */
-	WriteLevelLocals(f);
-
-	/* write out all the entities */
-	for (i = 0; i < globals.num_edicts; i++)
+	else
 	{
-		ent = &g_edicts[i];
+		/* write out edict size for checking */
+		i = sizeof(edict_t);
+		fwrite(&i, sizeof(i), 1, f);
 
-		if (!ent->inuse)
+		/* write out level_locals_t */
+		WriteLevelLocals(f);
+
+		/* write out all the entities */
+		for (i = 0; i < globals.num_edicts; i++)
 		{
-			continue;
+			ent = &g_edicts[i];
+
+			if (!ent->inuse)
+			{
+				continue;
+			}
+
+			fwrite(&i, sizeof(i), 1, f);
+			WriteEdict(f, ent);
 		}
 
+		i = -1;
 		fwrite(&i, sizeof(i), 1, f);
-		WriteEdict(f, ent);
+
+		fclose(f);
 	}
-
-	i = -1;
-	fwrite(&i, sizeof(i), 1, f);
-
-	fclose(f);
 }
 
 /* ========================================================== */
@@ -1149,6 +1169,7 @@ ReadLevel(const char *filename)
 	if (!f)
 	{
 		gi.error("Couldn't open %s", filename);
+		return;
 	}
 
 	/* free any dynamic memory allocated by
@@ -1166,6 +1187,7 @@ ReadLevel(const char *filename)
 	{
 		fclose(f);
 		gi.error("ReadLevel: mismatched edict size");
+		return;
 	}
 
 	/* load the level locals */
@@ -1178,6 +1200,7 @@ ReadLevel(const char *filename)
 		{
 			fclose(f);
 			gi.error("ReadLevel: failed to read entnum");
+			return;
 		}
 
 		if (entnum == -1)
@@ -1221,7 +1244,7 @@ ReadLevel(const char *filename)
 		/* fire any cross-level triggers */
 		if (ent->classname)
 		{
-			if(coop->intValue && !Q_stricmp(ent->classname, "info_coop_checkpoint")) /* FS: Coop: Reset checkpoints so we can touch them again */
+			if(coop->value && !Q_stricmp(ent->classname, "info_coop_checkpoint")) /* FS: Coop: Reset checkpoints so we can touch them again */
 			{
 				ent->dmg = 0;
 				ent->s.effects = EF_ROTATE;

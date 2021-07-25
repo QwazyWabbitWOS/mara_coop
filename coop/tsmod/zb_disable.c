@@ -74,7 +74,7 @@ qboolean ReadDisableFile(char *disablename)
 			int len;
 			
 			// remove '\n'
-			len = q2a_strlen(buffer) - 1;
+			len = (int)q2a_strlen(buffer) - 1;
 			if(buffer[len] == '\n')
 				{
 					buffer[len] = 0x0;
@@ -105,12 +105,12 @@ qboolean ReadDisableFile(char *disablename)
 					cp += 3;
 					SKIPBLANK(cp);
 					
-					len = q2a_strlen(cp) + 1;
+					len = (int)q2a_strlen(cp) + 1;
 					
 					// zero length command
 					if(!len)
 						{
-							gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+							gi.dprintf ("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 							continue;
 						}
 						
@@ -130,7 +130,7 @@ qboolean ReadDisableFile(char *disablename)
 									disablecmds[maxdisable_cmds].r = 0;
 									
 									// malformed re... skip this disable command
-									gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+									gi.dprintf ("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 									continue;
 								}
 						}
@@ -148,7 +148,7 @@ qboolean ReadDisableFile(char *disablename)
 				}
 			else if(!(cp[0] == ';' || cp[0] == '\n' || isBlank (cp)))
 				{
-					gi.dprintf("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
+					gi.dprintf ("Error loading DISABLE from line %d in file %s\n", uptoLine, disablename);
 				}
 		}
 		
@@ -190,7 +190,7 @@ void readDisableLists(void)
 		
 	if(!ret)
 		{
-			gi.dprintf("WARNING: " DISABLEFILE " could not be found\n");
+			gi.dprintf ("WARNING: " DISABLEFILE " could not be found\n");
 			logEvent(LT_INTERNALWARN, 0, NULL, DISABLEFILE " could not be found", IW_DISABLESETUPLOAD, 0.0);
 		}
 }
@@ -333,7 +333,7 @@ void disablecmdRun(int startarg, edict_t *ent, int client)
 			return;
 		}
 		
-	len = q2a_strlen(cmd) + 20;
+	len = (int)q2a_strlen(cmd) + 20;
 	
 	disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_LEVEL);
 	processstring(disablecmds[maxdisable_cmds].disablecmd, cmd, len - 1, 0);

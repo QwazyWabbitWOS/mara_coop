@@ -36,7 +36,7 @@ cvar_t  *rcon_password, *gamedir, *maxclients, *logfile, *rconpassword, *port, *
 
 qboolean quake2dirsupport = TRUE;
 
-char dllname[256];
+char dllname[512];
 char gmapname[MAX_QPATH];
 
 //*** UPDATE START ***
@@ -360,13 +360,13 @@ void InitGame (void)
 	INITPERFORMANCE(2);
 	
 	proxyinfo = NULL; //UPDATE - Harven fix
-	gi.dprintf(zbotversion);
+	gi.dprintf (zbotversion);
 	
 	if(!dllloaded) return;
 	
 	if(q2adminrunmode < 100)
 		{
-			gi.dprintf("(Q2Admin runlevel %d)\n", q2adminrunmode);
+			gi.dprintf ("(Q2Admin runlevel %d)\n", q2adminrunmode);
 		}
 		
 	if(q2adminrunmode == 0)
@@ -387,13 +387,13 @@ void InitGame (void)
 	logfile = gi.cvar ("logfile", "0", 0);
 	rconpassword = gi.cvar("rcon_password", "", 0);
 	proxyinfoBase = gi.TagMalloc ((maxclients->value + 1) * sizeof(proxyinfo_t), TAG_GAME);
-	q2a_memset(proxyinfoBase, 0x0, (maxclients->value + 1) * sizeof(proxyinfo_t));
+	q2a_memset(proxyinfoBase, 0x0, ((size_t)maxclients->value + 1) * sizeof(proxyinfo_t));
 	proxyinfo = proxyinfoBase;
 	proxyinfo += 1;
 	proxyinfo[-1].inuse = 1;
 	
 	reconnectproxyinfo = gi.TagMalloc (maxclients->value  * sizeof(proxyreconnectinfo_t), TAG_GAME);
-	q2a_memset(reconnectproxyinfo, 0x0, maxclients->value * sizeof(proxyreconnectinfo_t));
+	q2a_memset(reconnectproxyinfo, 0x0, (size_t)maxclients->value * sizeof(proxyreconnectinfo_t));
 	
 	reconnectlist = (reconnect_info *)gi.TagMalloc (maxclients->value * sizeof(reconnect_info), TAG_GAME);
 	maxReconnectList = 0;
@@ -577,9 +577,9 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 					len = 0;
 					while(fgets(buffer, 256, motdptr))
 						{
-							currentlen = q2a_strlen(buffer);
+							currentlen = (int)q2a_strlen(buffer);
 							
-							if(len + currentlen > sizeof(motd))
+							if((size_t)len + currentlen > sizeof(motd))
 								{
 									break;
 								}
@@ -724,7 +724,7 @@ qboolean UpdateInternalClientInfo(int client, edict_t *ent, char *userinfo, qboo
 								
 							proxyinfo[client].ipaddressBinary[i] = num;
 							
-							while(isdigit(*ip))
+							while(isdigit((int)*ip))
 								{
 									ip++;
 								}
@@ -1217,7 +1217,7 @@ qboolean ClientConnect (edict_t *ent, char *userinfo)
 	return ret;
 }
 
-
+// Returns true if name has not changed.
 qboolean checkForNameChange(int client, edict_t *ent, char *userinfo)
 {
 	char *s = Info_ValueForKey (userinfo, "name");
@@ -1438,7 +1438,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 	qboolean passon;
 
 //*** UPDATE START ***
-	char *s = Info_ValueForKey (userinfo, "name");
+	//char *s = Info_ValueForKey (userinfo, "name");
 	char tmptext[128];
 	char *cl_max_temp;
 	char *timescale_temp;
@@ -1509,7 +1509,6 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 			gi.AddCommandString(tmptext);
 		}
 	}
-
 	// 1.32e - 1.32e1 change
 	//	if (strcmp(proxyinfo[client].userinfo, userinfo)!=0)
 	//	{

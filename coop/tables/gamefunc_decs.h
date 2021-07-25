@@ -242,7 +242,7 @@ extern void Com_strcpy ( char * dest , int destSize , const char * src ) ;
 extern void Com_sprintf ( char * dest , int size , char * fmt , ... ) ;
 extern int Q_strcasecmp ( char * s1 , char * s2 ) ;
 extern int Q_strncasecmp ( char * s1 , char * s2 , int n ) ;
-extern int Q_stricmp ( char * s1 , char * s2 ) ;
+extern int Q_stricmp (const char* s1 , const char* s2 ) ;
 extern void Com_PageInMemory ( byte * buffer , int size ) ;
 extern char * COM_Parse ( char * * data_p ) ;
 extern char * va ( char * format , ... ) ;
@@ -1476,7 +1476,7 @@ extern edict_t * CreateGroundMonster ( vec3_t origin , vec3_t angles , vec3_t en
 extern edict_t * CreateFlyMonster ( vec3_t origin , vec3_t angles , vec3_t mins , vec3_t maxs , char * classname ) ;
 extern edict_t * CreateMonster ( vec3_t origin , vec3_t angles , char * classname ) ;
 extern void SP_worldspawn ( edict_t * ent ) ;
-extern void SpawnEntities ( const char * mapname , char * entities , const char * spawnpoint ) ;
+extern void SpawnEntities ( const char * mapname , char * entities , char * spawnpoint ) ;
 extern void G_FindTeams ( void ) ;
 extern void G_FixTeams ( void ) ;
 extern char * ED_ParseEdict ( char * data , edict_t * ent ) ;

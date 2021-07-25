@@ -396,18 +396,18 @@ void vote_map (edict_t *ent, const char *mapName)
 
 	vote_Reset();
 
-	if(strstr(mapName, "."))
+	if(strchr(mapName, '.'))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Map name can not contain '.'\n");
 		return;
 	}
-	else if(strstr(mapName, ";"))
+	else if(strchr(mapName, ';'))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Map name can not contain ';'\n");
 		return;
 	}
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NOMAP)
+	if((int)sv_vote_disallow_flags->value & VOTE_NOMAP)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for map changes are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -428,7 +428,7 @@ void vote_map (edict_t *ent, const char *mapName)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -441,6 +441,7 @@ void vote_warp (edict_t *ent, const char *mapName)
 	if(!ent || !ent->client)
 	{
 		gi.dprintf("Error: vote_warp from a non-player!\n");
+		return;
 	}
 
 	if (bVoteInProgress)
@@ -451,18 +452,18 @@ void vote_warp (edict_t *ent, const char *mapName)
 
 	vote_Reset();
 
-	if(strstr(mapName, "."))
+	if(strchr(mapName, '.'))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Map name can not contain '.'\n");
 		return;
 	}
-	else if(strstr(mapName, ";"))
+	else if(strchr(mapName, ';'))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Map name can not contain ';'\n");
 		return;
 	}
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NOMAP)
+	if((int)sv_vote_disallow_flags->value & VOTE_NOMAP)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for map changes are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -491,7 +492,7 @@ void vote_warp (edict_t *ent, const char *mapName)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -504,6 +505,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 	if(!ent || !ent->client)
 	{
 		gi.dprintf("Error: vote_gamemode from a non-player!\n");
+		return;
 	}
 
 	if (bVoteInProgress)
@@ -514,7 +516,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 
 	vote_Reset();
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NOGAMEMODE)
+	if((int)sv_vote_disallow_flags->value & VOTE_NOGAMEMODE)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for gamemode changes are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -522,7 +524,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 
 	if (!Q_stricmp((char *)gamemode, "vanilla"))
 	{
-		if(sv_vote_disallow_flags->intValue & VOTE_NOVANILLA)
+		if((int)sv_vote_disallow_flags->value & VOTE_NOVANILLA)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Voting for Vanilla gamemode change is not allowed on this server.  Vote cancelled.\n");
 			return;
@@ -533,7 +535,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 	}
 	else if (!Q_stricmp((char *)gamemode, "xatrix"))
 	{
-		if(sv_vote_disallow_flags->intValue & VOTE_NOXATRIX)
+		if((int)sv_vote_disallow_flags->value & VOTE_NOXATRIX)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Voting for Xatrix gamemode change is not allowed on this server.  Vote cancelled.\n");
 			return;
@@ -544,7 +546,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 	}
 	else if (!Q_stricmp((char *)gamemode, "rogue"))
 	{
-		if(sv_vote_disallow_flags->intValue & VOTE_NOROGUE)
+		if((int)sv_vote_disallow_flags->value & VOTE_NOROGUE)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Voting for Rogue gamemode change is not allowed on this server.  Vote cancelled.\n");
 			return;
@@ -555,7 +557,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 	}
 	else if (!Q_stricmp((char *)gamemode, "zaero"))
 	{
-		if(sv_vote_disallow_flags->intValue & VOTE_NOZAERO)
+		if((int)sv_vote_disallow_flags->value & VOTE_NOZAERO)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Voting for Rogue gamemode change is not allowed on this server.  Vote cancelled.\n");
 			return;
@@ -589,7 +591,7 @@ void vote_gamemode(edict_t *ent, const char *gamemode)
 	Com_sprintf(voteType, sizeof(voteType), "gamemode");
 	vote_Broadcast("%s votes for %s: %s! Use vote yes or vote no to submit your vote!\n", ent->client->pers.netname, voteType, whatAreWeVotingFor);
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 
 	vote_menu_broadcast();
@@ -613,13 +615,13 @@ void vote_coopskill(edict_t *ent, int skillVote)
 
 	vote_Reset();
 
-	if(!coop->intValue)
+	if(!coop->value)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "error: not in a coop game!\n");
 		return;
 	}
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NOCOOPSKILL)
+	if((int)sv_vote_disallow_flags->value & VOTE_NOCOOPSKILL)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for coop skill changes are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -648,7 +650,7 @@ void vote_coopskill(edict_t *ent, int skillVote)
 			return;
 	}
 
-	if(skill->intValue == skillVote)
+	if(skill->value == skillVote)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "error: skill is already %s!  Vote cancelled.\n", whatAreWeVotingFor);
 		return;
@@ -659,7 +661,7 @@ void vote_coopskill(edict_t *ent, int skillVote)
 	Com_sprintf(voteType, sizeof(voteType), "coop difficulty");
 	vote_Broadcast("%s votes for %s: %s! Use vote yes or vote no to submit your vote!\n", ent->client->pers.netname, voteType, whatAreWeVotingFor);
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -679,6 +681,7 @@ void vote_restartmap (edict_t *ent)
 	if(!ent || !ent->client)
 	{
 		gi.dprintf("Error: vote_map from a non-player!\n");
+		return;
 	}
 
 	if (bVoteInProgress)
@@ -689,7 +692,7 @@ void vote_restartmap (edict_t *ent)
 
 	vote_Reset();
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NORESETMAP)
+	if((int)sv_vote_disallow_flags->value & VOTE_NORESETMAP)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for map restarts are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -704,7 +707,7 @@ void vote_restartmap (edict_t *ent)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -764,7 +767,7 @@ void vote_yes(edict_t *ent, qboolean bAssume)
 		/* FS: count a vote... */
 		ent->hasVoted = VOTE_YES;
 		voteYes++;
-		if(sv_vote_private->intValue && !bAssume)
+		if(sv_vote_private->value && !bAssume)
 			gi.cprintf(ent, PRINT_HIGH, "Your vote 'yes' for %s has been counted\n", whatAreWeVotingFor);
 		else if (!bAssume)
 			vote_Broadcast("%s votes yes. Yes: %i, No: %i.\n", ent->client->pers.netname, voteYes, voteNo);
@@ -799,7 +802,7 @@ void vote_no(edict_t *ent)
 		ent->hasVoted = VOTE_NO;
 		voteNo++;
 
-		if(sv_vote_private->intValue)
+		if(sv_vote_private->value)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "Your vote 'no' for %s has been counted\n", whatAreWeVotingFor);
 		}
@@ -913,12 +916,12 @@ void vote_Passed (void)
 	else if(!Q_stricmp(voteType, "coop difficulty"))
 	{
 		vote_SetGamemodeCVAR(sv_coop_gamemode->string);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "skill %i; wait;wait;wait;wait;wait;map %s", voteCoopSkill, level.mapname);
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "skill %i; wait;wait;wait;wait;wait;gamemap %s", voteCoopSkill, level.mapname);
 	}
 	else if(!Q_stricmp(voteType, "restartmap"))
 	{
 		vote_SetGamemodeCVAR(sv_coop_gamemode->string);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;map %s\n", voteMap); /* FS: Might want to force a DLL unload for coop overflow fuckery */
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;gamemap %s\n", voteMap); /* FS: Might want to force a DLL unload for coop overflow fuckery */
 	}
 	else if(!Q_stricmp(voteType, "warp"))
 	{
@@ -940,7 +943,7 @@ void vote_Passed (void)
 	else
 	{
 		vote_SetGamemodeCVAR(voteGamemode);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;map %s\n", voteMap);
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;gamemap %s\n", voteMap);
 	}
 
 	vote_Reset();
@@ -978,7 +981,7 @@ void vote_Broadcast(const char *fmt, ...)
 
 	clients = 0;
 
-	if(dedicated->intValue)
+	if(dedicated->value)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "%s", msg); /* FS: Send it to dedicated console too. */
 	}
@@ -1061,7 +1064,7 @@ void vote_updateMenu(void) /* FS: Gotta force the menu to be "dirty" so it updat
 
 void vote_Think(void)
 {
-	if(!bVoteInProgress || !sv_vote_enabled->intValue)
+	if(!bVoteInProgress || !sv_vote_enabled->value)
 		return;
 
 	voteClients = P_Clients_Connected(false);
@@ -1380,13 +1383,13 @@ void vote_playerexit (edict_t *ent)
 
 	vote_Reset();
 
-	if(sv_vote_disallow_flags->intValue & VOTE_NOPLAYEREXIT)
+	if((int)sv_vote_disallow_flags->value & VOTE_NOPLAYEREXIT)
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for changing player exit requirements are not allowed on this server.  Vote cancelled.\n");
 		return;
 	}
 
-	if (sv_coop_check_player_exit->intValue)
+	if (sv_coop_check_player_exit->value)
 	{
 		vote_Broadcast("%s votes for changing player exit requirements to disabled! Use vote yes or vote no to submit your vote!\n", ent->client->pers.netname);
 		Com_sprintf(whatAreWeVotingFor, sizeof(whatAreWeVotingFor), "Req. Disabled");
@@ -1405,7 +1408,7 @@ void vote_playerexit (edict_t *ent)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -1433,13 +1436,13 @@ void vote_kickban (edict_t *ent, char *playerName, qboolean banPlayer)
 
 	vote_Reset();
 
-	if (!banPlayer && (sv_vote_disallow_flags->intValue & VOTE_NOPLAYERKICK))
+	if (!banPlayer && ((int)sv_vote_disallow_flags->value & VOTE_NOPLAYERKICK))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for kicking players are not allowed on this server.  Vote cancelled.\n");
 		return;
 	}
 
-	if (banPlayer && (sv_vote_disallow_flags->intValue & VOTE_NOPLAYERBAN))
+	if (banPlayer && ((int)sv_vote_disallow_flags->value & VOTE_NOPLAYERBAN))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for banning players are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -1474,7 +1477,7 @@ void vote_kickban (edict_t *ent, char *playerName, qboolean banPlayer)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}
@@ -1502,13 +1505,13 @@ void vote_kickban_menu (edict_t *ent, int entNum, qboolean banPlayer)
 
 	vote_Reset();
 
-	if (!banPlayer && (sv_vote_disallow_flags->intValue & VOTE_NOPLAYERKICK))
+	if (!banPlayer && ((int)sv_vote_disallow_flags->value & VOTE_NOPLAYERKICK))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for kicking players are not allowed on this server.  Vote cancelled.\n");
 		return;
 	}
 
-	if (banPlayer && (sv_vote_disallow_flags->intValue & VOTE_NOPLAYERBAN))
+	if (banPlayer && ((int)sv_vote_disallow_flags->value & VOTE_NOPLAYERBAN))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Voting for banning players are not allowed on this server.  Vote cancelled.\n");
 		return;
@@ -1537,7 +1540,7 @@ void vote_kickban_menu (edict_t *ent, int entNum, qboolean banPlayer)
 
 	ent->voteInitiator = true;
 
-	if(sv_vote_assume_yes->intValue)
+	if(sv_vote_assume_yes->value)
 	{
 		vote_yes(ent, true); /* FS: I assume you would want to vote yes if you initiated the vote. */
 	}

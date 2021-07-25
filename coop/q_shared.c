@@ -255,18 +255,18 @@ float Q_fabs (float f)
 	return *(float *) &tmp;
 }
 
-#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
-#pragma warning (disable:4035)
-__declspec( naked ) int Q_ftol( float f )
-{
-	static int tmp;
-	__asm fld dword ptr [esp+4]
-	__asm fistp tmp
-	__asm mov eax, tmp
-	__asm ret
-}
-#pragma warning (default:4035)
-#endif
+//#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
+//#pragma warning (disable:4035)
+//__declspec( naked ) int Q_ftol( float f )
+//{
+//	static int tmp;
+//	__asm fld dword ptr [esp+4]
+//	__asm fistp tmp
+//	__asm mov eax, tmp
+//	__asm ret
+//}
+//#pragma warning (default:4035)
+//#endif
 
 /*
 ===============
@@ -1179,16 +1179,20 @@ void Com_PageInMemory (byte *buffer, int size)
 ============================================================================
 */
 
-// FIXME: replace all Q_stricmp with Q_strcasecmp
-int Q_stricmp (char *s1, char *s2)
+/** Case independent string compare (strcasecmp)
+ if s1 is contained within s2 then return 0, they are "equal".
+ else return the lexicographic difference between them.
+*/
+int	Q_stricmp(const char* s1, const char* s2)
 {
-#if defined(_WIN32)
-	return _stricmp (s1, s2);
-#elif defined(__DJGPP__)
-	return stricmp (s1, s2);
-#else
-	return strcasecmp (s1, s2);
-#endif
+	const unsigned char
+		* uc1 = (const unsigned char*)s1,
+		* uc2 = (const unsigned char*)s2;
+
+	while (tolower(*uc1) == tolower(*uc2++))
+		if (*uc1++ == '\0')
+			return (0);
+	return (tolower(*uc1) - tolower(*--uc2));
 }
 
 int Q_strncasecmp (char *s1, char *s2, int n)

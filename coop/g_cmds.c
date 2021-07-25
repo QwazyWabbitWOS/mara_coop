@@ -17,7 +17,7 @@ static qboolean Client_CanCheat (edict_t *self) /* FS: Added */
 		return true;
 	}
 
-	if (sv_cheats->intValue) /* FS: Otherwise, we need sv_cheats enabled for normal players. */
+	if (sv_cheats->value) /* FS: Otherwise, we need sv_cheats enabled for normal players. */
 	{
 		return true;
 	}
@@ -70,7 +70,7 @@ OnSameTeam(edict_t *ent1, edict_t *ent2)
 		return false;
 	}
 
-	if(coop->intValue) /* FS: Coop: No friendly fire bullshit */
+	if(coop->value) /* FS: Coop: No friendly fire bullshit */
 	{
 		if(ent1->client && ent2->client)
 		{
@@ -1127,7 +1127,7 @@ Cmd_Help_f(edict_t *ent)
 		return;
 	}
 
-	if(coop->intValue && ent->client->showscores) /* FS: Coop: Remove scoreboard on next tab and exit */
+	if(coop->value && ent->client->showscores) /* FS: Coop: Remove scoreboard on next tab and exit */
 	{
 		ent->client->showinventory = false;
 		ent->client->showscores = false;
@@ -1141,7 +1141,7 @@ Cmd_Help_f(edict_t *ent)
 	if (ent->client->showhelp)
 	{
 		ent->client->showhelp = false;
-		if (coop->intValue) /* FS: Coop: Show scoreboard on next tab */
+		if (coop->value) /* FS: Coop: Show scoreboard on next tab */
 		{
 			Cmd_Score_f(ent);
 		}
@@ -1176,7 +1176,7 @@ Cmd_Inven_f(edict_t *ent)
 	}
 	else
 	{
-		if(!cl->showinventory && maxclients->intValue > 1)
+		if(!cl->showinventory && maxclients->value > 1)
 		{
 			CoopOpenJoinMenu(ent);
 			return;
@@ -1630,31 +1630,31 @@ void sayCmd_CheckVote(edict_t *ent, char *voteChat)
 	if(!voteChat || voteChat[0] == '\0')
 		return;
 
-	if(!stricmp(voteChat, "vote yes"))
+	if(!Q_stricmp(voteChat, "vote yes"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote yes\n");
 		gi.unicast(ent, true);
 	}
-	else if(!stricmp(voteChat, "vote no"))
+	else if(!Q_stricmp(voteChat, "vote no"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote no\n");
 		gi.unicast(ent, true);
 	}
-	else if(!stricmp(voteChat, "vote stop"))
+	else if(!Q_stricmp(voteChat, "vote stop"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote stop\n");
 		gi.unicast(ent, true);
 	}
-	else if(!stricmp(voteChat, "vote restartmap"))
+	else if(!Q_stricmp(voteChat, "vote restartmap"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote restartmap\n");
 		gi.unicast(ent, true);
 	}
-	else if(!stricmp(voteChat, "vote playerexit"))
+	else if(!Q_stricmp(voteChat, "vote playerexit"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote playerexit\n");
@@ -1696,29 +1696,29 @@ void sayCmd_CheckVote(edict_t *ent, char *voteChat)
 		gi.WriteString(va("%s\n", voteChat));
 		gi.unicast(ent, true);
 	}
-	else if ( !stricmp(voteChat, "vote help")	|| !stricmp(voteChat, "vote list") || !stricmp(voteChat, "vote cmds")	|| !stricmp(voteChat, "vote commands") )
+	else if ( !Q_stricmp(voteChat, "vote help")	|| !Q_stricmp(voteChat, "vote list") || !Q_stricmp(voteChat, "vote cmds")	|| !Q_stricmp(voteChat, "vote commands") )
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote help\n");
 		gi.unicast(ent, true);
 	}
-	else if (!stricmp(voteChat, "vote progress"))
+	else if (!Q_stricmp(voteChat, "vote progress"))
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString("vote progress\n");
 		gi.unicast(ent, true);
 	}
-	else if (sv_vote_chat_commands->intValue) /* FS: Too many people assuming "yes" and "no" as chat messages are appropriate */
+	else if (sv_vote_chat_commands->value) /* FS: Too many people assuming "yes" and "no" as chat messages are appropriate */
 	{
 		if(bVoteInProgress && !ent->hasVoted)
 		{
-			if(!stricmp(voteChat, "yes"))
+			if(!Q_stricmp(voteChat, "yes"))
 			{
 				gi.WriteByte(svc_stufftext);
 				gi.WriteString("vote yes\n");
 				gi.unicast(ent, true);
 			}
-			else if (!stricmp(voteChat, "no"))
+			else if (!Q_stricmp(voteChat, "no"))
 			{
 				gi.WriteByte(svc_stufftext);
 				gi.WriteString("vote no\n");
@@ -2002,7 +2002,7 @@ void Cmd_PlaceCheckpoint_f (edict_t *ent) /* FS: Added */
 {
 	edict_t *spawn;
 
-	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->intValue)
+	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->value)
 	{
 		return;
 	}
@@ -2033,7 +2033,7 @@ void Cmd_SaveCheckpoint_f (edict_t *ent) /* FS: Added */
 	FILE *f = NULL;
 	int count = 0;
 
-	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->intValue)
+	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->value)
 	{
 		return;
 	}
@@ -2082,7 +2082,7 @@ void Cmd_DeleteCheckpoints_f (edict_t *ent) /* FS: Added */
 	char fileName[MAX_OSPATH];
 	FILE *f = NULL;
 
-	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->intValue)
+	if (!ent || !ent->client || !ent->client->pers.isAdmin || !coop->value)
 	{
 		return;
 	}
@@ -2552,7 +2552,9 @@ ClientCommand(edict_t *ent)
 	}
 	else if ((Q_stricmp(cmd, "push") == 0) || (Q_stricmp(cmd,"pull") == 0))
 	{
-		/* FS: Purposely do nothing.  This somehow got in my cfgs, and some other users.  I see this happen to people during vid_restarts and vid_restarts are firing off mwheelup and mwheeldown for some reason... */
+		/* FS: Purposely do nothing.  This somehow got in my cfgs, and some other users.  
+		I see this happen to people during vid_restarts and vid_restarts are firing off 
+		mwheelup and mwheeldown for some reason... */
 	}
 	else /* anything that doesn't match a command will be a chat */
 	{

@@ -329,6 +329,8 @@ typedef struct
 
 #define WEAP_NONE				19 /* FS: Coop: Zaero specifc */
 
+void Weapon_Generic(edict_t* ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int* pause_frames, int* fire_frames, void (*fire)(edict_t* ent));
+
 
 /* FS: Zaero specific game dll changes */
 // hide flags
@@ -1603,6 +1605,7 @@ struct gclient_s
 
 	int             hook_state;
     edict_t        *hook;
+
 };
 
 struct edict_s
@@ -1825,6 +1828,7 @@ struct edict_s
 
 	float bossFireTimeout;
 	int bossFireCount;
+	float timer;	//QW// for supergrenade
 
 	edict_t		*hook_laser;
 };
