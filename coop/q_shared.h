@@ -20,15 +20,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // q_shared.h -- included first by ALL program modules
 
-#ifdef _MSC_VER
-// unknown pragmas are SUPPOSED to be ignored, but....
-#pragma warning(disable : 4244)     // MIPS
-#pragma warning(disable : 4136)     // X86
-#pragma warning(disable : 4051)     // ALPHA
-
-#pragma warning(disable : 4018)     // signed/unsigned mismatch
+#ifdef _WIN32
+#pragma warning(disable : 4244)     // conversion from 'type1' to 'type2', possible loss of data
+#pragma warning(disable : 4100)		// unreferenced formal parameter
+#pragma warning(disable : 4127)		// conditional expression is constant
+#if _MSC_VER > 1500
 #pragma warning(disable : 4305)		// truncation from const double to float
-#pragma warning(disable : 4996)		/* FS: Shut up about VS2005 shit */
+#pragma warning(disable : 4996)		// unsafe CRT functions (_CRT_SECURE_NO_WARNINGS).
+#pragma warning(disable : 4459)		// declaration of 'var' hides global declaration.
+#pragma warning(disable : 6244)		// local declaration of <variable> hides previous declaration at <line> of <file>
+#endif
 #endif
 
 #include <math.h>
@@ -76,9 +77,13 @@ char *strtok_r(char *s, const char *delim, char **last);
 
 /* from Quake3 */
 #ifdef _WIN32
-#define Q_vsnprintf _vsnprintf
+#if _MSC_VER > 1500
+#define Q_vsnprintf vsnprintf
 #else
-#define Q_vsnprintf  vsnprintf
+#define Q_vsnprintf _vsnprintf
+#endif
+#else
+#define Q_vsnprintf _vsnprintf
 #endif
 
 // angle indexes

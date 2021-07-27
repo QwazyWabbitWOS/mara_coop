@@ -106,9 +106,13 @@ char *strtok_r(char *s, const char *delim, char **last);
 
 /* from Quake3 */
 #ifdef _WIN32
-#define Q_vsnprintf _vsnprintf
+#if _MSC_VER > 1500
+#define Q_vsnprintf vsnprintf
 #else
-#define Q_vsnprintf  vsnprintf
+#define Q_vsnprintf _vsnprintf
+#endif
+#else
+#define Q_vsnprintf _vsnprintf
 #endif
 
 // angle indexes

@@ -283,7 +283,7 @@
 {"BoxOnPlaneSide2", (byte *)BoxOnPlaneSide2},
 {"anglemod", (byte *)anglemod},
 {"LerpAngle", (byte *)LerpAngle},
-{"Q_fabs", (byte *)Q_fabs},
+//{"Q_fabs", (byte *)Q_fabs},
 {"R_ConcatTransforms", (byte *)R_ConcatTransforms},
 {"R_ConcatRotations", (byte *)R_ConcatRotations},
 {"PerpendicularVector", (byte *)PerpendicularVector},

@@ -248,12 +248,12 @@ void R_ConcatTransforms (float in1[3][4], float in2[3][4], float out[3][4])
 //============================================================================
 
 
-float Q_fabs (float f)
-{
-	int tmp = *(int *) &f;
-	tmp &= 0x7FFFFFFF;
-	return *(float *) &tmp;
-}
+//float Q_fabs (float f)
+//{
+//	int tmp = *(int *) &f;
+//	tmp &= 0x7FFFFFFF;
+//	return *(float *) &tmp;
+//}
 
 //#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
 //#pragma warning (disable:4035)
@@ -1503,7 +1503,7 @@ void Info_SetValueForKey (char *s, char *key, char *value)
 
 	Com_sprintf (newi, sizeof(newi), "\\%s\\%s", key, value);
 
-	if (strlen(newi) + strlen(s) > maxsize)
+	if ((int)strlen(newi) + (int)strlen(s) > maxsize)
 	{
 		Com_Printf ("Info string length exceeded\n");
 		return;
