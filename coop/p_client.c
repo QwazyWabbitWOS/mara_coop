@@ -25,7 +25,7 @@ void
 SP_FixCoopSpots(edict_t *self)
 {
 	edict_t *spot;
-	vec3_t d;
+	vec3_t d = { 0 };
 
 	if (!self)
 	{
@@ -2545,6 +2545,34 @@ ClientBeginDeathmatch(edict_t *ent)
 	ClientEndServerFrame(ent);
 }
 
+void ClientShowMOTD(edict_t* ent)
+{
+	FILE* motd_file;
+	char motdPath[MAX_QPATH];
+	char motd[8192];
+	char line[80];
+
+	// Generate the path to the MOTD file.
+	Com_sprintf(motdPath, sizeof motdPath,
+		"%s/%s", gamedir->string, "motd.txt");
+
+	if ((motd_file = fopen(motdPath, "r")))
+	{
+		if (motd_file)
+		{
+			if (fgets(motd, 8192, motd_file))
+			{
+				while (fgets(line, 80, motd_file))
+				{
+					strcat(motd, line);
+				}
+				gi.centerprintf(ent, "%s", motd);
+			}
+			fclose(motd_file);
+		}
+	}
+}
+
 /*
  * called when a client has finished connecting, and is ready
  * to be placed into the game.  This will happen every level load.
@@ -2552,9 +2580,6 @@ ClientBeginDeathmatch(edict_t *ent)
 void
 ClientBegin(edict_t *ent)
 {
-    FILE *motd_file;
-    char motd[8192];
-    char line[80];
 	int i;
 
 	if (!ent)
@@ -2629,29 +2654,16 @@ ClientBegin(edict_t *ent)
 		}
 	}
 
-	gi.WriteByte (11);
+	gi.WriteByte (svc_stufftext);
     gi.WriteString ("alias +hook \"cmd hook\"\n");
     gi.unicast(ent, true);
 
-    gi.WriteByte (11);
+    gi.WriteByte (svc_stufftext);
     gi.WriteString ("alias -hook \"cmd unhook\"\n");
     gi.unicast(ent, true);
 
-	if (motd_file = fopen("motd.txt", "r"))
-    {
-		if (motd_file = fopen("motd.txt", "r")) {
-                 
-                 if (fgets(motd, 8192, motd_file)) 
-				 {
-                     while (fgets(line, 80, motd_file))
-					 {
-                         strcat(motd, line);
-					 }
-                     gi.centerprintf(ent, "%s", motd);
-                 }
-                 fclose(motd_file);
-             }
-	}
+	ClientShowMOTD(ent);
+
 	ent->client->pers.connected = true; /* FS: Fix for players command and q2admin commands */
 
 	/* make sure all view stuff is valid */

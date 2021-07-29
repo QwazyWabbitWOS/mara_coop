@@ -4,7 +4,7 @@
 #define LEG_WAIT_TIME 1 /* FS: Coop: Rogue specific */
 #define MAX_LEGSFRAME 23 /* FS: Coop: Rogue specific */
 
-#define SPAWNGROW_LIFESPAN 0.3 /* FS: Coop: Rogue specific */
+#define SPAWNGROW_LIFESPAN 0.3f /* FS: Coop: Rogue specific */
 #define STEPSIZE 18 /* FS: Coop: Rogue specific */
 
 void Z_SpawnDMItems(); /* FS: Zaero specific game dll changes */
@@ -1958,7 +1958,7 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 
 	if (self->s.frame == 17)
 	{
-		VectorSet(offset, 11.77, -7.24, 23.31);
+		VectorSet(offset, 11.77f, -7.24f, 23.31f);
 		AngleVectors(self->s.angles, f, r, u);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
 		gi.WriteByte(svc_temp_entity);
@@ -1983,7 +1983,7 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 	{
 		AngleVectors(self->s.angles, f, r, u);
 
-		VectorSet(offset, -65.6, -8.44, 28.59);
+		VectorSet(offset, -65.6f, -8.44f, 28.59f);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_EXPLOSION1);
@@ -1996,7 +1996,7 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib2/tris.md2",
 				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 
-		VectorSet(offset, -1.04, -51.18, 7.04);
+		VectorSet(offset, -1.04f, -51.18f, 7.04f);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_EXPLOSION1);
@@ -2020,14 +2020,14 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 		self->count = 1;
 		AngleVectors(self->s.angles, f, r, u);
 
-		VectorSet(offset, 31, -88.7, 10.96);
+		VectorSet(offset, 31.f, -88.7f, 10.96f);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_EXPLOSION1);
 		gi.WritePosition(point);
 		gi.multicast(point, MULTICAST_ALL);
 
-		VectorSet(offset, -12.67, -4.39, 15.68);
+		VectorSet(offset, -12.67f, -4.39f, 15.68f);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_EXPLOSION1);

@@ -19,7 +19,7 @@ void RadioToggle_f(edict_t *self)
 // this functions is used to send commands to the clients.
 void stuffcmd(edict_t *ent, char *s) 	
 {
-   	gi.WriteByte (11);	        
+   	gi.WriteByte (svc_stufftext);
 	gi.WriteString (s);
 	gi.unicast (ent, true);	
 }
@@ -58,7 +58,7 @@ void Radio_f(edict_t *self, char *channel, char *msg)
 
 	// Okay gotta make sure people can't stuff extra commands down to kill someone.
 	// This is also why i send everything to the guy that sent it originally also
-	if (pos = strstr(msg,";"))
+	if ((pos = strstr(msg,";")))
 		pos[0] = 0;
 		
 	

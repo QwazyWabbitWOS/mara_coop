@@ -52,11 +52,11 @@ VelocityForDamage(int damage, vec3_t v)
 
 	if (damage < 50)
 	{
-		VectorScale(v, 0.7, v);
+		VectorScale(v, 0.7f, v);
 	}
 	else
 	{
-		VectorScale(v, 1.2, v);
+		VectorScale(v, 1.2f, v);
 	}
 }
 

@@ -66,7 +66,7 @@ edict_t *hook_laser_start (edict_t *ent)
 	return(self);
 }
 
-void hook_reset (edict_t *rhook)
+void hook_reset(edict_t* rhook)
 {
 	if (!rhook) return;
 	if (rhook->owner)
@@ -77,9 +77,9 @@ void hook_reset (edict_t *rhook)
 			rhook->owner->client->hook = NULL;
 		}
 	}
-	if (rhook->laser) 
+	if (rhook->laser)
 		G_FreeEdict(rhook->laser);
-		G_FreeEdict(rhook);
+	G_FreeEdict(rhook);
 }
 
 qboolean hook_cond_reset(edict_t *self)
@@ -296,7 +296,7 @@ void hook_fire (edict_t *ent) {
 	fire_hook (ent, start, forward);
 
 	if (ent->client->silencer_shots)
-		gi.sound(ent, CHAN_WEAPON, gi.soundindex("flyer/Flyatck3.wav"), 0.2, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_WEAPON, gi.soundindex("flyer/Flyatck3.wav"), 0.2f, ATTN_NORM, 0);
 	else
 		gi.sound(ent, CHAN_WEAPON, gi.soundindex("flyer/Flyatck3.wav"), 1, ATTN_NORM, 0);
 

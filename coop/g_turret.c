@@ -234,7 +234,7 @@ turret_breach_think(edict_t *self)
 		delta[1] = -1 * self->speed * FRAMETIME;
 	}
 
-	VectorScale(delta, 1.0 / FRAMETIME, self->avelocity);
+	VectorScale(delta, 1.0f / FRAMETIME, self->avelocity);
 
 	self->nextthink = level.time + FRAMETIME;
 

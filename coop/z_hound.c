@@ -585,7 +585,7 @@ void SP_monster_hound (edict_t *self)
   self->monsterinfo.zSchoolMinSpeed = 3;
   self->monsterinfo.zSpeedStandMax = 1;
   self->monsterinfo.zSpeedWalkMax = 3;
-  self->monsterinfo.zSchoolDecayRate = 0.95;
+  self->monsterinfo.zSchoolDecayRate = 0.95f;
   self->monsterinfo.zSchoolMinimumDistance = 100;
 
 	self->monsterinfo.stand = hound_stand;

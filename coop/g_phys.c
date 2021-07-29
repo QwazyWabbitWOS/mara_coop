@@ -1388,7 +1388,7 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 		massDiff = massOfWater - massOfObject; // difference between
 		VectorClear(accel);
 		VectorSet(accel, 0, 0, gravVal * (massDiff / massOfVolumeWater));
-		VectorScale(ent->velocity, 0.7, ent->velocity);
+		VectorScale(ent->velocity, 0.7f, ent->velocity);
 		if (VectorLength(accel) > 4)
 			VectorAdd(ent->velocity, accel, ent->velocity);
 	}

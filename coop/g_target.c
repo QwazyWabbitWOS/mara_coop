@@ -1226,12 +1226,12 @@ void SP_target_mal_laser (edict_t *self) /* FS: Coop: Xatrix specific */
 
 	if (!self->delay)
 	{
-		self->delay = 0.1;
+		self->delay = 0.1f;
 	}
 
 	if (!self->wait)
 	{
-		self->wait = 0.1;
+		self->wait = 0.1f;
 	}
 
 	if (!self->dmg)

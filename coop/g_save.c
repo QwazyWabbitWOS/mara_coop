@@ -216,7 +216,8 @@ InitGame(void)
 	huntercam = gi.cvar ("huntercam", "1", CVAR_SERVERINFO|CVAR_LATCH); /* FS: Coop: Rogue specific */
 	strong_mines = gi.cvar ("strong_mines", "0", 0); /* FS: Coop: Rogue specific */
 	randomrespawn = gi.cvar ("randomrespawn", "0", 0); /* FS: Coop: Rogue specific */
-	plasma_alpha = gi.cvar("plasma_alpha", "0", 0); //QW// plasma transparency, 0|1|2
+	plasma_alpha = gi.cvar("plasma_alpha", "1", 0); //QW// plasma transparency, 0|1|2
+	g_allow_give = gi.cvar("g_allow_give", "0", CVAR_LATCH);
 
 	/* noset vars */
 	dedicated = gi.cvar ("dedicated", "0", CVAR_NOSET);

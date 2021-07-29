@@ -163,7 +163,7 @@ Prox_Explode(edict_t *ent)
 	ent->takedamage = DAMAGE_NO;
 	T_RadiusDamage(ent, owner, ent->dmg, ent, PROX_DAMAGE_RADIUS, MOD_PROX);
 
-	VectorMA(ent->s.origin, -0.02, ent->velocity, origin);
+	VectorMA(ent->s.origin, -0.02f, ent->velocity, origin);
 	gi.WriteByte(svc_temp_entity);
 
 	if (ent->groundentity)
@@ -766,7 +766,7 @@ nuke_die(edict_t *self, edict_t *inflictor /* unused */,
 void
 Nuke_Think(edict_t *ent)
 {
-	float attenuation, default_atten = 1.8;
+	float attenuation, default_atten = 1.8f;
 	int damage_multiplier, muzzleflash;
 
 	if (!ent)

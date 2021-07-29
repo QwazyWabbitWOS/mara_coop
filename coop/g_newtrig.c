@@ -136,7 +136,7 @@ SP_trigger_teleport(edict_t *self)
 
 	if (!self->wait)
 	{
-		self->wait = 0.2;
+		self->wait = 0.2f;
 	}
 
 	self->delay = 0;

@@ -482,7 +482,7 @@ void monster_autocannon_turn(edict_t *self)
 			vec3_t offset, dest;
 			VectorCopy(self->enemy->mins, offset);
 			VectorAdd(offset, self->enemy->maxs, offset);
-			VectorScale(offset, 0.65, offset);
+			VectorScale(offset, 0.65f, offset);
 			VectorAdd(self->enemy->s.origin, offset, dest);
 			angleToward(self, dest, AC_TURN_SPEED);
 			VectorCopy(dest, self->monsterinfo.last_sighting);
@@ -632,7 +632,7 @@ void monster_autocannon_explode (edict_t *ent)
 
 	T_RadiusDamage(ent, ent, AC_EXPLODE_DMG, ent->enemy, AC_EXPLODE_RADIUS, MOD_TRIPBOMB);
 
-	VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
+	VectorMA (ent->s.origin, -0.02f, ent->velocity, origin);
 	gi.WriteByte (svc_temp_entity);
 	if (ent->waterlevel)
 	{

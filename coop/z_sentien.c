@@ -291,7 +291,7 @@ void sentien_stand_whatnow(edict_t *self)
 	if(r < self->random)
 	{
 		self->monsterinfo.currentmove = &sentien_move_stand1;
-		self->random -= 0.05;
+		self->random -= 0.05f;
 	}
 	else 
 	{
@@ -764,17 +764,17 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 
 vec3_t sentien_laser_offset [] =
 {
-	{43.8, -22.8 + 1, 43.6 - 0.8},
-	{44.2, -22.9 + 1, 43.9 - 0.8},
-	{43.9, -22.8 + 1, 44.0 - 0.8},
-	{43.2, -23.0 + 1, 44.0 - 0.8},
-	{42.4, -23.4 + 1, 43.9 - 0.8},
-	{42.0, -23.5 + 1, 44.0 - 0.8},
-	{42.4, -23.3 + 1, 44.0 - 0.8},
-	{43.1, -23.1 + 1, 43.9 - 0.8},
-	{43.8, -22.9 + 1, 43.9 - 0.8},
-	{44.2, -22.8 + 1, 44.1 - 0.8},
-	{43.8, -22.8 + 1, 43.5 - 0.8}
+	{43.8f, -22.8f + 1, 43.6f - 0.8f},
+	{44.2f, -22.9f + 1, 43.9f - 0.8f},
+	{43.9f, -22.8f + 1, 44.0f - 0.8f},
+	{43.2f, -23.0f + 1, 44.0f - 0.8f},
+	{42.4f, -23.4f + 1, 43.9f - 0.8f},
+	{42.0f, -23.5f + 1, 44.0f - 0.8f},
+	{42.4f, -23.3f + 1, 44.0f - 0.8f},
+	{43.1f, -23.1f + 1, 43.9f - 0.8f},
+	{43.8f, -22.9f + 1, 43.9f - 0.8f},
+	{44.2f, -22.8f + 1, 44.1f - 0.8f},
+	{43.8f, -22.8f + 1, 43.5f - 0.8f}
 };
 
 void sentien_do_laser(edict_t *self)
@@ -1357,7 +1357,7 @@ void SP_monster_sentien(edict_t *self)
 	self->monsterinfo.sight = NULL;
 	self->monsterinfo.idle = NULL;
 
-	self->monsterinfo.reducedDamageAmount = 0.85;
+	self->monsterinfo.reducedDamageAmount = 0.85f;
 
 	self->laser = NULL;
 	gi.linkentity(self);

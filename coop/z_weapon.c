@@ -130,7 +130,7 @@ void TripBomb_Explode (edict_t *ent)
 
 	T_RadiusDamage(ent, ent->owner ? ent->owner : ent, ent->dmg, ent->enemy, ent->dmg_radius, MOD_TRIPBOMB);
 
-	VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
+	VectorMA (ent->s.origin, -0.02f, ent->velocity, origin);
 
 	gi.WriteByte (svc_temp_entity);
 	if (ent->waterlevel)
@@ -823,7 +823,7 @@ void weapon_sc_fire (edict_t *ent)
 			}
 			else
 			{
-				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_cool.wav"), 0.4, ATTN_NORM, 0);
+				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_cool.wav"), 0.4f, ATTN_NORM, 0);
 			}
 
 			if(ent->dmg_radius)
@@ -857,7 +857,7 @@ void Weapon_SonicCannon (edict_t *ent)
 			}
 			else
 			{
-				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_act.wav"), 0.4, ATTN_NORM, 0);
+				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_act.wav"), 0.4f, ATTN_NORM, 0);
 			}
 		}
 		ent->weaponsound_time = 0;
@@ -874,7 +874,7 @@ void Weapon_SonicCannon (edict_t *ent)
 			}
 			else
 			{
-				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_dact.wav"), 0.4, ATTN_NORM, 0);
+				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_dact.wav"), 0.4f, ATTN_NORM, 0);
 			}
 		}
 	}
@@ -888,7 +888,7 @@ void Weapon_SonicCannon (edict_t *ent)
 		}
 		else
 		{
-			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_warm.wav"), 0.4, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/sonic/sc_warm.wav"), 0.4f, ATTN_NORM, 0);
 		}
 	}
 
@@ -985,7 +985,7 @@ void fire_sconnan (edict_t *self)
 	gi.multicast (self->s.origin, MULTICAST_PHS);
 
 	damage -= 100;
-	radius = 0.1;
+	radius = 0.1f;
 
 	while(damage > 0)
 	{
@@ -1002,7 +1002,7 @@ void fire_sconnan (edict_t *self)
 		explode->nextthink = level.time + radius;
 		explode->think = scexplode_think;
 
-		radius += 0.1;
+		radius += 0.1f;
 		damage -= 100;
 	}
 
@@ -1218,7 +1218,7 @@ void Weapon_FlareLauncher_Fire (edict_t *ent)
 	}
 	else
 	{
-		gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/flare/shoot.wav"), 0.4, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/flare/shoot.wav"), 0.4f, ATTN_NORM, 0);
 	}
 }
 
@@ -1353,7 +1353,7 @@ void weapon_sniperrifle_fire (edict_t *ent)
 	}
 	else
 	{
-		gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/sniper/fire.wav"), 0.4, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/sniper/fire.wav"), 0.4f, ATTN_NORM, 0);
 	}
 
   	PlayerNoise(ent, start, PNOISE_WEAPON);

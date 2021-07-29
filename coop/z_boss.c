@@ -787,7 +787,7 @@ void HookDragThink (edict_t *self)
 	if(self->enemy && self->enemy->health > 0)
 	{
 		VectorCopy (self->velocity, self->enemy->velocity);
-		self->enemy->velocity[2] *= 1.3;
+		self->enemy->velocity[2] *= 1.3f;
 	}
 
 	gi.WriteByte (svc_temp_entity);
@@ -1043,7 +1043,7 @@ void Plasmaball_Explode (edict_t *ent)
 
 	T_RadiusDamage(ent, ent->owner, ent->dmg, ent->enemy, ent->dmg_radius, MOD_UNKNOWN);
 
-	VectorMA (ent->s.origin, -0.02, ent->velocity, ent->s.origin);
+	VectorMA (ent->s.origin, -0.02f, ent->velocity, ent->s.origin);
 	VectorClear(ent->velocity);
 
 	ent->movetype = MOVETYPE_NONE;

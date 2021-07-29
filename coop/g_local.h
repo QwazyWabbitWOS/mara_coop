@@ -829,7 +829,8 @@ extern	cvar_t	*flood_waitdelay;
 
 extern	cvar_t	*sv_maplist;
 
-cvar_t	*plasma_alpha;
+extern	cvar_t	*plasma_alpha;
+extern	cvar_t* g_allow_give;
 
 //cvar_t	*clusterlauncher_aplha; //TODO
 

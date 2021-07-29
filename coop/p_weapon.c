@@ -2723,17 +2723,17 @@ Weapon_ChainFist(edict_t *ent) /* FS: Coop: Rogue specific */
 
 		if (last_sequence == 13) /* if we just did sequence 1, do 2 or 3. */
 		{
-			chance -= 0.34;
+			chance -= 0.34f;
 		}
 		else if (last_sequence == 23) /* if we just did sequence 2, do 1 or 3 */
 		{
-			chance += 0.33;
+			chance += 0.33f;
 		}
 		else if (last_sequence == 32) /* if we just did sequence 3, do 1 or 2 */
 		{
 			if (chance >= 0.33)
 			{
-				chance += 0.34;
+				chance += 0.34f;
 			}
 		}
 
@@ -3693,14 +3693,14 @@ void spawn_aircraft(edict_t *ent) {
 
 	launch_airstrike_salvo(ent,ENTS_AIRSTRIKE_TYPE);
 
-	gi.sound(craft, CHAN_AUTO, FLYBY1_SOUND, 0.7, ATTN_NORM, 0);
+	gi.sound(craft, CHAN_AUTO, FLYBY1_SOUND, 0.7f, ATTN_NORM, 0);
 }
 
 //======================================================
 //============ Airstrike Targeting Routine =============
 //======================================================
 void Get_Target_Position(edict_t *ent, vec3_t endpos) {
-	vec3_t zvec={0,0,0}, start={0,0,0}, forward={0,0,0},
+	vec3_t start = { 0,0,0 }, forward = { 0,0,0 },
 	endpt={0,0,0}, targetdir={0,0,0};
 	trace_t tr, tr_2;
 
@@ -3724,7 +3724,7 @@ void Get_Target_Position(edict_t *ent, vec3_t endpos) {
 	// Clear out the airstrike positioning vectors.
 	ENT_CALLED_AIRSTRIKE=false; // Call off airstrike..
 	gi.cprintf(ent, PRINT_HIGH, "No Line-Of-Fire to Target!!\n");
-	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.8, ATTN_NORM, 0);
+	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.8f, ATTN_NORM, 0);
 	return; }
 
 	// Clear path to target - prepare for Airstrike.

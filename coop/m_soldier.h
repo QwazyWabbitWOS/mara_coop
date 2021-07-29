@@ -478,4 +478,4 @@
 #define FRAME_death609        	473
 #define FRAME_death610        	474
 
-#define MODEL_SCALE		1.200000
+#define MODEL_SCALE		1.200000f

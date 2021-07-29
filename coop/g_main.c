@@ -89,6 +89,7 @@ cvar_t *sv_maplist;
 cvar_t *sv_stopspeed; /* FS: Coop: Rogue specific */
 
 cvar_t *plasma_alpha;
+cvar_t* g_allow_give;
 
 cvar_t *gamerules; /* FS: Coop: Rogue specific */
 cvar_t *huntercam; /* FS: Coop: Rogue specific */

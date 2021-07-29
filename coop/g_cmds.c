@@ -329,12 +329,10 @@ Cmd_Give_f(edict_t *ent)
 	}
 
 	name = gi.args();
-	give_all = false;
 	if (Q_stricmp(name, "all") == 0)
-	{
-		gi.cprintf(ent, PRINT_HIGH, "The Give All Command Has been disabled for this server.\n");
-		//give_all = true;
-	}
+		give_all = true;
+	else
+		give_all = false;
 
 	if (give_all || (Q_stricmp(gi.argv(1), "health") == 0))
 	{
@@ -2523,7 +2521,13 @@ ClientCommand(edict_t *ent)
 	}
 	else if (Q_stricmp(cmd, "give") == 0)
 	{
-		Cmd_Give_f(ent);
+		if (!g_allow_give->value)
+		{
+			gi.cprintf(ent, PRINT_HIGH, "The Give command has been disabled for this server.\n");
+			return;
+		}
+		else
+			Cmd_Give_f(ent);
 	}
 	else if (Q_stricmp(cmd, "god") == 0)
 	{

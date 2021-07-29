@@ -467,7 +467,7 @@ PickBallStart(edict_t *ent)
 void
 DBall_BallTouch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	float dot;
 	float speed;
 
