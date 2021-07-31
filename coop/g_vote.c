@@ -918,6 +918,7 @@ static void vote_SetGamemodeCVAR (char *gamemode)
 		gi.cvar_forceset("sv_coop_gamemode_vote", gamemode);
 	}
 }
+
 void vote_Passed (void)
 {
 	vote_Broadcast("Vote passed for %s: %s! Yes: %i, No: %i\n", voteType, whatAreWeVotingFor, voteYes, voteNo);
@@ -930,12 +931,12 @@ void vote_Passed (void)
 	else if(!Q_stricmp(voteType, "coop difficulty"))
 	{
 		vote_SetGamemodeCVAR(sv_coop_gamemode->string);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "skill %i; wait;wait;wait;wait;wait;gamemap %s", voteCoopSkill, level.mapname);
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "skill %i; wait;wait;wait;wait;wait;map %s", voteCoopSkill, level.mapname);
 	}
 	else if(!Q_stricmp(voteType, "restartmap"))
 	{
 		vote_SetGamemodeCVAR(sv_coop_gamemode->string);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;gamemap %s\n", voteMap); /* FS: Might want to force a DLL unload for coop overflow fuckery */
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;map %s\n", voteMap); /* FS: Might want to force a DLL unload for coop overflow fuckery */
 	}
 	else if(!Q_stricmp(voteType, "warp"))
 	{
@@ -957,7 +958,7 @@ void vote_Passed (void)
 	else
 	{
 		vote_SetGamemodeCVAR(voteGamemode);
-		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;gamemap %s\n", voteMap);
+		Com_sprintf(voteCbufCmdExecute, sizeof(voteCbufCmdExecute), "wait;wait;wait;wait;wait;map %s\n", voteMap);
 	}
 
 	vote_Reset();
