@@ -9,7 +9,7 @@ void
 check_dodge(edict_t *self, vec3_t start, vec3_t dir, int speed)
 {
 	vec3_t end;
-	vec3_t v;
+	vec3_t v = { 0 };
 	trace_t tr;
 	float eta;
 
@@ -50,7 +50,7 @@ fire_hit(edict_t *self, vec3_t aim, int damage, int kick)
 	vec3_t v;
 	vec3_t point;
 	float range;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !self->enemy)
 	{
@@ -144,7 +144,7 @@ fire_lead(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick,
 	vec3_t end;
 	float r;
 	float u;
-	vec3_t water_start;
+	vec3_t water_start = { 0 };
 	qboolean water = false;
 	int content_mask = MASK_SHOT | MASK_WATER;
 
@@ -559,8 +559,8 @@ Grenade_Explode(edict_t *ent)
 	if (ent->enemy)
 	{
 		float points;
-		vec3_t v;
-		vec3_t dir;
+		vec3_t v = { 0 };
+		vec3_t dir = { 0 };
 
 		VectorAdd(ent->enemy->mins, ent->enemy->maxs, v);
 		VectorMA(ent->enemy->s.origin, 0.5, v, v);
@@ -880,7 +880,7 @@ fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed,
 	rocket->s.modelindex = gi.modelindex("models/objects/rocket/tris.md2");
 	rocket->owner = self;
 	rocket->touch = rocket_touch;
-	rocket->nextthink = level.time + 8000 / speed;
+	rocket->nextthink = level.time + 8000.f / speed;
 	rocket->think = G_FreeEdict;
 	rocket->dmg = damage;
 	rocket->radius_dmg = radius_damage;
@@ -899,7 +899,7 @@ fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed,
 void
 fire_rail(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick)
 {
-	vec3_t from;
+	vec3_t from = { 0 };
 	vec3_t end;
 	trace_t tr;
 	edict_t *ignore;
@@ -980,7 +980,7 @@ bfg_explode(edict_t *self)
 {
 	edict_t *ent;
 	float points;
-	vec3_t v;
+	vec3_t v = { 0 };
 	float dist;
 
 	if (!self)
@@ -1111,8 +1111,8 @@ bfg_think(edict_t *self)
 	edict_t *ent;
 	edict_t *ignore;
 	vec3_t point;
-	vec3_t dir;
-	vec3_t start;
+	vec3_t dir = { 0 };
+	vec3_t start = { 0 };
 	vec3_t end;
 	int dmg;
 	trace_t tr;
@@ -1236,7 +1236,7 @@ fire_bfg(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	bfg->s.modelindex = gi.modelindex("sprites/s_bfg1.sp2");
 	bfg->owner = self;
 	bfg->touch = bfg_touch;
-	bfg->nextthink = level.time + 8000 / speed;
+	bfg->nextthink = level.time + 8000.f / speed;
 	bfg->think = G_FreeEdict;
 	bfg->radius_dmg = damage;
 	bfg->dmg_radius = damage_radius;
@@ -1383,7 +1383,7 @@ void heat_think (edict_t *self) /* FS: Coop: Xatrix specific */
 {
 	edict_t *target = NULL;
 	edict_t *aquire = NULL;
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	int len;
 	int oldlen = 0;
 
@@ -1569,7 +1569,7 @@ void fire_plasma (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	
 	plasma->owner = self;
 	plasma->touch = plasma_touch;
-	plasma->nextthink = level.time + 8000/speed;
+	plasma->nextthink = level.time + 8000.f / speed;
 	plasma->think = G_FreeEdict;
 	plasma->dmg = damage;
 	plasma->radius_dmg = radius_damage;
@@ -1988,7 +1988,7 @@ void fire_plasma2(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	vec3_t	end;
 
 	vec3_t scaledv;
-	vec3_t spawnpos;
+	vec3_t spawnpos = { 0 };
 
 	plasma = G_Spawn();
 	
@@ -2062,10 +2062,10 @@ void Cluster_Explode (edict_t *ent)
 
     //Sean added these 4 vectors
 
-    vec3_t   grenade1;
-    vec3_t   grenade2;
-    vec3_t   grenade3;
-    vec3_t   grenade4;
+    vec3_t   grenade1 = { 0 };
+    vec3_t   grenade2 = { 0 };
+    vec3_t   grenade3 = { 0 };
+    vec3_t   grenade4 = { 0 };
 
     if (ent->owner->client)
         PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
@@ -2197,7 +2197,7 @@ void drop_rocket_bomb(edict_t *shooter, vec3_t start, vec3_t dir, int damage,int
 	// bomb->s.modelindex=gi.modelindex(BOMB_MODEL);
 	bomb->owner=shooter;
 	bomb->touch=rocket_touch;
-	bomb->nextthink=PRESENT_TIME+8000/speed;
+	bomb->nextthink = PRESENT_TIME + 8000.f / speed;
 	bomb->think=G_FreeEdict;
 	bomb->dmg=damage;
 	bomb->radius_dmg=250;

@@ -1059,7 +1059,7 @@ TossClientWeapon(edict_t *self)
 void
 LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !inflictor || !attacker)
 	{
@@ -1574,7 +1574,7 @@ PlayersRangeFromSpot(edict_t *spot)
 {
 	edict_t *player;
 	float bestplayerdistance;
-	vec3_t v;
+	vec3_t v = { 0 };
 	int n;
 	float playerdistance;
 
@@ -1732,8 +1732,8 @@ SelectLavaCoopSpawnPoint(edict_t *ent) /* FS: Coop: Rogue specific */
 	edict_t *lava;
 	edict_t *pointWithLeastLava;
 	float lowest;
-	edict_t *spawnPoints[64];
-	vec3_t center;
+	edict_t *spawnPoints[64] = { 0 };
+	vec3_t center = { 0 };
 	int numPoints;
 	edict_t *highestlava;
 
@@ -1904,7 +1904,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 	int dist;
 	int index;
 	int counter = 0;
-	vec3_t d;
+	vec3_t d = { 0 };
 
 	if (!ent)
 	{
