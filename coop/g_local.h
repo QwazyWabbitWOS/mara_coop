@@ -1589,6 +1589,10 @@ struct gclient_s
 	float airstrike_time; 		// Timer for incoming missiles
 	int airstrike_type; 		// 1=Rocket, 2=Cluster
 
+	// flashlight
+	edict_t* flashlight;
+	int		flashtype;
+
 	int             hook_state;
     edict_t        *hook;
 };

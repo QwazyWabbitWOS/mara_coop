@@ -2,6 +2,7 @@
 #include "p_hook.h"
 #include "m_player.h"
 #include "p_radio.h"
+#include "flashlight.h"
 
 extern void SP_info_coop_checkpoint (edict_t * self );
 extern void stopCamera(edict_t *self); /* FS: Zaero specific game dll changes */
@@ -2396,8 +2397,7 @@ void Cmd_Airstrike_f(edict_t *ent, char *cmd) {
 }
 
 
-void
-ClientCommand(edict_t *ent)
+void ClientCommand(edict_t *ent)
 {
 	char *cmd;
 
@@ -2444,6 +2444,12 @@ ClientCommand(edict_t *ent)
 			SelectPrevItem (ent, -1);
 		}
 	
+		return;
+	}
+
+	if (Q_stricmp(cmd, "flashlight") == 0)
+	{
+		Cmd_Flashlight(ent);
 		return;
 	}
 
