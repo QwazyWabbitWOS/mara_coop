@@ -1131,8 +1131,7 @@ fixbot_fire_laser(edict_t *self)
 		return;
 	}
 
-	gi.sound(self, CHAN_AUTO, gi.soundindex("misc/lasfly.wav"),
-		   	1, ATTN_STATIC, 0);
+	gi.sound(self, CHAN_AUTO, gi.soundindex("misc/lasfly.wav"), 1, ATTN_STATIC, 0);
 
 	VectorCopy(self->s.origin, start);
 	VectorCopy(self->enemy->s.origin, end);

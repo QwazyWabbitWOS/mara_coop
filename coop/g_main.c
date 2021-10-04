@@ -61,6 +61,8 @@ cvar_t *maxspectators;
 cvar_t *maxentities;
 cvar_t *g_select_empty;
 cvar_t *dedicated;
+cvar_t *motd_time;
+cvar_t* flashlightmode;
 
 cvar_t *filterban;
 
@@ -205,13 +207,20 @@ void Com_Printf (char *msg, ...)
 	gi.dprintf("%s", text);
 }
 
-void Sys_Mkdir (char *path) /* FS: Coop: FIXME -- This could be added to something like gi.FS_CreatePath instead or similiar, but that would be non-standard to other port authors.  However, it's trivial to add.  So what-do? */
+/* FS: Coop: FIXME -- This could be added to something like gi.FS_CreatePath
+instead or similiar, but that would be non-standard to other port authors.
+However, it's trivial to add.  So what-do?
+*/
+void Sys_Mkdir(char* path)
 {
+	int stat;
 #ifdef _WIN32
-	_mkdir (path);
+	stat = _mkdir(path);
 #else
-	mkdir (path, 0777);
+	stat = mkdir(path, 0777);
 #endif
+	if (stat)
+		gi.dprintf("%s error creating path %s\n", __func__, strerror(errno));
 }
 
 #endif

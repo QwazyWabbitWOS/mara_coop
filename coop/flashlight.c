@@ -13,7 +13,7 @@ void FlashlightReset(edict_t* self)
 
 		if (self->owner->client->silencer_shots)
 			volume = 0.2f;
-		gi.sound(self->owner, CHAN_RELIABLE + CHAN_WEAPON, gi.soundindex("misc/lasfly.wav"), volume, ATTN_NORM, 0.0f);
+		gi.sound(self->owner, CHAN_AUTO, gi.soundindex("misc/flashlight.wav"), volume, ATTN_NORM, 0.0f);
 		self->owner->client->flashlight = NULL;
 		self->owner->client->flashtype = 0;
 	}
@@ -22,11 +22,8 @@ void FlashlightReset(edict_t* self)
 
 void flashlight_think(edict_t* self)
 {
-	vec3_t	forward, right, up;
-	vec3_t	offset = { 0 };
-	vec3_t	start, end;
+	vec3_t	forward, right, up, offset, start, end;
 	trace_t	tr;
-
 	int content = (CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_DEADMONSTER);
 	if (level.intermissiontime || !self->owner->inuse || self->owner->deadflag)
 	{
@@ -38,15 +35,29 @@ void flashlight_think(edict_t* self)
 	P_ProjectSource(self->owner->client, self->owner->s.origin, offset, forward, right, start);
 	VectorMA(start, 8192, forward, end);
 	tr = gi.trace(start, NULL, NULL, end, self->owner, content);
-	if (!((tr.surface) && (tr.surface->flags & SURF_SKY)) && tr.fraction < 1.0)
+	if (flashlightmode->value)
 		self->svflags &= ~SVF_NOCLIENT;
 	else
-		self->svflags |= SVF_NOCLIENT;
+	{
+		if (!((tr.surface) && (tr.surface->flags & SURF_SKY)) && tr.fraction < 1.0)
+			self->svflags &= ~SVF_NOCLIENT;
+		else
+			self->svflags |= SVF_NOCLIENT;
+	}
 
 	vectoangles(tr.plane.normal, self->s.angles);
 	VectorCopy(tr.endpos, self->s.origin);
 	self->nextthink = level.time + FRAMETIME;
 
+	if (flashlightmode->value)
+	{
+		//QW// new, nice white flashlight
+		gi.WriteByte(svc_temp_entity);
+		gi.WriteByte(TE_FLASHLIGHT);
+		gi.WritePosition(self->s.origin);
+		gi.WriteShort(self - g_edicts);
+		gi.multicast(self->s.origin, MULTICAST_PVS);
+	}
 	gi.linkentity(self);
 }
 
@@ -80,7 +91,7 @@ void Use_Flashlight(edict_t* player)
 
 		if (player->client->silencer_shots)
 			volume = 0.2f;
-		gi.sound(player, CHAN_RELIABLE + CHAN_WEAPON, gi.soundindex("misc/lasfly.wav"), volume, ATTN_NORM, 0);
+		gi.sound(player, CHAN_AUTO, gi.soundindex("misc/flashlight.wav"), volume, ATTN_NORM, 0);
 		player->client->flashlight = G_Spawn();
 		VectorCopy(player->s.origin, player->client->flashlight->s.origin);
 		player->client->flashlight->movetype = MOVETYPE_NOCLIP;
@@ -98,17 +109,21 @@ void Use_Flashlight(edict_t* player)
 		VectorClear(player->client->flashlight->mins);
 		VectorClear(player->client->flashlight->maxs);
 
-		player->client->flashlight->s.effects = EF_HYPERBLASTER;
-		player->client->flashlight->s.renderfx |= RF_TRANSLUCENT;
-		player->client->flashlight->s.renderfx |= RF_FULLBRIGHT;
-		player->client->flashlight->s.modelindex = gi.modelindex("models/objects/dummy/tris.md2");
-
+		if (flashlightmode->value == 0)
+		{
+			//QW// old, dim flashlight
+			player->client->flashlight->s.effects = EF_HYPERBLASTER;
+			player->client->flashlight->s.renderfx |= RF_TRANSLUCENT;
+			player->client->flashlight->s.renderfx |= RF_FULLBRIGHT;
+			player->client->flashlight->s.modelindex = gi.modelindex("models/objects/dummy/tris.md2");
+		}
 		gi.linkentity(player->client->flashlight);
 	}
 }
 
 void Cmd_Flashlight(edict_t* ent)
 {
+
 	if (!ent->client || ent->health <= 0)
 		return;
 
@@ -123,3 +138,4 @@ void Cmd_Flashlight(edict_t* ent)
 		FlashlightReset(ent->client->flashlight);
 	}
 }
+

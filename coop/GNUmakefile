@@ -67,8 +67,8 @@ DO_SHLIB_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) -o $@ -c $<
 #############################################################################
 
 GAME_OBJS = \
-	b_cam.o dm_ball.o dm_tag.o g_ai.o g_chase.o g_cmds.o g_combat.o g_coop.o \
-	g_func.o g_items.o g_main.o g_misc.o g_monster.o g_newai.o g_newdm.o \
+	b_cam.o dm_ball.o dm_tag.o flashlight.o g_ai.o g_chase.o g_cmds.o g_combat.o \
+	g_coop.o g_func.o g_items.o g_main.o g_misc.o g_monster.o g_newai.o g_newdm.o \
 	g_newfnc.o g_newtarg.o g_newtrig.o g_newweap.o g_offworld.o g_phys.o \
 	g_save.o g_spawn.o g_sphere.o g_svcmds.o g_target.o g_trigger.o \
 	g_turret.o g_utils.o g_vote.o g_weapon.o menu.o m_actor.o \

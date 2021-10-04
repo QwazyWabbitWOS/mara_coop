@@ -2581,6 +2581,7 @@ void
 ClientBegin(edict_t *ent)
 {
 	int i;
+	char force_motd[MAX_INFO_STRING] = { 0 };
 
 	if (!ent)
 	{
@@ -2662,6 +2663,9 @@ ClientBegin(edict_t *ent)
     gi.WriteString ("alias -hook \"cmd unhook\"\n");
     gi.unicast(ent, true);
 
+	//QW// Added this to force client centertime delay for long MotD
+	Com_sprintf(force_motd, sizeof force_motd, "set scr_centertime %.1f\n", motd_time->value);
+	stuffcmd(ent, force_motd);
 	ClientShowMOTD(ent);
 
 	ent->client->pers.connected = true; /* FS: Fix for players command and q2admin commands */

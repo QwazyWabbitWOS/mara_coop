@@ -203,7 +203,7 @@ void
 InitGame(void)
 {
 	gi.dprintf("Game is starting up.\n");
-	gi.dprintf("Game is %s built on %s.\n", GAMEVERSION, __DATE__);
+	gi.dprintf("==== Game is %s built on %s. ====\n", GAMEVERSION, __DATE__);
 
 	gun_x = gi.cvar ("gun_x", "0", 0);
 	gun_y = gi.cvar ("gun_y", "0", 0);
@@ -280,6 +280,8 @@ InitGame(void)
 	spectator_password = gi.cvar ("spectator_password", "", CVAR_USERINFO);
 	needpass = gi.cvar ("needpass", "0", CVAR_SERVERINFO);
 	filterban = gi.cvar ("filterban", "1", 0);
+	motd_time = gi.cvar ("motd_time", "5", 0);
+	flashlightmode = gi.cvar("flashlightmode", "1", 0);
 
 	g_select_empty = gi.cvar ("g_select_empty", "0", CVAR_ARCHIVE);
 
@@ -979,7 +981,7 @@ ReadGame(const char* filename)
 		else if (strcmp(str_arch, ARCH) != 0)
 		{
 			fclose(f);
-			gi.error("Savegame from an other architecure.\n");
+			gi.error("Savegame from another architecure.\n");
 			return;
 		}
 

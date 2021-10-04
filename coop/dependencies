@@ -1,10 +1,12 @@
 b_cam.o: b_cam.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 dm_ball.o: dm_ball.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 dm_tag.o: dm_tag.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
+flashlight.o: flashlight.c g_local.h q_shared.h z_anim.h game.h menu.h \
+ b_cam.h
 g_ai.o: g_ai.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 g_chase.o: g_chase.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 g_cmds.o: g_cmds.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
- p_hook.h m_player.h p_radio.h
+ p_hook.h m_player.h p_radio.h flashlight.h
 g_combat.o: g_combat.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h
 g_coop.o: g_coop.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
