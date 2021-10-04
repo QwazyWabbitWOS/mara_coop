@@ -36,12 +36,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #pragma warning(disable : 4127)	// conditional expression is constant
 #pragma warning(disable : 4018)	// signed/unsigned mismatch
 #pragma warning(disable : 4305)	// truncation from const double to float
-#if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #pragma warning(disable : 4459)	// declaration of 'var' hides global declaration.
 #endif
 
-#endif
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
@@ -53,13 +51,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 #include <math.h>
 
-//QwazyWabbit// 
-// From VS2015 with linkage to Visual Studio platform toolset v140 or later
-// snprintf is C99 standard compliant and always '\0' terminates.
-// We can now use the standard library function as long as we take care to
-// link to the correct C runtime and not the older CRT libraries.
-// Even so, usage in q2admin explicitly zero terminates the strings.
-#if defined _WIN32 && _MSC_VER < 1900
+#if defined _WIN32
 //r1ch
 #define	snprintf _snprintf
 #endif
@@ -219,15 +211,6 @@ extern vec3_t vec3_origin;
 #define	nanmask (255<<23)
 
 #define	IS_NAN(x) (((*(int *)&x)&nanmask)==nanmask)
-
-// microsoft's fabs seems to be ungodly slow...
-//float Q_fabs (float f);
-//#define	fabs(f) Q_fabs(f)
-//#if defined(_MSC_VER) && defined(_M_IX86) && !defined(C_ONLY)
-//extern int Q_ftol( float f );
-//#else
-//#define Q_ftol( f ) ( long ) (f)
-//#endif
 
 #define DotProduct(x,y)			(x[0]*y[0]+x[1]*y[1]+x[2]*y[2])
 #define VectorSubtract(a,b,c)	(c[0]=a[0]-b[0],c[1]=a[1]-b[1],c[2]=a[2]-b[2])
