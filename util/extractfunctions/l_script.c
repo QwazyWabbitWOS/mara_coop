@@ -543,7 +543,7 @@ int PS_ReadString( script_t *script, token_t *token, int quote ) {
 //============================================================================
 int PS_ReadName( script_t *script, token_t *token ) {
 	int len = 0;
-	char c;
+	char c = 0;
 
 	token->type = TT_NAME;
 	do

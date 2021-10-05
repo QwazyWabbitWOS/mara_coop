@@ -174,7 +174,7 @@ static void ShowStats(edict_t *ent, edict_t *player)
 	static int CellsIndex = -1;
 	int index;
 
-	if (!ent || !player)
+	if (!ent || !player || !player->client)
 	{
 		return;
 	}

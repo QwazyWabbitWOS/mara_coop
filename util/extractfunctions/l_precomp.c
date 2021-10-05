@@ -70,9 +70,11 @@ Safe strncpy that ensures a trailing zero
 void Q_strncpyz( char *dest, const char *src, int destsize ) {
 	if ( !src ) {
 		Error( "Q_strncpyz: NULL src" );
+		return;
 	}
 	if ( destsize < 1 ) {
 		Error( "Q_strncpyz: destsize < 1" );
+		return;
 	}
 
 	strncpy( dest, src, destsize - 1 );

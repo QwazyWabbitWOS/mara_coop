@@ -582,7 +582,7 @@ GetFunctionNamesFromFile
 void GetFunctionNamesFromFile (char *filename)
 {
 	source_t	*source;
-	token_t		token, lasttoken;
+	token_t		token, lasttoken = { 0 };
 	int			indent = 0, brace;
 	int			isStatic = 0;
 	tokenList_t	*listHead;
@@ -689,7 +689,7 @@ main
 =================
 */
 #ifdef _WIN32
-void main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
 	WIN32_FIND_DATA	filedata;
 	HWND			handle;

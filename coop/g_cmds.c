@@ -2489,7 +2489,8 @@ void ClientCommand(edict_t *ent)
 		return;
 	}
 
-	if (Q_stricmp(cmd, "plasma") == 0){	
+	if (Q_stricmp(cmd, "plasma") == 0)
+	{	
 		Cmd_Plasma_f(ent);
 		return;	
 	}
