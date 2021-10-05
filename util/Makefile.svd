@@ -1,0 +1,22 @@
+#CC = gcc
+CC = i586-pc-msdosdjgpp-gcc
+CFLAGS = -O2 -Wall -I..
+LDFLAGS=
+
+.PHONY: clean
+
+OBJECTS = svga-dump.o dos_v2.o
+
+all: svd.exe
+
+svd.exe: $(OBJECTS)
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+
+clean:
+	rm -f *.o
+	rm -f svd.exe
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+%.o : ../dos/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
