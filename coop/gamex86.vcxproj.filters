@@ -273,6 +273,9 @@
     <ClCompile Include="flashlight.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="supergrenade.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="b_cam.h">
@@ -398,10 +401,10 @@
     <ClInclude Include="p_radio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="p_hook.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="flashlight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p_hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

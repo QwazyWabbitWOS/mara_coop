@@ -93,6 +93,7 @@
     <ClCompile Include="p_view.c" />
     <ClCompile Include="p_weapon.c" />
     <ClCompile Include="q_shared.c" />
+    <ClCompile Include="supergrenade.c" />
     <ClCompile Include="z_acannon.c" />
     <ClCompile Include="z_ai.c" />
     <ClCompile Include="z_boss.c" />
