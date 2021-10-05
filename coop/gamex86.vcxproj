@@ -236,8 +236,10 @@
       <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName)$(TargetExt) c:\quake2\coop\gamex86.real.dll</Command>
-      <Message>Copying $(OutDir)$(TargetName)$(TargetExt) to c:\quake2\coop\gamex86.real.dll</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -275,8 +277,10 @@
       <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)$(TargetName)$(TargetExt) c:\quake2\coop\gamex86.real.dll</Command>
-      <Message>Copying $(OutDir)$(TargetName)$(TargetExt) to c:\quake2\coop\gamex86.real.dll</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

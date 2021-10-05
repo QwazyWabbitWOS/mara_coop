@@ -50,7 +50,6 @@ g_vote.o: g_vote.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
  m_player.h
 g_weapon.o: g_weapon.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h
-l_hook.o: l_hook.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 m_actor.o: m_actor.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
  m_actor.h
 m_berserk.o: m_berserk.c g_local.h q_shared.h z_anim.h game.h menu.h \
