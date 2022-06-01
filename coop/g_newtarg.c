@@ -8,9 +8,9 @@ Creates a steam effect (particles w/ velocity in a line).
   speed = velocity of particles (default 50)
   count = number of particles (default 32)
   sounds = color of particles (default 8 for steam)
-     the color range is from this color to this color + 6
+	 the color range is from this color to this color + 6
   wait = seconds to run before stopping (overrides default
-     value derived from func_timer)
+	 value derived from func_timer)
 
   best way to use this is to tie it to a func_timer that "pokes"
   it every second (or however long you set the wait time, above)
@@ -25,9 +25,9 @@ Creates a steam effect (particles w/ velocity in a line).
   232 - blood
 */
 void
-use_target_steam(edict_t *self, edict_t *other, edict_t *activator /* unused */)
+use_target_steam(edict_t* self, edict_t* other, edict_t* activator /* unused */)
 {
-	static int nextid;
+	static int nextid = { 0 };
 	vec3_t point;
 
 	if (!self || !other)
@@ -93,9 +93,9 @@ use_target_steam(edict_t *self, edict_t *other, edict_t *activator /* unused */)
 }
 
 void
-target_steam_start(edict_t *self)
+target_steam_start(edict_t* self)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -111,7 +111,7 @@ target_steam_start(edict_t *self)
 		if (!ent)
 		{
 			gi.dprintf("%s at %s: %s is a bad target\n", self->classname,
-					vtos(self->s.origin), self->target);
+				vtos(self->s.origin), self->target);
 		}
 
 		self->enemy = ent;
@@ -151,7 +151,7 @@ target_steam_start(edict_t *self)
 }
 
 void
-SP_target_steam(edict_t *self)
+SP_target_steam(edict_t* self)
 {
 	self->plat2flags = self->speed;
 
@@ -167,10 +167,10 @@ SP_target_steam(edict_t *self)
 }
 
 void
-target_anger_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+target_anger_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
-	edict_t *target;
-	edict_t *t;
+	edict_t* target;
+	edict_t* t;
 
 	if (!self)
 	{
@@ -229,7 +229,7 @@ target_anger_use(edict_t *self, edict_t *other /* unused */, edict_t *activator 
  *  killtarget - entity to be pissed off at
  */
 void
-SP_target_anger(edict_t *self)
+SP_target_anger(edict_t* self)
 {
 	if (!self)
 	{
@@ -255,10 +255,10 @@ SP_target_anger(edict_t *self)
 }
 
 void
-target_killplayers_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+target_killplayers_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	int i;
-	edict_t *ent, *player;
+	edict_t* ent, * player;
 
 	if (!self)
 	{
@@ -277,7 +277,7 @@ target_killplayers_use(edict_t *self, edict_t *other /* unused */, edict_t *acti
 
 		/* nail it */
 		T_Damage(player, self, self, vec3_origin, self->s.origin, vec3_origin,
-				100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+			100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
 	}
 
 	/* kill any visible monsters */
@@ -310,7 +310,7 @@ target_killplayers_use(edict_t *self, edict_t *other /* unused */, edict_t *acti
 			if (visible(player, ent))
 			{
 				T_Damage(ent, self, self, vec3_origin, ent->s.origin, vec3_origin,
-						ent->health, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+					ent->health, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
 				break;
 			}
 		}
@@ -323,7 +323,7 @@ target_killplayers_use(edict_t *self, edict_t *other /* unused */, edict_t *acti
  * When triggered, this will kill all the players on the map.
  */
 void
-SP_target_killplayers(edict_t *self)
+SP_target_killplayers(edict_t* self)
 {
 	if (!self)
 	{
@@ -340,7 +340,7 @@ SP_target_killplayers(edict_t *self)
  * Pulsing black light with sphere in the center
  */
 void
-blacklight_think(edict_t *self)
+blacklight_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -354,7 +354,7 @@ blacklight_think(edict_t *self)
 }
 
 void
-SP_target_blacklight(edict_t *ent)
+SP_target_blacklight(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -385,7 +385,7 @@ SP_target_blacklight(edict_t *ent)
  * Translucent pulsing orb with speckles
  */
 void
-orb_think(edict_t *self)
+orb_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -399,7 +399,7 @@ orb_think(edict_t *self)
 }
 
 void
-SP_target_orb(edict_t *ent)
+SP_target_orb(edict_t* ent)
 {
 	if (!ent)
 	{

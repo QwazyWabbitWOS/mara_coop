@@ -21,7 +21,7 @@ static int sound_search;
 static int sound_sight;
 
 void
-gladiator_idle(edict_t *self)
+gladiator_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -32,7 +32,7 @@ gladiator_idle(edict_t *self)
 }
 
 void
-gladiator_sight(edict_t *self, edict_t *other /* unused */)
+gladiator_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -43,7 +43,7 @@ gladiator_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-gladiator_search(edict_t *self)
+gladiator_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -54,7 +54,7 @@ gladiator_search(edict_t *self)
 }
 
 void
-gladiator_cleaver_swing(edict_t *self)
+gladiator_cleaver_swing(edict_t* self)
 {
 	if (!self)
 	{
@@ -82,7 +82,7 @@ mmove_t gladiator_move_stand =
 };
 
 void
-gladiator_stand(edict_t *self)
+gladiator_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -120,7 +120,7 @@ mmove_t gladiator_move_walk =
 };
 
 void
-gladiator_walk(edict_t *self)
+gladiator_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -148,7 +148,7 @@ mmove_t gladiator_move_run =
 };
 
 void
-gladiator_run(edict_t *self)
+gladiator_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -166,9 +166,9 @@ gladiator_run(edict_t *self)
 }
 
 void
-GaldiatorMelee(edict_t *self)
+GaldiatorMelee(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -216,7 +216,7 @@ mmove_t gladiator_move_attack_melee =
 };
 
 void
-gladiator_melee(edict_t *self)
+gladiator_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -227,10 +227,10 @@ gladiator_melee(edict_t *self)
 }
 
 void
-GladiatorGun(edict_t *self)
+GladiatorGun(edict_t* self)
 {
 	vec3_t start;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	vec3_t forward, right;
 
 	if (!self)
@@ -240,7 +240,7 @@ GladiatorGun(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_GLADIATOR_RAILGUN_1],
-			forward, right, start);
+		forward, right, start);
 
 	/* calc direction to where we targted */
 	VectorSubtract(self->pos1, start, dir);
@@ -270,10 +270,10 @@ mmove_t gladiator_move_attack_gun =
 };
 
 void
-gladiator_attack(edict_t *self)
+gladiator_attack(edict_t* self)
 {
 	float range;
-	vec3_t v;
+	vec3_t v = { 0 };
 
 	if (!self)
 	{
@@ -332,8 +332,8 @@ mmove_t gladiator_move_pain_air =
 };
 
 void
-gladiator_pain(edict_t *self, edict_t *other /* unused */,
-		float kick /* unused */, int damage)
+gladiator_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	if (!self)
 	{
@@ -383,7 +383,7 @@ gladiator_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-gladiator_dead(edict_t *self)
+gladiator_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -432,9 +432,9 @@ mmove_t gladiator_move_death =
 };
 
 void
-gladiator_die(edict_t *self, edict_t *inflictor /* unused */,
-	   	edict_t *attacker /* unused */, int damage /*unused */,
-		vec3_t point)
+gladiator_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage /*unused */,
+	vec3_t point)
 {
 	int n;
 
@@ -446,22 +446,22 @@ gladiator_die(edict_t *self, edict_t *inflictor /* unused */,
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
-		gi.sound(self, CHAN_VOICE, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/bone/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 4; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -483,7 +483,7 @@ gladiator_die(edict_t *self, edict_t *inflictor /* unused */,
  * QUAKED monster_gladiator (1 .5 0) (-32 -32 -24) (32 32 64) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_gladiator(edict_t *self)
+SP_monster_gladiator(edict_t* self)
 {
 	if (!self)
 	{

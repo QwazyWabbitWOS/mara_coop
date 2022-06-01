@@ -1500,8 +1500,8 @@ void List_Admin_Commands(edict_t *ent,int client)
 
 void Read_Admin_cfg(void)
 {
-	FILE	*f;
-	char	name[512];
+	FILE* f;
+	char	name[512] = { 0 };
 	int i;
 	int elements;
 
@@ -1513,16 +1513,16 @@ void Read_Admin_cfg(void)
 		while ((!feof(f)) && (i < MAX_ADMINS))
 		{
 			elements = fscanf(f, "%s %s %d",
-				(char *)&admin_pass[i].name,
-				(char *)&admin_pass[i].password,
-				(int *)&admin_pass[i].level);
+				(char*)&admin_pass[i].name,
+				(char*)&admin_pass[i].password,
+				(int*)&admin_pass[i].level);
 
 			if ((elements == 3) && admin_pass[i].level)
 				i++;
 		}
 		num_admins = i;
 		if (num_admins < MAX_ADMINS)
-			for (i = num_admins; i < MAX_ADMINS; i++) 
+			for (i = num_admins; i < MAX_ADMINS; i++)
 				admin_pass[i].level = 0;
 
 		fclose(f);
@@ -1538,9 +1538,9 @@ void Read_Admin_cfg(void)
 		while ((!feof(f)) && (i < MAX_ADMINS))
 		{
 			elements = fscanf(f, "%s %s %d",
-				(char *)&q2a_bypass_pass[i].name,
-				(char *)&q2a_bypass_pass[i].password,
-				(int *)&q2a_bypass_pass[i].level);
+				(char*)&q2a_bypass_pass[i].name,
+				(char*)&q2a_bypass_pass[i].password,
+				(int*)&q2a_bypass_pass[i].level);
 
 			if ((elements == 3) && q2a_bypass_pass[i].level)
 				i++;

@@ -81,7 +81,7 @@
  * prohibit loading of savegames
  * created on other systems or
  * architectures. This will
- * crash q2 in spectecular
+ * crash q2 in spectacular
  * ways
  */
 #if defined(__FreeBSD__)
@@ -100,17 +100,23 @@
  #define OS "Unknown"
 #endif
 
+/*
+//QW// These are for the read/write game functions.
+// They are distinct from the Linux ARCH macro in the makefile.
+*/
+
 #if defined(__i386__)
- #define ARCH "i386"
+ #define G_ARCH "i386"
 #elif defined(__x86_64__)
- #define ARCH "amd64"
+ #define G_ARCH "amd64"
 #elif defined(__sparc__)
- #define ARCH "sparc64"
+ #define G_ARCH "sparc64"
 #elif defined(__ia64__)
- #define ARCH "ia64"
+ #define G_ARCH "ia64"
 #else
- #define ARCH "unknown"
+ #define G_ARCH "unknown"
 #endif
+
 
 /*
  * Connects a human readable
@@ -507,7 +513,7 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 
 			if (*(char **)p)
 			{
-				len = strlen(*(char **)p) + 1;
+				len = (int)strlen(*(char **)p) + 1;
 			}
 			else
 			{
@@ -578,7 +584,7 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 					return;
 				}
 				else
-					len = strlen(func->funcStr)+1;
+					len = (int)strlen(func->funcStr)+1;
 			}
 			
 			*(int *)p = len;
@@ -599,7 +605,7 @@ WriteField1(FILE *f /* unused */, field_t *field, byte *base)
 					return;
 				}
 				else
-					len = strlen(mmove->mmoveStr)+1;
+					len = (int)strlen(mmove->mmoveStr)+1;
 			}
 			
 			*(int *)p = len;
@@ -630,7 +636,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 
 			if (*(char **)p)
 			{
-				len = strlen(*(char **)p) + 1;
+				len = (int)strlen(*(char **)p) + 1;
 				fwrite(*(char **)p, len, 1, f);
 			}
 
@@ -647,7 +653,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 					return;
 				}
 				
-				len = strlen(func->funcStr)+1;
+				len = (int)strlen(func->funcStr)+1;
 				fwrite (func->funcStr, len, 1, f);
 			}
 
@@ -665,7 +671,7 @@ WriteField2(FILE *f, field_t *field, byte *base)
 				}
 				else
 				{
-					len = strlen(mmove->mmoveStr) + 1;
+					len = (int)strlen(mmove->mmoveStr) + 1;
 					fwrite(mmove->mmoveStr, len, 1, f);
 				}
 			}
@@ -691,6 +697,7 @@ ReadField(FILE *f, field_t *field, byte *base)
 	void *p;
 	int len;
 	int index;
+	size_t count = 0;
 	char funcStr[2048];
 
 	if (field->flags & FFL_SPAWNTEMP)
@@ -719,7 +726,9 @@ ReadField(FILE *f, field_t *field, byte *base)
 			else
 			{
 				*(char **)p = gi.TagMalloc(32 + len, TAG_LEVEL);
-				fread(*(char **)p, len, 1, f);
+				count = fread(*(char **)p, len, 1, f);
+				if (count)
+					; // don't worry, be happy
 			}
 
 			break;
@@ -776,9 +785,11 @@ ReadField(FILE *f, field_t *field, byte *base)
 					gi.error ("ReadField: function name is longer than buffer (%i chars)",
 							(int)sizeof(funcStr));
 				}
-				else
-					fread (funcStr, len, 1, f);
-
+				else {
+					count = fread(funcStr, len, 1, f);
+					if (count)
+						; // don't worry, be happy
+				}
 				if ( !(*(byte **)p = FindFunctionByName (funcStr)) )
 				{
 					gi.error ("ReadField: function %s not found in table, can't load game", funcStr);
@@ -800,9 +811,12 @@ ReadField(FILE *f, field_t *field, byte *base)
 					gi.error ("ReadField: mmove name is longer than buffer (%i chars)",
 							(int)sizeof(funcStr));
 				}
-				else
-					fread (funcStr, len, 1, f);
-				
+				else {
+					count = fread(funcStr, len, 1, f);
+					if (count)
+						; // don't worry, be happy
+				}
+
 				if ( !(*(mmove_t **)p = FindMmoveByName (funcStr)) )
 				{
 					gi.error ("ReadField: mmove %s not found in table, can't load game", funcStr);
@@ -848,12 +862,14 @@ WriteClient(FILE *f, gclient_t *client)
 /*
  * Read the client struct from a file
  */
-void
-ReadClient(FILE *f, gclient_t *client)
+void ReadClient(FILE* f, gclient_t* client)
 {
 	field_t *field;
+	size_t	count;
 
-	fread(client, sizeof(*client), 1, f);
+	count = fread(client, sizeof(*client), 1, f);
+	if (count)
+		; // don't worry, be happy
 
 	for (field = clientfields; field->name; field++)
 	{
@@ -907,7 +923,7 @@ WriteGame(const char *filename, qboolean autosave)
 		strncpy(str_ver, SAVEGAMEVER, sizeof(str_ver) - 1);
 		strncpy(str_game, GAMEVERSION, sizeof(str_game) - 1);
 		strncpy(str_os, OS, sizeof(str_os) - 1);
-		strncpy(str_arch, ARCH, sizeof(str_arch) - 1);
+		strncpy(str_arch, G_ARCH, sizeof(str_arch) - 1);
 
 		fwrite(str_ver, sizeof(str_ver), 1, f);
 		fwrite(str_game, sizeof(str_game), 1, f);
@@ -941,6 +957,7 @@ ReadGame(const char* filename)
 	char str_game[32] = { 0 };
 	char str_os[32] = { 0 };
 	char str_arch[32] = { 0 };
+	size_t count = 0;
 
 	gi.FreeTags(TAG_GAME);
 
@@ -955,10 +972,18 @@ ReadGame(const char* filename)
 	else
 	{
 		/* Sanity checks */
-		fread(str_ver, sizeof(str_ver), 1, f);
-		fread(str_game, sizeof(str_game), 1, f);
-		fread(str_os, sizeof(str_os), 1, f);
-		fread(str_arch, sizeof(str_arch), 1, f);
+		count = fread(str_ver, sizeof(str_ver), 1, f);
+		if (count)
+			; // don't worry, be happy
+		count = fread(str_game, sizeof(str_game), 1, f);
+		if (count)
+			; // don't worry, be happy
+		count = fread(str_os, sizeof(str_os), 1, f);
+		if (count)
+			; // don't worry, be happy
+		count = fread(str_arch, sizeof(str_arch), 1, f);
+		if (count)
+			; // don't worry, be happy
 
 		if (strcmp(str_ver, SAVEGAMEVER) != 0)
 		{
@@ -978,7 +1003,7 @@ ReadGame(const char* filename)
 			gi.error("Savegame from an other os.\n");
 			return;
 		}
-		else if (strcmp(str_arch, ARCH) != 0)
+		else if (strcmp(str_arch, G_ARCH) != 0)
 		{
 			fclose(f);
 			gi.error("Savegame from another architecure.\n");
@@ -988,7 +1013,9 @@ ReadGame(const char* filename)
 		g_edicts = gi.TagMalloc(game.maxentities * sizeof(g_edicts[0]), TAG_GAME);
 		globals.edicts = g_edicts;
 
-		fread(&game, sizeof(game), 1, f);
+		count = fread(&game, sizeof(game), 1, f);
+		if (count)
+			; // don't worry, be happy
 		game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]),
 			TAG_GAME);
 
@@ -1125,7 +1152,9 @@ ReadEdict(FILE *f, edict_t *ent)
 {
 	field_t *field;
 
-	fread(ent, sizeof(*ent), 1, f);
+	size_t count = fread(ent, sizeof(*ent), 1, f);
+	if (count)
+		; // don't worry, be happy
 
 	for (field = fields; field->name; field++)
 	{
@@ -1144,7 +1173,9 @@ ReadLevelLocals(FILE *f)
 {
 	field_t *field;
 
-	fread(&level, sizeof(level), 1, f);
+	size_t count = fread(&level, sizeof(level), 1, f);
+	if (count)
+		; // don't worry, be happy
 
 	for (field = levelfields; field->name; field++)
 	{
@@ -1186,7 +1217,9 @@ ReadLevel(const char *filename)
 	globals.num_edicts = maxclients->value + 1;
 
 	/* check edict size */
-	fread(&i, sizeof(i), 1, f);
+	size_t count = fread(&i, sizeof(i), 1, f);
+	if (count)
+		; // don't worry, be happy
 
 	if (i != sizeof(edict_t))
 	{

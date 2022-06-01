@@ -3,8 +3,8 @@
 #include "p_hook.h"
 #include "m_player.h"
 
-static edict_t *current_player;
-static gclient_t *current_client;
+static edict_t* current_player;
+static gclient_t* current_client;
 
 static vec3_t forward, right, up;
 float xyspeed;
@@ -13,9 +13,9 @@ float bobmove;
 int bobcycle;
 float bobfracsin;
 
-void updateVisorHud(edict_t *ent); /* FS: Zaero specific game dll changes */
-void startVisorStatic(edict_t *ent); /* FS: Zaero specific game dll changes */
-void stopCamera(edict_t *self); /* FS: Zaero specific game dll changes */
+void updateVisorHud(edict_t* ent); /* FS: Zaero specific game dll changes */
+void startVisorStatic(edict_t* ent); /* FS: Zaero specific game dll changes */
+void stopCamera(edict_t* self); /* FS: Zaero specific game dll changes */
 
 float
 SV_CalcRoll(vec3_t angles, vec3_t velocity)
@@ -26,7 +26,7 @@ SV_CalcRoll(vec3_t angles, vec3_t velocity)
 
 	side = DotProduct(velocity, right);
 	sign = side < 0 ? -1 : 1;
-	side = fabs(side);
+	side = fabsf(side);
 
 	value = sv_rollangle->value;
 
@@ -46,16 +46,16 @@ SV_CalcRoll(vec3_t angles, vec3_t velocity)
  * Handles color blends and view kicks
  */
 void
-P_DamageFeedback(edict_t *player)
+P_DamageFeedback(edict_t* player)
 {
-	gclient_t *client;
+	gclient_t* client;
 	float side;
 	float realcount, count, kick;
-	vec3_t v;
+	vec3_t v = { 0 };
 	int r, l;
-	static vec3_t power_color = {0.0, 1.0, 0.0};
-	static vec3_t acolor = {1.0, 1.0, 1.0};
-	static vec3_t bcolor = {1.0, 0.0, 0.0};
+	static vec3_t power_color = { 0.0, 1.0, 0.0 };
+	static vec3_t acolor = { 1.0, 1.0, 1.0 };
+	static vec3_t bcolor = { 1.0, 0.0, 0.0 };
 
 	if (!player)
 	{
@@ -104,18 +104,18 @@ P_DamageFeedback(edict_t *player)
 
 			switch (i)
 			{
-				case 0:
-					player->s.frame = FRAME_pain101 - 1;
-					client->anim_end = FRAME_pain104;
-					break;
-				case 1:
-					player->s.frame = FRAME_pain201 - 1;
-					client->anim_end = FRAME_pain204;
-					break;
-				case 2:
-					player->s.frame = FRAME_pain301 - 1;
-					client->anim_end = FRAME_pain304;
-					break;
+			case 0:
+				player->s.frame = FRAME_pain101 - 1;
+				client->anim_end = FRAME_pain104;
+				break;
+			case 1:
+				player->s.frame = FRAME_pain201 - 1;
+				client->anim_end = FRAME_pain204;
+				break;
+			case 2:
+				player->s.frame = FRAME_pain301 - 1;
+				client->anim_end = FRAME_pain304;
+				break;
 			}
 		}
 	}
@@ -242,13 +242,13 @@ P_DamageFeedback(edict_t *player)
  * damage = deltavelocity*deltavelocity  * 0.0001
  */
 void
-SV_CalcViewOffset(edict_t *ent)
+SV_CalcViewOffset(edict_t* ent)
 {
-	float *angles;
+	float* angles;
 	float bob;
 	float ratio;
 	float delta;
-	vec3_t v;
+	vec3_t v = { 0 };
 
 	if (!ent)
 	{
@@ -377,18 +377,18 @@ SV_CalcViewOffset(edict_t *ent)
 	}
 	else
 	{
-		if(ent->client->zCameraTrack) /* FS: Zaero specific game dll changes */
+		if (ent->client->zCameraTrack) /* FS: Zaero specific game dll changes */
 		{
 			int i;
 
 			VectorAdd(ent->client->zCameraTrack->s.origin, ent->client->zCameraOffset, v);
 
-			if(ent->client->zCameraTrack->client)
+			if (ent->client->zCameraTrack->client)
 			{
 				vec3_t f;
 
 				VectorAdd(ent->client->zCameraTrack->client->ps.viewoffset, v, v);
-				AngleVectors (ent->client->zCameraTrack->s.angles, f, NULL, NULL);
+				AngleVectors(ent->client->zCameraTrack->s.angles, f, NULL, NULL);
 				VectorMA(v, 10, f, v);
 			}
 			else if (ent->client->zCameraTrack->classname && Q_stricmp(ent->client->zCameraTrack->classname, "misc_securitycamera") == 0)
@@ -402,19 +402,19 @@ SV_CalcViewOffset(edict_t *ent)
 			}
 			else
 			{
-				VectorCopy (ent->client->zCameraTrack->s.angles, ent->client->ps.viewangles);  
+				VectorCopy(ent->client->zCameraTrack->s.angles, ent->client->ps.viewangles);
 			}
 
-			for(i = 0; i < 3; i++)
+			for (i = 0; i < 3; i++)
 			{
 				ent->client->ps.pmove.origin[i] = v[i] * 8;
 			}
 
-			VectorSet (ent->client->ps.viewoffset, 0, 0, 0);
+			VectorSet(ent->client->ps.viewoffset, 0, 0, 0);
 			// make our "double" do what we're doing
 			if (ent->client->zCameraLocalEntity)
 			{
-				edict_t *e = ent->client->zCameraLocalEntity;
+				edict_t* e = ent->client->zCameraLocalEntity;
 				VectorCopy(ent->s.origin, e->s.origin);
 				e->s.frame = ent->s.frame;
 				e->s.modelindex = ent->s.modelindex;
@@ -457,12 +457,12 @@ SV_CalcViewOffset(edict_t *ent)
 }
 
 void
-SV_CalcGunOffset(edict_t *ent)
+SV_CalcGunOffset(edict_t* ent)
 {
 	int i;
 	float delta;
-	static gitem_t *heatbeam;
-	static gitem_t *sniper;
+	static gitem_t* heatbeam = { 0 };
+	static gitem_t* sniper = { 0 };
 
 	if (!ent)
 	{
@@ -498,7 +498,7 @@ SV_CalcGunOffset(edict_t *ent)
 		for (i = 0; i < 3; i++)
 		{
 			delta = ent->client->oldviewangles[i] -
-					ent->client->ps.viewangles[i];
+				ent->client->ps.viewangles[i];
 
 			if (delta > 180)
 			{
@@ -549,7 +549,7 @@ SV_CalcGunOffset(edict_t *ent)
 }
 
 void
-SV_AddBlend(float r, float g, float b, float a, float *v_blend)
+SV_AddBlend(float r, float g, float b, float a, float* v_blend)
 {
 	float a2, a3;
 
@@ -573,10 +573,10 @@ SV_AddBlend(float r, float g, float b, float a, float *v_blend)
 }
 
 void
-SV_CalcBlend(edict_t *ent)
+SV_CalcBlend(edict_t* ent)
 {
 	int contents;
-	vec3_t vieworg;
+	vec3_t vieworg = { 0 };
 	int remaining;
 
 	if (!ent)
@@ -648,7 +648,7 @@ SV_CalcBlend(edict_t *ent)
 		if (remaining == 30) /* beginning to fade */
 		{
 			gi.sound(ent, CHAN_ITEM, gi.soundindex("items/quadfire2.wav"),
-				   	1, ATTN_NORM, 0);
+				1, ATTN_NORM, 0);
 		}
 
 		if ((remaining > 30) || (remaining & 4))
@@ -667,21 +667,21 @@ SV_CalcBlend(edict_t *ent)
 
 		if (ent->client->spawn_protection) /* FS: Coop: Spawn protection */
 		{
-			if(ent->client->spawn_protection_msg)
+			if (ent->client->spawn_protection_msg)
 			{
 				char bSeconds[9]; /* FS: Boolean to detect if it's 1.5 seconds or lower for spawn protection time */
 
 				if (sv_spawn_protection_time->value >= 1.5)
-					strncpy(bSeconds, "seconds", sizeof(bSeconds)-1);
+					strncpy(bSeconds, "seconds", sizeof(bSeconds) - 1);
 				else
-					strncpy(bSeconds, "second", sizeof(bSeconds)-1);
+					strncpy(bSeconds, "second", sizeof(bSeconds) - 1);
 
 				gi.cprintf(ent, PRINT_HIGH, "Spawn protection expires in %1.f %s.\n", sv_spawn_protection_time->value, bSeconds);
 
 				ent->client->spawn_protection_msg = false;
 			}
 
-			if(remaining <= 30)
+			if (remaining <= 30)
 			{
 				ent->client->spawn_protection = false;
 				ent->solid = SOLID_BBOX; /* FS: We're done being SOLID_NOTs, get back to normal. */
@@ -755,10 +755,10 @@ SV_CalcBlend(edict_t *ent)
 	if (ent->client->damage_alpha > 0)
 	{
 		SV_AddBlend(ent->client->damage_blend[0],
-				ent->client->damage_blend[1],
-				ent->client->damage_blend[2],
-				ent->client->damage_alpha,
-				ent->client->ps.blend);
+			ent->client->damage_blend[1],
+			ent->client->damage_blend[2],
+			ent->client->damage_alpha,
+			ent->client->ps.blend);
 	}
 
 	if (ent->client->bonus_alpha > 0)
@@ -780,7 +780,7 @@ SV_CalcBlend(edict_t *ent)
 
 		if (ent->client->zCameraStaticFramenum > level.time)
 		{
-			SV_AddBlend(1,1,1,1, ent->client->ps.blend);
+			SV_AddBlend(1, 1, 1, 1, ent->client->ps.blend);
 		}
 	}
 
@@ -802,11 +802,11 @@ SV_CalcBlend(edict_t *ent)
 }
 
 void
-P_FallingDamage(edict_t *ent)
+P_FallingDamage(edict_t* ent)
 {
 	float delta;
 	int damage;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!ent)
 	{
@@ -849,7 +849,7 @@ P_FallingDamage(edict_t *ent)
 
 	if (ent->client->hook_state == HOOK_ON)
 	{
-        return;
+		return;
 	}
 
 	if (ent->waterlevel == 2)
@@ -909,7 +909,7 @@ P_FallingDamage(edict_t *ent)
 		if (!deathmatch->value || !((int)dmflags->value & DF_NO_FALLING))
 		{
 			T_Damage(ent, world, world, dir, ent->s.origin, vec3_origin,
-					damage, 0, 0, MOD_FALLING);
+				damage, 0, 0, MOD_FALLING);
 		}
 	}
 	else
@@ -1020,7 +1020,7 @@ P_WorldEffects(void)
 		/* if out of air, start drowning */
 		if (current_player->air_finished < level.time)
 		{
-		 	/* drown! */
+			/* drown! */
 			if ((current_player->client->next_drown_time < level.time) &&
 				(current_player->health > 0))
 			{
@@ -1051,7 +1051,7 @@ P_WorldEffects(void)
 				current_player->pain_debounce_time = level.time;
 
 				T_Damage(current_player, world, world, vec3_origin, current_player->s.origin, vec3_origin,
-						current_player->dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
+					current_player->dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
 			}
 		}
 	}
@@ -1085,12 +1085,12 @@ P_WorldEffects(void)
 			if (envirosuit) /* take 1/3 damage with envirosuit */
 			{
 				T_Damage(current_player, world, world, vec3_origin, current_player->s.origin,
-						vec3_origin, 1 * waterlevel, 0, 0, MOD_LAVA);
+					vec3_origin, 1 * waterlevel, 0, 0, MOD_LAVA);
 			}
 			else
 			{
 				T_Damage(current_player, world, world, vec3_origin, current_player->s.origin,
-						vec3_origin, 3 * waterlevel, 0, 0, MOD_LAVA);
+					vec3_origin, 3 * waterlevel, 0, 0, MOD_LAVA);
 			}
 		}
 
@@ -1098,16 +1098,16 @@ P_WorldEffects(void)
 		{
 			if (!envirosuit)
 			{
-			 	/* no damage from slime with envirosuit */
+				/* no damage from slime with envirosuit */
 				T_Damage(current_player, world, world, vec3_origin, current_player->s.origin,
-						vec3_origin, 1 * waterlevel, 0, 0, MOD_SLIME);
+					vec3_origin, 1 * waterlevel, 0, 0, MOD_SLIME);
 			}
 		}
 	}
 }
 
 void
-G_SetClientEffects(edict_t *ent)
+G_SetClientEffects(edict_t* ent)
 {
 	int pa_type;
 	int remaining;
@@ -1214,18 +1214,18 @@ G_SetClientEffects(edict_t *ent)
 		ent->s.renderfx |= (RF_SHELL_RED | RF_SHELL_GREEN | RF_SHELL_BLUE);
 	}
 
-	if(ent->client->zCameraLocalEntity) /* FS: Zaero specific game dll changes */
+	if (ent->client->zCameraLocalEntity) /* FS: Zaero specific game dll changes */
 	{
-		VectorCopy (ent->s.origin, ent->client->zCameraLocalEntity->s.origin);
-		VectorCopy (ent->s.angles, ent->client->zCameraLocalEntity->s.angles);
-		VectorCopy (ent->s.old_origin, ent->client->zCameraLocalEntity->s.old_origin);
+		VectorCopy(ent->s.origin, ent->client->zCameraLocalEntity->s.origin);
+		VectorCopy(ent->s.angles, ent->client->zCameraLocalEntity->s.angles);
+		VectorCopy(ent->s.old_origin, ent->client->zCameraLocalEntity->s.old_origin);
 
 		ent->client->zCameraLocalEntity->s.effects = ent->s.effects;
 	}
 }
 
 void
-G_SetClientEvent(edict_t *ent)
+G_SetClientEvent(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1247,9 +1247,9 @@ G_SetClientEvent(edict_t *ent)
 }
 
 void
-G_SetClientSound(edict_t *ent)
+G_SetClientSound(edict_t* ent)
 {
-	char *weap;
+	char* weap;
 
 	if (!ent)
 	{
@@ -1309,9 +1309,9 @@ G_SetClientSound(edict_t *ent)
 }
 
 void
-G_SetClientFrame(edict_t *ent)
+G_SetClientFrame(edict_t* ent)
 {
-	gclient_t *client;
+	gclient_t* client;
 	qboolean duck, run;
 
 	if (!ent)
@@ -1370,7 +1370,7 @@ G_SetClientFrame(edict_t *ent)
 	}
 	else if (ent->s.frame < client->anim_end)
 	{
-	 	/* continue an animation */
+		/* continue an animation */
 		ent->s.frame++;
 		return;
 	}
@@ -1446,7 +1446,7 @@ newanim:
  * the server frame and right after spawning
  */
 void
-ClientEndServerFrame(edict_t *ent)
+ClientEndServerFrame(edict_t* ent)
 {
 	float bobtime;
 	int i;
@@ -1481,7 +1481,7 @@ ClientEndServerFrame(edict_t *ent)
 		if ((game.gametype == zaero_coop) && (level.fadeFrames > 0)) /* FS: Zaero specific game dll changes */
 		{
 			float ratio = (float)(50 - level.fadeFrames) / 50.0f;
-			SV_AddBlend (1, 1, 1, ratio, current_client->ps.blend);
+			SV_AddBlend(1, 1, 1, ratio, current_client->ps.blend);
 		}
 
 		return;
@@ -1510,8 +1510,8 @@ ClientEndServerFrame(edict_t *ent)
 	/* calculate speed and cycle to be
 	   used for all cyclic walking effects */
 	xyspeed = sqrtf(
-			ent->velocity[0] * ent->velocity[0] + ent->velocity[1] *
-			ent->velocity[1]);
+		ent->velocity[0] * ent->velocity[0] + ent->velocity[1] *
+		ent->velocity[1]);
 
 	if (xyspeed < 5)
 	{
@@ -1520,7 +1520,7 @@ ClientEndServerFrame(edict_t *ent)
 	}
 	else if (ent->groundentity)
 	{
-	  	/* so bobbing only cycles when on ground */
+		/* so bobbing only cycles when on ground */
 		if (xyspeed > 210)
 		{
 			bobmove = 0.25;
@@ -1543,7 +1543,7 @@ ClientEndServerFrame(edict_t *ent)
 	}
 
 	bobcycle = (int)bobtime;
-	bobfracsin = fabs(sin(bobtime * M_PI));
+	bobfracsin = fabsf(sin(bobtime * M_PI));
 
 	/* detect hitting the floor */
 	P_FallingDamage(ent);
@@ -1619,7 +1619,7 @@ ClientEndServerFrame(edict_t *ent)
 		{
 			stopCamera(ent);
 			ent->client->pers.inventory[ITEM_INDEX(FindItem("Visor"))]--;
-			ValidateSelectedItem (ent);
+			ValidateSelectedItem(ent);
 		}
 	}
 

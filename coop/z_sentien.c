@@ -3,9 +3,9 @@
 
 #include "z_sentien.h"
 
-void target_laser_think (edict_t *self);
-void target_laser_on (edict_t *self);
-void target_laser_off (edict_t *self);
+void target_laser_think(edict_t* self);
+void target_laser_on(edict_t* self);
+void target_laser_off(edict_t* self);
 
 /*=========================================================================
    Sentien sound routines ... used from animation frames (and code).
@@ -25,7 +25,7 @@ static int sound_att2;
 static int sound_att3;
 
 
-void sentien_sound_footstep(edict_t *self)
+void sentien_sound_footstep(edict_t* self)
 {
 	if (!self)
 	{
@@ -35,7 +35,7 @@ void sentien_sound_footstep(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_walk, 1, ATTN_NORM, 0);
 }
 
-void sentien_sound_idle1(edict_t *self)
+void sentien_sound_idle1(edict_t* self)
 {
 	if (!self)
 	{
@@ -45,7 +45,7 @@ void sentien_sound_idle1(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_idle1, 1, ATTN_NORM, 0);
 }
 
-void sentien_sound_idle2(edict_t *self)
+void sentien_sound_idle2(edict_t* self)
 {
 	if (!self)
 	{
@@ -55,7 +55,7 @@ void sentien_sound_idle2(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_idle2, 1, ATTN_NORM, 0);
 }
 
-void sentien_sound_idle3(edict_t *self)
+void sentien_sound_idle3(edict_t* self)
 {
 	if (!self)
 	{
@@ -65,7 +65,7 @@ void sentien_sound_idle3(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_idle3, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_att1(edict_t *self)
+void sentian_sound_att1(edict_t* self)
 {
 	if (!self)
 	{
@@ -75,7 +75,7 @@ void sentian_sound_att1(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_att1, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_att2(edict_t *self)
+void sentian_sound_att2(edict_t* self)
 {
 	if (!self)
 	{
@@ -85,7 +85,7 @@ void sentian_sound_att2(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_att2, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_att3(edict_t *self)
+void sentian_sound_att3(edict_t* self)
 {
 	if (!self)
 	{
@@ -95,7 +95,7 @@ void sentian_sound_att3(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_att3, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_fend(edict_t *self)
+void sentian_sound_fend(edict_t* self)
 {
 	if (!self)
 	{
@@ -105,7 +105,7 @@ void sentian_sound_fend(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_fend, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_pain1(edict_t *self)
+void sentian_sound_pain1(edict_t* self)
 {
 	if (!self)
 	{
@@ -115,7 +115,7 @@ void sentian_sound_pain1(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_pain1, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_pain2(edict_t *self)
+void sentian_sound_pain2(edict_t* self)
 {
 	if (!self)
 	{
@@ -125,7 +125,7 @@ void sentian_sound_pain2(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_pain2, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_pain3(edict_t *self)
+void sentian_sound_pain3(edict_t* self)
 {
 	if (!self)
 	{
@@ -135,7 +135,7 @@ void sentian_sound_pain3(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_pain3, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_die1(edict_t *self)
+void sentian_sound_die1(edict_t* self)
 {
 	if (!self)
 	{
@@ -145,7 +145,7 @@ void sentian_sound_die1(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_die1, 1, ATTN_NORM, 0);
 }
 
-void sentian_sound_die2(edict_t *self)
+void sentian_sound_die2(edict_t* self)
 {
 	if (!self)
 	{
@@ -159,7 +159,7 @@ void sentian_sound_die2(edict_t *self)
 /*=========================================================================
    Sentien standing frames
   =========================================================================*/
-mframe_t sentien_frames_stand1 []=
+mframe_t sentien_frames_stand1[] =
 {
    {ai_stand, 0, sentien_sound_idle1},
    {ai_stand, 0, NULL},
@@ -192,7 +192,7 @@ mframe_t sentien_frames_stand1 []=
    {ai_stand, 0, NULL}
 };
 
-mframe_t sentien_frames_stand2 []=
+mframe_t sentien_frames_stand2[] =
 {
    {ai_stand, 0, sentien_sound_idle2},
    {ai_stand, 0, NULL},
@@ -216,7 +216,7 @@ mframe_t sentien_frames_stand2 []=
    {ai_stand, 0, NULL},
 };
 
-mframe_t sentien_frames_stand3 []=
+mframe_t sentien_frames_stand3[] =
 {
    {ai_stand, 0, sentien_sound_idle1},
    {ai_stand, 0, NULL},
@@ -252,20 +252,20 @@ mframe_t sentien_frames_stand3 []=
    {ai_stand, 0, NULL},
 };
 
-void sentien_stand(edict_t *self);
-void sentien_stand_whatnow(edict_t *self);
-void sentien_stand_earwax(edict_t *self);
+void sentien_stand(edict_t* self);
+void sentien_stand_whatnow(edict_t* self);
+void sentien_stand_earwax(edict_t* self);
 
-mmove_t   sentien_move_stand1 = {FRAME_stand1start, FRAME_stand1end, 
-                               sentien_frames_stand1, sentien_stand_whatnow};
+mmove_t   sentien_move_stand1 = { FRAME_stand1start, FRAME_stand1end,
+							   sentien_frames_stand1, sentien_stand_whatnow };
 
-mmove_t   sentien_move_stand2 = {FRAME_stand2start, FRAME_stand2end, 
-                               sentien_frames_stand2, sentien_stand_whatnow};
+mmove_t   sentien_move_stand2 = { FRAME_stand2start, FRAME_stand2end,
+							   sentien_frames_stand2, sentien_stand_whatnow };
 
-mmove_t   sentien_move_stand3 = {FRAME_stand3start, FRAME_stand3end, 
-                               sentien_frames_stand3, sentien_stand_earwax};
+mmove_t   sentien_move_stand3 = { FRAME_stand3start, FRAME_stand3end,
+							   sentien_frames_stand3, sentien_stand_earwax };
 
-void sentien_stand(edict_t *self)
+void sentien_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -277,7 +277,7 @@ void sentien_stand(edict_t *self)
 	self->monsterinfo.currentmove = &sentien_move_stand1;
 }
 
-void sentien_stand_whatnow(edict_t *self)
+void sentien_stand_whatnow(edict_t* self)
 {
 	float r;
 
@@ -288,16 +288,16 @@ void sentien_stand_whatnow(edict_t *self)
 
 	r = random();
 
-	if(r < self->random)
+	if (r < self->random)
 	{
 		self->monsterinfo.currentmove = &sentien_move_stand1;
 		self->random -= 0.05f;
 	}
-	else 
+	else
 	{
 		r = random();
 
-		if(r < 0.5)
+		if (r < 0.5)
 		{
 			self->monsterinfo.currentmove = &sentien_move_stand2;
 		}
@@ -310,14 +310,14 @@ void sentien_stand_whatnow(edict_t *self)
 	}
 }
 
-void sentien_stand_earwax(edict_t *self)
+void sentien_stand_earwax(edict_t* self)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(random() > 0.80)
+	if (random() > 0.80)
 	{
 		//more ear wax damn it, try again
 		self->monsterinfo.currentmove = &sentien_move_stand3;
@@ -331,7 +331,7 @@ void sentien_stand_earwax(edict_t *self)
 /*=========================================================================
    Sentien walking frames
   =========================================================================*/
-mframe_t sentien_frames_walk_start []=
+mframe_t sentien_frames_walk_start[] =
 {
    {ai_walk, 0.0, NULL},
    {ai_walk, 1.5, NULL},
@@ -343,7 +343,7 @@ mframe_t sentien_frames_walk_start []=
    {ai_walk, 1.8, sentien_sound_footstep},
 };
 
-mframe_t sentien_frames_walk []=
+mframe_t sentien_frames_walk[] =
 {
    {ai_walk, 0.3, NULL},
    {ai_walk, 2.4, NULL},
@@ -364,7 +364,7 @@ mframe_t sentien_frames_walk []=
    {ai_walk, 5.2, sentien_sound_footstep}, // 4.1
 };
 
-mframe_t sentien_frames_walk_end []=
+mframe_t sentien_frames_walk_end[] =
 {
    {ai_walk, 0.8, NULL},
    {ai_walk, 1.0, NULL},
@@ -376,18 +376,18 @@ mframe_t sentien_frames_walk_end []=
    {ai_walk, 1.8, sentien_sound_footstep},
 };
 
-void sentien_walk(edict_t *self);
+void sentien_walk(edict_t* self);
 
-mmove_t   sentien_move_walk_start = {FRAME_walkStartStart, FRAME_walkStartEnd, 
-                        sentien_frames_walk_start, sentien_walk};
+mmove_t   sentien_move_walk_start = { FRAME_walkStartStart, FRAME_walkStartEnd,
+						sentien_frames_walk_start, sentien_walk };
 
-mmove_t   sentien_move_walk = {FRAME_walkLoopStart, FRAME_walkLoopEnd, 
-                            sentien_frames_walk, NULL};
+mmove_t   sentien_move_walk = { FRAME_walkLoopStart, FRAME_walkLoopEnd,
+							sentien_frames_walk, NULL };
 
-mmove_t   sentien_move_walk_end = {FRAME_walkEndStart, FRAME_walkEndEnd, 
-                               sentien_frames_walk_end, sentien_stand};
+mmove_t   sentien_move_walk_end = { FRAME_walkEndStart, FRAME_walkEndEnd,
+							   sentien_frames_walk_end, sentien_stand };
 
-void sentien_walk(edict_t *self)
+void sentien_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -396,7 +396,7 @@ void sentien_walk(edict_t *self)
 
 	target_laser_off(self->laser);
 
-	if(self->monsterinfo.currentmove == &sentien_move_walk)
+	if (self->monsterinfo.currentmove == &sentien_move_walk)
 	{
 		return;
 	}
@@ -417,7 +417,7 @@ void sentien_walk(edict_t *self)
 /*=========================================================================
    Sentien running frames
   =========================================================================*/
-mframe_t sentien_frames_run_start []=
+mframe_t sentien_frames_run_start[] =
 {
    {ai_run, 0.0, NULL},
    {ai_run, 1.5, NULL},
@@ -429,7 +429,7 @@ mframe_t sentien_frames_run_start []=
    {ai_run, 1.8, sentien_sound_footstep},
 };
 
-mframe_t sentien_frames_run []=
+mframe_t sentien_frames_run[] =
 {
    {ai_run, 0.3 * 1.2, NULL},
    {ai_run, 2.4, NULL},
@@ -450,7 +450,7 @@ mframe_t sentien_frames_run []=
    {ai_run, 5.2, sentien_sound_footstep}, // 4.1
 };
 
-mframe_t sentien_frames_run_end []=
+mframe_t sentien_frames_run_end[] =
 {
    {ai_run, 0.8, NULL},
    {ai_run, 1.0, NULL},
@@ -462,18 +462,18 @@ mframe_t sentien_frames_run_end []=
    {ai_run, 1.8, sentien_sound_footstep},
 };
 
-void sentien_run(edict_t *self);
+void sentien_run(edict_t* self);
 
-mmove_t   sentien_move_run_start = {FRAME_walkStartStart, FRAME_walkStartEnd, 
-                        sentien_frames_run_start, sentien_run};
+mmove_t   sentien_move_run_start = { FRAME_walkStartStart, FRAME_walkStartEnd,
+						sentien_frames_run_start, sentien_run };
 
-mmove_t   sentien_move_run = {FRAME_walkLoopStart, FRAME_walkLoopEnd, 
-                           sentien_frames_run, NULL};
+mmove_t   sentien_move_run = { FRAME_walkLoopStart, FRAME_walkLoopEnd,
+						   sentien_frames_run, NULL };
 
-mmove_t   sentien_move_run_end = {FRAME_walkEndStart, FRAME_walkEndEnd, 
-                              sentien_frames_run_end, sentien_stand};
+mmove_t   sentien_move_run_end = { FRAME_walkEndStart, FRAME_walkEndEnd,
+							  sentien_frames_run_end, sentien_stand };
 
-void sentien_run(edict_t *self)
+void sentien_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -494,7 +494,7 @@ void sentien_run(edict_t *self)
 	}
 
 	if (self->monsterinfo.currentmove == &sentien_move_walk ||
-       self->monsterinfo.currentmove == &sentien_move_run_start)
+		self->monsterinfo.currentmove == &sentien_move_run_start)
 	{
 		self->monsterinfo.currentmove = &sentien_move_run;
 	}
@@ -507,9 +507,9 @@ void sentien_run(edict_t *self)
 /*=========================================================================
    Sentien blaster attack.
   =========================================================================*/
-void sentien_do_blast(edict_t *self);
+void sentien_do_blast(edict_t* self);
 
-mframe_t sentien_frames_pre_blast_attack []=
+mframe_t sentien_frames_pre_blast_attack[] =
 {
    {ai_charge, 0, NULL},
    {ai_charge, 0, NULL},
@@ -517,7 +517,7 @@ mframe_t sentien_frames_pre_blast_attack []=
    {ai_charge, 0, NULL}
 };
 
-mframe_t sentien_frames_blast_attack []=
+mframe_t sentien_frames_blast_attack[] =
 {
    {ai_charge, 0, sentien_do_blast},
    {ai_charge, 0, sentien_do_blast},
@@ -527,7 +527,7 @@ mframe_t sentien_frames_blast_attack []=
    {ai_charge, 0, sentien_do_blast},
 };
 
-mframe_t sentien_frames_post_blast_attack []=
+mframe_t sentien_frames_post_blast_attack[] =
 {
    {ai_charge, 0, NULL},
    {ai_charge, 0, NULL},
@@ -535,20 +535,20 @@ mframe_t sentien_frames_post_blast_attack []=
    {ai_charge, 0, NULL},
 };
 
-void sentien_blast_attack(edict_t *self);
-void sentien_post_blast_attack(edict_t *self);
+void sentien_blast_attack(edict_t* self);
+void sentien_post_blast_attack(edict_t* self);
 
-mmove_t   sentien_move_pre_blast_attack = {   FRAME_blastPreStart, FRAME_blastPreEnd, 
-                              sentien_frames_pre_blast_attack, sentien_blast_attack};
+mmove_t   sentien_move_pre_blast_attack = { FRAME_blastPreStart, FRAME_blastPreEnd,
+							  sentien_frames_pre_blast_attack, sentien_blast_attack };
 
-void sentien_post_blast_attack(edict_t *self);
-mmove_t   sentien_move_blast_attack = {   FRAME_blastStart, FRAME_blastEnd, 
-                           sentien_frames_blast_attack, sentien_post_blast_attack};
+void sentien_post_blast_attack(edict_t* self);
+mmove_t   sentien_move_blast_attack = { FRAME_blastStart, FRAME_blastEnd,
+						   sentien_frames_blast_attack, sentien_post_blast_attack };
 
-mmove_t   sentien_move_post_blast_attack = {   FRAME_blastPostStart, FRAME_blastPostEnd, 
-                                 sentien_frames_post_blast_attack, sentien_run};
+mmove_t   sentien_move_post_blast_attack = { FRAME_blastPostStart, FRAME_blastPostEnd,
+								 sentien_frames_post_blast_attack, sentien_run };
 
-void sentien_blast_attack(edict_t *self)
+void sentien_blast_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -571,7 +571,7 @@ void sentien_blast_attack(edict_t *self)
 	}
 }
 
-void sentien_post_blast_attack(edict_t *self)
+void sentien_post_blast_attack(edict_t* self)
 {
 	float refire = 0.25f;
 
@@ -583,15 +583,15 @@ void sentien_post_blast_attack(edict_t *self)
 	if (visible(self, self->enemy) &&
 		infront(self, self->enemy))
 	{
-		if(skill->value == 1)
+		if (skill->value == 1)
 		{
 			refire = 0.40f;
 		}
-		else if(skill->value == 2)
+		else if (skill->value == 2)
 		{
 			refire = 0.60f;
 		}
-		else if(skill->value >= 3)
+		else if (skill->value >= 3)
 		{
 			refire = 0.75f;
 		}
@@ -607,45 +607,45 @@ void sentien_post_blast_attack(edict_t *self)
 	}
 }
 
-void sentien_fire_bullet (edict_t *self, vec3_t start, vec3_t dir, int damage)
+void sentien_fire_bullet(edict_t* self, vec3_t start, vec3_t dir, int damage)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(EMPNukeCheck(self, self->s.origin))
+	if (EMPNukeCheck(self, self->s.origin))
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	ANIM_AIM(self, dir);
-	fire_bullet (self, start, dir, 2, 4,
-							DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
-							MOD_UNKNOWN);
+	fire_bullet(self, start, dir, 2, 4,
+		DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
+		MOD_UNKNOWN);
 
 	sentian_sound_att1(self);
 }
 
-vec3_t sentien_flash_offset [] =
+vec3_t sentien_flash_offset[] =
 {
-   // frames 116+ (hex fire)
-	{23.7, 25.4, 29.6},
-	{23.7, 25.3, 26.7},
-	{23.7, 27.7, 28.1},
-	{23.7, 27.4, 31.2},
-	{23.7, 24.9, 32.3},
-	{23.7, 22.5, 30.6},
-	{23.7, 22.7, 27.8}
+	// frames 116+ (hex fire)
+	 {23.7, 25.4, 29.6},
+	 {23.7, 25.3, 26.7},
+	 {23.7, 27.7, 28.1},
+	 {23.7, 27.4, 31.2},
+	 {23.7, 24.9, 32.3},
+	 {23.7, 22.5, 30.6},
+	 {23.7, 22.7, 27.8}
 };
 
-void sentien_do_blast(edict_t *self)
+void sentien_do_blast(edict_t* self)
 {
 	vec3_t   start;
 	vec3_t   forward, right;
-	vec3_t   aim;
-	vec3_t   end;
+	vec3_t   aim = { 0 };
+	vec3_t   end = { 0 };
 	int      idx;
 
 	if (!self || !self->enemy)
@@ -655,24 +655,24 @@ void sentien_do_blast(edict_t *self)
 
 	idx = self->s.frame - FRAME_blastStart + 1;
 
-	AngleVectors (self->s.angles, forward, right, NULL);
+	AngleVectors(self->s.angles, forward, right, NULL);
 
-	G_ProjectSource (self->s.origin, sentien_flash_offset[0],
-									forward, right, start);
+	G_ProjectSource(self->s.origin, sentien_flash_offset[0],
+		forward, right, start);
 
-	VectorCopy (self->enemy->s.origin, end);
+	VectorCopy(self->enemy->s.origin, end);
 	end[2] += self->enemy->viewheight;
-	VectorSubtract (end, start, aim);
+	VectorSubtract(end, start, aim);
 
 	//need to compare aim with facing to make sure we are not
 	//aiming too far sideways and correct if we are.
 
-	G_ProjectSource (self->s.origin, sentien_flash_offset[idx],
-									forward, right, start);
+	G_ProjectSource(self->s.origin, sentien_flash_offset[idx],
+		forward, right, start);
 
-	if(EMPNukeCheck(self, start))
+	if (EMPNukeCheck(self, start))
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
@@ -683,9 +683,9 @@ void sentien_do_blast(edict_t *self)
 /*=========================================================================
    Sentien laser attack.
   =========================================================================*/
-void sentien_do_laser(edict_t *self);
+void sentien_do_laser(edict_t* self);
 
-mframe_t sentien_frames_pre_laser_attack []=
+mframe_t sentien_frames_pre_laser_attack[] =
 {
    {ai_charge, 0, NULL},
    {ai_charge, 0, NULL},
@@ -694,7 +694,7 @@ mframe_t sentien_frames_pre_laser_attack []=
    {ai_charge, 0, NULL}
 };
 
-mframe_t sentien_frames_laser_attack []=
+mframe_t sentien_frames_laser_attack[] =
 {
 		{NULL, 0, sentien_do_laser},
 		{NULL, 0, sentien_do_laser},
@@ -709,7 +709,7 @@ mframe_t sentien_frames_laser_attack []=
 		{NULL, 0, sentien_do_laser}
 };
 
-mframe_t sentien_frames_post_laser_attack []=
+mframe_t sentien_frames_post_laser_attack[] =
 {
    {ai_charge, 0, NULL},
    {ai_charge, 0, NULL},
@@ -717,25 +717,25 @@ mframe_t sentien_frames_post_laser_attack []=
    {ai_charge, 0, NULL}
 };
 
-void sentien_laser_attack(edict_t *self);
-void sentien_post_laser_attack(edict_t *self);
+void sentien_laser_attack(edict_t* self);
+void sentien_post_laser_attack(edict_t* self);
 
-mmove_t   sentien_move_pre_laser_attack = {   FRAME_laserPreStart, FRAME_laserPreEnd, 
-                              sentien_frames_pre_laser_attack, sentien_laser_attack};
+mmove_t   sentien_move_pre_laser_attack = { FRAME_laserPreStart, FRAME_laserPreEnd,
+							  sentien_frames_pre_laser_attack, sentien_laser_attack };
 
-mmove_t   sentien_move_laser_attack = {   FRAME_laserStart, FRAME_laserEnd, 
-                           sentien_frames_laser_attack, sentien_post_laser_attack};
+mmove_t   sentien_move_laser_attack = { FRAME_laserStart, FRAME_laserEnd,
+						   sentien_frames_laser_attack, sentien_post_laser_attack };
 
-mmove_t   sentien_move_post_laser_attack = {   FRAME_laserPostStart, FRAME_laserPostEnd, 
-                                 sentien_frames_post_laser_attack, sentien_run};
+mmove_t   sentien_move_post_laser_attack = { FRAME_laserPostStart, FRAME_laserPostEnd,
+								 sentien_frames_post_laser_attack, sentien_run };
 
-void sentien_laser_attack(edict_t *self)
+void sentien_laser_attack(edict_t* self)
 {
 	if (!self)
 	{
 		return;
 	}
-	
+
 	// is a player right infront?
 	if (visible(self, self->enemy) &&
 		infront(self, self->enemy))
@@ -749,7 +749,7 @@ void sentien_laser_attack(edict_t *self)
 	}
 }
 
-void sentien_post_laser_attack(edict_t *self)
+void sentien_post_laser_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -760,9 +760,9 @@ void sentien_post_laser_attack(edict_t *self)
 	target_laser_off(self->laser);
 }
 
-void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
+void blaster_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
 
-vec3_t sentien_laser_offset [] =
+vec3_t sentien_laser_offset[] =
 {
 	{43.8f, -22.8f + 1, 43.6f - 0.8f},
 	{44.2f, -22.9f + 1, 43.9f - 0.8f},
@@ -777,10 +777,10 @@ vec3_t sentien_laser_offset [] =
 	{43.8f, -22.8f + 1, 43.5f - 0.8f}
 };
 
-void sentien_do_laser(edict_t *self)
+void sentien_do_laser(edict_t* self)
 {
-	vec3_t start, end, forward, right, up;
-	vec3_t   aim, ang;
+	vec3_t start, end = { 0 }, forward, right, up;
+	vec3_t   aim = { 0 }, ang;
 	float      r;
 	int idx;
 
@@ -789,14 +789,14 @@ void sentien_do_laser(edict_t *self)
 		return;
 	}
 
-	if(EMPNukeCheck(self, self->s.origin))
+	if (EMPNukeCheck(self, self->s.origin))
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	// if enemy isn't in range anymore, then get to the post laser routine
-	if(self->s.frame == FRAME_laserStart)
+	if (self->s.frame == FRAME_laserStart)
 	{
 		target_laser_off(self->laser);
 		self->laser->s.skinnum = 0xf2f2f0f0;
@@ -807,18 +807,18 @@ void sentien_do_laser(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, up);
 	G_ProjectSource(self->s.origin, sentien_laser_offset[idx],
-								 forward, right, start);
+		forward, right, start);
 	VectorCopy(start, self->laser->s.origin);
 
-	if(self->s.frame == FRAME_laserStart)
+	if (self->s.frame == FRAME_laserStart)
 	{
-		VectorCopy (self->enemy->s.origin, end);
-		end[2] += self->enemy->viewheight * 66/100;
+		VectorCopy(self->enemy->s.origin, end);
+		end[2] += self->enemy->viewheight * 66.0f / 100.0f;
 
 		r = crandom() * 20;
-		VectorMA (end, r, right, end);
+		VectorMA(end, r, right, end);
 
-		VectorSubtract (end, start, aim);
+		VectorSubtract(end, start, aim);
 		VectorNormalize(aim);
 		ANIM_AIM(self, aim);
 
@@ -833,9 +833,9 @@ void sentien_do_laser(edict_t *self)
 }
 
 
-void sentien_attack(edict_t *self)
+void sentien_attack(edict_t* self)
 {
-	vec3_t	vec;
+	vec3_t	vec = { 0 };
 	float	range;
 	float	r;
 
@@ -846,12 +846,12 @@ void sentien_attack(edict_t *self)
 
 	target_laser_off(self->laser);
 
-	VectorSubtract (self->enemy->s.origin, self->s.origin, vec);
-	range = VectorLength (vec);
+	VectorSubtract(self->enemy->s.origin, self->s.origin, vec);
+	range = VectorLength(vec);
 
 	r = random();
 
-	if(range <= 128)
+	if (range <= 128)
 	{
 		self->monsterinfo.currentmove = &sentien_move_pre_blast_attack;
 	}
@@ -884,7 +884,7 @@ void sentien_attack(edict_t *self)
    Sentien fending.
   =========================================================================*/
 
-void sentien_fend_ready (edict_t *self)
+void sentien_fend_ready(edict_t* self)
 {
 	if (!self)
 	{
@@ -898,7 +898,7 @@ void sentien_fend_ready (edict_t *self)
 	self->monsterinfo.pausetime = level.time + 1;
 }
 
-void sentien_fend_hold (edict_t *self)
+void sentien_fend_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -917,14 +917,14 @@ void sentien_fend_hold (edict_t *self)
 }
 
 
-mframe_t sentien_frames_fend [] =
+mframe_t sentien_frames_fend[] =
 {
 	{ai_move, 0,  sentian_sound_fend},
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  sentien_fend_ready},
-	{ai_move, 0,  sentien_fend_hold}, 
+	{ai_move, 0,  sentien_fend_hold},
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  NULL},
@@ -935,9 +935,9 @@ mframe_t sentien_frames_fend [] =
 	{ai_move, 0,  NULL},
 	{ai_move, 0,  NULL},
 };
-mmove_t sentien_move_fend = {FRAME_dodgeStart, FRAME_dodgeEnd, sentien_frames_fend, sentien_run};
+mmove_t sentien_move_fend = { FRAME_dodgeStart, FRAME_dodgeEnd, sentien_frames_fend, sentien_run };
 
-void sentien_fend (edict_t *self, edict_t *attacker, float eta, trace_t *fake /* unused */)
+void sentien_fend(edict_t* self, edict_t* attacker, float eta, trace_t* fake /* unused */)
 {
 	if (!self)
 	{
@@ -945,8 +945,8 @@ void sentien_fend (edict_t *self, edict_t *attacker, float eta, trace_t *fake /*
 	}
 
 	// don't flinch if attacking
-	if(self->monsterinfo.currentmove == &sentien_move_laser_attack ||
-			self->monsterinfo.currentmove == &sentien_move_blast_attack)
+	if (self->monsterinfo.currentmove == &sentien_move_laser_attack ||
+		self->monsterinfo.currentmove == &sentien_move_blast_attack)
 	{
 		return;
 	}
@@ -958,7 +958,7 @@ void sentien_fend (edict_t *self, edict_t *attacker, float eta, trace_t *fake /*
 			return;
 		}
 	}
-	else if(skill->value == 1)
+	else if (skill->value == 1)
 	{
 		if (random() > 0.60f)
 		{
@@ -985,7 +985,7 @@ void sentien_fend (edict_t *self, edict_t *attacker, float eta, trace_t *fake /*
 /*=========================================================================
    Touch me sentien.
   =========================================================================*/
-mframe_t sentien_frames_pain1 [] =
+mframe_t sentien_frames_pain1[] =
 {
    {ai_move, 0, NULL},
    {ai_move, 0, NULL},
@@ -993,33 +993,8 @@ mframe_t sentien_frames_pain1 [] =
    {ai_move, 0, NULL}
 };
 
-mframe_t sentien_frames_pain2 [] =
+mframe_t sentien_frames_pain2[] =
 {
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL}
-};
-
-mframe_t sentien_frames_pain3 [] =
-{
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
-   {ai_move, 0, NULL},
    {ai_move, 0, NULL},
    {ai_move, 0, NULL},
    {ai_move, 0, NULL},
@@ -1028,23 +1003,48 @@ mframe_t sentien_frames_pain3 [] =
    {ai_move, 0, NULL}
 };
 
-mmove_t sentien_move_pain1 = {FRAME_pain1Start, FRAME_pain1End,
-                            sentien_frames_pain1, sentien_run};
-mmove_t sentien_move_pain2 = {FRAME_pain2Start, FRAME_pain2End,
-                            sentien_frames_pain2, sentien_run};
-mmove_t sentien_move_pain3 = {FRAME_pain3Start, FRAME_pain3End,
-                            sentien_frames_pain3, sentien_run};
+mframe_t sentien_frames_pain3[] =
+{
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL},
+   {ai_move, 0, NULL}
+};
 
-void sentien_pain (edict_t *self, edict_t *other, float kick, int damage)
+mmove_t sentien_move_pain1 = { FRAME_pain1Start, FRAME_pain1End,
+							sentien_frames_pain1, sentien_run };
+mmove_t sentien_move_pain2 = { FRAME_pain2Start, FRAME_pain2End,
+							sentien_frames_pain2, sentien_run };
+mmove_t sentien_move_pain3 = { FRAME_pain3Start, FRAME_pain3End,
+							sentien_frames_pain3, sentien_run };
+
+void sentien_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	float r;
 
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
-	if((self->health < (self->max_health / 2)))
+	if ((self->health < (self->max_health / 2)))
 	{
 		self->s.skinnum |= 1;
 	}
@@ -1057,11 +1057,11 @@ void sentien_pain (edict_t *self, edict_t *other, float kick, int damage)
 
 	r = random();
 
-	if(r < 0.33)
+	if (r < 0.33)
 	{
 		sentian_sound_pain1(self);
 	}
-	else if(r < 0.66)
+	else if (r < 0.66)
 	{
 		sentian_sound_pain2(self);
 	}
@@ -1074,7 +1074,7 @@ void sentien_pain (edict_t *self, edict_t *other, float kick, int damage)
 		return;
 	}
 
-	if(self->monsterinfo.aiflags & AI_HOLD_FRAME)
+	if (self->monsterinfo.aiflags & AI_HOLD_FRAME)
 	{
 		return;
 	}
@@ -1082,8 +1082,8 @@ void sentien_pain (edict_t *self, edict_t *other, float kick, int damage)
 	if (skill->value >= 1)
 	{
 		// don't flinch if attacking
-		if(self->monsterinfo.currentmove == &sentien_move_laser_attack ||
-				self->monsterinfo.currentmove == &sentien_move_blast_attack)
+		if (self->monsterinfo.currentmove == &sentien_move_laser_attack ||
+			self->monsterinfo.currentmove == &sentien_move_blast_attack)
 		{
 			return;
 		}
@@ -1117,7 +1117,7 @@ void sentien_pain (edict_t *self, edict_t *other, float kick, int damage)
 /*=========================================================================
    Kill me Elmo.
   =========================================================================*/
-mframe_t sentien_frames_death1 [] =
+mframe_t sentien_frames_death1[] =
 {
    {ai_move, 0,  sentian_sound_die1},
    {ai_move, 0,  NULL},
@@ -1149,7 +1149,7 @@ mframe_t sentien_frames_death1 [] =
    {ai_move, 0,  NULL}
 };
 
-mframe_t sentien_frames_death2 [] =
+mframe_t sentien_frames_death2[] =
 {
    {ai_move, 0,  sentian_sound_die2},
    {ai_move, 0,  NULL},
@@ -1182,25 +1182,25 @@ mframe_t sentien_frames_death2 [] =
    {ai_move, 0,  NULL}
 };
 
-void sentien_dead(edict_t *self);
+void sentien_dead(edict_t* self);
 
-mmove_t   sentien_move_death1 = {FRAME_die1Start, FRAME_die1End,
-                               sentien_frames_death1, sentien_dead};
-mmove_t   sentien_move_death2 = {FRAME_die2Start, FRAME_die2End,
-                               sentien_frames_death2, sentien_dead};
+mmove_t   sentien_move_death1 = { FRAME_die1Start, FRAME_die1End,
+							   sentien_frames_death1, sentien_dead };
+mmove_t   sentien_move_death2 = { FRAME_die2Start, FRAME_die2End,
+							   sentien_frames_death2, sentien_dead };
 
-vec3_t sentien_death_offset [] =
+vec3_t sentien_death_offset[] =
 {
-   // right, forward
-   // VectorSet (self->mins, -50, 6, -16);
-   // VectorSet (self->maxs, -12, 44, 0);
-	{6, -50, 0},
-    {44, -12, 0},
+	// right, forward
+	// VectorSet (self->mins, -50, 6, -16);
+	// VectorSet (self->maxs, -12, 44, 0);
+	 {6, -50, 0},
+	 {44, -12, 0},
 };
 
-void sentien_dead(edict_t *self)
+void sentien_dead(edict_t* self)
 {
-	vec3_t   start, end, point;
+	vec3_t   start = { 0 }, end = { 0 }, point;
 	vec3_t   forward, right;
 
 	if (!self)
@@ -1208,17 +1208,17 @@ void sentien_dead(edict_t *self)
 		return;
 	}
 
-	AngleVectors (self->s.angles, forward, right, NULL);
-	G_ProjectSource (self->s.origin, sentien_death_offset[0],
-                    forward, right, point);
-	VectorSubtract (point, self->s.origin, start);
+	AngleVectors(self->s.angles, forward, right, NULL);
+	G_ProjectSource(self->s.origin, sentien_death_offset[0],
+		forward, right, point);
+	VectorSubtract(point, self->s.origin, start);
 
-	G_ProjectSource (self->s.origin, sentien_death_offset[1],
-					forward, right, point);
-	VectorSubtract (point, self->s.origin, end);
+	G_ProjectSource(self->s.origin, sentien_death_offset[1],
+		forward, right, point);
+	VectorSubtract(point, self->s.origin, end);
 
-	VectorSet (self->mins, min(start[0], end[0]), min(start[1], end[1]), -16);
-	VectorSet (self->maxs, max(start[0], end[0]), max(start[1], end[1]), 0);
+	VectorSet(self->mins, min(start[0], end[0]), min(start[1], end[1]), -16);
+	VectorSet(self->maxs, max(start[0], end[0]), max(start[1], end[1]), 0);
 
 	self->movetype = MOVETYPE_TOSS;
 	self->svflags |= SVF_DEADMONSTER;
@@ -1226,7 +1226,7 @@ void sentien_dead(edict_t *self)
 	gi.linkentity(self);
 }
 
-void sentien_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
+void sentien_die(edict_t* self, edict_t* inflictor, edict_t* attacker, int damage, vec3_t point)
 {
 	int n;
 
@@ -1240,20 +1240,20 @@ void sentien_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 	//gib code to go here
 	if (self->health <= self->gib_health)
 	{
-		gi.sound (self, CHAN_VOICE, gi.soundindex ("misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
-//		for (n= 0; n < 1 /*4*/; n++)
+		//		for (n= 0; n < 1 /*4*/; n++)
 		{
-			ThrowGib (self, "models/objects/gibs/sm_meat/tris.md2", damage, GIB_ORGANIC);
+			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2", damage, GIB_ORGANIC);
 		}
 
-		for (n= 0; n < 4; n++)
+		for (n = 0; n < 4; n++)
 		{
-			ThrowGib (self, "models/objects/gibs/sm_metal/tris.md2", damage, GIB_METALLIC);
+			ThrowGib(self, "models/objects/gibs/sm_metal/tris.md2", damage, GIB_METALLIC);
 		}
 
-		ThrowGib (self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
-		ThrowHead (self, "models/objects/gibs/gear/tris.md2", damage, GIB_METALLIC);
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", damage, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/gear/tris.md2", damage, GIB_METALLIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -1269,7 +1269,7 @@ void sentien_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 
 	if (random() < 0.80)
 	{
-      self->monsterinfo.currentmove = &sentien_move_death1;
+		self->monsterinfo.currentmove = &sentien_move_death1;
 	}
 	else
 	{
@@ -1281,7 +1281,7 @@ void sentien_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int dama
 /*=========================================================================
    Spawn code.
   =========================================================================*/
-void create_sentien_laser(edict_t *self)
+void create_sentien_laser(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right;
@@ -1294,7 +1294,7 @@ void create_sentien_laser(edict_t *self)
 	self->laser = G_Spawn();
 	self->laser->movetype = MOVETYPE_NONE;
 	self->laser->solid = SOLID_BBOX;//SOLID_NOT;
-	self->laser->s.renderfx = RF_BEAM|RF_TRANSLUCENT;
+	self->laser->s.renderfx = RF_BEAM | RF_TRANSLUCENT;
 	self->laser->s.modelindex = 2;
 	self->laser->classname = "laser_yaya";
 	self->laser->s.frame = 2;
@@ -1305,18 +1305,18 @@ void create_sentien_laser(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, sentien_laser_offset[0],
-                   forward, right, start);
+		forward, right, start);
 
 	VectorCopy(start, self->laser->s.origin);
 	VectorCopy(self->s.angles, self->laser->s.angles);
 
 	G_SetMovedir(self->laser->s.angles, self->laser->movedir);
 
-	gi.linkentity (self->laser);
+	gi.linkentity(self->laser);
 	target_laser_off(self->laser);
 }
 
-void SP_monster_sentien(edict_t *self)
+void SP_monster_sentien(edict_t* self)
 {
 	if (!self)
 	{
@@ -1335,9 +1335,9 @@ void SP_monster_sentien(edict_t *self)
 	sound_att2 = gi.soundindex("monsters/sentien/sen_att2.wav");
 
 	self->mass = 500;
-	self->s.modelindex = gi.modelindex ("models/monsters/sentien/tris.md2");
-	VectorSet (self->mins, -32, -32, -16);
-	VectorSet (self->maxs, 32, 32, 72);
+	self->s.modelindex = gi.modelindex("models/monsters/sentien/tris.md2");
+	VectorSet(self->mins, -32, -32, -16);
+	VectorSet(self->maxs, 32, 32, 72);
 	self->movetype = MOVETYPE_STEP;
 	self->solid = SOLID_BBOX;
 	self->health = 900;
@@ -1364,15 +1364,19 @@ void SP_monster_sentien(edict_t *self)
 
 	create_sentien_laser(self);
 
-	if(skill->value == 2)
+	if (skill->value == 2)
 	{
-		self->laser->dmg *= 1.5;
-		self->yaw_speed *= 1.5;
+		if (self->laser) {
+			self->laser->dmg *= 1.5;
+			self->yaw_speed *= 1.5;
+		}
 	}
-	else if(skill->value >= 3)
+	else if (skill->value >= 3)
 	{
-		self->laser->dmg *= 2.5;
-		self->yaw_speed *= 2;
+		if (self->laser) {
+			self->laser->dmg *= 2.5;
+			self->yaw_speed *= 2;
+		}
 	}
 
 

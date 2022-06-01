@@ -8,23 +8,23 @@
 #define DBALL_GOAL_TEAM2 0x0002
 #define DBALL_SPEED_ONEWAY 1
 
-edict_t *dball_ball_entity = NULL;
+edict_t* dball_ball_entity = NULL;
 int dball_ball_startpt_count;
 int dball_team1_goalscore;
 int dball_team2_goalscore;
 
-cvar_t *dball_team1_skin;
-cvar_t *dball_team2_skin;
-cvar_t *goallimit;
+cvar_t* dball_team1_skin;
+cvar_t* dball_team2_skin;
+cvar_t* goallimit;
 
 extern void EndDMLevel(void);
-extern void ClientUserinfoChanged(edict_t *ent, char *userinfo);
-extern void SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles);
-extern float PlayersRangeFromSpot(edict_t *spot);
+extern void ClientUserinfoChanged(edict_t* ent, char* userinfo);
+extern void SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles);
+extern float PlayersRangeFromSpot(edict_t* spot);
 
-void DBall_BallDie(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point);
-void DBall_BallRespawn(edict_t *self);
+void DBall_BallDie(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point);
+void DBall_BallRespawn(edict_t* self);
 
 int
 DBall_CheckDMRules(void)
@@ -52,11 +52,11 @@ DBall_CheckDMRules(void)
 }
 
 void
-DBall_ClientBegin(edict_t *ent)
+DBall_ClientBegin(edict_t* ent)
 {
 	int team1, team2, unassigned;
-	edict_t *other;
-	char *p;
+	edict_t* other;
+	char* p;
 	static char value[512];
 	int j;
 
@@ -132,12 +132,12 @@ DBall_ClientBegin(edict_t *ent)
 }
 
 void
-DBall_SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
+DBall_SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 {
-	edict_t *bestspot;
+	edict_t* bestspot;
 	float bestdistance, bestplayerdistance;
-	edict_t *spot;
-	char *spottype;
+	edict_t* spot;
+	char* spottype;
 	char skin[512];
 
 	if (!ent)
@@ -196,7 +196,7 @@ DBall_GameInit(void)
 	dball_team2_goalscore = 0;
 
 	dmflags->value = (int)dmflags->value | DF_NO_MINES | DF_NO_NUKES |
-					 DF_NO_STACK_DOUBLE | DF_NO_FRIENDLY_FIRE | DF_SKINTEAMS;
+		DF_NO_STACK_DOUBLE | DF_NO_FRIENDLY_FIRE | DF_SKINTEAMS;
 
 	dball_team1_skin = gi.cvar("dball_team1_skin", "male/ctf_r", 0);
 	dball_team2_skin = gi.cvar("dball_team2_skin", "male/ctf_b", 0);
@@ -206,7 +206,7 @@ DBall_GameInit(void)
 void
 DBall_PostInitSetup(void)
 {
-	edict_t *e;
+	edict_t* e;
 
 	e = NULL;
 
@@ -233,7 +233,7 @@ DBall_PostInitSetup(void)
 }
 
 int
-DBall_ChangeDamage(edict_t *targ, edict_t *attacker, int damage, int mod)
+DBall_ChangeDamage(edict_t* targ, edict_t* attacker, int damage, int mod)
 {
 	if (!targ || !attacker)
 	{
@@ -256,7 +256,7 @@ DBall_ChangeDamage(edict_t *targ, edict_t *attacker, int damage, int mod)
 }
 
 int
-DBall_ChangeKnockback(edict_t *targ, edict_t *attacker, int knockback, int mod)
+DBall_ChangeKnockback(edict_t* targ, edict_t* attacker, int knockback, int mod)
 {
 	if (!targ || !attacker)
 	{
@@ -287,38 +287,38 @@ DBall_ChangeKnockback(edict_t *targ, edict_t *attacker, int knockback, int mod)
 	{
 		switch (mod)
 		{
-			case MOD_BLASTER:
-				knockback *= 3;
-				break;
-			case MOD_SHOTGUN:
-				knockback = (knockback * 3) / 8;
-				break;
-			case MOD_SSHOTGUN:
-				knockback = knockback / 3;
-				break;
-			case MOD_MACHINEGUN:
-				knockback = (knockback * 3) / 2;
-				break;
-			case MOD_HYPERBLASTER:
-				knockback *= 4;
-				break;
-			case MOD_GRENADE:
-			case MOD_HANDGRENADE:
-			case MOD_PROX:
-			case MOD_G_SPLASH:
-			case MOD_HG_SPLASH:
-			case MOD_HELD_GRENADE:
-			case MOD_TRACKER:
-			case MOD_DISINTEGRATOR:
-				knockback /= 2;
-				break;
-			case MOD_R_SPLASH:
-				knockback = (knockback * 3) / 2;
-				break;
-			case MOD_RAILGUN:
-			case MOD_HEATBEAM:
-				knockback /= 3;
-				break;
+		case MOD_BLASTER:
+			knockback *= 3;
+			break;
+		case MOD_SHOTGUN:
+			knockback = (knockback * 3) / 8;
+			break;
+		case MOD_SSHOTGUN:
+			knockback = knockback / 3;
+			break;
+		case MOD_MACHINEGUN:
+			knockback = (knockback * 3) / 2;
+			break;
+		case MOD_HYPERBLASTER:
+			knockback *= 4;
+			break;
+		case MOD_GRENADE:
+		case MOD_HANDGRENADE:
+		case MOD_PROX:
+		case MOD_G_SPLASH:
+		case MOD_HG_SPLASH:
+		case MOD_HELD_GRENADE:
+		case MOD_TRACKER:
+		case MOD_DISINTEGRATOR:
+			knockback /= 2;
+			break;
+		case MOD_R_SPLASH:
+			knockback = (knockback * 3) / 2;
+			break;
+		case MOD_RAILGUN:
+		case MOD_HEATBEAM:
+			knockback /= 3;
+			break;
 		}
 	}
 
@@ -326,15 +326,15 @@ DBall_ChangeKnockback(edict_t *targ, edict_t *attacker, int knockback, int mod)
 }
 
 void
-DBall_GoalTouch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+DBall_GoalTouch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
 	int team_score;
 	int scorechange;
 	int j;
 	char value[512];
-	char *p;
-	edict_t *ent;
+	char* p;
+	edict_t* ent;
 
 	if (!self || !other)
 	{
@@ -431,11 +431,11 @@ DBall_GoalTouch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 	G_UseTargets(self, other);
 }
 
-edict_t *
-PickBallStart(edict_t *ent)
+edict_t*
+PickBallStart(edict_t* ent)
 {
 	int which, current;
-	edict_t *e;
+	edict_t* e;
 
 	if (!ent)
 	{
@@ -465,7 +465,7 @@ PickBallStart(edict_t *ent)
 }
 
 void
-DBall_BallTouch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+DBall_BallTouch(edict_t* ent, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 	vec3_t dir = { 0 };
 	float dot;
@@ -494,14 +494,14 @@ DBall_BallTouch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if (dot > 0.7)
 			{
 				T_Damage(other, ent, ent, vec3_origin, ent->s.origin, vec3_origin,
-						speed / 10, speed / 10, 0, MOD_DBALL_CRUSH);
+					speed / 10, speed / 10, 0, MOD_DBALL_CRUSH);
 			}
 		}
 	}
 }
 
 void
-DBall_BallPain(edict_t *self, edict_t *other, float kick, int damage)
+DBall_BallPain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	if (!self || !other)
 	{
@@ -513,8 +513,8 @@ DBall_BallPain(edict_t *self, edict_t *other, float kick, int damage)
 }
 
 void
-DBall_BallDie(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point)
+DBall_BallDie(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage, vec3_t point)
 {
 	if (!self)
 	{
@@ -539,9 +539,9 @@ DBall_BallDie(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker 
 }
 
 void
-DBall_BallRespawn(edict_t *self)
+DBall_BallRespawn(edict_t* self)
 {
-	edict_t *start;
+	edict_t* start;
 
 	if (!self)
 	{
@@ -579,11 +579,11 @@ DBall_BallRespawn(edict_t *self)
 }
 
 void
-DBall_SpeedTouch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+DBall_SpeedTouch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
 	float dot;
-	vec3_t vel;
+	vec3_t vel = { 0 };
 
 	if (!self || !other)
 	{
@@ -622,7 +622,7 @@ DBall_SpeedTouch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 }
 
 void
-SP_dm_dball_ball(edict_t *self)
+SP_dm_dball_ball(edict_t* self)
 {
 	if (!self)
 	{
@@ -666,7 +666,7 @@ SP_dm_dball_ball(edict_t *self)
  * Deathball team 1 start point
  */
 void
-SP_dm_dball_team1_start(edict_t *self)
+SP_dm_dball_team1_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -691,7 +691,7 @@ SP_dm_dball_team1_start(edict_t *self)
  * Deathball team 2 start point
  */
 void
-SP_dm_dball_team2_start(edict_t *self)
+SP_dm_dball_team2_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -716,7 +716,7 @@ SP_dm_dball_team2_start(edict_t *self)
  * Deathball ball start point
  */
 void
-SP_dm_dball_ball_start(edict_t *self)
+SP_dm_dball_ball_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -745,7 +745,7 @@ SP_dm_dball_ball_start(edict_t *self)
  * delay: time between speed changes (default: 0.2 sec)
  */
 void
-SP_dm_dball_speed_change(edict_t *self)
+SP_dm_dball_speed_change(edict_t* self)
 {
 	if (!self)
 	{
@@ -801,7 +801,7 @@ SP_dm_dball_speed_change(edict_t *self)
  * "wait": score to be given for this goal (default 10) player gets score+5.
  */
 void
-SP_dm_dball_goal(edict_t *self)
+SP_dm_dball_goal(edict_t* self)
 {
 	if (!self)
 	{

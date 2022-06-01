@@ -31,44 +31,61 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifdef __GNUC__
 #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #include <dlfcn.h>
-#elif defined(WIN32)
+#elif defined(_WIN32)
 #include <windows.h>
 #endif
 
+//QwazyWabbit//
+/* Restored original "release" folder functionality.
+This works on Windows per Shane's original readme.txt
+by loading the game dll for the appropriate architecture.
+Read and follow the instructions in his readme.txt.
+
+The q2admin dll should be located in <Q2root>\release\ or <Q2root\debug\ and must be
+named per the target processor architecture as defined by the quake2
+engine being used. (e.g. gamex86_64.dll or gamei386.dll on Windows)
+The q2admin dll will load the mod dll of the same name from the mod folder.
+*/
+
 #ifdef __GNUC__
-void *hdll = NULL;
+void* hdll = NULL;
 
 #ifdef LINUXAXP
-	#define DLLNAME   "gameaxp.real.so"
+#define DLLNAME   "gameaxp.real.so"
 #elif defined(SOLARIS_INTEL)
-	#define DLLNAME   "gamei386.real.so"
+#define DLLNAME   "gamei386.real.so"
 #elif defined(SOLARIS_SPARC)
-	#define DLLNAME   "gamesparc.real.so"
+#define DLLNAME   "gamesparc.real.so"
 #elif defined (LINUX)
 #if defined __i386__
-	#define DLLNAME "gamei386.real.so"
+#define DLLNAME "gamei386.real.so"
 #elif defined __x86_64__
-	#define DLLNAME "gamex86_64.real.so"
+#define DLLNAME "gamex86_64.real.so"
 #elif defined __arm__ 
-	#define DLLNAME "gamearm.real.so"
+#define DLLNAME "gamearm.real.so"
 #elif defined __aarch64__
-	#define DLLNAME "gameaarch64.real.so"
+#define DLLNAME "gameaarch64.real.so"
 #else
-	#error Unknown architecture
+#error Unknown architecture
 #endif
 #else
-	#error Unknown GNUC OS
+#error Unknown GNUC OS
 #endif
 
-#elif defined(WIN32)
+#elif defined(_WIN32) && !defined(_M_X64)
 HINSTANCE hdll;
-#define DLLNAME   "gamex86.real.dll"  // Not sure how this was supposed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
+#define DLLNAME   "gamex86.dll"
 #define DLLNAMEMODDIR "gamex86.real.dll"
+#elif defined (_M_X64)
+HINSTANCE hdll;
+#define DLLNAME   "gamex86_64.dll"
+#define DLLNAMEMODDIR "gamex86_64.real.dll"
+
 #else
 #error Unknown OS
 #endif
 
-typedef game_export_t  *GAMEAPI (game_import_t *import);
+typedef game_export_t* GAMEAPI(game_import_t* import);
 
 char  zbot_teststring1[] = ZBOT_TESTSTRING1;
 char  zbot_teststring_test1[] = ZBOT_TESTSTRING_TEST1;

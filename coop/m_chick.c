@@ -11,13 +11,13 @@ chick
 
 #define LEAD_TARGET 1
 
-qboolean visible(edict_t *self, edict_t *other);
+qboolean visible(edict_t* self, edict_t* other);
 
-void chick_stand(edict_t *self);
-void chick_run(edict_t *self);
-void chick_reslash(edict_t *self);
-void chick_rerocket(edict_t *self);
-void chick_attack1(edict_t *self);
+void chick_stand(edict_t* self);
+void chick_run(edict_t* self);
+void chick_reslash(edict_t* self);
+void chick_rerocket(edict_t* self);
+void chick_attack1(edict_t* self);
 
 static int sound_missile_prelaunch;
 static int sound_missile_launch;
@@ -36,7 +36,7 @@ static int sound_sight;
 static int sound_search;
 
 void
-ChickMoan(edict_t *self)
+ChickMoan(edict_t* self)
 {
 	if (!self)
 	{
@@ -89,13 +89,13 @@ mframe_t chick_frames_fidget[] = {
 mmove_t chick_move_fidget =
 {
 	FRAME_stand201,
-   	FRAME_stand230,
-   	chick_frames_fidget,
-   	chick_stand
+	FRAME_stand230,
+	chick_frames_fidget,
+	chick_stand
 };
 
 void
-chick_fidget(edict_t *self)
+chick_fidget(edict_t* self)
 {
 	if (!self)
 	{
@@ -149,13 +149,13 @@ mframe_t chick_frames_stand[] = {
 mmove_t chick_move_stand =
 {
 	FRAME_stand101,
-   	FRAME_stand130,
-   	chick_frames_stand,
-   	NULL
+	FRAME_stand130,
+	chick_frames_stand,
+	NULL
 };
 
 void
-chick_stand(edict_t *self)
+chick_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -181,9 +181,9 @@ mframe_t chick_frames_start_run[] = {
 mmove_t chick_move_start_run =
 {
 	FRAME_walk01,
-   	FRAME_walk10,
-   	chick_frames_start_run,
-   	chick_run
+	FRAME_walk10,
+	chick_frames_start_run,
+	chick_run
 };
 
 mframe_t chick_frames_run[] = {
@@ -202,9 +202,9 @@ mframe_t chick_frames_run[] = {
 mmove_t chick_move_run =
 {
 	FRAME_walk11,
-   	FRAME_walk20,
-   	chick_frames_run,
-   	NULL
+	FRAME_walk20,
+	chick_frames_run,
+	NULL
 };
 
 mframe_t chick_frames_walk[] = {
@@ -223,13 +223,13 @@ mframe_t chick_frames_walk[] = {
 mmove_t chick_move_walk =
 {
 	FRAME_walk11,
-   	FRAME_walk20,
-   	chick_frames_walk,
-   	NULL
+	FRAME_walk20,
+	chick_frames_walk,
+	NULL
 };
 
 void
-chick_walk(edict_t *self)
+chick_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -240,7 +240,7 @@ chick_walk(edict_t *self)
 }
 
 void
-chick_run(edict_t *self)
+chick_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -280,9 +280,9 @@ mframe_t chick_frames_pain1[] = {
 mmove_t chick_move_pain1 =
 {
 	FRAME_pain101,
-   	FRAME_pain105,
-   	chick_frames_pain1,
-   	chick_run
+	FRAME_pain105,
+	chick_frames_pain1,
+	chick_run
 };
 
 mframe_t chick_frames_pain2[] = {
@@ -296,9 +296,9 @@ mframe_t chick_frames_pain2[] = {
 mmove_t chick_move_pain2 =
 {
 	FRAME_pain201,
-   	FRAME_pain205,
+	FRAME_pain205,
 	chick_frames_pain2,
-   	chick_run
+	chick_run
 };
 
 mframe_t chick_frames_pain3[] = {
@@ -328,13 +328,13 @@ mframe_t chick_frames_pain3[] = {
 mmove_t chick_move_pain3 =
 {
 	FRAME_pain301,
-   	FRAME_pain321,
+	FRAME_pain321,
 	chick_frames_pain3,
-   	chick_run
+	chick_run
 };
 
 void
-chick_pain(edict_t *self, edict_t *other /* other */, float kick /* other */, int damage)
+chick_pain(edict_t* self, edict_t* other /* other */, float kick /* other */, int damage)
 {
 	float r;
 
@@ -418,7 +418,7 @@ chick_pain(edict_t *self, edict_t *other /* other */, float kick /* other */, in
 }
 
 void
-chick_dead(edict_t *self)
+chick_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -462,9 +462,9 @@ mframe_t chick_frames_death2[] = {
 mmove_t chick_move_death2 =
 {
 	FRAME_death201,
-   	FRAME_death223,
-   	chick_frames_death2,
-   	chick_dead
+	FRAME_death223,
+	chick_frames_death2,
+	chick_dead
 };
 
 mframe_t chick_frames_death1[] = {
@@ -491,9 +491,9 @@ mmove_t chick_move_death1 =
 };
 
 void
-chick_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage,
-		vec3_t point /*unused */)
+chick_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage,
+	vec3_t point /*unused */)
 {
 	int n;
 
@@ -505,22 +505,22 @@ chick_die(edict_t *self, edict_t *inflictor /* unused */,
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
-		gi.sound(self, CHAN_VOICE, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/bone/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 4; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -549,7 +549,7 @@ chick_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-chick_duck_down(edict_t *self)
+chick_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -569,7 +569,7 @@ chick_duck_down(edict_t *self)
 }
 
 void
-chick_duck_hold(edict_t *self)
+chick_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -587,7 +587,7 @@ chick_duck_hold(edict_t *self)
 }
 
 void
-chick_duck_up(edict_t *self)
+chick_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -637,7 +637,7 @@ mmove_t chick_move_duck_rogue = /* FS: Coop: Rogue specific */
 };
 
 void
-chick_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *fake /* unused */)
+chick_dodge(edict_t* self, edict_t* attacker, float eta /* unused */, trace_t* fake /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -658,9 +658,9 @@ chick_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *f
 }
 
 void
-ChickSlash(edict_t *self)
+ChickSlash(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -673,16 +673,16 @@ ChickSlash(edict_t *self)
 }
 
 void
-ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
+ChickRocket_Rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 	trace_t trace; /* check target */
 	int rocketSpeed;
 	float dist;
-	vec3_t target;
+	vec3_t target = { 0 };
 	qboolean blindfire = false;
 
 	if (!self)
@@ -706,7 +706,7 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CHICK_ROCKET_1],
-			forward, right, start);
+		forward, right, start);
 
 	rocketSpeed = 500 + (100 * skill->value); /* rock & roll.... :) */
 
@@ -760,7 +760,7 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 		if (!(trace.startsolid || trace.allsolid || (trace.fraction < 0.5)))
 		{
 			monster_fire_rocket(self, start, dir, 50,
-					rocketSpeed, MZ2_CHICK_ROCKET_1);
+				rocketSpeed, MZ2_CHICK_ROCKET_1);
 		}
 		else
 		{
@@ -769,7 +769,7 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 			VectorSubtract(vec, start, dir);
 			VectorNormalize(dir);
 			trace = gi.trace(start, vec3_origin, vec3_origin, vec,
-					self, MASK_SHOT);
+				self, MASK_SHOT);
 
 			if (!(trace.startsolid || trace.allsolid || (trace.fraction < 0.5)))
 			{
@@ -783,7 +783,7 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 				VectorSubtract(vec, start, dir);
 				VectorNormalize(dir);
 				trace = gi.trace(start, vec3_origin, vec3_origin, vec,
-						self, MASK_SHOT);
+					self, MASK_SHOT);
 
 				if (!(trace.startsolid || trace.allsolid || (trace.fraction < 0.5)))
 				{
@@ -807,14 +807,14 @@ ChickRocket_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-ChickRocket(edict_t *self)
+ChickRocket(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -827,7 +827,7 @@ ChickRocket(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CHICK_ROCKET_1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
@@ -845,7 +845,7 @@ ChickRocket(edict_t *self)
 }
 
 void
-Chick_PreAttack1(edict_t *self)
+Chick_PreAttack1(edict_t* self)
 {
 	if (!self)
 	{
@@ -856,7 +856,7 @@ Chick_PreAttack1(edict_t *self)
 }
 
 void
-ChickReload(edict_t *self)
+ChickReload(edict_t* self)
 {
 	if (!self)
 	{
@@ -885,9 +885,9 @@ mframe_t chick_frames_start_attack1[] = {
 mmove_t chick_move_start_attack1 =
 {
 	FRAME_attak101,
-   	FRAME_attak113,
+	FRAME_attak113,
 	chick_frames_start_attack1,
-   	NULL
+	NULL
 };
 
 mframe_t chick_frames_attack1[] = {
@@ -926,13 +926,13 @@ mframe_t chick_frames_end_attack1[] = {
 mmove_t chick_move_end_attack1 =
 {
 	FRAME_attak128,
-   	FRAME_attak132,
-   	chick_frames_end_attack1,
+	FRAME_attak132,
+	chick_frames_end_attack1,
 	chick_run
 };
 
 void
-chick_rerocket(edict_t *self)
+chick_rerocket(edict_t* self)
 {
 	if (!self)
 	{
@@ -985,7 +985,7 @@ chick_rerocket(edict_t *self)
 }
 
 void
-chick_attack1(edict_t *self)
+chick_attack1(edict_t* self)
 {
 	if (!self)
 	{
@@ -1025,13 +1025,13 @@ mframe_t chick_frames_end_slash[] = {
 mmove_t chick_move_end_slash =
 {
 	FRAME_attak213,
-   	FRAME_attak216,
+	FRAME_attak216,
 	chick_frames_end_slash,
-   	chick_run
+	chick_run
 };
 
 void
-chick_reslash(edict_t *self)
+chick_reslash(edict_t* self)
 {
 	if (!self)
 	{
@@ -1059,7 +1059,7 @@ chick_reslash(edict_t *self)
 }
 
 void
-chick_slash(edict_t *self)
+chick_slash(edict_t* self)
 {
 	if (!self)
 	{
@@ -1078,13 +1078,13 @@ mframe_t chick_frames_start_slash[] = {
 mmove_t chick_move_start_slash =
 {
 	FRAME_attak201,
-   	FRAME_attak203,
-   	chick_frames_start_slash,
+	FRAME_attak203,
+	chick_frames_start_slash,
 	chick_slash
 };
 
 void
-chick_melee(edict_t *self)
+chick_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -1095,7 +1095,7 @@ chick_melee(edict_t *self)
 }
 
 void
-chick_attack(edict_t *self)
+chick_attack(edict_t* self)
 {
 	float r, chance; /* FS: Coop: Rogue specific */
 
@@ -1153,7 +1153,7 @@ chick_attack(edict_t *self)
 }
 
 void
-chick_sight(edict_t *self, edict_t *other /* unused */)
+chick_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -1164,7 +1164,7 @@ chick_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 qboolean
-chick_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+chick_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1185,7 +1185,7 @@ chick_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
 }
 
 void
-chick_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
+chick_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1222,7 +1222,7 @@ chick_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 }
 
 void
-chick_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
+chick_sidestep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1250,7 +1250,7 @@ chick_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
  * QUAKED monster_chick (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_chick(edict_t *self)
+SP_monster_chick(edict_t* self)
 {
 	if (!self)
 	{
@@ -1343,9 +1343,9 @@ SP_monster_chick(edict_t *self)
  * QUAKED monster_chick_heat (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_chick_heat(edict_t *self) /* FS: Coop: Xatrix specific */
+SP_monster_chick_heat(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

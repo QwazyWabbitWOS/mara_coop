@@ -2,12 +2,12 @@
 
 #include "g_local.h"
 
-void infantry_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage);
-void infantry_stand(edict_t *self);
-void monster_use(edict_t *self, edict_t *other, edict_t *activator);
-qboolean FindTarget(edict_t *self);
-void SpawnTargetingSystem(edict_t *turret); /* FS: Coop: Rogue specific */
+void infantry_die(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage);
+void infantry_stand(edict_t* self);
+void monster_use(edict_t* self, edict_t* other, edict_t* activator);
+qboolean FindTarget(edict_t* self);
+void SpawnTargetingSystem(edict_t* turret); /* FS: Coop: Rogue specific */
 
 void
 AnglesNormalize(vec3_t vec)
@@ -51,9 +51,9 @@ SnapToEights(float x)
 }
 
 void
-turret_blocked(edict_t *self, edict_t *other)
+turret_blocked(edict_t* self, edict_t* other)
 {
-	edict_t *attacker;
+	edict_t* attacker;
 
 	if (!self || !other)
 	{
@@ -72,7 +72,7 @@ turret_blocked(edict_t *self, edict_t *other)
 		}
 
 		T_Damage(other, self, attacker, vec3_origin, other->s.origin,
-				vec3_origin, self->teammaster->dmg, 10, 0, MOD_CRUSH);
+			vec3_origin, self->teammaster->dmg, 10, 0, MOD_CRUSH);
 	}
 }
 
@@ -94,7 +94,7 @@ turret_blocked(edict_t *self, edict_t *other)
  */
 
 void
-turret_breach_fire(edict_t *self)
+turret_breach_fire(edict_t* self)
 {
 	vec3_t f, r, u;
 	vec3_t start;
@@ -111,9 +111,9 @@ turret_breach_fire(edict_t *self)
 	VectorMA(start, self->move_origin[1], r, start);
 	VectorMA(start, self->move_origin[2], u, start);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
@@ -124,9 +124,9 @@ turret_breach_fire(edict_t *self)
 }
 
 void
-turret_breach_think(edict_t *self)
+turret_breach_think(edict_t* self)
 {
-	edict_t *ent;
+	edict_t* ent;
 	vec3_t current_angles;
 	vec3_t delta;
 
@@ -160,7 +160,7 @@ turret_breach_think(edict_t *self)
 	{
 		float dmin, dmax;
 
-		dmin = fabs(self->pos1[YAW] - self->move_angles[YAW]);
+		dmin = fabsf(self->pos1[YAW] - self->move_angles[YAW]);
 
 		if (dmin < -180)
 		{
@@ -171,7 +171,7 @@ turret_breach_think(edict_t *self)
 			dmin -= 360;
 		}
 
-		dmax = fabs(self->pos2[YAW] - self->move_angles[YAW]);
+		dmax = fabsf(self->pos2[YAW] - self->move_angles[YAW]);
 
 		if (dmax < -180)
 		{
@@ -182,7 +182,7 @@ turret_breach_think(edict_t *self)
 			dmax -= 360;
 		}
 
-		if (fabs(dmin) < fabs(dmax))
+		if (fabsf(dmin) < fabsf(dmax))
 		{
 			self->move_angles[YAW] = self->pos1[YAW];
 		}
@@ -283,7 +283,7 @@ turret_breach_think(edict_t *self)
 }
 
 void
-turret_breach_finish_init(edict_t *self)
+turret_breach_finish_init(edict_t* self)
 {
 	if (!self)
 	{
@@ -316,7 +316,7 @@ turret_breach_finish_init(edict_t *self)
 }
 
 void
-SP_turret_breach(edict_t *self)
+SP_turret_breach(edict_t* self)
 {
 	if (!self)
 	{
@@ -374,7 +374,7 @@ SP_turret_breach(edict_t *self)
  */
 
 void
-SP_turret_base(edict_t *self)
+SP_turret_base(edict_t* self)
 {
 	if (!self)
 	{
@@ -394,10 +394,10 @@ SP_turret_base(edict_t *self)
  * Instead it must target the turret_breach.
  */
 void
-turret_driver_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point /* unused */)
+turret_driver_die(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point /* unused */)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self || !inflictor || !attacker)
 	{
@@ -409,8 +409,8 @@ turret_driver_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 
 	/* remove the driver from the end of them team chain */
 	for (ent = self->target_ent->teammaster;
-		 ent->teamchain != self;
-		 ent = ent->teamchain)
+		ent->teamchain != self;
+		ent = ent->teamchain)
 	{
 	}
 
@@ -425,7 +425,7 @@ turret_driver_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 }
 
 void
-turret_driver_think(edict_t *self)
+turret_driver_think(edict_t* self)
 {
 	vec3_t target;
 	vec3_t dir;
@@ -470,11 +470,14 @@ turret_driver_think(edict_t *self)
 		}
 	}
 
-	/* let the turret know where we want it to aim */
-	VectorCopy(self->enemy->s.origin, target);
-	target[2] += self->enemy->viewheight;
-	VectorSubtract(target, self->target_ent->s.origin, dir);
-	vectoangles(dir, self->target_ent->move_angles);
+	if (self->enemy)
+	{
+		// let the turret know where we want it to aim
+		VectorCopy(self->enemy->s.origin, target);
+		target[2] += self->enemy->viewheight;
+		VectorSubtract(target, self->target_ent->s.origin, dir);
+		vectoangles(dir, self->target_ent->move_angles);
+	}
 
 	/* decide if we should shoot */
 	if (level.time < self->monsterinfo.attack_finished)
@@ -494,10 +497,10 @@ turret_driver_think(edict_t *self)
 }
 
 void
-turret_driver_link(edict_t *self)
+turret_driver_link(edict_t* self)
 {
 	vec3_t vec;
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -535,7 +538,7 @@ turret_driver_link(edict_t *self)
 }
 
 void
-SP_turret_driver(edict_t *self)
+SP_turret_driver(edict_t* self)
 {
 	if (!self)
 	{
@@ -551,7 +554,7 @@ SP_turret_driver(edict_t *self)
 	self->movetype = MOVETYPE_PUSH;
 	self->solid = SOLID_BBOX;
 
-	if(game.gametype == vanilla_coop || game.gametype == zaero_coop) /* FS: Coop: New animations, make sure download gets them. */
+	if (game.gametype == vanilla_coop || game.gametype == zaero_coop) /* FS: Coop: New animations, make sure download gets them. */
 	{
 		self->s.modelindex = gi.modelindex("models/monsters/infantry/tris.md2");
 	}
@@ -573,7 +576,7 @@ SP_turret_driver(edict_t *self)
 
 	self->flags |= FL_NO_KNOCKBACK;
 
-	if((game.gametype != zaero_coop) || ( (game.gametype == zaero_coop) && (!(self->spawnflags & 16))) ) /* FS: Zaero specific game dll changes */
+	if ((game.gametype != zaero_coop) || ((game.gametype == zaero_coop) && (!(self->spawnflags & 16)))) /* FS: Zaero specific game dll changes */
 	{
 		level.total_monsters++;
 	}
@@ -609,7 +612,7 @@ SP_turret_driver(edict_t *self)
  * origin. */
 
 void
-turret_brain_think(edict_t *self) /* FS: Coop: Rogue specific */
+turret_brain_think(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t target;
 	vec3_t dir;
@@ -652,7 +655,7 @@ turret_brain_think(edict_t *self) /* FS: Coop: Rogue specific */
 		VectorScale(endpos, 0.5, endpos);
 
 		trace = gi.trace(self->target_ent->s.origin, vec3_origin, vec3_origin,
-				endpos, self->target_ent, MASK_SHOT);
+			endpos, self->target_ent, MASK_SHOT);
 
 		if ((trace.fraction == 1) || (trace.ent == self->enemy))
 		{
@@ -699,10 +702,10 @@ turret_brain_think(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-turret_brain_link(edict_t *self) /* FS: Coop: Rogue specific */
+turret_brain_link(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t vec;
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -745,7 +748,7 @@ turret_brain_link(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-turret_brain_deactivate(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+turret_brain_deactivate(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -757,7 +760,7 @@ turret_brain_deactivate(edict_t *self, edict_t *other /* unused */, edict_t *act
 }
 
 void
-turret_brain_activate(edict_t *self, edict_t *other /* unused */, edict_t *activator) /* FS: Coop: Rogue specific */
+turret_brain_activate(edict_t* self, edict_t* other /* unused */, edict_t* activator) /* FS: Coop: Rogue specific */
 {
 	if (!self || !activator)
 	{
@@ -791,7 +794,7 @@ turret_brain_activate(edict_t *self, edict_t *other /* unused */, edict_t *activ
  * before firing to acquire the target.
  */
 void
-SP_turret_invisible_brain(edict_t *self) /* FS: Coop: Rogue specific */
+SP_turret_invisible_brain(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{

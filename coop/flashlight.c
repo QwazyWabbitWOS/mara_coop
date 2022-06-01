@@ -22,7 +22,7 @@ void FlashlightReset(edict_t* self)
 
 void flashlight_think(edict_t* self)
 {
-	vec3_t	forward, right, up, offset, start, end;
+	vec3_t	forward, right, up, offset = { 0 }, start, end;
 	trace_t	tr;
 	int content = (CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_DEADMONSTER);
 	if (level.intermissiontime || !self->owner->inuse || self->owner->deadflag)

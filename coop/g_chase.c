@@ -1,14 +1,14 @@
 #include "g_local.h"
 
 void
-UpdateChaseCam(edict_t *ent)
+UpdateChaseCam(edict_t* ent)
 {
-	vec3_t o, ownerv, goal;
-	edict_t *targ;
+	vec3_t o, ownerv = { 0 }, goal = { 0 };
+	edict_t* targ;
 	vec3_t forward, right;
 	trace_t trace;
 	int i;
-	vec3_t angles;
+	vec3_t angles = { 0 };
 
 	if (!ent)
 	{
@@ -19,7 +19,7 @@ UpdateChaseCam(edict_t *ent)
 	if (!ent->client->chase_target->inuse ||
 		ent->client->chase_target->client->resp.spectator)
 	{
-		edict_t *old = ent->client->chase_target;
+		edict_t* old = ent->client->chase_target;
 		ChaseNext(ent);
 
 		if (ent->client->chase_target == old)
@@ -98,7 +98,7 @@ UpdateChaseCam(edict_t *ent)
 	for (i = 0; i < 3; i++)
 	{
 		ent->client->ps.pmove.delta_angles[i] = ANGLE2SHORT(
-				targ->client->v_angle[i] - ent->client->resp.cmd_angles[i]);
+			targ->client->v_angle[i] - ent->client->resp.cmd_angles[i]);
 	}
 
 	if (targ->deadflag)
@@ -119,10 +119,10 @@ UpdateChaseCam(edict_t *ent)
 }
 
 void
-ChaseNext(edict_t *ent)
+ChaseNext(edict_t* ent)
 {
 	int i;
-	edict_t *e;
+	edict_t* e = { 0 };
 
 	if (!ent)
 	{
@@ -156,18 +156,17 @@ ChaseNext(edict_t *ent)
 		{
 			break;
 		}
-	}
-	while (e != ent->client->chase_target);
+	} while (e != ent->client->chase_target);
 
 	ent->client->chase_target = e;
 	ent->client->update_chase = true;
 }
 
 void
-ChasePrev(edict_t *ent)
+ChasePrev(edict_t* ent)
 {
 	int i;
-	edict_t *e;
+	edict_t* e = { 0 };
 
 	if (!ent)
 	{
@@ -201,18 +200,17 @@ ChasePrev(edict_t *ent)
 		{
 			break;
 		}
-	}
-	while (e != ent->client->chase_target);
+	} while (e != ent->client->chase_target);
 
 	ent->client->chase_target = e;
 	ent->client->update_chase = true;
 }
 
 void
-GetChaseTarget(edict_t *ent)
+GetChaseTarget(edict_t* ent)
 {
 	int i;
-	edict_t *other;
+	edict_t* other;
 
 	if (!ent)
 	{

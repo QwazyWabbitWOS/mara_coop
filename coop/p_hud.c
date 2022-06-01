@@ -9,7 +9,7 @@ INTERMISSION
 */
 
 void
-MoveClientToIntermission(edict_t *ent)
+MoveClientToIntermission(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -54,7 +54,7 @@ MoveClientToIntermission(edict_t *ent)
 	ent->s.modelindex = 0;
 	ent->s.modelindex2 = 0;
 	ent->s.modelindex3 = 0;
-	ent->s.modelindex = 0;
+	ent->s.modelindex4 = 0;
 	ent->s.effects = 0;
 	ent->s.sound = 0;
 	ent->solid = SOLID_NOT;
@@ -70,10 +70,10 @@ MoveClientToIntermission(edict_t *ent)
 }
 
 void
-BeginIntermission(edict_t *targ)
+BeginIntermission(edict_t* targ)
 {
 	int i, n;
-	edict_t *ent, *client;
+	edict_t* ent, * client;
 
 	if (!targ)
 	{
@@ -196,19 +196,19 @@ BeginIntermission(edict_t *targ)
 }
 
 void
-DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
+DeathmatchScoreboardMessage(edict_t* ent, edict_t* killer /* can be NULL */)
 {
 	char entry[1024];
-	char string[1400];
+	char string[1400] = { 0 };
 	int stringlength;
 	int i, j, k;
-	int sorted[MAX_CLIENTS];
-	int sortedscores[MAX_CLIENTS];
+	int sorted[MAX_CLIENTS] = { 0 };
+	int sortedscores[MAX_CLIENTS] = { 0 };
 	int score, total;
 	int x, y;
-	gclient_t *cl;
-	edict_t *cl_ent;
-	char *tag;
+	gclient_t* cl;
+	edict_t* cl_ent;
+	char* tag;
 
 	if (!ent)
 	{
@@ -251,7 +251,7 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 	/* print level name and exit rules */
 	string[0] = 0;
 
-	stringlength = strlen(string);
+	stringlength = (int)strlen(string);
 
 	/* add the clients in sorted order */
 	if (total > 12)
@@ -294,7 +294,7 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 		if (tag)
 		{
 			Com_sprintf(entry, sizeof(entry), "xv %i yv %i picn %s ", x + 32, y, tag);
-			j = strlen(entry);
+			j = (int)strlen(entry);
 
 			if (stringlength + j > 1024)
 			{
@@ -307,9 +307,9 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 
 		/* send the layout */
 		Com_sprintf(entry, sizeof(entry), "client %i %i %i %i %i %i ",
-				x, y, sorted[i], cl->resp.score, cl->ping,
-				(level.framenum - cl->resp.enterframe) / 600);
-		j = strlen(entry);
+			x, y, sorted[i], cl->resp.score, cl->ping,
+			(level.framenum - cl->resp.enterframe) / 600);
+		j = (int)strlen(entry);
 
 		if (stringlength + j > 1024)
 		{
@@ -332,20 +332,20 @@ Draw instead of help message.
 Note that it isn't that hard to overflow the 1400 byte message limit!
 ==================
 */
-void DeathmatchScoreboard (edict_t *ent) /* FS: Coop: Xatrix */
+void DeathmatchScoreboard(edict_t* ent) /* FS: Coop: Xatrix */
 {
-	DeathmatchScoreboardMessage (ent, ent->enemy);
-	gi.unicast (ent, true);
+	DeathmatchScoreboardMessage(ent, ent->enemy);
+	gi.unicast(ent, true);
 }
 
 /*
  * Draw help computer.
  */
 void
-HelpComputerMessage(edict_t *ent)
+HelpComputerMessage(edict_t* ent)
 {
 	char string[1024];
-	char *sk;
+	char* sk;
 
 	if (!ent)
 	{
@@ -371,30 +371,30 @@ HelpComputerMessage(edict_t *ent)
 
 	/* send the layout */
 	Com_sprintf(string, sizeof(string),
-			"xv 32 yv 8 picn help "			/* background */
-			"xv 202 yv 12 string2 \"%s\" "  /* skill */
-			"xv 0 yv 24 cstring2 \"%s\" "   /* level name */
-			"xv 0 yv 54 cstring2 \"%s\" "   /* help 1 */
-			"xv 0 yv 110 cstring2 \"%s\" "  /* help 2 */
-			"xv 50 yv 164 string2 \" kills     goals    secrets\" "
-			"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ",
-			sk, level.level_name,
-			game.helpmessage1,
-			game.helpmessage2,
-			level.killed_monsters, level.total_monsters,
-			level.found_goals, level.total_goals,
-			level.found_secrets, level.total_secrets);
+		"xv 32 yv 8 picn help "			/* background */
+		"xv 202 yv 12 string2 \"%s\" "  /* skill */
+		"xv 0 yv 24 cstring2 \"%s\" "   /* level name */
+		"xv 0 yv 54 cstring2 \"%s\" "   /* help 1 */
+		"xv 0 yv 110 cstring2 \"%s\" "  /* help 2 */
+		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
+		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ",
+		sk, level.level_name,
+		game.helpmessage1,
+		game.helpmessage2,
+		level.killed_monsters, level.total_monsters,
+		level.found_goals, level.total_goals,
+		level.found_secrets, level.total_secrets);
 
 	gi.WriteByte(svc_layout);
 	gi.WriteString(string);
-	gi.unicast (ent, true); /* FS: Don't remove this DOS needs this! */
+	gi.unicast(ent, true); /* FS: Don't remove this DOS needs this! */
 }
 
 /*
  * Display the current help message
  */
 void
-InventoryMessage(edict_t *ent)
+InventoryMessage(edict_t* ent)
 {
 	int i;
 
@@ -407,7 +407,7 @@ InventoryMessage(edict_t *ent)
 
 	for (i = 0; i < MAX_ITEMS; i++)
 	{
-		gitem_t *it = &itemlist[i]; /* FS: Zaero specific game dll changes */
+		gitem_t* it = &itemlist[i]; /* FS: Zaero specific game dll changes */
 
 		if ((game.gametype == zaero_coop) && (it->hideFlags & HIDE_FROM_INVENTORY))
 		{
@@ -425,9 +425,9 @@ InventoryMessage(edict_t *ent)
 /* ======================================================================= */
 
 void
-G_SetStats(edict_t *ent)
+G_SetStats(edict_t* ent)
 {
-	gitem_t *item;
+	gitem_t* item;
 	int index, cells = 0;
 	int power_armor_type;
 
@@ -465,7 +465,7 @@ G_SetStats(edict_t *ent)
 		{
 			/* ran out of cells for power armor */
 			ent->flags &= ~FL_POWER_ARMOR;
-			gi.sound(ent, CHAN_ITEM, gi.soundindex( "misc/power2.wav"), 1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_ITEM, gi.soundindex("misc/power2.wav"), 1, ATTN_NORM, 0);
 			power_armor_type = 0;
 		}
 	}
@@ -500,13 +500,13 @@ G_SetStats(edict_t *ent)
 	/* timers */
 	if (ent->client->a2kFramenum > level.framenum) /* FS: Zaero specific game dll changes */
 	{
-		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex ("w_a2k");
-		ent->client->ps.stats[STAT_TIMER] = (ent->client->a2kFramenum - level.framenum)/10;
+		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("w_a2k");
+		ent->client->ps.stats[STAT_TIMER] = (ent->client->a2kFramenum - level.framenum) / 10;
 	}
 	else if (ent->client->sniperFramenum >= level.framenum) /* FS: Zaero specific game dll changes */
 	{
-		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex ("w_sniper");
-		ent->client->ps.stats[STAT_TIMER] = (ent->client->sniperFramenum - level.framenum)/10;
+		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("w_sniper");
+		ent->client->ps.stats[STAT_TIMER] = (ent->client->sniperFramenum - level.framenum) / 10;
 	}
 	else if (ent->client->quad_framenum > level.framenum)
 	{
@@ -523,11 +523,11 @@ G_SetStats(edict_t *ent)
 	{
 		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("p_quadfire");
 		ent->client->ps.stats[STAT_TIMER] = (ent->client->quadfire_framenum
-			   	- level.framenum) / 10;
+			- level.framenum) / 10;
 	}
 	else if (ent->client->invincible_framenum > level.framenum)
 	{
-		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex( "p_invulnerability");
+		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("p_invulnerability");
 		ent->client->ps.stats[STAT_TIMER] = (ent->client->invincible_framenum - level.framenum) / 10;
 	}
 	else if (ent->client->enviro_framenum > level.framenum)
@@ -568,7 +568,8 @@ G_SetStats(edict_t *ent)
 	{
 		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("p_ir");
 		ent->client->ps.stats[STAT_TIMER] =
-			(ent->client->ir_framenum - level.framenum) / 10; }
+			(ent->client->ir_framenum - level.framenum) / 10;
+	}
 	else
 	{
 		ent->client->ps.stats[STAT_TIMER_ICON] = 0;
@@ -624,9 +625,9 @@ G_SetStats(edict_t *ent)
 		ent->client->ps.stats[STAT_HELPICON] = gi.imageindex("i_help");
 	}
 	else if (((ent->client->pers.hand == CENTER_HANDED) ||
-			  (ent->client->ps.fov > 91)) && ent->client->pers.weapon)
+		(ent->client->ps.fov > 91)) && ent->client->pers.weapon)
 	{
-		cvar_t *gun;
+		cvar_t* gun;
 		gun = gi.cvar("cl_gun", "2", 0);
 
 		if (gun->value != 2)
@@ -659,7 +660,7 @@ G_SetStats(edict_t *ent)
 	if (ent->client->zCameraTrack)  /* FS: Zaero specific game dll changes */
 	{
 		ent->client->ps.stats[STAT_CAMERA_ICON] = gi.imageindex("i_visor");
-		ent->client->ps.stats[STAT_CAMERA_TIMER] = ent->client->pers.visorFrames/10;
+		ent->client->ps.stats[STAT_CAMERA_TIMER] = ent->client->pers.visorFrames / 10;
 	}
 	else
 	{
@@ -670,10 +671,10 @@ G_SetStats(edict_t *ent)
 }
 
 void
-G_CheckChaseStats(edict_t *ent)
+G_CheckChaseStats(edict_t* ent)
 {
 	int i;
-	gclient_t *cl;
+	gclient_t* cl;
 
 	if (!ent)
 	{
@@ -695,9 +696,9 @@ G_CheckChaseStats(edict_t *ent)
 }
 
 void
-G_SetSpectatorStats(edict_t *ent)
+G_SetSpectatorStats(edict_t* ent)
 {
-	gclient_t *cl;
+	gclient_t* cl;
 
 	if (!ent)
 	{
@@ -729,7 +730,7 @@ G_SetSpectatorStats(edict_t *ent)
 	if (cl->chase_target && cl->chase_target->inuse)
 	{
 		cl->ps.stats[STAT_CHASE] = CS_PLAYERSKINS +
-								   (cl->chase_target - g_edicts) - 1;
+			(cl->chase_target - g_edicts) - 1;
 	}
 	else
 	{

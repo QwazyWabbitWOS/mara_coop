@@ -2,16 +2,16 @@
 #include "g_local.h"
 
 
-void	Svcmd_Test_f (void)
+void	Svcmd_Test_f(void)
 {
-	gi.cprintf (NULL, PRINT_HIGH, "Svcmd_Test_f()\n");
+	gi.cprintf(NULL, PRINT_HIGH, "Svcmd_Test_f()\n");
 }
 
 /*
 ==============================================================================
 
 PACKET FILTERING
- 
+
 
 You can add or remove addresses from the filter list with:
 
@@ -55,7 +55,7 @@ StringToFilter
 =================
 */
 qboolean
-StringToFilter(char *s, ipfilter_t *f)
+StringToFilter(char* s, ipfilter_t* f)
 {
 	char	num[128] = { 0 };
 	int		i, j;
@@ -104,8 +104,8 @@ StringToFilter(char *s, ipfilter_t *f)
 		s++;
 	}
 
-	f->mask = *(unsigned *)m;
-	f->compare = *(unsigned *)b;
+	f->mask = *(unsigned*)m;
+	f->compare = *(unsigned*)b;
 
 	return true;
 }
@@ -220,7 +220,7 @@ SVCmd_ListIP_f(void)
 
 	for (i = 0; i < numipfilters; i++)
 	{
-		*(unsigned *)b = ipfilters[i].compare;
+		*(unsigned*)b = ipfilters[i].compare;
 		gi.cprintf(NULL, PRINT_HIGH, "%3i.%3i.%3i.%3i\n", b[0], b[1], b[2], b[3]);
 	}
 }
@@ -228,11 +228,11 @@ SVCmd_ListIP_f(void)
 void
 SVCmd_WriteIP_f(void)
 {
-	FILE *f;
+	FILE* f;
 	char name[MAX_OSPATH];
 	byte b[4] = { 0 };
 	int i;
-	cvar_t *game;
+	cvar_t* game;
 
 	game = gi.cvar("game", "", 0);
 
@@ -259,18 +259,18 @@ SVCmd_WriteIP_f(void)
 
 	for (i = 0; i < numipfilters; i++)
 	{
-		*(unsigned *)b = ipfilters[i].compare;
+		*(unsigned*)b = ipfilters[i].compare;
 		fprintf(f, "sv addip %i.%i.%i.%i\n", b[0], b[1], b[2], b[3]);
 	}
 
 	fclose(f);
 }
 
-void SVCmd_SayPerson_f (void)
+void SVCmd_SayPerson_f(void)
 {
 	char msg[2000]; /* FS: Q2Admin magic limit */
-	char *p = NULL;
-	edict_t	*client;
+	char* p = NULL;
+	edict_t* client;
 	int playernum;
 	size_t messageLen;
 
@@ -284,7 +284,7 @@ void SVCmd_SayPerson_f (void)
 
 	playernum = atoi(gi.argv(3));
 
-	if(playernum > game.maxclients)
+	if (playernum > game.maxclients)
 	{
 		gi.cprintf(NULL, PRINT_HIGH, "Error: Playernum %d greater than maxclients!\n", playernum);
 		return;
@@ -301,31 +301,31 @@ void SVCmd_SayPerson_f (void)
 	Com_sprintf(msg, sizeof(msg), "!say_person CL %s ", gi.argv(3));
 	messageLen = strlen(msg);
 	p = gi.args() + messageLen;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
 
-	Com_sprintf (msg, sizeof(msg), "(private message) ");
-	Com_strcat (msg, sizeof(msg), p);
+	Com_sprintf(msg, sizeof(msg), "(private message) ");
+	Com_strcat(msg, sizeof(msg), p);
 
 	/* don't let text be too long for malicious reasons */
-	if (strlen(msg) > sizeof(msg)-1) /* FS: This is unfortunate, but this is what TSAdmin uses and wallfly can hit about 512 sometimes... */
+	if (strlen(msg) > sizeof(msg) - 1) /* FS: This is unfortunate, but this is what TSAdmin uses and wallfly can hit about 512 sometimes... */
 	{
-		msg[sizeof(msg)-1] = '\0';
+		msg[sizeof(msg) - 1] = '\0';
 	}
 
-	Com_strcat (msg, sizeof(msg), "\n");
+	Com_strcat(msg, sizeof(msg), "\n");
 
 	gi.cprintf(client, PRINT_CHAT, "%s", msg);
 }
 
-void SVCmd_StuffCmd_f (void)
+void SVCmd_StuffCmd_f(void)
 {
 	char cmd[2000]; /* FS: Q2Admin magic limit */
-	char *p = NULL;
-	edict_t	*client = NULL;
-	int playernum;
+	char* p = NULL;
+	edict_t* client = NULL;
+	int playernum = 0;
 	size_t messageLen;
 	qboolean bIsCL = false;
 
@@ -337,7 +337,7 @@ void SVCmd_StuffCmd_f (void)
 		return;
 	}
 
-	if(!Q_stricmp(gi.argv(2), "CL"))
+	if (!Q_stricmp(gi.argv(2), "CL"))
 	{
 		playernum = atoi(gi.argv(3));
 		bIsCL = true;
@@ -353,13 +353,13 @@ void SVCmd_StuffCmd_f (void)
 		{
 			client = &g_edicts[i];
 
-			if(!client || !client->inuse || !client->client /* || !client->client->pers.connected */ || !client->client->pers.netname[0]) /* FS: FIXME: Unreliable check */
+			if (!client || !client->inuse || !client->client /* || !client->client->pers.connected */ || !client->client->pers.netname[0]) /* FS: FIXME: Unreliable check */
 			{
 				continue;
 			}
 			else
 			{
-				if(!Q_stricmp(gi.argv(2), client->client->pers.netname))
+				if (!Q_stricmp(gi.argv(2), client->client->pers.netname))
 				{
 					hits++;
 					playernum = i;
@@ -373,7 +373,7 @@ void SVCmd_StuffCmd_f (void)
 			return;
 		}
 
-		if(hits == 0)
+		if (hits == 0)
 		{
 			gi.cprintf(NULL, PRINT_HIGH, "Didn't find %s.\n", gi.argv(2));
 			return;
@@ -384,13 +384,13 @@ void SVCmd_StuffCmd_f (void)
 		}
 	}
 
-	if(playernum > game.maxclients)
+	if (playernum > game.maxclients)
 	{
 		gi.cprintf(NULL, PRINT_HIGH, "Error: Playernum %d greater than maxclients!\n", playernum);
 		return;
 	}
 
-	if(bIsCL)
+	if (bIsCL)
 	{
 		client = &g_edicts[playernum + 1];
 
@@ -409,12 +409,12 @@ void SVCmd_StuffCmd_f (void)
 
 	messageLen = strlen(cmd);
 	p = gi.args() + messageLen;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
 
-	Com_sprintf (cmd, sizeof(cmd), "%s\n", p);
+	Com_sprintf(cmd, sizeof(cmd), "%s\n", p);
 
 	gi.WriteByte(svc_stufftext);
 	gi.WriteString(cmd);
@@ -425,7 +425,7 @@ void
 SVCmd_Coop_Gamemode_f(void)
 {
 	char command[1024];
-	char *cmd;
+	char* cmd;
 	int argc = 0;
 
 	argc = gi.argc();
@@ -436,28 +436,28 @@ SVCmd_Coop_Gamemode_f(void)
 		return;
 	}
 
-	if(!Q_stricmp(cmd, "vanilla"))
+	if (!Q_stricmp(cmd, "vanilla"))
 	{
 		gi.bprintf(PRINT_HIGH, "Changing gamemode to iD coop!\n");
 		gi.cvar_forceset("sv_coop_gamemode", "vanilla");
 		Com_sprintf(command, sizeof(command), "map base1\n");
 		gi.AddCommandString(command);
 	}
-	else if(!Q_stricmp(cmd, "rogue"))
+	else if (!Q_stricmp(cmd, "rogue"))
 	{
 		gi.bprintf(PRINT_HIGH, "Changing gamemode to Rogue coop!\n");
 		gi.cvar_forceset("sv_coop_gamemode", "rogue");
 		Com_sprintf(command, sizeof(command), "map rmine1\n");
 		gi.AddCommandString(command);
 	}
-	else if(!Q_stricmp(cmd, "xatrix"))
+	else if (!Q_stricmp(cmd, "xatrix"))
 	{
 		gi.bprintf(PRINT_HIGH, "Changing gamemode to Xatrix coop!\n");
 		gi.cvar_forceset("sv_coop_gamemode", "xatrix");
 		Com_sprintf(command, sizeof(command), "map xswamp\n");
 		gi.AddCommandString(command);
 	}
-	else if(!Q_stricmp(cmd, "zaero"))
+	else if (!Q_stricmp(cmd, "zaero"))
 	{
 		gi.bprintf(PRINT_HIGH, "Changing gamemode to Zaero coop!\n");
 		gi.cvar_forceset("sv_coop_gamemode", "zaero");
@@ -478,7 +478,7 @@ SVCmd_Coop_Gamemode_f(void)
 void
 ServerCommand(void)
 {
-	char *cmd;
+	char* cmd;
 
 	cmd = gi.argv(1);
 

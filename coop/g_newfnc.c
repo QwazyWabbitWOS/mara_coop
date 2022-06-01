@@ -1,13 +1,13 @@
 #include "g_local.h"
 
-void fd_secret_move1(edict_t *self);
-void fd_secret_move2(edict_t *self);
-void fd_secret_move3(edict_t *self);
-void fd_secret_move4(edict_t *self);
-void fd_secret_move5(edict_t *self);
-void fd_secret_move6(edict_t *self);
-void fd_secret_done(edict_t *self);
-void Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *));
+void fd_secret_move1(edict_t* self);
+void fd_secret_move2(edict_t* self);
+void fd_secret_move3(edict_t* self);
+void fd_secret_move4(edict_t* self);
+void fd_secret_move5(edict_t* self);
+void fd_secret_move6(edict_t* self);
+void fd_secret_done(edict_t* self);
+void Move_Calc(edict_t* ent, vec3_t dest, void (*func)(edict_t*));
 
 /*
  * =============================================================================
@@ -26,9 +26,9 @@ void Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *));
 #define SEC_MOVE_FORWARD 64
 
 void
-fd_secret_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+fd_secret_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -48,8 +48,8 @@ fd_secret_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* 
 }
 
 void
-fd_secret_killed(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point)
+fd_secret_killed(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point)
 {
 	if (!self || !inflictor || !attacker)
 	{
@@ -71,7 +71,7 @@ fd_secret_killed(edict_t *self, edict_t *inflictor, edict_t *attacker,
 }
 
 void
-fd_secret_move1(edict_t *self)
+fd_secret_move1(edict_t* self)
 {
 	if (!self)
 	{
@@ -86,7 +86,7 @@ fd_secret_move1(edict_t *self)
  * Start moving sideways w/sound...
  */
 void
-fd_secret_move2(edict_t *self)
+fd_secret_move2(edict_t* self)
 {
 	if (!self)
 	{
@@ -100,7 +100,7 @@ fd_secret_move2(edict_t *self)
  * Wait here until time to go back...
  */
 void
-fd_secret_move3(edict_t *self)
+fd_secret_move3(edict_t* self)
 {
 	if (!self)
 	{
@@ -118,7 +118,7 @@ fd_secret_move3(edict_t *self)
  * Move backward...
  */
 void
-fd_secret_move4(edict_t *self)
+fd_secret_move4(edict_t* self)
 {
 	if (!self)
 	{
@@ -132,7 +132,7 @@ fd_secret_move4(edict_t *self)
  * Wait 1 second...
  */
 void
-fd_secret_move5(edict_t *self)
+fd_secret_move5(edict_t* self)
 {
 	if (!self)
 	{
@@ -144,7 +144,7 @@ fd_secret_move5(edict_t *self)
 }
 
 void
-fd_secret_move6(edict_t *self)
+fd_secret_move6(edict_t* self)
 {
 	if (!self)
 	{
@@ -155,7 +155,7 @@ fd_secret_move6(edict_t *self)
 }
 
 void
-fd_secret_done(edict_t *self)
+fd_secret_done(edict_t* self)
 {
 	if (!self)
 	{
@@ -171,7 +171,7 @@ fd_secret_done(edict_t *self)
 }
 
 void
-secret_blocked(edict_t *self, edict_t *other)
+secret_blocked(edict_t* self, edict_t* other)
 {
 	if (!self || !other)
 	{
@@ -181,7 +181,7 @@ secret_blocked(edict_t *self, edict_t *other)
 	if (!(self->flags & FL_TEAMSLAVE))
 	{
 		T_Damage(other, self, self, vec3_origin, other->s.origin,
-				vec3_origin, self->dmg, 0, 0, MOD_CRUSH);
+			vec3_origin, self->dmg, 0, 0, MOD_CRUSH);
 	}
 }
 
@@ -189,7 +189,7 @@ secret_blocked(edict_t *self, edict_t *other)
  * Prints messages
  */
 void
-secret_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+secret_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -238,7 +238,7 @@ secret_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurfa
  *  dmg  = damage to inflict when blocked (2 default)
  */
 void
-SP_func_door_secret2(edict_t *ent)
+SP_func_door_secret2(edict_t* ent)
 {
 	vec3_t forward, right, up;
 	float lrSize = 0, fbSize = 0;
@@ -338,7 +338,7 @@ SP_func_door_secret2(edict_t *ent)
 #define FWALL_START_ON 1
 
 void
-force_wall_think(edict_t *self)
+force_wall_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -360,8 +360,8 @@ force_wall_think(edict_t *self)
 }
 
 void
-force_wall_use(edict_t *self, edict_t *other /* activator */,
-	   	edict_t *activator /* activator */)
+force_wall_use(edict_t* self, edict_t* other /* activator */,
+	edict_t* activator /* activator */)
 {
 	if (!self)
 	{
@@ -398,7 +398,7 @@ force_wall_use(edict_t *self, edict_t *other /* activator */,
  *   208: green, 240: red, 241: blue, 224: orange
  */
 void
-SP_func_force_wall(edict_t *ent)
+SP_func_force_wall(edict_t* ent)
 {
 	if (!ent)
 	{

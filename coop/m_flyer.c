@@ -9,7 +9,7 @@ flyer
 #include "g_local.h"
 #include "m_flyer.h"
 
-qboolean visible(edict_t *self, edict_t *other);
+qboolean visible(edict_t* self, edict_t* other);
 
 static int nextmove; /* Used for start/stop frames */
 
@@ -21,20 +21,20 @@ static int sound_slash;
 static int sound_sproing;
 static int sound_die;
 
-void flyer_check_melee(edict_t *self);
-void flyer_loop_melee(edict_t *self);
-void flyer_melee(edict_t *self);
-void flyer_setstart(edict_t *self);
-void flyer_stand(edict_t *self);
-void flyer_nextmove(edict_t *self);
+void flyer_check_melee(edict_t* self);
+void flyer_loop_melee(edict_t* self);
+void flyer_melee(edict_t* self);
+void flyer_setstart(edict_t* self);
+void flyer_stand(edict_t* self);
+void flyer_nextmove(edict_t* self);
 
-void flyer_kamikaze(edict_t *self); /* FS: Coop: Rogue specific */
-void flyer_kamikaze_check(edict_t *self); /* FS: Coop: Rogue specific */
-void flyer_die(edict_t *self, edict_t *inflictor, edict_t *attacker, /* FS: Coop: Rogue specific */
-		int damage, vec3_t point);
+void flyer_kamikaze(edict_t* self); /* FS: Coop: Rogue specific */
+void flyer_kamikaze_check(edict_t* self); /* FS: Coop: Rogue specific */
+void flyer_die(edict_t* self, edict_t* inflictor, edict_t* attacker, /* FS: Coop: Rogue specific */
+	int damage, vec3_t point);
 
 void
-flyer_sight(edict_t *self, edict_t *other /* unused */)
+flyer_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -45,7 +45,7 @@ flyer_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-flyer_idle(edict_t *self)
+flyer_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -56,7 +56,7 @@ flyer_idle(edict_t *self)
 }
 
 void
-flyer_pop_blades(edict_t *self)
+flyer_pop_blades(edict_t* self)
 {
 	if (!self)
 	{
@@ -117,9 +117,9 @@ mframe_t flyer_frames_stand[] = {
 mmove_t flyer_move_stand =
 {
 	FRAME_stand01,
-   	FRAME_stand45,
-   	flyer_frames_stand,
-   	NULL
+	FRAME_stand45,
+	flyer_frames_stand,
+	NULL
 };
 
 mframe_t flyer_frames_walk[] = {
@@ -173,9 +173,9 @@ mframe_t flyer_frames_walk[] = {
 mmove_t flyer_move_walk =
 {
 	FRAME_stand01,
-   	FRAME_stand45,
-   	flyer_frames_walk,
-   	NULL
+	FRAME_stand45,
+	flyer_frames_walk,
+	NULL
 };
 
 mframe_t flyer_frames_run[] = {
@@ -244,13 +244,13 @@ mframe_t flyer_frames_kamizake[] = {
 
 mmove_t flyer_move_kamikaze = {
 	FRAME_rollr02,
-   	FRAME_rollr06,
+	FRAME_rollr06,
 	flyer_frames_kamizake,
-   	flyer_kamikaze
+	flyer_kamikaze
 };
 
 void
-flyer_run(edict_t *self)
+flyer_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -262,18 +262,18 @@ flyer_run(edict_t *self)
 		self->monsterinfo.currentmove = &flyer_move_kamikaze;
 	}
 	else
-	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
-	{
-		self->monsterinfo.currentmove = &flyer_move_stand;
-	}
-	else
-	{
-		self->monsterinfo.currentmove = &flyer_move_run;
-	}
+		if (self->monsterinfo.aiflags & AI_STAND_GROUND)
+		{
+			self->monsterinfo.currentmove = &flyer_move_stand;
+		}
+		else
+		{
+			self->monsterinfo.currentmove = &flyer_move_run;
+		}
 }
 
 void
-flyer_walk(edict_t *self)
+flyer_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -291,7 +291,7 @@ flyer_walk(edict_t *self)
 }
 
 void
-flyer_stand(edict_t *self)
+flyer_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -309,9 +309,9 @@ flyer_stand(edict_t *self)
 }
 
 void
-flyer_kamikaze_explode(edict_t *self) /* FS: Coop: Rogue specific */
+flyer_kamikaze_explode(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self)
 	{
@@ -330,14 +330,14 @@ flyer_kamikaze_explode(edict_t *self) /* FS: Coop: Rogue specific */
 	{
 		VectorSubtract(self->enemy->s.origin, self->s.origin, dir);
 		T_Damage(self->enemy, self, self, dir, self->s.origin,
-				vec3_origin, (int)50, (int)50, DAMAGE_RADIUS, MOD_UNKNOWN);
+			vec3_origin, (int)50, (int)50, DAMAGE_RADIUS, MOD_UNKNOWN);
 	}
 
 	flyer_die(self, NULL, NULL, 0, dir);
 }
 
 void
-flyer_kamikaze(edict_t *self) /* FS: Coop: Rogue specific */
+flyer_kamikaze(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -348,7 +348,7 @@ flyer_kamikaze(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-flyer_kamikaze_check(edict_t *self) /* FS: Coop: Rogue specific */
+flyer_kamikaze_check(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	float dist;
 
@@ -415,7 +415,7 @@ mmove_t flyer_move_stop =
 };
 
 void
-flyer_stop(edict_t *self)
+flyer_stop(edict_t* self)
 {
 	if (!self)
 	{
@@ -426,7 +426,7 @@ flyer_stop(edict_t *self)
 }
 
 void
-flyer_start(edict_t *self)
+flyer_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -453,7 +453,7 @@ mmove_t flyer_move_rollright =
 	FRAME_rollr01,
 	FRAME_rollr09,
 	flyer_frames_rollright,
-   	NULL
+	NULL
 };
 
 mframe_t flyer_frames_rollleft[] = {
@@ -580,12 +580,12 @@ mmove_t flyer_move_bankleft =
 };
 
 void
-flyer_fire(edict_t *self, int flash_number)
+flyer_fire(edict_t* self, int flash_number)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t end;
-	vec3_t dir;
+	vec3_t end = { 0 };
+	vec3_t dir = { 0 };
 	int effect;
 
 	if (!self || !self->enemy || !self->enemy->inuse)
@@ -606,7 +606,7 @@ flyer_fire(edict_t *self, int flash_number)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, end);
 	end[2] += self->enemy->viewheight;
@@ -616,7 +616,7 @@ flyer_fire(edict_t *self, int flash_number)
 }
 
 void
-flyer_fireleft(edict_t *self)
+flyer_fireleft(edict_t* self)
 {
 	if (!self)
 	{
@@ -627,7 +627,7 @@ flyer_fireleft(edict_t *self)
 }
 
 void
-flyer_fireright(edict_t *self)
+flyer_fireright(edict_t* self)
 {
 	if (!self)
 	{
@@ -688,15 +688,15 @@ mframe_t flyer_frames_attack3[] = {
 
 mmove_t flyer_move_attack3 = {
 	FRAME_attak201,
-   	FRAME_attak217,
-   	flyer_frames_attack3,
-   	flyer_run
+	FRAME_attak217,
+	flyer_frames_attack3,
+	flyer_run
 };
 
 void
-flyer_slash_left(edict_t *self)
+flyer_slash_left(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -709,9 +709,9 @@ flyer_slash_left(edict_t *self)
 }
 
 void
-flyer_slash_right(edict_t *self)
+flyer_slash_right(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -778,7 +778,7 @@ mmove_t flyer_move_loop_melee =
 };
 
 void
-flyer_loop_melee(edict_t *self)
+flyer_loop_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -789,7 +789,7 @@ flyer_loop_melee(edict_t *self)
 }
 
 void
-flyer_attack(edict_t *self)
+flyer_attack(edict_t* self)
 {
 	float chance; /* FS: Coop: Rogue specific */
 
@@ -838,7 +838,7 @@ flyer_attack(edict_t *self)
 }
 
 void
-flyer_setstart(edict_t *self)
+flyer_setstart(edict_t* self)
 {
 	if (!self)
 	{
@@ -850,7 +850,7 @@ flyer_setstart(edict_t *self)
 }
 
 void
-flyer_nextmove(edict_t *self)
+flyer_nextmove(edict_t* self)
 {
 	if (!self)
 	{
@@ -872,7 +872,7 @@ flyer_nextmove(edict_t *self)
 }
 
 void
-flyer_melee(edict_t *self)
+flyer_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -890,7 +890,7 @@ flyer_melee(edict_t *self)
 }
 
 void
-flyer_check_melee(edict_t *self)
+flyer_check_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -915,8 +915,8 @@ flyer_check_melee(edict_t *self)
 }
 
 void
-flyer_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+flyer_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	int n;
 
@@ -968,9 +968,9 @@ flyer_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-flyer_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage /* unused */,
-		vec3_t point /* unused */)
+flyer_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage /* unused */,
+	vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -983,7 +983,7 @@ flyer_die(edict_t *self, edict_t *inflictor /* unused */,
 
 /* kamikaze code .. blow up if blocked */
 int
-flyer_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+flyer_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	vec3_t origin;
 
@@ -1033,7 +1033,7 @@ flyer_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
  * QUAKED monster_flyer (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_flyer(edict_t *self)
+SP_monster_flyer(edict_t* self)
 {
 	if (!self)
 	{
@@ -1093,7 +1093,7 @@ SP_monster_flyer(edict_t *self)
 	self->monsterinfo.idle = flyer_idle;
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
-		self->monsterinfo.blocked = (void *)flyer_blocked;
+		self->monsterinfo.blocked = (void*)flyer_blocked;
 	}
 
 	gi.linkentity(self);
@@ -1106,7 +1106,7 @@ SP_monster_flyer(edict_t *self)
 
 /* suicide fliers */
 void
-SP_monster_kamikaze(edict_t *self) /* FS: Coop: Rogue specific */
+SP_monster_kamikaze(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1153,7 +1153,7 @@ SP_monster_kamikaze(edict_t *self) /* FS: Coop: Rogue specific */
 	self->monsterinfo.sight = flyer_sight;
 	self->monsterinfo.idle = flyer_idle;
 
-	self->monsterinfo.blocked = (void *)flyer_blocked;
+	self->monsterinfo.blocked = (void*)flyer_blocked;
 
 	gi.linkentity(self);
 

@@ -72,7 +72,8 @@ typedef enum {false, true}	qboolean;
 #ifdef __DJGPP__
 int vsnprintf(char *str, size_t n, const char *fmt, va_list ap) __attribute__((__format__(__printf__,3,0)));
 #endif
-#if defined(__DJGPP__) || defined(_WIN32)
+
+#if defined(__DJGPP__) || defined(_WIN32) || defined (LINUX)
 char *strtok_r(char *s, const char *delim, char **last);
 #endif
 
@@ -177,8 +178,8 @@ typedef	int	fixed16_t;
 
 #define SqrtFast(x)				((x) * Q_rsqrt(x))
 
-#define DEG2RAD(a)				(((a) * M_PI) / 180.0F)
-#define RAD2DEG(a)				(((a) * 180.0F) / M_PI)
+#define DEG2RAD(a)				(((a) * M_PI) / 180.0)
+#define RAD2DEG(a)				(((a) * 180.0) / M_PI)
 
 struct cplane_s;
 
@@ -267,8 +268,8 @@ void Com_PageInMemory (byte *buffer, int size);
 
 // portable case insensitive compare
 int Q_stricmp (const char* s1, const char* s2);
-int Q_strcasecmp (char *s1, char *s2);
-int Q_strncasecmp (char *s1, char *s2, int n);
+int	Q_strcasecmp(const char* s1, const char* s2);
+int Q_strncasecmp(const char* s1, const char* s2, size_t n);
 /* FS: From KMQ2 */
 void Q_strncpyz (char *dst, const char *src, int dstSize);
 void Q_strncatz (char *dst, const char *src, int dstSize);

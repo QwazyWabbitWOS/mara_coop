@@ -14,7 +14,7 @@
 
 #define TRAIL_LENGTH 8
 
-edict_t *trail[TRAIL_LENGTH];
+edict_t* trail[TRAIL_LENGTH];
 int trail_head;
 qboolean trail_active = false;
 
@@ -41,7 +41,7 @@ PlayerTrail_Init(void)
 void
 PlayerTrail_Add(vec3_t spot)
 {
-	vec3_t temp;
+	vec3_t temp = { 0 };
 
 	if (!trail_active)
 	{
@@ -70,8 +70,8 @@ PlayerTrail_New(vec3_t spot)
 	PlayerTrail_Add(spot);
 }
 
-edict_t *
-PlayerTrail_PickFirst(edict_t *self)
+edict_t*
+PlayerTrail_PickFirst(edict_t* self)
 {
 	int marker;
 	int n;
@@ -111,8 +111,8 @@ PlayerTrail_PickFirst(edict_t *self)
 	return trail[marker];
 }
 
-edict_t *
-PlayerTrail_PickNext(edict_t *self)
+edict_t*
+PlayerTrail_PickNext(edict_t* self)
 {
 	int marker;
 	int n;
@@ -142,7 +142,7 @@ PlayerTrail_PickNext(edict_t *self)
 	return trail[marker];
 }
 
-edict_t *
+edict_t*
 PlayerTrail_LastSpot(void)
 {
 	return trail[PREV(trail_head)];

@@ -3,47 +3,47 @@
 #define HEALTH_IGNORE_MAX 1
 #define HEALTH_TIMED 2
 
-qboolean Pickup_Weapon(edict_t *ent, edict_t *other);
-qboolean Pickup_CoopBackpack(edict_t *ent, edict_t *other); /* FS: Coop: Spawn a backpack with our stuff */
-void Spawn_CoopBackpack(edict_t *ent); /* FS: Coop: Spawn a backpack with our stuff */
+qboolean Pickup_Weapon(edict_t* ent, edict_t* other);
+qboolean Pickup_CoopBackpack(edict_t* ent, edict_t* other); /* FS: Coop: Spawn a backpack with our stuff */
+void Spawn_CoopBackpack(edict_t* ent); /* FS: Coop: Spawn a backpack with our stuff */
 
-void Use_Weapon(edict_t *ent, gitem_t *inv);
-void Use_Weapon2(edict_t *ent, gitem_t *inv); /* FS: Coop: Xatrix and Rogue specific */
-void Drop_Weapon(edict_t *ent, gitem_t *inv);
+void Use_Weapon(edict_t* ent, gitem_t* inv);
+void Use_Weapon2(edict_t* ent, gitem_t* inv); /* FS: Coop: Xatrix and Rogue specific */
+void Drop_Weapon(edict_t* ent, gitem_t* inv);
 
-void Weapon_Blaster(edict_t *ent);
-void Weapon_Shotgun(edict_t *ent);
-void Weapon_SuperShotgun(edict_t *ent);
-void Weapon_Machinegun(edict_t *ent);
-void Weapon_Chaingun(edict_t *ent);
-void Weapon_HyperBlaster(edict_t *ent);
-void Weapon_RocketLauncher(edict_t *ent);
-void Weapon_Grenade(edict_t *ent);
-void Weapon_GrenadeLauncher(edict_t *ent);
-void Weapon_Railgun(edict_t *ent);
-void Weapon_BFG(edict_t *ent);
+void Weapon_Blaster(edict_t* ent);
+void Weapon_Shotgun(edict_t* ent);
+void Weapon_SuperShotgun(edict_t* ent);
+void Weapon_Machinegun(edict_t* ent);
+void Weapon_Chaingun(edict_t* ent);
+void Weapon_HyperBlaster(edict_t* ent);
+void Weapon_RocketLauncher(edict_t* ent);
+void Weapon_Grenade(edict_t* ent);
+void Weapon_GrenadeLauncher(edict_t* ent);
+void Weapon_Railgun(edict_t* ent);
+void Weapon_BFG(edict_t* ent);
 
 //Plasma rifle mod
-void Weapon_PlasmaRifle(edict_t *ent);
+void Weapon_PlasmaRifle(edict_t* ent);
 
 //Cluster grande mod
-void Weapon_ClusterLauncher (edict_t *ent);
+void Weapon_ClusterLauncher(edict_t* ent);
 
-void Weapon_ChainFist(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_Disintegrator(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_ETF_Rifle(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_Heatbeam(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_Prox(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_Tesla(edict_t *ent); /* FS: Coop: Rogue specific */
-void Weapon_ProxLauncher(edict_t *ent); /* FS: Coop: Rogue specific */
+void Weapon_ChainFist(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_Disintegrator(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_ETF_Rifle(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_Heatbeam(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_Prox(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_Tesla(edict_t* ent); /* FS: Coop: Rogue specific */
+void Weapon_ProxLauncher(edict_t* ent); /* FS: Coop: Rogue specific */
 
-void Weapon_Ionripper(edict_t *ent); /* FS: Coop: Xatrix specific */
-void Weapon_Phalanx(edict_t *ent); /* FS: Coop: Xatrix specific */
-void Weapon_Trap(edict_t *ent); /* FS: Coop: Xatrix specific */
+void Weapon_Ionripper(edict_t* ent); /* FS: Coop: Xatrix specific */
+void Weapon_Phalanx(edict_t* ent); /* FS: Coop: Xatrix specific */
+void Weapon_Trap(edict_t* ent); /* FS: Coop: Xatrix specific */
 
-gitem_armor_t jacketarmor_info = {25, 50, .30f, .00f, ARMOR_JACKET};
-gitem_armor_t combatarmor_info = {50, 100, .60f, .30f, ARMOR_COMBAT};
-gitem_armor_t bodyarmor_info = {100, 200, .80f, .60f, ARMOR_BODY};
+gitem_armor_t jacketarmor_info = { 25, 50, .30f, .00f, ARMOR_JACKET };
+gitem_armor_t combatarmor_info = { 50, 100, .60f, .30f, ARMOR_COMBAT };
+gitem_armor_t bodyarmor_info = { 100, 200, .80f, .60f, ARMOR_BODY };
 
 int jacket_armor_index;
 int combat_armor_index;
@@ -67,29 +67,29 @@ int	plasmashield_index;
 int	a2k_index;
 // Knightmare-- end
 
-void Use_Quad(edict_t *ent, gitem_t *item);
-void Use_QuadFire(edict_t *ent, gitem_t *item); /* FS: Coop: Xatrix specific */
+void Use_Quad(edict_t* ent, gitem_t* item);
+void Use_QuadFire(edict_t* ent, gitem_t* item); /* FS: Coop: Xatrix specific */
 
 static int quad_drop_timeout_hack;
 static int quad_fire_drop_timeout_hack; /* FS: Coop: Xatrix specific */
 
-extern void ED_CallSpawn(edict_t *ent); /* FS: Coop: For SP_Xatrix_item */
+extern void ED_CallSpawn(edict_t* ent); /* FS: Coop: For SP_Xatrix_item */
 
 // *** Zaero prototypes ***
-void Weapon_FlareGun (edict_t *ent); /* FS: Zaero specific game dll changes */
-void Weapon_SniperRifle(edict_t *ent); /* FS: Zaero specific game dll changes */
-void Weapon_LaserTripBomb(edict_t *ent); /* FS: Zaero specific game dll changes */
-void Weapon_SonicCannon (edict_t *ent); /* FS: Zaero specific game dll changes */
-void Weapon_EMPNuke (edict_t *ent); /* FS: Zaero specific game dll changes */
-void Weapon_A2k (edict_t *ent); /* FS: Zaero specific game dll changes */
-void Use_Visor (edict_t *ent, gitem_t *item); /* FS: Zaero specific game dll changes */
-void Action_Push(edict_t *ent); /* FS: Zaero specific game dll changes */
-void Use_PlasmaShield (edict_t *ent, gitem_t *item); /* FS: Zaero specific game dll changes */
+void Weapon_FlareGun(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Weapon_SniperRifle(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Weapon_LaserTripBomb(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Weapon_SonicCannon(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Weapon_EMPNuke(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Weapon_A2k(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Use_Visor(edict_t* ent, gitem_t* item); /* FS: Zaero specific game dll changes */
+void Action_Push(edict_t* ent); /* FS: Zaero specific game dll changes */
+void Use_PlasmaShield(edict_t* ent, gitem_t* item); /* FS: Zaero specific game dll changes */
 
 
 /* ====================================================================== */
 
-gitem_t *
+gitem_t*
 GetItemByIndex(int index)
 {
 	if ((index == 0) || (index >= game.num_items))
@@ -100,11 +100,11 @@ GetItemByIndex(int index)
 	return &itemlist[index];
 }
 
-gitem_t *
-FindItemByClassname(char *classname)
+gitem_t*
+FindItemByClassname(char* classname)
 {
 	int i;
-	gitem_t *it;
+	gitem_t* it;
 
 	if (!classname)
 	{
@@ -129,11 +129,11 @@ FindItemByClassname(char *classname)
 	return NULL;
 }
 
-gitem_t *
-FindItem(char *pickup_name)
+gitem_t*
+FindItem(char* pickup_name)
 {
 	int i;
-	gitem_t *it;
+	gitem_t* it;
 
 	if (!pickup_name)
 	{
@@ -160,9 +160,9 @@ FindItem(char *pickup_name)
 
 /* ====================================================================== */
 
-qboolean Coop_Respawn (void) /* FS: Coop */
+qboolean Coop_Respawn(void) /* FS: Coop */
 {
-	if(coop->value && coop_item_respawn->value)
+	if (coop->value && coop_item_respawn->value)
 	{
 		return true;
 	}
@@ -207,7 +207,7 @@ void DoRespawn(edict_t* ent)
 
 	if (randomrespawn && randomrespawn->value) /* FS: Coop: Rogue specific */
 	{
-		edict_t *newEnt;
+		edict_t* newEnt;
 
 		newEnt = DoRandomRespawn(ent);
 
@@ -229,7 +229,7 @@ void DoRespawn(edict_t* ent)
 }
 
 void
-SetRespawn(edict_t *ent, float delay)
+SetRespawn(edict_t* ent, float delay)
 {
 	if (!ent)
 	{
@@ -247,11 +247,11 @@ SetRespawn(edict_t *ent, float delay)
 /* ====================================================================== */
 
 qboolean
-Pickup_Powerup(edict_t *ent, edict_t *other)
+Pickup_Powerup(edict_t* ent, edict_t* other)
 {
 	int quantity;
 
-    if (!ent || !other)
+	if (!ent || !other)
 	{
 		return false;
 	}
@@ -259,7 +259,7 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 	quantity = other->client->pers.inventory[ITEM_INDEX(ent->item)];
 
 	if (((skill->value == 1) &&
-		 (quantity >= 2)) || ((skill->value >= 2) && (quantity >= 1)))
+		(quantity >= 2)) || ((skill->value >= 2) && (quantity >= 1)))
 	{
 		return false;
 	}
@@ -280,7 +280,7 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 
 		if (((int)dmflags->value & DF_INSTANT_ITEMS) ||
 			((ent->item->use == Use_Quad) &&
-			 (ent->spawnflags & DROPPED_PLAYER_ITEM)))
+				(ent->spawnflags & DROPPED_PLAYER_ITEM)))
 		{
 			if ((ent->item->use == Use_Quad) &&
 				(ent->spawnflags & DROPPED_PLAYER_ITEM))
@@ -299,8 +299,8 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 			}
 		}
 		else if (((int)dmflags->value & DF_INSTANT_ITEMS) || /* FS: Coop: Xatrix specific */
-				 ((ent->item->use == Use_QuadFire) &&
-				  (ent->spawnflags & DROPPED_PLAYER_ITEM)))
+			((ent->item->use == Use_QuadFire) &&
+				(ent->spawnflags & DROPPED_PLAYER_ITEM)))
 		{
 			if ((ent->item->use == Use_QuadFire) &&
 				(ent->spawnflags & DROPPED_PLAYER_ITEM))
@@ -317,7 +317,7 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 }
 
 void
-Drop_General(edict_t *ent, gitem_t *item)
+Drop_General(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -331,7 +331,7 @@ Drop_General(edict_t *ent, gitem_t *item)
 /* ====================================================================== */
 
 qboolean
-Pickup_Adrenaline(edict_t *ent, edict_t *other)
+Pickup_Adrenaline(edict_t* ent, edict_t* other)
 {
 	if (!ent || !other)
 	{
@@ -353,7 +353,7 @@ Pickup_Adrenaline(edict_t *ent, edict_t *other)
 		other->health = other->max_health;
 	}
 
-	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, ent->item->quantity);
 	}
@@ -362,16 +362,16 @@ Pickup_Adrenaline(edict_t *ent, edict_t *other)
 }
 
 qboolean
-Pickup_AncientHead(edict_t *ent, edict_t *other)
+Pickup_AncientHead(edict_t* ent, edict_t* other)
 {
- 	if (!ent || !other)
+	if (!ent || !other)
 	{
 		return false;
 	}
 
 	other->max_health += 2;
 
-	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, ent->item->quantity);
 	}
@@ -380,9 +380,9 @@ Pickup_AncientHead(edict_t *ent, edict_t *other)
 }
 
 qboolean
-Pickup_Bandolier(edict_t *ent /* may be null */, edict_t *other)
+Pickup_Bandolier(edict_t* ent /* may be null */, edict_t* other)
 {
-	gitem_t *item;
+	gitem_t* item;
 	int index;
 
 	if (!other)
@@ -456,7 +456,7 @@ Pickup_Bandolier(edict_t *ent /* may be null */, edict_t *other)
 		}
 	}
 
-	if ((ent) && (!(ent->spawnflags & DROPPED_ITEM)) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if ((ent) && (!(ent->spawnflags & DROPPED_ITEM)) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, ent->item->quantity);
 	}
@@ -470,12 +470,12 @@ Pickup_Bandolier(edict_t *ent /* may be null */, edict_t *other)
 }
 
 qboolean
-Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
+Pickup_Pack(edict_t* ent /* may be null */, edict_t* other)
 {
-	gitem_t *item;
+	gitem_t* item;
 	int index;
 
- 	if (!other)
+	if (!other)
 	{
 		return false;
 	}
@@ -545,7 +545,7 @@ Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
 
 		if (other->client->pers.max_plasmashield < 40) /* FS: Zaero specific game dll changes */
 		{
-			other->client->pers.max_plasmashield =40;
+			other->client->pers.max_plasmashield = 40;
 		}
 	}
 
@@ -675,17 +675,17 @@ Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
 		}
 	}
 
-	if(game.gametype == zaero_coop)
+	if (game.gametype == zaero_coop)
 	{
 		item = FindItem("IRED"); /* FS: Zaero specific game dll changes */
 		if (item)
 		{
 			index = ITEM_INDEX(item);
 			other->client->pers.inventory[index] += item->quantity;
-			if (other->client->pers.inventory[index] > 
+			if (other->client->pers.inventory[index] >
 				other->client->pers.max_tbombs)
 			{
-				other->client->pers.inventory[index] = 
+				other->client->pers.inventory[index] =
 					other->client->pers.max_tbombs;
 			}
 		}
@@ -718,7 +718,7 @@ Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
 		}
 	}
 
-	if ((ent) && (!(ent->spawnflags & DROPPED_ITEM)) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if ((ent) && (!(ent->spawnflags & DROPPED_ITEM)) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, ent->item->quantity);
 	}
@@ -732,7 +732,7 @@ Pickup_Pack(edict_t *ent /* may be null */, edict_t *other)
 }
 
 qboolean
-Pickup_Nuke(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
+Pickup_Nuke(edict_t* ent, edict_t* other) /* FS: Coop: Rogue specific */
 {
 	int quantity;
 
@@ -767,7 +767,7 @@ Pickup_Nuke(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_IR(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_IR(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	if (!ent || !item)
 	{
@@ -790,7 +790,7 @@ Use_IR(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Double(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Double(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	ent->client->pers.inventory[ITEM_INDEX(item)]--;
 	ValidateSelectedItem(ent);
@@ -808,7 +808,7 @@ Use_Double(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Compass(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Compass(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	int ang;
 
@@ -825,13 +825,13 @@ Use_Compass(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 	}
 
 	gi.cprintf(ent, PRINT_HIGH, "Origin: %0.0f,%0.0f,%0.0f    Dir: %d\n",
-			ent->s.origin[0], ent->s.origin[1], ent->s.origin[2], ang);
+		ent->s.origin[0], ent->s.origin[1], ent->s.origin[2], ang);
 }
 
 void
-Use_Nuke(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Nuke(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
-	vec3_t forward, right, start;
+	vec3_t forward, right, start = { 0 };
 	float speed;
 
 	if (!ent || !item)
@@ -850,11 +850,11 @@ Use_Nuke(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Doppleganger(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Doppleganger(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, right;
 	vec3_t createPt, spawnPt;
-	vec3_t ang;
+	vec3_t ang = { 0 };
 
 	if (!ent || !item)
 	{
@@ -885,7 +885,7 @@ Use_Doppleganger(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 qboolean
-Pickup_Doppleganger(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
+Pickup_Doppleganger(edict_t* ent, edict_t* other) /* FS: Coop: Rogue specific */
 {
 	int quantity;
 
@@ -917,7 +917,7 @@ Pickup_Doppleganger(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 }
 
 qboolean
-Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
+Pickup_Sphere(edict_t* ent, edict_t* other) /* FS: Coop: Rogue specific */
 {
 	int quantity;
 
@@ -934,7 +934,7 @@ Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 	quantity = other->client->pers.inventory[ITEM_INDEX(ent->item)];
 
 	if (((skill->value == 1) &&
-		 (quantity >= 2)) || ((skill->value >= 2) && (quantity >= 1)))
+		(quantity >= 2)) || ((skill->value >= 2) && (quantity >= 1)))
 	{
 		return false;
 	}
@@ -970,7 +970,7 @@ Pickup_Sphere(edict_t *ent, edict_t *other) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Defender(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Defender(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	if (!ent || !item || !ent->client)
 	{
@@ -990,7 +990,7 @@ Use_Defender(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Hunter(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Hunter(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	if (!ent || !item || !ent->client)
 	{
@@ -1010,7 +1010,7 @@ Use_Hunter(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 }
 
 void
-Use_Vengeance(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
+Use_Vengeance(edict_t* ent, gitem_t* item) /* FS: Coop: Rogue specific */
 {
 	if (!ent || !ent->client || !item)
 	{
@@ -1032,7 +1032,7 @@ Use_Vengeance(edict_t *ent, gitem_t *item) /* FS: Coop: Rogue specific */
 /* ====================================================================== */
 
 void
-Use_Quad(edict_t *ent, gitem_t *item)
+Use_Quad(edict_t* ent, gitem_t* item)
 {
 	int timeout;
 
@@ -1068,7 +1068,7 @@ Use_Quad(edict_t *ent, gitem_t *item)
 
 /* ====================================================================== */
 
-void Use_QuadFire (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specific */
+void Use_QuadFire(edict_t* ent, gitem_t* item) /* FS: Coop: Xatrix specific */
 {
 	int timeout;
 
@@ -1103,7 +1103,7 @@ void Use_QuadFire (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specific */
 }
 
 void
-Use_Breather(edict_t *ent, gitem_t *item)
+Use_Breather(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -1126,7 +1126,7 @@ Use_Breather(edict_t *ent, gitem_t *item)
 /* ====================================================================== */
 
 void
-Use_Envirosuit(edict_t *ent, gitem_t *item)
+Use_Envirosuit(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -1149,7 +1149,7 @@ Use_Envirosuit(edict_t *ent, gitem_t *item)
 /* ====================================================================== */
 
 void
-Use_Invulnerability(edict_t *ent, gitem_t *item)
+Use_Invulnerability(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -1174,7 +1174,7 @@ Use_Invulnerability(edict_t *ent, gitem_t *item)
 /* ====================================================================== */
 
 void
-Use_Silencer(edict_t *ent, gitem_t *item)
+Use_Silencer(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -1189,7 +1189,7 @@ Use_Silencer(edict_t *ent, gitem_t *item)
 /* ====================================================================== */
 
 qboolean
-Pickup_Key(edict_t *ent, edict_t *other)
+Pickup_Key(edict_t* ent, edict_t* other)
 {
 	qboolean firstHit = true;
 
@@ -1201,7 +1201,7 @@ Pickup_Key(edict_t *ent, edict_t *other)
 	if (coop->value) /* FS: Coop: Distribute keys and special items */
 	{
 		int i;
-		edict_t *client;
+		edict_t* client;
 		qboolean coopReturn = false;
 
 		/* respawn any dead clients */
@@ -1248,13 +1248,13 @@ Pickup_Key(edict_t *ent, edict_t *other)
 				}
 			}
 
-			if(client == other) /* FS: Coop: If this client is the one who walked over then set the proper return qboolean */
+			if (client == other) /* FS: Coop: If this client is the one who walked over then set the proper return qboolean */
 				coopReturn = true;
 		}
 
-		if(ent->item && ent->item->pickup_name && other->client->pers.netname[0] && coopReturn == true)
+		if (ent->item && ent->item->pickup_name && other->client->pers.netname[0] && coopReturn == true)
 		{
-			gi.bprintf(PRINT_HIGH,"\x02[%s]: ", other->client->pers.netname);
+			gi.bprintf(PRINT_HIGH, "\x02[%s]: ", other->client->pers.netname);
 			gi.bprintf(PRINT_HIGH, "Team, everyone has the %s!\n", ent->item->pickup_name);
 
 			for (i = 0; i < maxclients->value; i++)
@@ -1280,7 +1280,7 @@ Pickup_Key(edict_t *ent, edict_t *other)
 /* ====================================================================== */
 
 qboolean
-Add_Ammo(edict_t *ent, gitem_t *item, int count)
+Add_Ammo(edict_t* ent, gitem_t* item, int count)
 {
 	int index;
 	int max;
@@ -1339,7 +1339,7 @@ Add_Ammo(edict_t *ent, gitem_t *item, int count)
 	{
 		max = ent->client->pers.max_trap;
 	}
-// [evolve
+	// [evolve
 	else if (item->tag == AMMO_LASERTRIPBOMB) /* FS: Zaero specific game dll changes */
 	{
 		max = ent->client->pers.max_tbombs;
@@ -1360,7 +1360,7 @@ Add_Ammo(edict_t *ent, gitem_t *item, int count)
 	{
 		max = ent->client->pers.max_plasmashield;
 	}
-// evolve]
+	// evolve]
 	else
 	{
 		gi.dprintf("undefined ammo type\n");
@@ -1385,7 +1385,7 @@ Add_Ammo(edict_t *ent, gitem_t *item, int count)
 }
 
 qboolean
-Pickup_Ammo(edict_t *ent, edict_t *other)
+Pickup_Ammo(edict_t* ent, edict_t* other)
 {
 	int oldcount;
 	int count;
@@ -1413,9 +1413,9 @@ Pickup_Ammo(edict_t *ent, edict_t *other)
 
 	oldcount = other->client->pers.inventory[ITEM_INDEX(ent->item)];
 
-	if((game.gametype == zaero_coop) && (ent->spawnflags & 0x08)) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (ent->spawnflags & 0x08)) /* FS: Zaero specific game dll changes */
 	{
-		if(oldcount >= count)
+		if (oldcount >= count)
 		{
 			return false;
 		}
@@ -1440,22 +1440,22 @@ Pickup_Ammo(edict_t *ent, edict_t *other)
 	}
 
 	if (!(ent->spawnflags & (DROPPED_ITEM | DROPPED_PLAYER_ITEM)) &&
-		(deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+		(deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, 30);
 	}
 	else if ((game.gametype == zaero_coop) && (ent->spawnflags & 0x04)) /* FS: Zaero specific game dll changes */
 	{
-		SetRespawn (ent, 15);
+		SetRespawn(ent, 15);
 	}
 
 	return true;
 }
 
 void
-Drop_Ammo(edict_t *ent, gitem_t *item)
+Drop_Ammo(edict_t* ent, gitem_t* item)
 {
-	edict_t *dropped;
+	edict_t* dropped;
 	int index;
 
 	if (!ent || !item)
@@ -1490,7 +1490,7 @@ Drop_Ammo(edict_t *ent, gitem_t *item)
 }
 
 
-qboolean Pickup_A2k (edict_t *ent, edict_t *other) /* FS: Zaero specific game dll changes */
+qboolean Pickup_A2k(edict_t* ent, edict_t* other) /* FS: Zaero specific game dll changes */
 {
 	// do we already have an a2k?
 	if (other->client->pers.inventory[ITEM_INDEX(ent->item)] == 1)
@@ -1501,8 +1501,8 @@ qboolean Pickup_A2k (edict_t *ent, edict_t *other) /* FS: Zaero specific game dl
 	other->client->pers.inventory[ITEM_INDEX(ent->item)] = 1;
 	if (deathmatch->value)
 	{
-		if (!(ent->spawnflags & DROPPED_ITEM) )
-			SetRespawn (ent, 30);
+		if (!(ent->spawnflags & DROPPED_ITEM))
+			SetRespawn(ent, 30);
 	}
 
 	return true;
@@ -1511,7 +1511,7 @@ qboolean Pickup_A2k (edict_t *ent, edict_t *other) /* FS: Zaero specific game dl
 /* ====================================================================== */
 
 void
-MegaHealth_think(edict_t *self)
+MegaHealth_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1525,7 +1525,7 @@ MegaHealth_think(edict_t *self)
 		return;
 	}
 
-	if (!(self->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if (!(self->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(self, 20);
 	}
@@ -1536,7 +1536,7 @@ MegaHealth_think(edict_t *self)
 }
 
 qboolean
-Pickup_Health(edict_t *ent, edict_t *other)
+Pickup_Health(edict_t* ent, edict_t* other)
 {
 	if (!ent || !other)
 	{
@@ -1572,7 +1572,7 @@ Pickup_Health(edict_t *ent, edict_t *other)
 	}
 	else
 	{
-		if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+		if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 		{
 			SetRespawn(ent, 30);
 		}
@@ -1584,7 +1584,7 @@ Pickup_Health(edict_t *ent, edict_t *other)
 /* ====================================================================== */
 
 int
-ArmorIndex(edict_t *ent)
+ArmorIndex(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1615,11 +1615,11 @@ ArmorIndex(edict_t *ent)
 }
 
 qboolean
-Pickup_Armor(edict_t *ent, edict_t *other)
+Pickup_Armor(edict_t* ent, edict_t* other)
 {
 	int old_armor_index;
-	gitem_armor_t *oldinfo;
-	gitem_armor_t *newinfo;
+	gitem_armor_t* oldinfo;
+	gitem_armor_t* newinfo;
 	int newcount;
 	float salvage;
 	int salvagecount;
@@ -1630,7 +1630,7 @@ Pickup_Armor(edict_t *ent, edict_t *other)
 	}
 
 	/* get info on new armor */
-	newinfo = (gitem_armor_t *)ent->item->info;
+	newinfo = (gitem_armor_t*)ent->item->info;
 
 	old_armor_index = ArmorIndex(other);
 
@@ -1712,7 +1712,7 @@ Pickup_Armor(edict_t *ent, edict_t *other)
 		}
 	}
 
-	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn()) ) /* FS: Coop: Added */
+	if (!(ent->spawnflags & DROPPED_ITEM) && (deathmatch->value || Coop_Respawn())) /* FS: Coop: Added */
 	{
 		SetRespawn(ent, 20);
 	}
@@ -1723,7 +1723,7 @@ Pickup_Armor(edict_t *ent, edict_t *other)
 /* ====================================================================== */
 
 int
-PowerArmorType(edict_t *ent)
+PowerArmorType(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1754,7 +1754,7 @@ PowerArmorType(edict_t *ent)
 }
 
 void
-Use_PowerArmor(edict_t *ent, gitem_t *item)
+Use_PowerArmor(edict_t* ent, gitem_t* item)
 {
 	int index;
 
@@ -1767,7 +1767,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 	{
 		ent->flags &= ~FL_POWER_ARMOR;
 
-		if(coop->value && ent->client) /* FS: Save power armor state for respawn. */
+		if (coop->value && ent->client) /* FS: Save power armor state for respawn. */
 		{
 			ent->client->resp.coop_respawn.savedFlags &= ~FL_POWER_ARMOR;
 		}
@@ -1786,7 +1786,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 
 		ent->flags |= FL_POWER_ARMOR;
 
-		if(coop->value && ent->client) /* FS: Save power armor state for respawn. */
+		if (coop->value && ent->client) /* FS: Save power armor state for respawn. */
 		{
 			ent->client->resp.coop_respawn.savedFlags |= FL_POWER_ARMOR;
 		}
@@ -1796,7 +1796,7 @@ Use_PowerArmor(edict_t *ent, gitem_t *item)
 }
 
 qboolean
-Pickup_PowerArmor(edict_t *ent, edict_t *other)
+Pickup_PowerArmor(edict_t* ent, edict_t* other)
 {
 	int quantity;
 
@@ -1809,7 +1809,7 @@ Pickup_PowerArmor(edict_t *ent, edict_t *other)
 
 	other->client->pers.inventory[ITEM_INDEX(ent->item)]++;
 
-	if (deathmatch->value || Coop_Respawn() ) /* FS: Coop: Added */
+	if (deathmatch->value || Coop_Respawn()) /* FS: Coop: Added */
 	{
 		if (!(ent->spawnflags & DROPPED_ITEM))
 		{
@@ -1827,7 +1827,7 @@ Pickup_PowerArmor(edict_t *ent, edict_t *other)
 }
 
 void
-Drop_PowerArmor(edict_t *ent, gitem_t *item)
+Drop_PowerArmor(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -1845,26 +1845,26 @@ Drop_PowerArmor(edict_t *ent, gitem_t *item)
 
 //======================================================================
 
-qboolean Pickup_PlasmaShield(edict_t *ent, edict_t *other) /* FS: Zaero specific game dll changes */
+qboolean Pickup_PlasmaShield(edict_t* ent, edict_t* other) /* FS: Zaero specific game dll changes */
 {
-  if(other->client->pers.inventory[ITEM_INDEX(ent->item)])
-  {
-    return false;
-  }
+	if (other->client->pers.inventory[ITEM_INDEX(ent->item)])
+	{
+		return false;
+	}
 
 	other->client->pers.inventory[ITEM_INDEX(ent->item)] = 1;
 
 	if (deathmatch->value)
 	{
-		if (!(ent->spawnflags & DROPPED_ITEM) )
-			SetRespawn (ent, ent->item->quantity);
+		if (!(ent->spawnflags & DROPPED_ITEM))
+			SetRespawn(ent, ent->item->quantity);
 	}
 
 	return true;
 }
 
 
-qboolean Pickup_Visor(edict_t *ent, edict_t *other) /* FS: Zaero specific game dll changes */
+qboolean Pickup_Visor(edict_t* ent, edict_t* other) /* FS: Zaero specific game dll changes */
 {
 	// do we already have a visor?
 	if (other->client->pers.inventory[ITEM_INDEX(ent->item)] == 1 &&
@@ -1882,18 +1882,18 @@ qboolean Pickup_Visor(edict_t *ent, edict_t *other) /* FS: Zaero specific game d
 
 	if (deathmatch->value)
 	{
-		if (!(ent->spawnflags & DROPPED_ITEM) )
-			SetRespawn (ent, 30);
+		if (!(ent->spawnflags & DROPPED_ITEM))
+			SetRespawn(ent, 30);
 	}
 
 	return true;
 }
 
-void Drop_Visor(edict_t *ent, gitem_t *item) /* FS: Zaero specific game dll changes */
+void Drop_Visor(edict_t* ent, gitem_t* item) /* FS: Zaero specific game dll changes */
 {
-	edict_t *visor = Drop_Item (ent, item);
+	edict_t* visor = Drop_Item(ent, item);
 	ent->client->pers.inventory[ITEM_INDEX(item)] = 0;
-	ValidateSelectedItem (ent);
+	ValidateSelectedItem(ent);
 	visor->visorFrames = ent->client->pers.visorFrames;
 	ent->client->pers.visorFrames = 0;
 }
@@ -1901,7 +1901,7 @@ void Drop_Visor(edict_t *ent, gitem_t *item) /* FS: Zaero specific game dll chan
 /* ====================================================================== */
 
 void
-Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+Touch_Item(edict_t* ent, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	qboolean taken;
 
@@ -1997,7 +1997,7 @@ Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane /* unused */, csurface_
 /* ====================================================================== */
 
 void
-drop_temp_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+drop_temp_touch(edict_t* ent, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 	if (!ent || !other)
 	{
@@ -2017,7 +2017,7 @@ drop_temp_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 }
 
 void
-drop_make_touchable(edict_t *ent)
+drop_make_touchable(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2033,12 +2033,12 @@ drop_make_touchable(edict_t *ent)
 	}
 }
 
-edict_t *
-Drop_Item(edict_t *ent, gitem_t *item)
+edict_t*
+Drop_Item(edict_t* ent, gitem_t* item)
 {
-	edict_t *dropped;
+	edict_t* dropped;
 	vec3_t forward, right;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 
 	if (!ent || !item)
 	{
@@ -2049,7 +2049,7 @@ Drop_Item(edict_t *ent, gitem_t *item)
 
 	dropped->classname = item->classname;
 	dropped->item = item;
-	if(!coop->value || (!(item->flags & IT_STAY_COOP) && !(item->flags & IT_KEY))) /* FS: Zaero stupidly sets it so some enemies drop the key.  So they will drop it once killed and you only get one chance to pick it up. */
+	if (!coop->value || (!(item->flags & IT_STAY_COOP) && !(item->flags & IT_KEY))) /* FS: Zaero stupidly sets it so some enemies drop the key.  So they will drop it once killed and you only get one chance to pick it up. */
 	{
 		dropped->spawnflags = DROPPED_ITEM;
 	}
@@ -2060,11 +2060,11 @@ Drop_Item(edict_t *ent, gitem_t *item)
 	{
 		if (rand() > 0.5)
 		{
-			dropped->s.angles[1] += rand()*45;
+			dropped->s.angles[1] += rand() * 45;
 		}
 		else
 		{
-			dropped->s.angles[1] -= rand()*45;
+			dropped->s.angles[1] -= rand() * 45;
 		}
 		VectorSet(dropped->mins, -16, -16, -16);
 		VectorSet(dropped->maxs, 16, 16, 16);
@@ -2088,7 +2088,7 @@ Drop_Item(edict_t *ent, gitem_t *item)
 		VectorSet(offset, 24, 0, -16);
 		G_ProjectSource(ent->s.origin, offset, forward, right, dropped->s.origin);
 		trace = gi.trace(ent->s.origin, dropped->mins, dropped->maxs,
-				dropped->s.origin, ent, CONTENTS_SOLID);
+			dropped->s.origin, ent, CONTENTS_SOLID);
 		VectorCopy(trace.endpos, dropped->s.origin);
 	}
 	else
@@ -2109,7 +2109,7 @@ Drop_Item(edict_t *ent, gitem_t *item)
 }
 
 void
-Use_Item(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unused */)
+Use_Item(edict_t* ent, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!ent)
 	{
@@ -2136,11 +2136,11 @@ Use_Item(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unused
 /* ====================================================================== */
 
 void
-droptofloor(edict_t *ent)
+droptofloor(edict_t* ent)
 {
 	trace_t tr;
-	vec3_t dest;
-	float *v;
+	vec3_t dest = { 0 };
+	float* v;
 
 	if (!ent)
 	{
@@ -2184,7 +2184,7 @@ droptofloor(edict_t *ent)
 		else
 		{
 			gi.dprintf("droptofloor: %s startsolid at %s\n",
-					ent->classname, vtos(ent->s.origin));
+				ent->classname, vtos(ent->s.origin));
 			G_FreeEdict(ent);
 			return;
 		}
@@ -2232,12 +2232,12 @@ droptofloor(edict_t *ent)
  * and for each item in each client's inventory.
  */
 void
-PrecacheItem(gitem_t *it)
+PrecacheItem(gitem_t* it)
 {
-	char *s, *start;
+	char* s, * start;
 	char data[MAX_QPATH];
 	int len;
-	gitem_t *ammo;
+	gitem_t* ammo;
 
 	if (!it)
 	{
@@ -2334,7 +2334,7 @@ PrecacheItem(gitem_t *it)
  * Create the item marked for spawn creation
  */
 void
-Item_TriggeredSpawn(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+Item_TriggeredSpawn(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2356,7 +2356,7 @@ Item_TriggeredSpawn(edict_t *self, edict_t *other /* unused */, edict_t *activat
  * Set up an item to spawn in later.
  */
 void
-SetTriggeredSpawn(edict_t *ent) /* FS: Coop: Rogue specific */
+SetTriggeredSpawn(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	if (!ent)
 	{
@@ -2387,7 +2387,7 @@ SetTriggeredSpawn(edict_t *ent) /* FS: Coop: Rogue specific */
  * ============
  */
 void
-SpawnItem(edict_t *ent, gitem_t *item)
+SpawnItem(edict_t* ent, gitem_t* item)
 {
 	if (!ent || !item)
 	{
@@ -2396,7 +2396,7 @@ SpawnItem(edict_t *ent, gitem_t *item)
 
 	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		PrecacheItem (item);
+		PrecacheItem(item);
 
 		if (ent->spawnflags)
 		{
@@ -2409,14 +2409,14 @@ SpawnItem(edict_t *ent, gitem_t *item)
 	}
 	else
 	{
-		if ( ((game.gametype == rogue_coop) && (ent->spawnflags > 1)) || /* FS: Coop: Rogue specific */
-			((game.gametype != rogue_coop) && (ent->spawnflags)) )
+		if (((game.gametype == rogue_coop) && (ent->spawnflags > 1)) || /* FS: Coop: Rogue specific */
+			((game.gametype != rogue_coop) && (ent->spawnflags)))
 		{
 			if ((ent->classname) && (strcmp(ent->classname, "key_power_cube") != 0))
 			{
 				ent->spawnflags = 0;
 				gi.dprintf("%s at %s has invalid spawnflags set\n",
-						ent->classname, vtos(ent->s.origin));
+					ent->classname, vtos(ent->s.origin));
 			}
 		}
 	}
@@ -2575,133 +2575,133 @@ gitem_t itemlist[] = {
 		"misc/ar1_pkup.wav",
 		"models/items/armor/body/tris.md2", EF_ROTATE,
 		NULL,
-/* icon */		"i_bodyarmor",
-/* pickup */	"Body Armor",
-/* width */		3,
-		0,
-		NULL,
-		IT_ARMOR,
-		0,
-		&bodyarmor_info,
-		ARMOR_BODY,
-/* precache */ ""
-	},
+		/* icon */		"i_bodyarmor",
+		/* pickup */	"Body Armor",
+		/* width */		3,
+				0,
+				NULL,
+				IT_ARMOR,
+				0,
+				&bodyarmor_info,
+				ARMOR_BODY,
+				/* precache */ ""
+					},
 
-/*QUAKED item_armor_combat (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_armor_combat",
-		Pickup_Armor,
-		NULL,
-		NULL,
-		NULL,
-		"misc/ar1_pkup.wav",
-		"models/items/armor/combat/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_combatarmor",
-/* pickup */	"Combat Armor",
-/* width */		3,
-		0,
-		NULL,
-		IT_ARMOR,
-		0,
-		&combatarmor_info,
-		ARMOR_COMBAT,
-/* precache */ ""
-	},
+	/*QUAKED item_armor_combat (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_armor_combat",
+			Pickup_Armor,
+			NULL,
+			NULL,
+			NULL,
+			"misc/ar1_pkup.wav",
+			"models/items/armor/combat/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_combatarmor",
+			/* pickup */	"Combat Armor",
+			/* width */		3,
+					0,
+					NULL,
+					IT_ARMOR,
+					0,
+					&combatarmor_info,
+					ARMOR_COMBAT,
+					/* precache */ ""
+						},
 
-/*QUAKED item_armor_jacket (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_armor_jacket",
-		Pickup_Armor,
-		NULL,
-		NULL,
-		NULL,
-		"misc/ar1_pkup.wav",
-		"models/items/armor/jacket/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_jacketarmor",
-/* pickup */	"Jacket Armor",
-/* width */		3,
-		0,
-		NULL,
-		IT_ARMOR,
-		0,
-		&jacketarmor_info,
-		ARMOR_JACKET,
-/* precache */ ""
-	},
+	/*QUAKED item_armor_jacket (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_armor_jacket",
+			Pickup_Armor,
+			NULL,
+			NULL,
+			NULL,
+			"misc/ar1_pkup.wav",
+			"models/items/armor/jacket/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_jacketarmor",
+			/* pickup */	"Jacket Armor",
+			/* width */		3,
+					0,
+					NULL,
+					IT_ARMOR,
+					0,
+					&jacketarmor_info,
+					ARMOR_JACKET,
+					/* precache */ ""
+						},
 
-/*QUAKED item_armor_shard (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_armor_shard",
-		Pickup_Armor,
-		NULL,
-		NULL,
-		NULL,
-		"misc/ar2_pkup.wav",
-		"models/items/armor/shard/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_jacketarmor",
-/* pickup */	"Armor Shard",
-/* width */		3,
-		0,
-		NULL,
-		IT_ARMOR,
-		0,
-		NULL,
-		ARMOR_SHARD,
-/* precache */ ""
-	},
+	/*QUAKED item_armor_shard (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_armor_shard",
+			Pickup_Armor,
+			NULL,
+			NULL,
+			NULL,
+			"misc/ar2_pkup.wav",
+			"models/items/armor/shard/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_jacketarmor",
+			/* pickup */	"Armor Shard",
+			/* width */		3,
+					0,
+					NULL,
+					IT_ARMOR,
+					0,
+					NULL,
+					ARMOR_SHARD,
+					/* precache */ ""
+						},
 
 
-/*QUAKED item_power_screen (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_power_screen",
-		Pickup_PowerArmor,
-		Use_PowerArmor,
-		Drop_PowerArmor,
-		NULL,
-		"misc/ar3_pkup.wav",
-		"models/items/armor/screen/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_powerscreen",
-/* pickup */	"Power Screen",
-/* width */		0,
-		60,
-		NULL,
-		IT_ARMOR,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED item_power_screen (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_power_screen",
+			Pickup_PowerArmor,
+			Use_PowerArmor,
+			Drop_PowerArmor,
+			NULL,
+			"misc/ar3_pkup.wav",
+			"models/items/armor/screen/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_powerscreen",
+			/* pickup */	"Power Screen",
+			/* width */		0,
+					60,
+					NULL,
+					IT_ARMOR,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
-/*QUAKED item_power_shield (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_power_shield",
-		Pickup_PowerArmor,
-		Use_PowerArmor,
-		Drop_PowerArmor,
-		NULL,
-		"misc/ar3_pkup.wav",
-		"models/items/armor/shield/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_powershield",
-/* pickup */	"Power Shield",
-/* width */		0,
-		60,
-		NULL,
-		IT_ARMOR,
-		0,
-		NULL,
-		0,
-/* precache */ "misc/power2.wav misc/power1.wav"
-	},
+	/*QUAKED item_power_shield (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_power_shield",
+			Pickup_PowerArmor,
+			Use_PowerArmor,
+			Drop_PowerArmor,
+			NULL,
+			"misc/ar3_pkup.wav",
+			"models/items/armor/shield/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_powershield",
+			/* pickup */	"Power Shield",
+			/* width */		0,
+					60,
+					NULL,
+					IT_ARMOR,
+					0,
+					NULL,
+					0,
+					/* precache */ "misc/power2.wav misc/power1.wav"
+						},
 
 
 	//
@@ -2716,184 +2716,184 @@ gitem_t itemlist[] = {
 		Use_Weapon,
 		NULL,
 		Action_Push,
-/* pickup sound */	NULL,
-		NULL, 0,
-		"models/weapons/v_hand/tris.md2",
-/* icon */		NULL,
-/* pickup */	"Push",
-		0,
-		0,
-		NULL,
-		IT_WEAPON|IT_ZAERO|IT_STAY_COOP,
-		WEAP_NONE,
-		NULL,
-		0,
-/* precache */ "weapons/push/contact.wav",// weapons/push/grunt.wav",
-/* hide flags */ HIDE_FROM_INVENTORY | HIDE_DONT_KEEP | HIDE_FROM_SELECTION
-	},
+		/* pickup sound */	NULL,
+				NULL, 0,
+				"models/weapons/v_hand/tris.md2",
+				/* icon */		NULL,
+				/* pickup */	"Push",
+						0,
+						0,
+						NULL,
+						IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+						WEAP_NONE,
+						NULL,
+						0,
+						/* precache */ "weapons/push/contact.wav",// weapons/push/grunt.wav",
+						/* hide flags */ HIDE_FROM_INVENTORY | HIDE_DONT_KEEP | HIDE_FROM_SELECTION
+							},
 
-/*QUAKED weapon_flaregun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
+	/*QUAKED weapon_flaregun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_flaregun", /* FS: Zaero specific game dll changes */
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_FlareGun,
+			"misc/w_pkup.wav",
+			"models/weapons/g_flare/tris.md2", EF_ROTATE,
+			"models/weapons/v_flare/tris.md2",
+			/* icon */		"w_flare",
+			/* pickup */	"Flare Gun",
+					0,
+					1,
+					"Flares",
+					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+					WEAP_BLASTER,
+					NULL,
+					0,
+					/* precache */ "models/weapons/v_flare/tris.md2 models/objects/flare/tris.md2 weapons/flare/shoot.wav weapons/flare/flarehis.wav"
+						},
+
+	/* weapon_blaster (.3 .3 1) (-16 -16 -16) (16 16 16)
+	always owned, never in the world
+	*/
+		{
+			"weapon_blaster",
+			NULL,
+			Use_Weapon2, /* FS: Coop: Rogue specific */
+			NULL,
+			Weapon_Blaster,
+			"misc/w_pkup.wav",
+			NULL, 0,
+			"models/weapons/v_blast/tris.md2",
+			/* icon */		"w_blaster",
+			/* pickup */	"Blaster",
+					0,
+					0,
+					NULL,
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_BLASTER,
+					NULL,
+					0,
+					/* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
+						},
+
+	/*QUAKED weapon_clusterlauncher  (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+	// Cluster Launcher mod
 	{
-		"weapon_flaregun", /* FS: Zaero specific game dll changes */
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_FlareGun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_flare/tris.md2", EF_ROTATE,
-		"models/weapons/v_flare/tris.md2",
-/* icon */		"w_flare",
-/* pickup */	"Flare Gun",
-		0,
-		1,
-		"Flares",
-		IT_WEAPON|IT_ZAERO|IT_STAY_COOP,
-		WEAP_BLASTER,
-		NULL,
-		0,
-/* precache */ "models/weapons/v_flare/tris.md2 models/objects/flare/tris.md2 weapons/flare/shoot.wav weapons/flare/flarehis.wav"
-	},
+			"weapon_clusterlauncher",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_ClusterLauncher,
+			"misc/w_pkup.wav",
+			"models/weapons/g_plaunch/tris.md2", EF_ROTATE,
+			"models/weapons/v_plaunch/tris.md2",
+			/* icon */        "w_proxlaunch",
+			/* pickup */    "Cluster Launcher",
+					0,
+					5,
+					"Grenades",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_GRENADELAUNCHER,
+					NULL,
+					0,
+					/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
+						},
 
-/* weapon_blaster (.3 .3 1) (-16 -16 -16) (16 16 16)
-always owned, never in the world
-*/
-	{
-		"weapon_blaster",
-		NULL,
-		Use_Weapon2, /* FS: Coop: Rogue specific */
-		NULL,
-		Weapon_Blaster,
-		"misc/w_pkup.wav",
-		NULL, 0,
-		"models/weapons/v_blast/tris.md2",
-/* icon */		"w_blaster",
-/* pickup */	"Blaster",
-		0,
-		0,
-		NULL,
-		IT_WEAPON|IT_STAY_COOP,
-		WEAP_BLASTER,
-		NULL,
-		0,
-/* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
-	},
+	/*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_shotgun",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_Shotgun,
+			"misc/w_pkup.wav",
+			"models/weapons/g_shotg/tris.md2", EF_ROTATE,
+			"models/weapons/v_shotg/tris.md2",
+			/* icon */		"w_shotgun",
+			/* pickup */	"Shotgun",
+					0,
+					1,
+					"Shells",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_SHOTGUN,
+					NULL,
+					0,
+					/* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
+						},
 
-/*QUAKED weapon_clusterlauncher  (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-// Cluster Launcher mod
-{
-        "weapon_clusterlauncher",
-        Pickup_Weapon,
-        Use_Weapon,
-        Drop_Weapon,
-        Weapon_ClusterLauncher,
-        "misc/w_pkup.wav",
-        "models/weapons/g_plaunch/tris.md2", EF_ROTATE,
-        "models/weapons/v_plaunch/tris.md2",
-/* icon */        "w_proxlaunch",
-/* pickup */    "Cluster Launcher",
-        0,
-        5,
-        "Grenades",
-        IT_WEAPON|IT_STAY_COOP,
-        WEAP_GRENADELAUNCHER,
-        NULL,
-        0,
-/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
-    },
+	/*QUAKED weapon_supershotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_supershotgun",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_SuperShotgun,
+			"misc/w_pkup.wav",
+			"models/weapons/g_shotg2/tris.md2", EF_ROTATE,
+			"models/weapons/v_shotg2/tris.md2",
+			/* icon */		"w_sshotgun",
+			/* pickup */	"Super Shotgun",
+					0,
+					2,
+					"Shells",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_SUPERSHOTGUN,
+					NULL,
+					0,
+					"weapons/sshotf1b.wav"
+				},
 
-/*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_shotgun",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_Shotgun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_shotg/tris.md2", EF_ROTATE,
-		"models/weapons/v_shotg/tris.md2",
-/* icon */		"w_shotgun",
-/* pickup */	"Shotgun",
-		0,
-		1,
-		"Shells",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_SHOTGUN,
-		NULL,
-		0,
-/* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
-	},
+	/*QUAKED weapon_machinegun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_machinegun",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_Machinegun,
+			"misc/w_pkup.wav",
+			"models/weapons/g_machn/tris.md2", EF_ROTATE,
+			"models/weapons/v_machn/tris.md2",
+			/* icon */		"w_machinegun",
+			/* pickup */	"Machinegun",
+					0,
+					1,
+					"Bullets",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_MACHINEGUN,
+					NULL,
+					0,
+					/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
+						},
 
-/*QUAKED weapon_supershotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_supershotgun",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_SuperShotgun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_shotg2/tris.md2", EF_ROTATE,
-		"models/weapons/v_shotg2/tris.md2",
-/* icon */		"w_sshotgun",
-/* pickup */	"Super Shotgun",
-		0,
-		2,
-		"Shells",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_SUPERSHOTGUN,
-		NULL,
-		0,
-		"weapons/sshotf1b.wav"
-	},
-
-/*QUAKED weapon_machinegun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_machinegun",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_Machinegun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_machn/tris.md2", EF_ROTATE,
-		"models/weapons/v_machn/tris.md2",
-/* icon */		"w_machinegun",
-/* pickup */	"Machinegun",
-		0,
-		1,
-		"Bullets",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_MACHINEGUN,
-		NULL,
-		0,
-/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
-	},
-
-/*QUAKED weapon_chaingun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_chaingun",
-		Pickup_Weapon,
-		Use_Weapon2, /* FS: Coop: Rogue specific */
-		Drop_Weapon,
-		Weapon_Chaingun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_chain/tris.md2", EF_ROTATE,
-		"models/weapons/v_chain/tris.md2",
-/* icon */		"w_chaingun",
-/* pickup */	"Chaingun",
-		0,
-		1,
-		"Bullets",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_CHAINGUN,
-		NULL,
-		0,
-/* precache */ "weapons/chngnu1a.wav weapons/chngnl1a.wav weapons/machgf3b.wav` weapons/chngnd1a.wav"
-	},
+	/*QUAKED weapon_chaingun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_chaingun",
+			Pickup_Weapon,
+			Use_Weapon2, /* FS: Coop: Rogue specific */
+			Drop_Weapon,
+			Weapon_Chaingun,
+			"misc/w_pkup.wav",
+			"models/weapons/g_chain/tris.md2", EF_ROTATE,
+			"models/weapons/v_chain/tris.md2",
+			/* icon */		"w_chaingun",
+			/* pickup */	"Chaingun",
+					0,
+					1,
+					"Bullets",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_CHAINGUN,
+					NULL,
+					0,
+					/* precache */ "weapons/chngnu1a.wav weapons/chngnl1a.wav weapons/machgf3b.wav` weapons/chngnd1a.wav"
+						},
 
 	/* QUAKED weapon_etf_rifle (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -2910,109 +2910,109 @@ always owned, never in the world
 		0,
 		1,
 		"Flechettes",
-		IT_WEAPON|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_WEAPON | IT_ROGUE, /* FS: Coop: Rogue specific */
 		WEAP_ETFRIFLE,
 		NULL,
 		0,
 		"weapons/nail1.wav models/proj/flechette/tris.md2",
 	},
 
-/*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_grenades",
-		Pickup_Ammo,
-		Use_Weapon,
-		Drop_Ammo,
-		Weapon_Grenade,
-		"misc/am_pkup.wav",
-		"models/items/ammo/grenades/medium/tris.md2", 0,
-		"models/weapons/v_handgr/tris.md2",
-/* icon */		"a_grenades",
-/* pickup */	"Grenades",
-/* width */		3,
-		5,
-		"grenades",
-		IT_AMMO | IT_WEAPON,
-		WEAP_GRENADES,
-		NULL,
-		AMMO_GRENADES,
-/* precache */ "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
-	},
+	/*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_grenades",
+			Pickup_Ammo,
+			Use_Weapon,
+			Drop_Ammo,
+			Weapon_Grenade,
+			"misc/am_pkup.wav",
+			"models/items/ammo/grenades/medium/tris.md2", 0,
+			"models/weapons/v_handgr/tris.md2",
+			/* icon */		"a_grenades",
+			/* pickup */	"Grenades",
+			/* width */		3,
+					5,
+					"grenades",
+					IT_AMMO | IT_WEAPON,
+					WEAP_GRENADES,
+					NULL,
+					AMMO_GRENADES,
+					/* precache */ "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
+						},
 
-/*QUAKED ammo_ired (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_ired", /* FS: Zaero specific game dll changes */
-		Pickup_Ammo,
-		Use_Weapon,
-		Drop_Ammo,
-		Weapon_LaserTripBomb,
-		"misc/am_pkup.wav",
-		"models/items/ammo/ireds/tris.md2", 0,
-		"models/weapons/v_ired/tris.md2",
-/* icon */		"w_ired",
-/* pickup */	"IRED",
-/* width */		3,
-		3,
-		"IRED",
-		IT_AMMO|IT_ZAERO|IT_WEAPON,
-		WEAP_GRENADES,
-		NULL,
-		AMMO_LASERTRIPBOMB,
-/* precache */ "models/weapons/v_ired/hand.md2 models/objects/ired/tris.md2 modes/objects models/objects/shrapnel/tris.md2 "
-	"weapons/ired/las_set.wav weapons/ired/las_arm.wav "
+	/*QUAKED ammo_ired (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_ired", /* FS: Zaero specific game dll changes */
+			Pickup_Ammo,
+			Use_Weapon,
+			Drop_Ammo,
+			Weapon_LaserTripBomb,
+			"misc/am_pkup.wav",
+			"models/items/ammo/ireds/tris.md2", 0,
+			"models/weapons/v_ired/tris.md2",
+			/* icon */		"w_ired",
+			/* pickup */	"IRED",
+			/* width */		3,
+					3,
+					"IRED",
+					IT_AMMO | IT_ZAERO | IT_WEAPON,
+					WEAP_GRENADES,
+					NULL,
+					AMMO_LASERTRIPBOMB,
+					/* precache */ "models/weapons/v_ired/hand.md2 models/objects/ired/tris.md2 modes/objects models/objects/shrapnel/tris.md2 "
+						"weapons/ired/las_set.wav weapons/ired/las_arm.wav "
 	/*"weapons/ired/las_tink.wav "weapons/ired/las_trig.wav "*/
 	/*"weapons/ired/las_glow.wav"*/,
 	},
 
-/*QUAKED ammo_trap (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_trap",
-		Pickup_Ammo,
-		Use_Weapon,
-		Drop_Ammo,
-		Weapon_Trap,
-		"misc/am_pkup.wav",
-		"models/weapons/g_trap/tris.md2", EF_ROTATE,
-		"models/weapons/v_trap/tris.md2",
-/* icon */		"a_trap",
-/* pickup */	"Trap",
-/* width */		3,
-		1,
-		"trap",
-		IT_AMMO|IT_WEAPON|IT_XATRIX, /* FS: Coop: Xatrix specific */
-		0,
-		NULL,
-		AMMO_TRAP,
-/* precache */ "weapons/trapcock.wav weapons/traploop.wav weapons/trapsuck.wav weapons/trapdown.wav"
-// "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
-	},
+	/*QUAKED ammo_trap (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_trap",
+			Pickup_Ammo,
+			Use_Weapon,
+			Drop_Ammo,
+			Weapon_Trap,
+			"misc/am_pkup.wav",
+			"models/weapons/g_trap/tris.md2", EF_ROTATE,
+			"models/weapons/v_trap/tris.md2",
+			/* icon */		"a_trap",
+			/* pickup */	"Trap",
+			/* width */		3,
+					1,
+					"trap",
+					IT_AMMO | IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
+					0,
+					NULL,
+					AMMO_TRAP,
+					/* precache */ "weapons/trapcock.wav weapons/traploop.wav weapons/trapsuck.wav weapons/trapdown.wav"
+					// "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
+						},
 
-	
-/*QUAKED weapon_grenadelauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_grenadelauncher",
-		Pickup_Weapon,
-		Use_Weapon2, /* FS: Coop: Rogue specific */
-		Drop_Weapon,
-		Weapon_GrenadeLauncher,
-		"misc/w_pkup.wav",
-		"models/weapons/g_launch/tris.md2", EF_ROTATE,
-		"models/weapons/v_launch/tris.md2",
-/* icon */		"w_glauncher",
-/* pickup */	"Grenade Launcher",
-		0,
-		1,
-		"Grenades",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_GRENADELAUNCHER,
-		NULL,
-		0,
-/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
-	},
+
+	/*QUAKED weapon_grenadelauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_grenadelauncher",
+			Pickup_Weapon,
+			Use_Weapon2, /* FS: Coop: Rogue specific */
+			Drop_Weapon,
+			Weapon_GrenadeLauncher,
+			"misc/w_pkup.wav",
+			"models/weapons/g_launch/tris.md2", EF_ROTATE,
+			"models/weapons/v_launch/tris.md2",
+			/* icon */		"w_glauncher",
+			/* pickup */	"Grenade Launcher",
+					0,
+					1,
+					"Grenades",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_GRENADELAUNCHER,
+					NULL,
+					0,
+					/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
+						},
 
 	/* QUAKED weapon_proxlauncher (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3029,202 +3029,202 @@ always owned, never in the world
 		0,
 		1,
 		"Prox",
-		IT_WEAPON|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_WEAPON | IT_ROGUE, /* FS: Coop: Rogue specific */
 		WEAP_PROXLAUNCH,
 		NULL,
 		AMMO_PROX,
 		"weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav weapons/proxwarn.wav weapons/proxopen.wav",
 	},
 
-/*QUAKED weapon_rocketlauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_rocketlauncher",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_RocketLauncher,
-		"misc/w_pkup.wav",
-		"models/weapons/g_rocket/tris.md2", EF_ROTATE,
-		"models/weapons/v_rocket/tris.md2",
-/* icon */		"w_rlauncher",
-/* pickup */	"Rocket Launcher",
-		0,
-		1,
-		"Rockets",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_ROCKETLAUNCHER,
-		NULL,
-		0,
-/* precache */ "models/objects/rocket/tris.md2 weapons/rockfly.wav weapons/rocklf1a.wav weapons/rocklr1b.wav models/objects/debris2/tris.md2"
-	},
+	/*QUAKED weapon_rocketlauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_rocketlauncher",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_RocketLauncher,
+			"misc/w_pkup.wav",
+			"models/weapons/g_rocket/tris.md2", EF_ROTATE,
+			"models/weapons/v_rocket/tris.md2",
+			/* icon */		"w_rlauncher",
+			/* pickup */	"Rocket Launcher",
+					0,
+					1,
+					"Rockets",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_ROCKETLAUNCHER,
+					NULL,
+					0,
+					/* precache */ "models/objects/rocket/tris.md2 weapons/rockfly.wav weapons/rocklf1a.wav weapons/rocklr1b.wav models/objects/debris2/tris.md2"
+						},
 
-/*QUAKED weapon_hyperblaster (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_hyperblaster",
-		Pickup_Weapon,
-		Use_Weapon2, /* FS: Coop: Xatrix and Rogue specific */
-		Drop_Weapon,
-		Weapon_HyperBlaster,
-		"misc/w_pkup.wav",
-		"models/weapons/g_hyperb/tris.md2", EF_ROTATE,
-		"models/weapons/v_hyperb/tris.md2",
-/* icon */		"w_hyperblaster",
-/* pickup */	"HyperBlaster",
-		0,
-		1,
-		"Cells",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_HYPERBLASTER,
-		NULL,
-		0,
-/* precache */ "weapons/hyprbu1a.wav weapons/hyprbl1a.wav weapons/hyprbf1a.wav weapons/hyprbd1a.wav misc/lasfly.wav"
-	},
+	/*QUAKED weapon_hyperblaster (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_hyperblaster",
+			Pickup_Weapon,
+			Use_Weapon2, /* FS: Coop: Xatrix and Rogue specific */
+			Drop_Weapon,
+			Weapon_HyperBlaster,
+			"misc/w_pkup.wav",
+			"models/weapons/g_hyperb/tris.md2", EF_ROTATE,
+			"models/weapons/v_hyperb/tris.md2",
+			/* icon */		"w_hyperblaster",
+			/* pickup */	"HyperBlaster",
+					0,
+					1,
+					"Cells",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_HYPERBLASTER,
+					NULL,
+					0,
+					/* precache */ "weapons/hyprbu1a.wav weapons/hyprbl1a.wav weapons/hyprbf1a.wav weapons/hyprbd1a.wav misc/lasfly.wav"
+						},
 
-/*QUAKED weapon_boomer (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
+	/*QUAKED weapon_boomer (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
 
-	{
-		"weapon_boomer", /* FS: Coop: Xatrix specific */
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_Ionripper,
-		"misc/w_pkup.wav",
-		"models/weapons/g_boom/tris.md2", EF_ROTATE,
-		"models/weapons/v_boomer/tris.md2",
-/* icon */	"w_ripper",
-/* pickup */ "Ionripper",
-		0,
-		2,
-		"Cells",
-		IT_WEAPON|IT_XATRIX,
-		WEAP_BOOMER,
-		NULL,
-		0,
-/* precache */ "weapons/rg_hum.wav weapons/rippfire.wav"
-	},
-// END 14-APR-98
+		{
+			"weapon_boomer", /* FS: Coop: Xatrix specific */
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_Ionripper,
+			"misc/w_pkup.wav",
+			"models/weapons/g_boom/tris.md2", EF_ROTATE,
+			"models/weapons/v_boomer/tris.md2",
+			/* icon */	"w_ripper",
+			/* pickup */ "Ionripper",
+					0,
+					2,
+					"Cells",
+					IT_WEAPON | IT_XATRIX,
+					WEAP_BOOMER,
+					NULL,
+					0,
+					/* precache */ "weapons/rg_hum.wav weapons/rippfire.wav"
+						},
+	// END 14-APR-98
 
-	/* QUAKED weapon_plasmabeam (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
-	{
-		"weapon_plasmabeam", /* FS: Coop: Rogue specific */
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_Heatbeam,
-		"misc/w_pkup.wav",
-		"models/weapons/g_beamer/tris.md2", EF_ROTATE,
-		"models/weapons/v_beamer/tris.md2",
-		"w_heatbeam",
-		"Plasma Beam",
-		0,
-		2,
-		"Cells",
-		IT_WEAPON|IT_ROGUE,
-		WEAP_PLASMA,
-		NULL,
-		0,
-		"models/weapons/v_beamer2/tris.md2 weapons/bfg__l1a.wav models/proj/beam/tris.md2", /* FS: Missing beam precache */
-	},
+		/* QUAKED weapon_plasmabeam (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
+		{
+			"weapon_plasmabeam", /* FS: Coop: Rogue specific */
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_Heatbeam,
+			"misc/w_pkup.wav",
+			"models/weapons/g_beamer/tris.md2", EF_ROTATE,
+			"models/weapons/v_beamer/tris.md2",
+			"w_heatbeam",
+			"Plasma Beam",
+			0,
+			2,
+			"Cells",
+			IT_WEAPON | IT_ROGUE,
+			WEAP_PLASMA,
+			NULL,
+			0,
+			"models/weapons/v_beamer2/tris.md2 weapons/bfg__l1a.wav models/proj/beam/tris.md2", /* FS: Missing beam precache */
+		},
 
-/*QUAKED weapon_railgun (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_railgun",
-		Pickup_Weapon,
-		Use_Weapon2, /* FS: Coop: Xatrix specific */
-		Drop_Weapon,
-		Weapon_Railgun,
-		"misc/w_pkup.wav",
-		"models/weapons/g_rail/tris.md2", EF_ROTATE,
-		"models/weapons/v_rail/tris.md2",
-/* icon */		"w_railgun",
-/* pickup */	"Railgun",
-		0,
-		1,
-		"Slugs",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_RAILGUN,
-		NULL,
-		0,
-/* precache */ "weapons/rg_hum.wav"
-	},
+		/*QUAKED weapon_railgun (.3 .3 1) (-16 -16 -16) (16 16 16)
+		*/
+			{
+				"weapon_railgun",
+				Pickup_Weapon,
+				Use_Weapon2, /* FS: Coop: Xatrix specific */
+				Drop_Weapon,
+				Weapon_Railgun,
+				"misc/w_pkup.wav",
+				"models/weapons/g_rail/tris.md2", EF_ROTATE,
+				"models/weapons/v_rail/tris.md2",
+				/* icon */		"w_railgun",
+				/* pickup */	"Railgun",
+						0,
+						1,
+						"Slugs",
+						IT_WEAPON | IT_STAY_COOP,
+						WEAP_RAILGUN,
+						NULL,
+						0,
+						/* precache */ "weapons/rg_hum.wav"
+							},
 
-// RAFAEL 14-APR-98
-/*QUAKED weapon_phalanx (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
+	// RAFAEL 14-APR-98
+	/*QUAKED weapon_phalanx (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
 
-	{
-		"weapon_phalanx",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_Phalanx,
-		"misc/w_pkup.wav",
-		"models/weapons/g_shotx/tris.md2", EF_ROTATE,
-		"models/weapons/v_shotx/tris.md2",
-/* icon */	"w_phallanx",
-/* pickup */ "Phalanx",
-		0,
-		1,
-		"Mag Slug",
-		IT_WEAPON|IT_XATRIX, /* FS: Coop: Xatrix specific */
-		WEAP_PHALANX,
-		NULL,
-		0,
-/* precache */ "weapons/plasshot.wav"
-	},
+		{
+			"weapon_phalanx",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_Phalanx,
+			"misc/w_pkup.wav",
+			"models/weapons/g_shotx/tris.md2", EF_ROTATE,
+			"models/weapons/v_shotx/tris.md2",
+			/* icon */	"w_phallanx",
+			/* pickup */ "Phalanx",
+					0,
+					1,
+					"Mag Slug",
+					IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
+					WEAP_PHALANX,
+					NULL,
+					0,
+					/* precache */ "weapons/plasshot.wav"
+						},
 
-/*QUAKED weapon_sniperrifle (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_sniperrifle",  /* FS: Zaero specific game dll changes */
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_SniperRifle,
-		"misc/w_pkup.wav",
-		"models/weapons/g_sniper/tris.md2", EF_ROTATE,
-		"models/weapons/v_sniper/tris.md2",
-/* icon */		"w_sniper",
-/* pickup */	"Sniper Rifle",
-		0,
-		3,
-		"Slugs",
-		IT_WEAPON|IT_ZAERO|IT_STAY_COOP,
-		WEAP_RAILGUN,
-		NULL,
-		0,
-/* precache */ "models/weapons/v_sniper/scope/tris.md2 models/weapons/v_sniper/dmscope/tris.md2 weapons/sniper/beep.wav weapons/sniper/fire.wav "
-		/*"weapons/sniper/snip_act.wav weapons/sniper/snip_bye.wav"*/,
-		HIDE_FROM_SELECTION
-	},
+	/*QUAKED weapon_sniperrifle (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_sniperrifle",  /* FS: Zaero specific game dll changes */
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_SniperRifle,
+			"misc/w_pkup.wav",
+			"models/weapons/g_sniper/tris.md2", EF_ROTATE,
+			"models/weapons/v_sniper/tris.md2",
+			/* icon */		"w_sniper",
+			/* pickup */	"Sniper Rifle",
+					0,
+					3,
+					"Slugs",
+					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+					WEAP_RAILGUN,
+					NULL,
+					0,
+					/* precache */ "models/weapons/v_sniper/scope/tris.md2 models/weapons/v_sniper/dmscope/tris.md2 weapons/sniper/beep.wav weapons/sniper/fire.wav "
+					/*"weapons/sniper/snip_act.wav weapons/sniper/snip_bye.wav"*/,
+					HIDE_FROM_SELECTION
+				},
 
 
-/*QUAKED weapon_bfg (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_bfg",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_BFG,
-		"misc/w_pkup.wav",
-		"models/weapons/g_bfg/tris.md2", EF_ROTATE,
-		"models/weapons/v_bfg/tris.md2",
-/* icon */		"w_bfg",
-/* pickup */	"BFG10K",
-		0,
-		50,
-		"Cells",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_BFG,
-		NULL,
-		0,
-/* precache */ "sprites/s_bfg1.sp2 sprites/s_bfg2.sp2 sprites/s_bfg3.sp2 weapons/bfg__f1y.wav weapons/bfg__l1a.wav weapons/bfg__x1b.wav weapons/bfg_hum.wav"
-	},
+	/*QUAKED weapon_bfg (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_bfg",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_BFG,
+			"misc/w_pkup.wav",
+			"models/weapons/g_bfg/tris.md2", EF_ROTATE,
+			"models/weapons/v_bfg/tris.md2",
+			/* icon */		"w_bfg",
+			/* pickup */	"BFG10K",
+					0,
+					50,
+					"Cells",
+					IT_WEAPON | IT_STAY_COOP,
+					WEAP_BFG,
+					NULL,
+					0,
+					/* precache */ "sprites/s_bfg1.sp2 sprites/s_bfg2.sp2 sprites/s_bfg3.sp2 weapons/bfg__f1y.wav weapons/bfg__l1a.wav weapons/bfg__x1b.wav weapons/bfg_hum.wav"
+						},
 
 	/* QUAKED weapon_chainfist (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3270,76 +3270,76 @@ always owned, never in the world
 		"models/items/spawngro/tris.md2 models/proj/disintegrator/tris.md2 weapons/disrupt.wav weapons/disint2.wav weapons/disrupthit.wav",
 	},
 
-/*QUAKED weapon_soniccannon  (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"weapon_soniccannon",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_SonicCannon,
-		"misc/w_pkup.wav",
-		"models/weapons/g_sonic/tris.md2", EF_ROTATE,
-		"models/weapons/v_sonic/tris.md2",
-/* icon */		"w_sonic",
-/* pickup */	"Sonic Cannon",
-		0,
-		1,
-		"Cells",
-		IT_WEAPON|IT_ZAERO|IT_STAY_COOP,
-		WEAP_HYPERBLASTER,
-		NULL,
-		0,
-/* precache */ "weapons/sonic/sc_warm.wav weapons/sonic/sc_cool.wav weapons/sonic/sc_fire.wav" // weapons/sonic/sc_act.wav weapons/sonic/sc_dact.wav  
-	},
+	/*QUAKED weapon_soniccannon  (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"weapon_soniccannon",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_SonicCannon,
+			"misc/w_pkup.wav",
+			"models/weapons/g_sonic/tris.md2", EF_ROTATE,
+			"models/weapons/v_sonic/tris.md2",
+			/* icon */		"w_sonic",
+			/* pickup */	"Sonic Cannon",
+					0,
+					1,
+					"Cells",
+					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+					WEAP_HYPERBLASTER,
+					NULL,
+					0,
+					/* precache */ "weapons/sonic/sc_warm.wav weapons/sonic/sc_cool.wav weapons/sonic/sc_fire.wav" // weapons/sonic/sc_act.wav weapons/sonic/sc_dact.wav  
+						},
 
-/*QUAKED ammo_a2k (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_a2k", /* FS: Zaero specific game dll changes */
-		Pickup_A2k,
-		Use_Weapon,
-		Drop_Ammo,
-		Weapon_A2k,
-		"misc/am_pkup.wav",
-		"models/weapons/g_a2k/tris.md2", 0,
-		"models/weapons/v_a2k/tris.md2",
-/* icon */		"w_a2k",
-/* pickup */	"A2K",
-/* width */		1,
-		1,
-		"A2k",
-		IT_POWERUP|IT_ZAERO,
-		WEAP_NONE,
-		NULL,
-		AMMO_A2K,
-/* precache */ "weapons/a2k/countdn.wav weapons/a2k/ak_exp01.wav",
-		HIDE_FROM_SELECTION
-	},
+	/*QUAKED ammo_a2k (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_a2k", /* FS: Zaero specific game dll changes */
+			Pickup_A2k,
+			Use_Weapon,
+			Drop_Ammo,
+			Weapon_A2k,
+			"misc/am_pkup.wav",
+			"models/weapons/g_a2k/tris.md2", 0,
+			"models/weapons/v_a2k/tris.md2",
+			/* icon */		"w_a2k",
+			/* pickup */	"A2K",
+			/* width */		1,
+					1,
+					"A2k",
+					IT_POWERUP | IT_ZAERO,
+					WEAP_NONE,
+					NULL,
+					AMMO_A2K,
+					/* precache */ "weapons/a2k/countdn.wav weapons/a2k/ak_exp01.wav",
+							HIDE_FROM_SELECTION
+						},
 
-/*QUAKED weapon_plasmarifle (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-// Marsilainen's Plasma Rifle mod
-	{
-		"weapon_plasmarifle",
-		Pickup_Weapon,
-		Use_Weapon,
-		Drop_Weapon,
-		Weapon_PlasmaRifle,
-		"misc/w_pkup.wav",
-		"models/weapons/g_plasmr/tris.md2", EF_ROTATE,
-		"models/weapons/v_plasmr/tris.md2",
-		"w_plasmarifle",
-		"Plasma Rifle",
-		0,
-		2,
-		"Cells",
-		IT_WEAPON | IT_STAY_COOP,
-		WEAP_PLASMARIFLE,
-		NULL,
-		0,
-		"weapons/plsmfire.wav weapons/plsmexpl.wav"
-	},
+	/*QUAKED weapon_plasmarifle (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+	// Marsilainen's Plasma Rifle mod
+		{
+			"weapon_plasmarifle",
+			Pickup_Weapon,
+			Use_Weapon,
+			Drop_Weapon,
+			Weapon_PlasmaRifle,
+			"misc/w_pkup.wav",
+			"models/weapons/g_plasmr/tris.md2", EF_ROTATE,
+			"models/weapons/v_plasmr/tris.md2",
+			"w_plasmarifle",
+			"Plasma Rifle",
+			0,
+			2,
+			"Cells",
+			IT_WEAPON | IT_STAY_COOP,
+			WEAP_PLASMARIFLE,
+			NULL,
+			0,
+			"weapons/plsmfire.wav weapons/plsmexpl.wav"
+		},
 	//
 	// AMMO ITEMS
 	//
@@ -3355,155 +3355,155 @@ always owned, never in the world
 		"misc/am_pkup.wav",
 		"models/items/ammo/flares/tris.md2", 0,
 		NULL,
-/* icon */		"a_flares",
-/* pickup */	"Flares",
-/* width */		3,
-		3,
-		NULL,
-		IT_AMMO|IT_ZAERO,
-		0,
-		NULL,
-		AMMO_FLARES,
-/* precache */ ""
-	},
+		/* icon */		"a_flares",
+		/* pickup */	"Flares",
+		/* width */		3,
+				3,
+				NULL,
+				IT_AMMO | IT_ZAERO,
+				0,
+				NULL,
+				AMMO_FLARES,
+				/* precache */ ""
+					},
 
-/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_shells",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/items/ammo/shells/medium/tris.md2", 0,
-		NULL,
-/* icon */		"a_shells",
-/* pickup */	"Shells",
-/* width */		3,
-		10,
-		NULL,
-		IT_AMMO,
-		0,
-		NULL,
-		AMMO_SHELLS,
-/* precache */ ""
-	},
+	/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_shells",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/items/ammo/shells/medium/tris.md2", 0,
+			NULL,
+			/* icon */		"a_shells",
+			/* pickup */	"Shells",
+			/* width */		3,
+					10,
+					NULL,
+					IT_AMMO,
+					0,
+					NULL,
+					AMMO_SHELLS,
+					/* precache */ ""
+						},
 
-/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_bullets",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/items/ammo/bullets/medium/tris.md2", 0,
-		NULL,
-/* icon */		"a_bullets",
-/* pickup */	"Bullets",
-/* width */		3,
-		50,
-		NULL,
-		IT_AMMO,
-		0,
-		NULL,
-		AMMO_BULLETS,
-/* precache */ ""
-	},
+	/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_bullets",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/items/ammo/bullets/medium/tris.md2", 0,
+			NULL,
+			/* icon */		"a_bullets",
+			/* pickup */	"Bullets",
+			/* width */		3,
+					50,
+					NULL,
+					IT_AMMO,
+					0,
+					NULL,
+					AMMO_BULLETS,
+					/* precache */ ""
+						},
 
-/*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_cells",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/items/ammo/cells/medium/tris.md2", 0,
-		NULL,
-/* icon */		"a_cells",
-/* pickup */	"Cells",
-/* width */		3,
-		50,
-		NULL,
-		IT_AMMO,
-		0,
-		NULL,
-		AMMO_CELLS,
-/* precache */ ""
-	},
+	/*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_cells",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/items/ammo/cells/medium/tris.md2", 0,
+			NULL,
+			/* icon */		"a_cells",
+			/* pickup */	"Cells",
+			/* width */		3,
+					50,
+					NULL,
+					IT_AMMO,
+					0,
+					NULL,
+					AMMO_CELLS,
+					/* precache */ ""
+						},
 
-/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_rockets",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/items/ammo/rockets/medium/tris.md2", 0,
-		NULL,
-/* icon */		"a_rockets",
-/* pickup */	"Rockets",
-/* width */		3,
-		5,
-		NULL,
-		IT_AMMO,
-		0,
-		NULL,
-		AMMO_ROCKETS,
-/* precache */ ""
-	},
+	/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_rockets",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/items/ammo/rockets/medium/tris.md2", 0,
+			NULL,
+			/* icon */		"a_rockets",
+			/* pickup */	"Rockets",
+			/* width */		3,
+					5,
+					NULL,
+					IT_AMMO,
+					0,
+					NULL,
+					AMMO_ROCKETS,
+					/* precache */ ""
+						},
 
-/*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_slugs",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/items/ammo/slugs/medium/tris.md2", 0,
-		NULL,
-/* icon */		"a_slugs",
-/* pickup */	"Slugs",
-/* width */		3,
-		10,
-		NULL,
-		IT_AMMO,
-		0,
-		NULL,
-		AMMO_SLUGS,
-/* precache */ ""
-	},
+	/*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_slugs",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/items/ammo/slugs/medium/tris.md2", 0,
+			NULL,
+			/* icon */		"a_slugs",
+			/* pickup */	"Slugs",
+			/* width */		3,
+					10,
+					NULL,
+					IT_AMMO,
+					0,
+					NULL,
+					AMMO_SLUGS,
+					/* precache */ ""
+						},
 
-/*QUAKED ammo_empnuke (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_empnuke", /* FS: Zaero specific game dll changes */
-		Pickup_Ammo,
-		Use_Weapon,
-		Drop_Ammo,
-		Weapon_EMPNuke,
-		"misc/am_pkup.wav",
-		"models/weapons/g_enuke/tris.md2", EF_ROTATE,
-		"models/weapons/v_enuke/tris.md2",
-/* icon */		"w_enuke",
-/* pickup */	"EMPNuke",
-/* width */		3,
-		1,
-		"EMPNuke",
-		IT_AMMO|IT_ZAERO,
-		0,
-		NULL,
-		AMMO_EMPNUKE,
-/* precache */ "items/empnuke/emp_trg.wav"  //items/empnuke/emp_act.wav items/empnuke/emp_spin.wav items/empnuke/emp_idle.wav 
-	},
+	/*QUAKED ammo_empnuke (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_empnuke", /* FS: Zaero specific game dll changes */
+			Pickup_Ammo,
+			Use_Weapon,
+			Drop_Ammo,
+			Weapon_EMPNuke,
+			"misc/am_pkup.wav",
+			"models/weapons/g_enuke/tris.md2", EF_ROTATE,
+			"models/weapons/v_enuke/tris.md2",
+			/* icon */		"w_enuke",
+			/* pickup */	"EMPNuke",
+			/* width */		3,
+					1,
+					"EMPNuke",
+					IT_AMMO | IT_ZAERO,
+					0,
+					NULL,
+					AMMO_EMPNUKE,
+					/* precache */ "items/empnuke/emp_trg.wav"  //items/empnuke/emp_act.wav items/empnuke/emp_spin.wav items/empnuke/emp_idle.wav 
+						},
 
 	/* QUAKED ammo_flechettes (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3614,28 +3614,28 @@ always owned, never in the world
 	},
 
 
-/*QUAKED ammo_magslug (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_magslug",
-		Pickup_Ammo,
-		NULL,
-		Drop_Ammo,
-		NULL,
-		"misc/am_pkup.wav",
-		"models/objects/ammo/tris.md2", 0,
-		NULL,
-/* icon */		"a_mslugs",
-/* pickup */	"Mag Slug",
-/* width */		3,
-		10,
-		NULL,
-		IT_AMMO|IT_XATRIX, /* FS: Coop: Xatrix specific */
-		0,
-		NULL,
-		AMMO_MAGSLUG,
-/* precache */ ""
-	},
+	/*QUAKED ammo_magslug (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_magslug",
+			Pickup_Ammo,
+			NULL,
+			Drop_Ammo,
+			NULL,
+			"misc/am_pkup.wav",
+			"models/objects/ammo/tris.md2", 0,
+			NULL,
+			/* icon */		"a_mslugs",
+			/* pickup */	"Mag Slug",
+			/* width */		3,
+					10,
+					NULL,
+					IT_AMMO | IT_XATRIX, /* FS: Coop: Xatrix specific */
+					0,
+					NULL,
+					AMMO_MAGSLUG,
+					/* precache */ ""
+						},
 
 	//
 	// POWERUP ITEMS
@@ -3643,7 +3643,7 @@ always owned, never in the world
 /*QUAKED item_quad (.3 .3 1) (-16 -16 -16) (16 16 16)
 */
 	{
-		"item_quad", 
+		"item_quad",
 		Pickup_Powerup,
 		Use_Quad,
 		Drop_General,
@@ -3651,275 +3651,275 @@ always owned, never in the world
 		"items/pkup.wav",
 		"models/items/quaddama/tris.md2", EF_ROTATE,
 		NULL,
-/* icon */		"p_quad",
-/* pickup */	"Quad Damage",
-/* width */		2,
-		60,
-		NULL,
-		IT_POWERUP,
-		0,
-		NULL,
-		0,
-/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
-	},
+		/* icon */		"p_quad",
+		/* pickup */	"Quad Damage",
+		/* width */		2,
+				60,
+				NULL,
+				IT_POWERUP,
+				0,
+				NULL,
+				0,
+				/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
+					},
 
-/*QUAKED item_quadfire (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_quadfire", 
-		Pickup_Powerup,
-		Use_QuadFire,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/quadfire/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_quadfire",
+	/*QUAKED item_quadfire (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_quadfire",
+			Pickup_Powerup,
+			Use_QuadFire,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/quadfire/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_quadfire",
 
-/* pickup */	"DualFire Damage",
-/* width */		2,
-		60,
-		NULL,
-		IT_POWERUP|IT_XATRIX, /* FS: Coop: Xatrix specific */
-		0,
-		NULL,
-		0,
-/* precache */ "items/quadfire1.wav items/quadfire2.wav items/quadfire3.wav"
-	},
+			/* pickup */	"DualFire Damage",
+			/* width */		2,
+					60,
+					NULL,
+					IT_POWERUP | IT_XATRIX, /* FS: Coop: Xatrix specific */
+					0,
+					NULL,
+					0,
+					/* precache */ "items/quadfire1.wav items/quadfire2.wav items/quadfire3.wav"
+						},
 
-	
-/*QUAKED item_invulnerability (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_invulnerability",
-		Pickup_Powerup,
-		Use_Invulnerability,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/invulner/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_invulnerability",
-/* pickup */	"Invulnerability",
-/* width */		2,
-		300,
-		NULL,
-		IT_POWERUP,
-		0,
-		NULL,
-		0,
-/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
-	},
 
-/*QUAKED item_silencer (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_silencer",
-		Pickup_Powerup,
-		Use_Silencer,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/silencer/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_silencer",
-/* pickup */	"Silencer",
-/* width */		2,
-		60,
-		NULL,
-		IT_POWERUP,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED item_invulnerability (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_invulnerability",
+			Pickup_Powerup,
+			Use_Invulnerability,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/invulner/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_invulnerability",
+			/* pickup */	"Invulnerability",
+			/* width */		2,
+					300,
+					NULL,
+					IT_POWERUP,
+					0,
+					NULL,
+					0,
+					/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
+						},
 
-/*QUAKED item_breather (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_breather",
-		Pickup_Powerup,
-		Use_Breather,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/breather/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_rebreather",
-/* pickup */	"Rebreather",
-/* width */		2,
-		60,
-		NULL,
-		IT_STAY_COOP | IT_POWERUP,
-		0,
-		NULL,
-		0,
-/* precache */ "items/airout.wav"
-	},
+	/*QUAKED item_silencer (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_silencer",
+			Pickup_Powerup,
+			Use_Silencer,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/silencer/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_silencer",
+			/* pickup */	"Silencer",
+			/* width */		2,
+					60,
+					NULL,
+					IT_POWERUP,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
-/*QUAKED item_enviro (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_enviro",
-		Pickup_Powerup,
-		Use_Envirosuit,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/enviro/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_envirosuit",
-/* pickup */	"Environment Suit",
-/* width */		2,
-		60,
-		NULL,
-		IT_STAY_COOP | IT_POWERUP,
-		0,
-		NULL,
-		0,
-/* precache */ "items/airout.wav"
-	},
+	/*QUAKED item_breather (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_breather",
+			Pickup_Powerup,
+			Use_Breather,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/breather/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_rebreather",
+			/* pickup */	"Rebreather",
+			/* width */		2,
+					60,
+					NULL,
+					IT_STAY_COOP | IT_POWERUP,
+					0,
+					NULL,
+					0,
+					/* precache */ "items/airout.wav"
+						},
 
-/*QUAKED item_visor (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_visor", /* FS: Zaero specific game dll changes */
-		Pickup_Visor,
-		Use_Visor,
-		Drop_Visor,
-		NULL,
-		"items/pkup.wav",
-		"models/items/visor/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_visor",
-/* pickup */	"Visor",
-/* width */		1,
-		30,
-		"Cells",
-		IT_STAY_COOP|IT_POWERUP|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ "items/visor/act.wav items/visor/deact.wav"// items/visor/next.wav"
-	},
+	/*QUAKED item_enviro (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_enviro",
+			Pickup_Powerup,
+			Use_Envirosuit,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/enviro/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_envirosuit",
+			/* pickup */	"Environment Suit",
+			/* width */		2,
+					60,
+					NULL,
+					IT_STAY_COOP | IT_POWERUP,
+					0,
+					NULL,
+					0,
+					/* precache */ "items/airout.wav"
+						},
 
-  
-/*QUAKED ammo_plasmashield (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"ammo_plasmashield", /* FS: Zaero specific game dll changes */
-		Pickup_Ammo,
-		Use_PlasmaShield,
-		Drop_Ammo,
-		NULL,
-		"misc/ar3_pkup.wav",
-		"models/items/plasma/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_plasma",
-/* pickup */	"Plasma Shield",
-/* width */		1,
-		5,
-		"",
-		IT_AMMO|IT_ZAERO,
-		0,
-		NULL,
-		AMMO_PLASMASHIELD,
-/* precache */ "items/plasmashield/psactive.wav sprites/plasmashield_fixed.sp2"
-	},
+	/*QUAKED item_visor (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_visor", /* FS: Zaero specific game dll changes */
+			Pickup_Visor,
+			Use_Visor,
+			Drop_Visor,
+			NULL,
+			"items/pkup.wav",
+			"models/items/visor/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_visor",
+			/* pickup */	"Visor",
+			/* width */		1,
+					30,
+					"Cells",
+					IT_STAY_COOP | IT_POWERUP | IT_ZAERO,
+					0,
+					NULL,
+					0,
+					/* precache */ "items/visor/act.wav items/visor/deact.wav"// items/visor/next.wav"
+						},
 
-/*QUAKED item_ancient_head (.3 .3 1) (-16 -16 -16) (16 16 16)
-Special item that gives +2 to maximum health
-*/
-	{
-		"item_ancient_head",
-		Pickup_AncientHead,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		"models/items/c_head/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_fixme",
-/* pickup */	"Ancient Head",
-/* width */		2,
-		60,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
 
-/*QUAKED item_adrenaline (.3 .3 1) (-16 -16 -16) (16 16 16)
-gives +1 to maximum health
-*/
-	{
-		"item_adrenaline",
-		Pickup_Adrenaline,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		"models/items/adrenal/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_adrenaline",
-/* pickup */	"Adrenaline",
-/* width */		2,
-		60,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED ammo_plasmashield (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"ammo_plasmashield", /* FS: Zaero specific game dll changes */
+			Pickup_Ammo,
+			Use_PlasmaShield,
+			Drop_Ammo,
+			NULL,
+			"misc/ar3_pkup.wav",
+			"models/items/plasma/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_plasma",
+			/* pickup */	"Plasma Shield",
+			/* width */		1,
+					5,
+					"",
+					IT_AMMO | IT_ZAERO,
+					0,
+					NULL,
+					AMMO_PLASMASHIELD,
+					/* precache */ "items/plasmashield/psactive.wav sprites/plasmashield_fixed.sp2"
+						},
 
-/*QUAKED item_bandolier (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_bandolier",
-		Pickup_Bandolier,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		"models/items/band/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"p_bandolier",
-/* pickup */	"Bandolier",
-/* width */		2,
-		60,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED item_ancient_head (.3 .3 1) (-16 -16 -16) (16 16 16)
+	Special item that gives +2 to maximum health
+	*/
+		{
+			"item_ancient_head",
+			Pickup_AncientHead,
+			NULL,
+			NULL,
+			NULL,
+			"items/pkup.wav",
+			"models/items/c_head/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_fixme",
+			/* pickup */	"Ancient Head",
+			/* width */		2,
+					60,
+					NULL,
+					0,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
-/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"item_pack",
-		Pickup_Pack,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		"models/items/pack/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_pack",
-/* pickup */	"Ammo Pack",
-/* width */		2,
-		180,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED item_adrenaline (.3 .3 1) (-16 -16 -16) (16 16 16)
+	gives +1 to maximum health
+	*/
+		{
+			"item_adrenaline",
+			Pickup_Adrenaline,
+			NULL,
+			NULL,
+			NULL,
+			"items/pkup.wav",
+			"models/items/adrenal/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_adrenaline",
+			/* pickup */	"Adrenaline",
+			/* width */		2,
+					60,
+					NULL,
+					0,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
+
+	/*QUAKED item_bandolier (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_bandolier",
+			Pickup_Bandolier,
+			NULL,
+			NULL,
+			NULL,
+			"items/pkup.wav",
+			"models/items/band/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"p_bandolier",
+			/* pickup */	"Bandolier",
+			/* width */		2,
+					60,
+					NULL,
+					0,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
+
+	/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"item_pack",
+			Pickup_Pack,
+			NULL,
+			NULL,
+			NULL,
+			"items/pkup.wav",
+			"models/items/pack/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_pack",
+			/* pickup */	"Ammo Pack",
+			/* width */		2,
+					180,
+					NULL,
+					0,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
 	/* QUAKED item_ir_goggles (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3936,7 +3936,7 @@ gives +1 to maximum health
 		2,
 		60,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -3958,7 +3958,7 @@ gives +1 to maximum health
 		2,
 		60,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -3980,7 +3980,7 @@ gives +1 to maximum health
 		2,
 		60,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -4001,7 +4001,7 @@ gives +1 to maximum health
 		2,
 		60,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -4023,7 +4023,7 @@ gives +1 to maximum health
 		2,
 		120,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -4045,7 +4045,7 @@ gives +1 to maximum health
 		2,
 		60,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -4068,7 +4068,7 @@ gives +1 to maximum health
 		0,
 		90,
 		NULL,
-		IT_POWERUP|IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
@@ -4090,7 +4090,7 @@ gives +1 to maximum health
 		0,
 		0,
 		NULL,
-		IT_POWERUP | IT_NOT_GIVEABLE |IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_POWERUP | IT_NOT_GIVEABLE | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		1,
@@ -4122,224 +4122,224 @@ key for computer centers
 		0,
 		NULL,
 		0,
-/* precache */ ""
-	},
+		/* precache */ ""
+			},
 
-/*QUAKED key_power_cube (0 .5 .8) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN NO_TOUCH
-warehouse circuits
-*/
-	{
-		"key_power_cube",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/power/tris.md2", EF_ROTATE,
-		NULL,
-		"k_powercube",
-		"Power Cube",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_power_cube (0 .5 .8) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN NO_TOUCH
+	warehouse circuits
+	*/
+		{
+			"key_power_cube",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/power/tris.md2", EF_ROTATE,
+			NULL,
+			"k_powercube",
+			"Power Cube",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_pyramid (0 .5 .8) (-16 -16 -16) (16 16 16)
-key for the entrance of jail3
-*/
-	{
-		"key_pyramid",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/pyramid/tris.md2", EF_ROTATE,
-		NULL,
-		"k_pyramid",
-		"Pyramid Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_pyramid (0 .5 .8) (-16 -16 -16) (16 16 16)
+	key for the entrance of jail3
+	*/
+		{
+			"key_pyramid",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/pyramid/tris.md2", EF_ROTATE,
+			NULL,
+			"k_pyramid",
+			"Pyramid Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_data_spinner (0 .5 .8) (-16 -16 -16) (16 16 16)
-key for the city computer
-*/
-	{
-		"key_data_spinner",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/spinner/tris.md2", EF_ROTATE,
-		NULL,
-		"k_dataspin",
-		"Data Spinner",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_data_spinner (0 .5 .8) (-16 -16 -16) (16 16 16)
+	key for the city computer
+	*/
+		{
+			"key_data_spinner",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/spinner/tris.md2", EF_ROTATE,
+			NULL,
+			"k_dataspin",
+			"Data Spinner",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_pass (0 .5 .8) (-16 -16 -16) (16 16 16)
-security pass for the security level
-*/
-	{
-		"key_pass",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/pass/tris.md2", EF_ROTATE,
-		NULL,
-		"k_security",
-		"Security Pass",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_pass (0 .5 .8) (-16 -16 -16) (16 16 16)
+	security pass for the security level
+	*/
+		{
+			"key_pass",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/pass/tris.md2", EF_ROTATE,
+			NULL,
+			"k_security",
+			"Security Pass",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_blue_key (0 .5 .8) (-16 -16 -16) (16 16 16)
-normal door key - blue
-*/
-	{
-		"key_blue_key",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/key/tris.md2", EF_ROTATE,
-		NULL,
-		"k_bluekey",
-		"Blue Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_blue_key (0 .5 .8) (-16 -16 -16) (16 16 16)
+	normal door key - blue
+	*/
+		{
+			"key_blue_key",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/key/tris.md2", EF_ROTATE,
+			NULL,
+			"k_bluekey",
+			"Blue Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_red_key (0 .5 .8) (-16 -16 -16) (16 16 16)
-normal door key - red
-*/
-	{
-		"key_red_key",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/red_key/tris.md2", EF_ROTATE,
-		NULL,
-		"k_redkey",
-		"Red Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_red_key (0 .5 .8) (-16 -16 -16) (16 16 16)
+	normal door key - red
+	*/
+		{
+			"key_red_key",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/red_key/tris.md2", EF_ROTATE,
+			NULL,
+			"k_redkey",
+			"Red Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_green_key (0 .5 .8) (-16 -16 -16) (16 16 16)
-normal door key - blue
-*/
-	{
-		"key_green_key",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/green_key/tris.md2", EF_ROTATE,
-		NULL,
-		"k_green",
-		"Green Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_XATRIX, /* FS: Coop: Xatrix specific */
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_green_key (0 .5 .8) (-16 -16 -16) (16 16 16)
+	normal door key - blue
+	*/
+		{
+			"key_green_key",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/green_key/tris.md2", EF_ROTATE,
+			NULL,
+			"k_green",
+			"Green Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_XATRIX, /* FS: Coop: Xatrix specific */
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_commander_head (0 .5 .8) (-16 -16 -16) (16 16 16)
-tank commander's head
-*/
-	{
-		"key_commander_head",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/monsters/commandr/head/tris.md2", EF_GIB,
-		NULL,
-/* icon */		"k_comhead",
-/* pickup */	"Commander's Head",
-/* width */		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_commander_head (0 .5 .8) (-16 -16 -16) (16 16 16)
+	tank commander's head
+	*/
+		{
+			"key_commander_head",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/monsters/commandr/head/tris.md2", EF_GIB,
+			NULL,
+			/* icon */		"k_comhead",
+			/* pickup */	"Commander's Head",
+			/* width */		2,
+					0,
+					NULL,
+					IT_STAY_COOP | IT_KEY,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
-/*QUAKED key_airstrike_target (0 .5 .8) (-16 -16 -16) (16 16 16)
-tank commander's head
-*/
-	{
-		"key_airstrike_target",
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/target/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_airstrike",
-/* pickup */	"Airstrike Marker",
-/* width */		2,
-		0,
-		NULL,
-		IT_STAY_COOP | IT_KEY,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_airstrike_target (0 .5 .8) (-16 -16 -16) (16 16 16)
+	tank commander's head
+	*/
+		{
+			"key_airstrike_target",
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/target/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_airstrike",
+			/* pickup */	"Airstrike Marker",
+			/* width */		2,
+					0,
+					NULL,
+					IT_STAY_COOP | IT_KEY,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
 	/* QUAKED key_nuke_container (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -4380,199 +4380,199 @@ tank commander's head
 		2,
 		0,
 		NULL,
-		IT_STAY_COOP | IT_KEY| IT_ROGUE, /* FS: Coop: Rogue specific */
+		IT_STAY_COOP | IT_KEY | IT_ROGUE, /* FS: Coop: Rogue specific */
 		0,
 		NULL,
 		0,
 		NULL,
 	},
 
-// extra zaero keys
-/*QUAKED key_landing_arena (0 .5 .8) (-16 -16 -16) (16 16 16)
-landing arena key - blue
-*/
-	{
-		"key_landing_area", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/key/tris.md2", EF_ROTATE,
-		NULL,
-		"k_bluekey",
-		"Airfield Pass",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	// extra zaero keys
+	/*QUAKED key_landing_arena (0 .5 .8) (-16 -16 -16) (16 16 16)
+	landing arena key - blue
+	*/
+		{
+			"key_landing_area", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/key/tris.md2", EF_ROTATE,
+			NULL,
+			"k_bluekey",
+			"Airfield Pass",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_lab (0 .5 .8) (-16 -16 -16) (16 16 16)
-security pass for the laboratory
-*/
-	{
-		"key_lab", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/pass/tris.md2", EF_ROTATE,
-		NULL,
-		"k_security",
-		"Laboratory Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_lab (0 .5 .8) (-16 -16 -16) (16 16 16)
+	security pass for the laboratory
+	*/
+		{
+			"key_lab", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/pass/tris.md2", EF_ROTATE,
+			NULL,
+			"k_security",
+			"Laboratory Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_clearancepass (0 .5 .8) (-16 -16 -16) (16 16 16)
-security pass for the security level
-*/
-	{
-		"key_clearancepass", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/pass/tris.md2", EF_ROTATE,
-		NULL,
-		"k_security",
-		"Clearance Pass",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_clearancepass (0 .5 .8) (-16 -16 -16) (16 16 16)
+	security pass for the security level
+	*/
+		{
+			"key_clearancepass", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/pass/tris.md2", EF_ROTATE,
+			NULL,
+			"k_security",
+			"Clearance Pass",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_energy (0 .5 .8) (-16 -16 -16) (16 16 16)
-security pass for the security level
-*/
-	{
-		"key_energy", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/energy/tris.md2", EF_ROTATE,
-		NULL,
-		"k_energy",
-		"Energy Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_energy (0 .5 .8) (-16 -16 -16) (16 16 16)
+	security pass for the security level
+	*/
+		{
+			"key_energy", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/energy/tris.md2", EF_ROTATE,
+			NULL,
+			"k_energy",
+			"Energy Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_lava (0 .5 .8) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"key_lava", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/lava/tris.md2", EF_ROTATE,
-		NULL,
-		"k_lava",
-		"Lava Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_lava (0 .5 .8) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"key_lava", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/lava/tris.md2", EF_ROTATE,
+			NULL,
+			"k_lava",
+			"Lava Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-/*QUAKED key_slime (0 .5 .8) (-16 -16 -16) (16 16 16)
-*/
-	{
-		"key_slime", /* FS: Zaero specific game dll changes */
-		Pickup_Key,
-		NULL,
-		Drop_General,
-		NULL,
-		"items/pkup.wav",
-		"models/items/keys/slime/tris.md2", EF_ROTATE,
-		NULL,
-		"k_slime",
-		"Slime Key",
-		2,
-		0,
-		NULL,
-		IT_STAY_COOP|IT_KEY|IT_ZAERO,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED key_slime (0 .5 .8) (-16 -16 -16) (16 16 16)
+	*/
+		{
+			"key_slime", /* FS: Zaero specific game dll changes */
+			Pickup_Key,
+			NULL,
+			Drop_General,
+			NULL,
+			"items/pkup.wav",
+			"models/items/keys/slime/tris.md2", EF_ROTATE,
+			NULL,
+			"k_slime",
+			"Slime Key",
+			2,
+			0,
+			NULL,
+			IT_STAY_COOP | IT_KEY | IT_ZAERO,
+			0,
+			NULL,
+			0,
+			/* precache */ ""
+				},
 
-	{
-		NULL,
-		Pickup_Health,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		NULL, 0,
-		NULL,
-/* icon */		"i_health",
-/* pickup */	"Health",
-/* width */		3,
-		0,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ "items/s_health.wav items/n_health.wav items/l_health.wav items/m_health.wav"
-	},
+				{
+					NULL,
+					Pickup_Health,
+					NULL,
+					NULL,
+					NULL,
+					"items/pkup.wav",
+					NULL, 0,
+					NULL,
+					/* icon */		"i_health",
+					/* pickup */	"Health",
+					/* width */		3,
+							0,
+							NULL,
+							0,
+							0,
+							NULL,
+							0,
+							/* precache */ "items/s_health.wav items/n_health.wav items/l_health.wav items/m_health.wav"
+								},
 
-/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
-	{ /* FS: Coop: Spawn a backpack with our stuff */
-		NULL,
-		Pickup_CoopBackpack,
-		NULL,
-		NULL,
-		NULL,
-		"items/pkup.wav",
-		"models/items/pack/tris.md2", EF_ROTATE,
-		NULL,
-/* icon */		"i_pack",
-/* pickup */	"Coop Backpack",
-/* width */		2,
-		180,
-		NULL,
-		0,
-		0,
-		NULL,
-		0,
-/* precache */ ""
-	},
+	/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+		{ /* FS: Coop: Spawn a backpack with our stuff */
+			NULL,
+			Pickup_CoopBackpack,
+			NULL,
+			NULL,
+			NULL,
+			"items/pkup.wav",
+			"models/items/pack/tris.md2", EF_ROTATE,
+			NULL,
+			/* icon */		"i_pack",
+			/* pickup */	"Coop Backpack",
+			/* width */		2,
+					180,
+					NULL,
+					0,
+					0,
+					NULL,
+					0,
+					/* precache */ ""
+						},
 
 	/* end of list marker */
 	{NULL}
@@ -4582,7 +4582,7 @@ security pass for the security level
  * QUAKED item_health (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN
  */
 void
-SP_item_health(edict_t *self)
+SP_item_health(edict_t* self)
 {
 	if (!self)
 	{
@@ -4605,7 +4605,7 @@ SP_item_health(edict_t *self)
  * QUAKED item_health_small (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN
  */
 void
-SP_item_health_small(edict_t *self)
+SP_item_health_small(edict_t* self)
 {
 	if (!self)
 	{
@@ -4627,7 +4627,7 @@ SP_item_health_small(edict_t *self)
 
 /*QUAKED item_health_large (.3 .3 1) (-16 -16 -16) (16 16 16)
 */
-void SP_item_health_large (edict_t *self)
+void SP_item_health_large(edict_t* self)
 {
 	if (!self)
 	{
@@ -4650,7 +4650,7 @@ void SP_item_health_large (edict_t *self)
  * QUAKED item_health_mega (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN
  */
 void
-SP_item_health_mega(edict_t *self)
+SP_item_health_mega(edict_t* self)
 {
 	if (!self)
 	{
@@ -4670,7 +4670,7 @@ SP_item_health_mega(edict_t *self)
 	self->style = HEALTH_IGNORE_MAX | HEALTH_TIMED;
 }
 
-void SP_item_foodcube (edict_t *self) /* FS: Coop: Xatrix specific */
+void SP_item_foodcube(edict_t* self) /* FS: Coop: Xatrix specific */
 {
 	if (!self)
 	{
@@ -4704,7 +4704,7 @@ void
 SetItemNames(void)
 {
 	int i;
-	gitem_t *it;
+	gitem_t* it;
 
 	for (i = 0; i < game.num_items; i++)
 	{
@@ -4731,18 +4731,18 @@ SetItemNames(void)
 }
 
 void
-SP_xatrix_item(edict_t *self) /* FS: Coop: Rogue specific */
+SP_xatrix_item(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	gitem_t *item;
+	gitem_t* item;
 	int i;
-	char *spawnClass = "";
+	char* spawnClass = "";
 
 	if (!self || !self->classname)
 	{
 		return;
 	}
 
-	if(game.gametype == xatrix_coop) /* FS: FIXME: Coop: This should work for Xatrix, but need to test the maps that have these items to be sure. */
+	if (game.gametype == xatrix_coop) /* FS: FIXME: Coop: This should work for Xatrix, but need to test the maps that have these items to be sure. */
 	{
 		ED_CallSpawn(self);
 		return;
@@ -4801,10 +4801,10 @@ SP_xatrix_item(edict_t *self) /* FS: Coop: Rogue specific */
 	}
 }
 
-void Spawn_CoopBackpack(edict_t *ent)
+void Spawn_CoopBackpack(edict_t* ent)
 {
-	edict_t *backpack;
-	gitem_t *it;
+	edict_t* backpack;
+	gitem_t* it;
 	int i;
 
 	if (!ent || !ent->client)
@@ -4814,7 +4814,7 @@ void Spawn_CoopBackpack(edict_t *ent)
 	}
 
 	it = FindItem("Coop Backpack");
-	if(!it)
+	if (!it)
 	{
 		gi.dprintf("Spawn_CoopBackpack: Can't find Coop Backpack.\n");
 		return;
@@ -4826,7 +4826,7 @@ void Spawn_CoopBackpack(edict_t *ent)
 
 	VectorCopy(ent->s.origin, backpack->s.origin); /* FS: Copy off the player's origin */
 
-	for(i = 1; i < MAX_ITEMS; i++)
+	for (i = 1; i < MAX_ITEMS; i++)
 	{
 		backpack->coopBackpackInventory[i] = ent->client->pers.inventory[i];
 	}
@@ -4837,7 +4837,7 @@ void Spawn_CoopBackpack(edict_t *ent)
 		gi.error("TagMalloc failed in %s\n", __func__);
 		return;
 	}
-		strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
+	strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
 
 	backpack->coopBackpackAmmoUpgrade = ent->client->pers.ammoUpgrade;
 
@@ -4845,7 +4845,7 @@ void Spawn_CoopBackpack(edict_t *ent)
 }
 
 qboolean
-Pickup_CoopBackpack(edict_t *ent, edict_t *other) /* FS: Coop: Spawn a backpack with the goodies */
+Pickup_CoopBackpack(edict_t* ent, edict_t* other) /* FS: Coop: Spawn a backpack with the goodies */
 {
 	int i;
 
@@ -4856,7 +4856,7 @@ Pickup_CoopBackpack(edict_t *ent, edict_t *other) /* FS: Coop: Spawn a backpack 
 
 	gi.cprintf(other, PRINT_HIGH, "You picked up %s's backpack.\n", ent->coopBackpackNetname);
 
-	if(ent->coopBackpackMaxHealth > other->max_health) /* FS: Coop: Give back adrenaline boosts */
+	if (ent->coopBackpackMaxHealth > other->max_health) /* FS: Coop: Give back adrenaline boosts */
 	{
 		other->max_health = ent->coopBackpackMaxHealth;
 		other->client->resp.coop_respawn.max_health = ent->coopBackpackMaxHealth;
@@ -4866,24 +4866,24 @@ Pickup_CoopBackpack(edict_t *ent, edict_t *other) /* FS: Coop: Spawn a backpack 
 		}
 	}
 
-	if(ent->coopBackpackAmmoUpgrade > other->client->pers.ammoUpgrade)
+	if (ent->coopBackpackAmmoUpgrade > other->client->pers.ammoUpgrade)
 	{
-		switch(ent->coopBackpackAmmoUpgrade)
+		switch (ent->coopBackpackAmmoUpgrade)
 		{
-			case COOP_BANDOLIER:
-				Pickup_Bandolier(NULL, other);
-				break;
-			case COOP_BACKPACK:
-				Pickup_Pack(NULL, other);
-				break;
-			default:
-				break;
+		case COOP_BANDOLIER:
+			Pickup_Bandolier(NULL, other);
+			break;
+		case COOP_BACKPACK:
+			Pickup_Pack(NULL, other);
+			break;
+		default:
+			break;
 		}
 	}
 
-	for(i = 1; i < MAX_ITEMS; i++)
+	for (i = 1; i < MAX_ITEMS; i++)
 	{
-		if(ent->coopBackpackInventory[i] > other->client->pers.inventory[i])
+		if (ent->coopBackpackInventory[i] > other->client->pers.inventory[i])
 		{
 			other->client->pers.inventory[i] = ent->coopBackpackInventory[i];
 		}

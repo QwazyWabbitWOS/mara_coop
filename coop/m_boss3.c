@@ -10,7 +10,7 @@ boss3
 #include "m_boss32.h"
 
 void
-Use_Boss3(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unused */)
+Use_Boss3(edict_t* ent, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!ent)
 	{
@@ -25,7 +25,7 @@ Use_Boss3(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unuse
 }
 
 void
-Think_Boss3Stand(edict_t *ent)
+Think_Boss3Stand(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -50,7 +50,7 @@ Think_Boss3Stand(edict_t *ent)
  * Just stands and cycles in one place until targeted, then teleports away.
  */
 void
-SP_monster_boss3_stand(edict_t *self)
+SP_monster_boss3_stand(edict_t* self)
 {
 	if (!self)
 	{

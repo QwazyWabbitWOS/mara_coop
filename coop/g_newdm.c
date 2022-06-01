@@ -9,13 +9,13 @@
 
 dm_game_rt DMGame;
 
-extern qboolean Pickup_Health(edict_t *ent, edict_t *other);
-extern qboolean Pickup_Adrenaline(edict_t *ent, edict_t *other);
-extern qboolean Pickup_Armor(edict_t *ent, edict_t *other);
-extern qboolean Pickup_PowerArmor(edict_t *ent, edict_t *other);
-extern edict_t *Sphere_Spawn(edict_t *owner, int spawnflags);
-extern void ED_CallSpawn(edict_t *ent);
-void fire_doppleganger(edict_t *ent, vec3_t start, vec3_t aimdir);
+extern qboolean Pickup_Health(edict_t* ent, edict_t* other);
+extern qboolean Pickup_Adrenaline(edict_t* ent, edict_t* other);
+extern qboolean Pickup_Armor(edict_t* ent, edict_t* other);
+extern qboolean Pickup_PowerArmor(edict_t* ent, edict_t* other);
+extern edict_t* Sphere_Spawn(edict_t* owner, int spawnflags);
+extern void ED_CallSpawn(edict_t* ent);
+void fire_doppleganger(edict_t* ent, vec3_t start, vec3_t aimdir);
 
 void
 InitGameRules(void)
@@ -31,21 +31,21 @@ InitGameRules(void)
 
 		switch (gameNum)
 		{
-			case RDM_TAG:
-				DMGame.GameInit = Tag_GameInit;
-				DMGame.PostInitSetup = Tag_PostInitSetup;
-				DMGame.PlayerDeath = Tag_PlayerDeath;
-				DMGame.Score = Tag_Score;
-				DMGame.PlayerEffects = Tag_PlayerEffects;
-				DMGame.DogTag = Tag_DogTag;
-				DMGame.PlayerDisconnect = Tag_PlayerDisconnect;
-				DMGame.ChangeDamage = Tag_ChangeDamage;
-				break;
+		case RDM_TAG:
+			DMGame.GameInit = Tag_GameInit;
+			DMGame.PostInitSetup = Tag_PostInitSetup;
+			DMGame.PlayerDeath = Tag_PlayerDeath;
+			DMGame.Score = Tag_Score;
+			DMGame.PlayerEffects = Tag_PlayerEffects;
+			DMGame.DogTag = Tag_DogTag;
+			DMGame.PlayerDisconnect = Tag_PlayerDisconnect;
+			DMGame.ChangeDamage = Tag_ChangeDamage;
+			break;
 
 			/* reset gamerules if it's not a valid number */
-			default:
-				gamerules->value = 0;
-				break;
+		default:
+			gamerules->value = 0;
+			break;
 		}
 	}
 
@@ -56,15 +56,15 @@ InitGameRules(void)
 	}
 }
 
-char *
-FindSubstituteItem(edict_t *ent)
+char*
+FindSubstituteItem(edict_t* ent)
 {
 	int i;
 	int itflags, myflags;
 	float rnd;
 	int count;
 	int pick;
-	gitem_t *it;
+	gitem_t* it;
 
 	/* there are only two classes of power armor, and we don't want
 	   to give out power screens. therefore, power shields should
@@ -161,8 +161,8 @@ FindSubstituteItem(edict_t *ent)
 		{
 			if (ent->classname &&
 				(!strcmp(ent->classname, "item_sphere_vengeance") ||
-				!strcmp(ent->classname, "item_sphere_hunter") ||
-				!strcmp(ent->classname, "item_spehre_defender")))
+					!strcmp(ent->classname, "item_sphere_hunter") ||
+					!strcmp(ent->classname, "item_spehre_defender")))
 			{
 				continue;
 			}
@@ -242,11 +242,11 @@ FindSubstituteItem(edict_t *ent)
 	return NULL;
 }
 
-edict_t *
-DoRandomRespawn(edict_t *ent)
+edict_t*
+DoRandomRespawn(edict_t* ent)
 {
-	edict_t *newEnt;
-	char *classname;
+	edict_t* newEnt;
+	char* classname;
 
 	if (!ent)
 	{
@@ -281,7 +281,7 @@ DoRandomRespawn(edict_t *ent)
 void
 PrecacheForRandomRespawn(void)
 {
-	gitem_t *it;
+	gitem_t* it;
 	int i;
 	int itflags;
 
@@ -301,12 +301,12 @@ PrecacheForRandomRespawn(void)
 }
 
 void
-doppleganger_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
-		int damage, vec3_t point)
+doppleganger_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker,
+	int damage, vec3_t point)
 {
-	edict_t *sphere;
+	edict_t* sphere;
 	float dist;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !attacker)
 	{
@@ -339,13 +339,13 @@ doppleganger_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attack
 }
 
 void
-doppleganger_pain(edict_t *self, edict_t *other, float kick, int damage)
+doppleganger_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	self->enemy = other;
 }
 
 void
-doppleganger_timeout(edict_t *self)
+doppleganger_timeout(edict_t* self)
 {
 	if (self->teamchain)
 	{
@@ -356,7 +356,7 @@ doppleganger_timeout(edict_t *self)
 }
 
 void
-body_think(edict_t *self)
+body_think(edict_t* self)
 {
 	float r;
 
@@ -389,10 +389,10 @@ body_think(edict_t *self)
 }
 
 void
-fire_doppleganger(edict_t *ent, vec3_t start, vec3_t aimdir)
+fire_doppleganger(edict_t* ent, vec3_t start, vec3_t aimdir)
 {
-	edict_t *base;
-	edict_t *body;
+	edict_t* base;
+	edict_t* body;
 	vec3_t dir;
 	vec3_t forward, right, up;
 	int number;

@@ -23,10 +23,10 @@ static int sound_step2;
 static int sound_step3;
 static int sound_thud;
 
-void mutant_walk(edict_t *self);
+void mutant_walk(edict_t* self);
 
 void
-mutant_step(edict_t *self)
+mutant_step(edict_t* self)
 {
 	int n;
 
@@ -52,7 +52,7 @@ mutant_step(edict_t *self)
 }
 
 void
-mutant_sight(edict_t *self, edict_t *other /* unused */)
+mutant_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -63,7 +63,7 @@ mutant_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-mutant_search(edict_t *self)
+mutant_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -74,7 +74,7 @@ mutant_search(edict_t *self)
 }
 
 void
-mutant_swing(edict_t *self)
+mutant_swing(edict_t* self)
 {
 	if (!self)
 	{
@@ -145,13 +145,13 @@ mframe_t mutant_frames_stand[] = {
 
 mmove_t mutant_move_stand = {
 	FRAME_stand101,
-   	FRAME_stand151,
-   	mutant_frames_stand,
-   	NULL
+	FRAME_stand151,
+	mutant_frames_stand,
+	NULL
 };
 
 void
-mutant_stand(edict_t *self)
+mutant_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -162,7 +162,7 @@ mutant_stand(edict_t *self)
 }
 
 void
-mutant_idle_loop(edict_t *self)
+mutant_idle_loop(edict_t* self)
 {
 	if (!self)
 	{
@@ -193,13 +193,13 @@ mframe_t mutant_frames_idle[] = {
 
 mmove_t mutant_move_idle = {
 	FRAME_stand152,
-   	FRAME_stand164,
-   	mutant_frames_idle,
-   	mutant_stand
+	FRAME_stand164,
+	mutant_frames_idle,
+	mutant_stand
 };
 
 void
-mutant_idle(edict_t *self)
+mutant_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -227,13 +227,13 @@ mframe_t mutant_frames_walk[] = {
 
 mmove_t mutant_move_walk = {
 	FRAME_walk05,
-   	FRAME_walk16,
-   	mutant_frames_walk,
-   	NULL
+	FRAME_walk16,
+	mutant_frames_walk,
+	NULL
 };
 
 void
-mutant_walk_loop(edict_t *self)
+mutant_walk_loop(edict_t* self)
 {
 	if (!self)
 	{
@@ -252,13 +252,13 @@ mframe_t mutant_frames_start_walk[] = {
 
 mmove_t mutant_move_start_walk = {
 	FRAME_walk01,
-   	FRAME_walk04,
-   	mutant_frames_start_walk,
-   	mutant_walk_loop
+	FRAME_walk04,
+	mutant_frames_start_walk,
+	mutant_walk_loop
 };
 
 void
-mutant_walk(edict_t *self)
+mutant_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -279,13 +279,13 @@ mframe_t mutant_frames_run[] = {
 
 mmove_t mutant_move_run = {
 	FRAME_run03,
-   	FRAME_run08,
-   	mutant_frames_run,
-   	NULL
+	FRAME_run08,
+	mutant_frames_run,
+	NULL
 };
 
 void
-mutant_run(edict_t *self)
+mutant_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -303,9 +303,9 @@ mutant_run(edict_t *self)
 }
 
 void
-mutant_hit_left(edict_t *self)
+mutant_hit_left(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -325,9 +325,9 @@ mutant_hit_left(edict_t *self)
 }
 
 void
-mutant_hit_right(edict_t *self)
+mutant_hit_right(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -347,7 +347,7 @@ mutant_hit_right(edict_t *self)
 }
 
 void
-mutant_check_refire(edict_t *self)
+mutant_check_refire(edict_t* self)
 {
 	if (!self)
 	{
@@ -377,13 +377,13 @@ mframe_t mutant_frames_attack[] = {
 
 mmove_t mutant_move_attack = {
 	FRAME_attack09,
-   	FRAME_attack15,
-   	mutant_frames_attack,
-   	mutant_run
+	FRAME_attack15,
+	mutant_frames_attack,
+	mutant_run
 };
 
 void
-mutant_melee(edict_t *self)
+mutant_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -394,8 +394,8 @@ mutant_melee(edict_t *self)
 }
 
 void
-mutant_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+mutant_jump_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -413,7 +413,7 @@ mutant_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 		if (VectorLength(self->velocity) > 400)
 		{
 			vec3_t point;
-			vec3_t normal;
+			vec3_t normal = { 0 };
 			int damage;
 
 			VectorCopy(self->velocity, normal);
@@ -421,7 +421,7 @@ mutant_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 			VectorMA(self->s.origin, self->maxs[0], normal, point);
 			damage = 40 + 10 * random();
 			T_Damage(other, self, self, self->velocity, point,
-					normal, damage, damage, 0, MOD_UNKNOWN);
+				normal, damage, damage, 0, MOD_UNKNOWN);
 		}
 	}
 
@@ -440,7 +440,7 @@ mutant_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 }
 
 void
-mutant_jump_takeoff(edict_t *self)
+mutant_jump_takeoff(edict_t* self)
 {
 	vec3_t forward;
 
@@ -461,7 +461,7 @@ mutant_jump_takeoff(edict_t *self)
 }
 
 void
-mutant_check_landing(edict_t *self)
+mutant_check_landing(edict_t* self)
 {
 	if (!self)
 	{
@@ -499,13 +499,13 @@ mframe_t mutant_frames_jump[] = {
 
 mmove_t mutant_move_jump = {
 	FRAME_attack01,
-   	FRAME_attack08,
-   	mutant_frames_jump,
-   	mutant_run
+	FRAME_attack08,
+	mutant_frames_jump,
+	mutant_run
 };
 
 void
-mutant_jump(edict_t *self)
+mutant_jump(edict_t* self)
 {
 	if (!self)
 	{
@@ -516,7 +516,7 @@ mutant_jump(edict_t *self)
 }
 
 qboolean
-mutant_check_melee(edict_t *self)
+mutant_check_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -532,9 +532,9 @@ mutant_check_melee(edict_t *self)
 }
 
 qboolean
-mutant_check_jump(edict_t *self)
+mutant_check_jump(edict_t* self)
 {
-	vec3_t v;
+	vec3_t v = { 0 };
 	float distance;
 
 	if (!self)
@@ -574,7 +574,7 @@ mutant_check_jump(edict_t *self)
 }
 
 qboolean
-mutant_checkattack(edict_t *self)
+mutant_checkattack(edict_t* self)
 {
 	if (!self)
 	{
@@ -611,9 +611,9 @@ mframe_t mutant_frames_pain1[] = {
 
 mmove_t mutant_move_pain1 = {
 	FRAME_pain101,
-   	FRAME_pain105,
-   	mutant_frames_pain1,
-   	mutant_run
+	FRAME_pain105,
+	mutant_frames_pain1,
+	mutant_run
 };
 
 mframe_t mutant_frames_pain2[] = {
@@ -627,9 +627,9 @@ mframe_t mutant_frames_pain2[] = {
 
 mmove_t mutant_move_pain2 = {
 	FRAME_pain201,
-   	FRAME_pain206,
-   	mutant_frames_pain2,
-   	mutant_run
+	FRAME_pain206,
+	mutant_frames_pain2,
+	mutant_run
 };
 
 mframe_t mutant_frames_pain3[] = {
@@ -648,13 +648,13 @@ mframe_t mutant_frames_pain3[] = {
 
 mmove_t mutant_move_pain3 = {
 	FRAME_pain301,
-   	FRAME_pain311,
-   	mutant_frames_pain3,
-   	mutant_run
+	FRAME_pain311,
+	mutant_frames_pain3,
+	mutant_run
 };
 
 void
-mutant_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
+mutant_pain(edict_t* self, edict_t* other /* unused */, float kick, int damage)
 {
 	float r;
 
@@ -700,7 +700,7 @@ mutant_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
 }
 
 void
-mutant_dead(edict_t *self)
+mutant_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -730,9 +730,9 @@ mframe_t mutant_frames_death1[] = {
 
 mmove_t mutant_move_death1 = {
 	FRAME_death101,
-   	FRAME_death109,
-   	mutant_frames_death1,
-   	mutant_dead
+	FRAME_death109,
+	mutant_frames_death1,
+	mutant_dead
 };
 
 mframe_t mutant_frames_death2[] = {
@@ -750,14 +750,14 @@ mframe_t mutant_frames_death2[] = {
 
 mmove_t mutant_move_death2 = {
 	FRAME_death201,
-   	FRAME_death210,
-   	mutant_frames_death2,
-   	mutant_dead
+	FRAME_death210,
+	mutant_frames_death2,
+	mutant_dead
 };
 
 void
-mutant_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unsued */,
-		int damage, vec3_t point /* unused */)
+mutant_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unsued */,
+	int damage, vec3_t point /* unused */)
 {
 	int n;
 
@@ -809,7 +809,7 @@ mutant_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* 
  * QUAKED monster_mutant (1 .5 0) (-32 -32 -24) (32 32 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_mutant(edict_t *self)
+SP_monster_mutant(edict_t* self)
 {
 	if (!self)
 	{

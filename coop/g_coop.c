@@ -31,41 +31,41 @@
 #define COOP_VSTRING(x) COOP_VSTRING2(x)
 #define COOP_STRING_VERSION  COOP_VSTRING(COOP_VERSION)
 
-void CoopOpenJoinMenu(edict_t *ent);
-void CoopOpenVoteMenu(edict_t *ent);
-void CoopReturnToMain(edict_t *ent, pmenuhnd_t *p);
-void CoopReturnToVoteMenu(edict_t *ent, pmenuhnd_t *p);
-void CoopCredits(edict_t *ent, pmenuhnd_t *p);
-void CoopChaseCam(edict_t *ent, pmenuhnd_t *p);
-void CoopJoinGame(edict_t *ent, pmenuhnd_t *p);
-void CoopBlinkyCam(edict_t *ent, pmenuhnd_t *p);
-void CoopMotd(edict_t *ent, pmenuhnd_t *p);
+void CoopOpenJoinMenu(edict_t* ent);
+void CoopOpenVoteMenu(edict_t* ent);
+void CoopReturnToMain(edict_t* ent, pmenuhnd_t* p);
+void CoopReturnToVoteMenu(edict_t* ent, pmenuhnd_t* p);
+void CoopCredits(edict_t* ent, pmenuhnd_t* p);
+void CoopChaseCam(edict_t* ent, pmenuhnd_t* p);
+void CoopJoinGame(edict_t* ent, pmenuhnd_t* p);
+void CoopBlinkyCam(edict_t* ent, pmenuhnd_t* p);
+void CoopMotd(edict_t* ent, pmenuhnd_t* p);
 
-void CoopVoteMenu(edict_t *ent, pmenuhnd_t *p);
-void CoopVoteDifficulty(edict_t *ent, pmenuhnd_t *p);
-void CoopVoteMap(edict_t *ent, pmenuhnd_t *p);
-void CoopVoteRestartMap(edict_t *ent, pmenuhnd_t *p);
-void CoopVotePlayerReq(edict_t *ent, pmenuhnd_t *p);
-void CoopVotePlayerKick(edict_t *ent, pmenuhnd_t *p);
-void CoopVotePlayerBan(edict_t *ent, pmenuhnd_t *p);
-void CoopCheckGamemode(edict_t *ent, pmenuhnd_t *p);
-void CoopCheckDifficulty(edict_t *ent, pmenuhnd_t *p);
-void votemenu_loadmaplist (void);
-void CoopVoteChangeMap(edict_t *ent, pmenuhnd_t *p);
-void votemenu_cleanup_all (void);
-void votemenu_cleanup_filebuffer (void);
-void CoopUpdateBlinkyMenu(edict_t *ent);
-void CoopBlinkyChaseMenu(edict_t *ent, pmenuhnd_t *p);
-void CoopBlinkySummonMenu(edict_t *ent, pmenuhnd_t *p);
-void CoopBlinkyTeleportMenu(edict_t *ent, pmenuhnd_t *p);
-void CoopBlinkyToggleSummon(edict_t *ent, pmenuhnd_t *p);
+void CoopVoteMenu(edict_t* ent, pmenuhnd_t* p);
+void CoopVoteDifficulty(edict_t* ent, pmenuhnd_t* p);
+void CoopVoteMap(edict_t* ent, pmenuhnd_t* p);
+void CoopVoteRestartMap(edict_t* ent, pmenuhnd_t* p);
+void CoopVotePlayerReq(edict_t* ent, pmenuhnd_t* p);
+void CoopVotePlayerKick(edict_t* ent, pmenuhnd_t* p);
+void CoopVotePlayerBan(edict_t* ent, pmenuhnd_t* p);
+void CoopCheckGamemode(edict_t* ent, pmenuhnd_t* p);
+void CoopCheckDifficulty(edict_t* ent, pmenuhnd_t* p);
+void votemenu_loadmaplist(void);
+void CoopVoteChangeMap(edict_t* ent, pmenuhnd_t* p);
+void votemenu_cleanup_all(void);
+void votemenu_cleanup_filebuffer(void);
+void CoopUpdateBlinkyMenu(edict_t* ent);
+void CoopBlinkyChaseMenu(edict_t* ent, pmenuhnd_t* p);
+void CoopBlinkySummonMenu(edict_t* ent, pmenuhnd_t* p);
+void CoopBlinkyTeleportMenu(edict_t* ent, pmenuhnd_t* p);
+void CoopBlinkyToggleSummon(edict_t* ent, pmenuhnd_t* p);
 
-void CoopGamemodeInit (void);
-int CoopGamemodeExists (const char *gamemode);
-void CoopGamemodeAdd (const char *gamemode, const char *realgamemode, const char *mapname);
-void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */);
+void CoopGamemodeInit(void);
+int CoopGamemodeExists(const char* gamemode);
+void CoopGamemodeAdd(const char* gamemode, const char* realgamemode, const char* mapname);
+void CoopVoteGamemodeDynamic(edict_t* ent, pmenuhnd_t* p /* unused */);
 
-extern void VoteMenuOpen(edict_t *ent);
+extern void VoteMenuOpen(edict_t* ent);
 /*-----------------------------------------------------------------------*/
 
 pmenu_t creditsmenu[] = {
@@ -90,8 +90,8 @@ static const int jmenu_gamemode = 5;
 static const int jmenu_skill = 7;
 static const int jmenu_players = 8;
 static const int jmenu_spectators = 9;
-static const int jmenu_blinky = 13;
-static const int jmenu_vote = 14;
+//static const int jmenu_blinky = 13; //QW// Unused.
+//static const int jmenu_vote = 14;
 static const int jmenu_motd = 15;
 
 pmenu_t joinmenu[] = {
@@ -161,7 +161,7 @@ pmenu_t votegamemodemenuheader[] = {
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 };
 
-pmenu_t *votegamemodemenu = NULL;
+pmenu_t* votegamemodemenu = NULL;
 
 #define VSKILLMENU_SKILL 6
 #define VSKILLMENU_EASY 8
@@ -358,16 +358,18 @@ pmenu_t votemapheadermenu[] = {
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 };
 
-char *coopMapFileBuffer = NULL;
+char* coopMapFileBuffer = NULL;
 int mapCount = 0;
 int gamemodeCount = 0;
-pmenu_t *votemapmenu = NULL;
+pmenu_t* votemapmenu = NULL;
+//QW// for CoopGamemodeAdd indexing into gamemode_array
+static int gamemode_index = 0;
 
 gamemode_t gamemode_array[MAX_GAMEMODES];
 
-char *GetSkillString (void)
+char* GetSkillString(void)
 {
-	switch((int)skill->value)
+	switch ((int)skill->value)
 	{
 	case 0:
 		return "Easy";
@@ -383,9 +385,9 @@ char *GetSkillString (void)
 }
 
 void
-CoopReturnToMain(edict_t *ent, pmenuhnd_t *p /* unused */)
+CoopReturnToMain(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -395,9 +397,9 @@ CoopReturnToMain(edict_t *ent, pmenuhnd_t *p /* unused */)
 }
 
 void
-CoopReturnToVoteMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
+CoopReturnToVoteMenu(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -407,9 +409,9 @@ CoopReturnToVoteMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
 }
 
 static void
-SetLevelName(pmenu_t *p)
+SetLevelName(pmenu_t* p)
 {
-	static char levelname[33];
+	static char levelname[33] = { 0 };
 
 	if (!p)
 	{
@@ -431,25 +433,25 @@ SetLevelName(pmenu_t *p)
 	p->text = levelname;
 }
 
-void CoopUpdateJoinMenu(edict_t *ent)
+void CoopUpdateJoinMenu(edict_t* ent)
 {
 	static char players[32];
 	static char spectators[32];
 	int numplayers, numspectators, i;
-	pmenuhnd_t *p;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -481,7 +483,7 @@ void CoopUpdateJoinMenu(edict_t *ent)
 }
 
 void
-CoopInitJoinMenu(edict_t *ent)
+CoopInitJoinMenu(edict_t* ent)
 {
 	static char players[32];
 	static char spectators[32];
@@ -489,7 +491,7 @@ CoopInitJoinMenu(edict_t *ent)
 	static char gamemode[32];
 	int numplayers, numspectators, i;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -525,26 +527,26 @@ CoopInitJoinMenu(edict_t *ent)
 	joinmenu[jmenu_spectators].text = spectators;
 	joinmenu[jmenu_skill].text = stats;
 
-	if(!motd || !motd->string[0])
+	if (!motd || !motd->string[0])
 	{
 		joinmenu[jmenu_motd].text = NULL;
 		joinmenu[jmenu_motd].SelectFunc = NULL;
 	}
 }
 
-void
-CoopOpenJoinMenu(edict_t *ent)
-{
-	extern qboolean bVoteInProgress;
+extern qboolean bVoteInProgress; //QW// From g_vote.c
 
-	if(!ent || !ent->client)
+void
+CoopOpenJoinMenu(edict_t* ent)
+{
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	ent->client->pers.didMotd = ent->client->resp.didMotd = true;
 
-	if(bVoteInProgress) /* FS: If a vote is happening don't show the other fun options... */
+	if (bVoteInProgress) /* FS: If a vote is happening don't show the other fun options... */
 	{
 		VoteMenuOpen(ent);
 		return;
@@ -556,9 +558,9 @@ CoopOpenJoinMenu(edict_t *ent)
 }
 
 void
-CoopOpenVoteMenu(edict_t *ent)
+CoopOpenVoteMenu(edict_t* ent)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -568,64 +570,64 @@ CoopOpenVoteMenu(edict_t *ent)
 }
 
 void
-CoopCredits(edict_t *ent, pmenuhnd_t *p /* unused */)
+CoopCredits(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	PMenu_Close(ent);
 	PMenu_Open(ent, creditsmenu, NULL, -1,
-			sizeof(creditsmenu) / sizeof(pmenu_t), 0,
-			NULL, PMENU_NORMAL);
+		sizeof(creditsmenu) / sizeof(pmenu_t), 0,
+		NULL, PMENU_NORMAL);
 }
 
-void CoopChaseCam(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopChaseCam(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	PMenu_Close(ent);
-	gi.WriteByte (svc_stufftext);
-	gi.WriteString ("spectator 1\n");
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("spectator 1\n");
 	gi.unicast(ent, true);
 }
 
-void CoopJoinGame(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopJoinGame(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	PMenu_Close(ent);
-	gi.WriteByte (svc_stufftext);
-	gi.WriteString ("spectator 0\n");
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("spectator 0\n");
 	gi.unicast(ent, true);
 }
 
-void CoopUpdateMotdMenu (void)
+void CoopUpdateMotdMenu(void)
 {
 	char separators[] = "|\n";
-	char *motdString;
-	char *listPtr = NULL;
-	char *motdToken = NULL;
+	char* motdString;
+	char* listPtr = NULL;
+	char* motdToken = NULL;
 	int lineLength = 0;
 	int currentLine = 0;
 	int i = MOTDMENU_START;
 
-	if(!motd || !motd->string || !motd->string[0]) /* FS: TODO: Read this from a file instead of a CVAR because CVAR seems to limit at 256 chars.  Max we could possibly squeeze is about 324 chars. */
+	if (!motd || !motd->string || !motd->string[0]) /* FS: TODO: Read this from a file instead of a CVAR because CVAR seems to limit at 256 chars.  Max we could possibly squeeze is about 324 chars. */
 	{
 		return;
 	}
 
-	motdString = strdup(motd->string);
+	motdString = G_CopyString(motd->string);
 
 	motdToken = strtok_r(motdString, separators, &listPtr);
-	if(!motdToken)
+	if (!motdToken)
 	{
 		return;
 	}
@@ -637,17 +639,17 @@ void CoopUpdateMotdMenu (void)
 
 	i = MOTDMENU_START;
 
-	while(motdToken)
+	while (motdToken)
 	{
-		if(i >= MOTDMENU_MAXLINES)
+		if (i >= MOTDMENU_MAXLINES)
 		{
 			break;
 		}
 
 		currentLine++;
-		lineLength = strlen(motdToken);
-		motdmenu[i].text = strdup(motdToken);
-		if(lineLength > 27)
+		lineLength = (int)strlen(motdToken);
+		motdmenu[i].text = G_CopyString(motdToken);
+		if (lineLength > 27)
 		{
 			gi.cprintf(NULL, PRINT_CHAT, "Warning: MOTD string on line %i greater than 27 chars, current length is %i.  Truncating.\n", currentLine, lineLength);
 			motdmenu[i].text[27] = 0;
@@ -656,17 +658,17 @@ void CoopUpdateMotdMenu (void)
 		i++;
 	}
 
-	if(motdString)
+	if (motdString)
 	{
-		free(motdString);
+		gi.TagFree(motdString);
 	}
 }
 
-void CoopMotd(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopMotd(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	int i;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -678,17 +680,17 @@ void CoopMotd(edict_t *ent, pmenuhnd_t *p /* unused */)
 
 	for (i = MOTDMENU_START; i < MOTDMENU_MAXLINES; i++) /* FS: Clear it out first in case if we change it later */
 	{
-		if(motdmenu[i].text)
+		if (motdmenu[i].text)
 		{
-			free(motdmenu[i].text);
+			gi.TagFree(motdmenu[i].text);
 		}
 		motdmenu[i].text = NULL;
 	}
 }
 
-void CoopVoteMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVoteMenu(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -697,82 +699,82 @@ void CoopVoteMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
 	PMenu_Open(ent, votemenu, NULL, 0, sizeof(votemenu) / sizeof(pmenu_t), 0, NULL, PMENU_NORMAL);
 }
 
-void CoopUpdateGamemodeMenu(edict_t *ent)
+void CoopUpdateGamemodeMenu(edict_t* ent)
 {
 	static char gamemodestring[32];
 	static char gamemode[32];
 	int i;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
-	switch(game.gametype)
+	switch (game.gametype)
 	{
-		case vanilla_coop:
-			if(!Q_stricmp(sv_coop_gamemode->string, "vanilla")) /* FS: If in a "custom" mode show Vanilla as an option */
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "Vanilla");
-				votegamemodemenu[VGAMEMODEMENU_VANILLA].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_VANILLA].SelectFunc = NULL;
-			}
-			else
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
-				i = CoopGamemodeExists(gamemode);
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].SelectFunc = NULL;
-			}
-			break;
-		case xatrix_coop:
-			if(!Q_stricmp(sv_coop_gamemode->string, "xatrix")) /* FS: If in a "custom" mode show Xatrix as an option */
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "Xatrix");
-				votegamemodemenu[VGAMEMODEMENU_XATRIX].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_XATRIX].SelectFunc = NULL;
-			}
-			else
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
-				i = CoopGamemodeExists(gamemode);
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].SelectFunc = NULL;
-			}
-			break;
-		case rogue_coop:
-			if(!Q_stricmp(sv_coop_gamemode->string, "rogue")) /* FS: If in a "custom" mode show Rogue as an option */
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "Rogue");
-				votegamemodemenu[VGAMEMODEMENU_ROGUE].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_ROGUE].SelectFunc = NULL;
-			}
-			else
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
-				i = CoopGamemodeExists(gamemode);
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].SelectFunc = NULL;
-			}
-			break;
-		case zaero_coop:
-			if(!Q_stricmp(sv_coop_gamemode->string, "zaero")) /* FS: If in a "custom" mode show Zaero as an option */
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "Zaero");
-				votegamemodemenu[VGAMEMODEMENU_ZAERO].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_ZAERO].SelectFunc = NULL;
-			}
-			else
-			{
-				Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
-				i = CoopGamemodeExists(gamemode);
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].text = NULL;
-				votegamemodemenu[VGAMEMODEMENU_VANILLA+i].SelectFunc = NULL;
-			}
-			break;
-		default:
-			Com_sprintf(gamemode, sizeof(gamemode), "Custom");
-			break;
+	case vanilla_coop:
+		if (!Q_stricmp(sv_coop_gamemode->string, "vanilla")) /* FS: If in a "custom" mode show Vanilla as an option */
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "Vanilla");
+			votegamemodemenu[VGAMEMODEMENU_VANILLA].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_VANILLA].SelectFunc = NULL;
+		}
+		else
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
+			i = CoopGamemodeExists(gamemode);
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].SelectFunc = NULL;
+		}
+		break;
+	case xatrix_coop:
+		if (!Q_stricmp(sv_coop_gamemode->string, "xatrix")) /* FS: If in a "custom" mode show Xatrix as an option */
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "Xatrix");
+			votegamemodemenu[VGAMEMODEMENU_XATRIX].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_XATRIX].SelectFunc = NULL;
+		}
+		else
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
+			i = CoopGamemodeExists(gamemode);
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].SelectFunc = NULL;
+		}
+		break;
+	case rogue_coop:
+		if (!Q_stricmp(sv_coop_gamemode->string, "rogue")) /* FS: If in a "custom" mode show Rogue as an option */
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "Rogue");
+			votegamemodemenu[VGAMEMODEMENU_ROGUE].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_ROGUE].SelectFunc = NULL;
+		}
+		else
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
+			i = CoopGamemodeExists(gamemode);
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].SelectFunc = NULL;
+		}
+		break;
+	case zaero_coop:
+		if (!Q_stricmp(sv_coop_gamemode->string, "zaero")) /* FS: If in a "custom" mode show Zaero as an option */
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "Zaero");
+			votegamemodemenu[VGAMEMODEMENU_ZAERO].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_ZAERO].SelectFunc = NULL;
+		}
+		else
+		{
+			Com_sprintf(gamemode, sizeof(gamemode), "%s", sv_coop_gamemode->string);
+			i = CoopGamemodeExists(gamemode);
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].text = NULL;
+			votegamemodemenu[VGAMEMODEMENU_VANILLA + i].SelectFunc = NULL;
+		}
+		break;
+	default:
+		Com_sprintf(gamemode, sizeof(gamemode), "Custom");
+		break;
 	}
 
 	Com_sprintf(gamemodestring, sizeof(gamemodestring), "*Current Gamemode: %s", gamemode);
@@ -782,36 +784,36 @@ void CoopUpdateGamemodeMenu(edict_t *ent)
 	votegamemodemenuheader[VGAMEMODEMENU_GAMEMODE].SelectFunc = NULL;
 }
 
-void CoopUpdateDifficultyMenu(edict_t *ent)
+void CoopUpdateDifficultyMenu(edict_t* ent)
 {
 	static char skillstring[32];
 	static char skillmodifier[32];
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
-	switch((int)skill->value)
+	switch ((int)skill->value)
 	{
-		case 0:
-			voteskillmenu[VSKILLMENU_EASY].text = NULL;
-			voteskillmenu[VSKILLMENU_EASY].SelectFunc = NULL;
-			break;
-		case 1:
-			voteskillmenu[VSKILLMENU_MEDIUM].text = NULL;
-			voteskillmenu[VSKILLMENU_MEDIUM].SelectFunc = NULL;
-			break;
-		case 2:
-			voteskillmenu[VSKILLMENU_HARD].text = NULL;
-			voteskillmenu[VSKILLMENU_HARD].SelectFunc = NULL;
-			break;
-		case 3:
-			voteskillmenu[VSKILLMENU_NIGHTMARE].text = NULL;
-			voteskillmenu[VSKILLMENU_NIGHTMARE].SelectFunc = NULL;
-			break;
-		default:
-			break;
+	case 0:
+		voteskillmenu[VSKILLMENU_EASY].text = NULL;
+		voteskillmenu[VSKILLMENU_EASY].SelectFunc = NULL;
+		break;
+	case 1:
+		voteskillmenu[VSKILLMENU_MEDIUM].text = NULL;
+		voteskillmenu[VSKILLMENU_MEDIUM].SelectFunc = NULL;
+		break;
+	case 2:
+		voteskillmenu[VSKILLMENU_HARD].text = NULL;
+		voteskillmenu[VSKILLMENU_HARD].SelectFunc = NULL;
+		break;
+	case 3:
+		voteskillmenu[VSKILLMENU_NIGHTMARE].text = NULL;
+		voteskillmenu[VSKILLMENU_NIGHTMARE].SelectFunc = NULL;
+		break;
+	default:
+		break;
 	}
 
 	Com_sprintf(skillmodifier, sizeof(skillmodifier), "%s", GetSkillString());
@@ -820,9 +822,9 @@ void CoopUpdateDifficultyMenu(edict_t *ent)
 	voteskillmenu[VSKILLMENU_SKILL].text = skillstring;
 }
 
-void CoopVoteDifficulty(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVoteDifficulty(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -832,52 +834,52 @@ void CoopVoteDifficulty(edict_t *ent, pmenuhnd_t *p /* unused */)
 	PMenu_Open(ent, voteskillmenu, NULL, 0, sizeof(voteskillmenu) / sizeof(pmenu_t), 0, NULL, PMENU_NORMAL);
 }
 
-void CoopUpdateVoteMapMenu(edict_t *ent)
+void CoopUpdateVoteMapMenu(edict_t* ent)
 {
 	int i = 0;
-	char *mapToken = NULL;
-	char *coopMapTokenBuffer = NULL;
-	char *listPtr = NULL;
+	char* mapToken = NULL;
+	char* coopMapTokenBuffer = NULL;
+	char* listPtr = NULL;
 	char separators[] = "\n";
 
-	if(!ent || !ent->client || !coopMapFileBuffer)
+	if (!ent || !ent->client || !coopMapFileBuffer)
 	{
 		return;
 	}
 
-	coopMapTokenBuffer = strdup(coopMapFileBuffer);
+	coopMapTokenBuffer = G_CopyString(coopMapFileBuffer);
 
 	mapToken = strtok_r(coopMapTokenBuffer, separators, &listPtr);
-	if(!mapToken)
+	if (!mapToken)
 	{
-		if(coopMapTokenBuffer)
+		if (coopMapTokenBuffer)
 		{
-			free(coopMapTokenBuffer);
+			gi.TagFree(coopMapTokenBuffer);
 		}
 
 		return;
 	}
 
-	while(mapToken)
+	while (mapToken)
 	{
-		votemapmenu[i].text = strdup(mapToken);
+		votemapmenu[i].text = G_CopyString(mapToken);
 		votemapmenu[i].align = PMENU_ALIGN_LEFT;
 		votemapmenu[i].SelectFunc = CoopVoteChangeMap;
 		mapToken = strtok_r(NULL, separators, &listPtr);
 		i++;
 	}
 
-	if(coopMapTokenBuffer)
+	if (coopMapTokenBuffer)
 	{
-		free(coopMapTokenBuffer);
+		gi.TagFree(coopMapTokenBuffer);
 	}
 }
 
-void CoopVoteMap(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVoteMap(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	size_t size;
+	int size;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -885,108 +887,108 @@ void CoopVoteMap(edict_t *ent, pmenuhnd_t *p /* unused */)
 	PMenu_Close(ent);
 
 	votemenu_loadmaplist();
-	size = sizeof(pmenu_t) * (mapCount + 2);
-	votemapmenu = malloc(size);
+	size = (int)sizeof(pmenu_t) * (mapCount + 2);
+	votemapmenu = gi.TagMalloc(size, TAG_LEVEL);
 	if (!votemapmenu)
 	{
 		gi.error("CoopVoteMap:  Failed allocating memory.\n");
 		return;
 	}
-	memset((pmenu_t *)votemapmenu, 0, size);
+	memset((pmenu_t*)votemapmenu, 0, size);
 	CoopUpdateVoteMapMenu(ent);
 
 	votemapmenu[mapCount].text = NULL;
 	votemapmenu[mapCount].align = PMENU_ALIGN_LEFT;
 	votemapmenu[mapCount].SelectFunc = NULL;
 
-	votemapmenu[mapCount+1].text = "Return to Voting Menu";
-	votemapmenu[mapCount+1].align = PMENU_ALIGN_LEFT;
-	votemapmenu[mapCount+1].SelectFunc = CoopReturnToVoteMenu;
+	votemapmenu[mapCount + 1].text = "Return to Voting Menu";
+	votemapmenu[mapCount + 1].align = PMENU_ALIGN_LEFT;
+	votemapmenu[mapCount + 1].SelectFunc = CoopReturnToVoteMenu;
 
 	PMenu_Open(ent, votemapmenu, votemapheadermenu, 0, mapCount + 2, sizeof(votemapheadermenu) / sizeof(pmenu_t), NULL, PMENU_SCROLLING);
 	votemenu_cleanup_all();
 }
 
-void CoopVoteRestartMap(edict_t *ent, pmenuhnd_t *p)
+void CoopVoteRestartMap(edict_t* ent, pmenuhnd_t* p)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	PMenu_Close(ent);
 
-	gi.WriteByte (svc_stufftext);
-	gi.WriteString ("cmd vote restartmap\n");
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("cmd vote restartmap\n");
 	gi.unicast(ent, true);
 }
 
-void CoopVotePlayerReq(edict_t *ent, pmenuhnd_t *p)
+void CoopVotePlayerReq(edict_t* ent, pmenuhnd_t* p)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	PMenu_Close(ent);
 
-	gi.WriteByte (svc_stufftext);
-	gi.WriteString ("cmd vote playerexit\n");
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("cmd vote playerexit\n");
 	gi.unicast(ent, true);
 }
 
-void CoopVoteChangeMap(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVoteChangeMap(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	char mapVote[64];
 	char votestring[64];
 
-	if(!ent || !ent->client || !p)
+	if (!ent || !ent->client || !p)
 	{
 		return;
 	}
 
 	Com_sprintf(mapVote, sizeof(mapVote), "%s", p->entries[p->cur].text);
-	COM_StripExtension (mapVote, mapVote);
+	COM_StripExtension(mapVote, mapVote);
 	Com_sprintf(votestring, sizeof(votestring), "cmd vote map %s\n", mapVote);
 
 	PMenu_Close(ent);
 
-	gi.WriteByte (svc_stufftext);
-	gi.WriteString (votestring);
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString(votestring);
 	gi.unicast(ent, true);
 }
 
-void CoopCheckGamemode(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopCheckGamemode(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	char votestring[64];
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
-	switch(p->cur)
+	switch (p->cur)
 	{
-		case VGAMEMODEMENU_VANILLA:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode vanilla\n");
-			break;
-		case VGAMEMODEMENU_XATRIX:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode xatrix\n");
-			break;
-		case VGAMEMODEMENU_ROGUE:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode rogue\n");
-			break;
-		case VGAMEMODEMENU_ZAERO:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode zaero\n");
-			break;
-		default:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode %s\n", 
-				gamemode_array[p->cur-VGAMEMODEMENU_VANILLA].gamemode);
-			break;
+	case VGAMEMODEMENU_VANILLA:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode vanilla\n");
+		break;
+	case VGAMEMODEMENU_XATRIX:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode xatrix\n");
+		break;
+	case VGAMEMODEMENU_ROGUE:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode rogue\n");
+		break;
+	case VGAMEMODEMENU_ZAERO:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode zaero\n");
+		break;
+	default:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote gamemode %s\n",
+			gamemode_array[p->cur - VGAMEMODEMENU_VANILLA].gamemode);
+		break;
 	}
 	PMenu_Close(ent);
 
-	if(votestring[0])
+	if (votestring[0])
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString(votestring);
@@ -994,35 +996,35 @@ void CoopCheckGamemode(edict_t *ent, pmenuhnd_t *p /* unused */)
 	}
 }
 
-void CoopCheckDifficulty(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopCheckDifficulty(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	char votestring[64] = { 0 };
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
-	switch(p->cur)
+	switch (p->cur)
 	{
-		case VSKILLMENU_EASY:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 0\n");
-			break;
-		case VSKILLMENU_MEDIUM:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 1\n");
-			break;
-		case VSKILLMENU_HARD:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 2\n");
-			break;
-		case VSKILLMENU_NIGHTMARE:
-			Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 3\n");
-			break;
-		default:
-			break;
+	case VSKILLMENU_EASY:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 0\n");
+		break;
+	case VSKILLMENU_MEDIUM:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 1\n");
+		break;
+	case VSKILLMENU_HARD:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 2\n");
+		break;
+	case VSKILLMENU_NIGHTMARE:
+		Com_sprintf(votestring, sizeof(votestring), "cmd vote skill 3\n");
+		break;
+	default:
+		break;
 	}
 	PMenu_Close(ent);
 
-	if(votestring[0])
+	if (votestring[0])
 	{
 		gi.WriteByte(svc_stufftext);
 		gi.WriteString(votestring);
@@ -1030,49 +1032,49 @@ void CoopCheckDifficulty(edict_t *ent, pmenuhnd_t *p /* unused */)
 	}
 }
 
-void votemenu_cleanup_all (void)
+void votemenu_cleanup_all(void)
 {
 	int i;
 
 	if (votemapmenu)
 	{
-		for(i = 0; i < mapCount; i++)
+		for (i = 0; i < mapCount; i++)
 		{
-			if(votemapmenu[i].text)
+			if (votemapmenu[i].text)
 			{
-				free(votemapmenu[i].text);
+				gi.TagFree(votemapmenu[i].text);
 			}
 			votemapmenu[i].text = NULL;
 		}
 
-		free(votemapmenu);
+		gi.TagFree(votemapmenu);
 		votemapmenu = NULL;
 	}
 
 	votemenu_cleanup_filebuffer();
 }
 
-void votemenu_cleanup_filebuffer (void)
+void votemenu_cleanup_filebuffer(void)
 {
-	if(coopMapFileBuffer)
+	if (coopMapFileBuffer)
 	{
-		free(coopMapFileBuffer);
+		gi.TagFree(coopMapFileBuffer);
 		coopMapFileBuffer = NULL;
 	}
 }
 
-void votemenu_loadmaplist (void)
+void votemenu_loadmaplist(void)
 {
 	char fileName[MAX_OSPATH];
-	char *mapToken = NULL;
-	char *coopMapTokenBuffer = NULL;
-	char *listPtr = NULL;
+	char* mapToken = NULL;
+	char* coopMapTokenBuffer = NULL;
+	char* listPtr = NULL;
 	char separators[] = "\n";
 	long fileSize;
-	FILE *f = NULL;
+	FILE* f = NULL;
 	size_t toEOF = 0;
 
-	if(sv_coop_maplist->string[0] == 0)
+	if (sv_coop_maplist->string[0] == 0)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "votemenu_loadmaplist: sv_coop_maplist CVAR empty!\n");
 		return;
@@ -1082,21 +1084,21 @@ void votemenu_loadmaplist (void)
 	Com_sprintf(fileName, sizeof(fileName), "%s/%s", gamedir->string, sv_coop_maplist->string);
 
 	f = fopen(fileName, "r");
-	if(!f)
+	if (!f)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "votemenu_loadmaplist: couldn't find '%s'!\n", sv_coop_maplist->string);
 		return;
 	}
 
 	/* obtain file size */
-	fseek (f, 0, SEEK_END);
-	fileSize = ftell (f);
-	fseek (f, 0, SEEK_SET);
+	fseek(f, 0, SEEK_END);
+	fileSize = ftell(f);
+	fseek(f, 0, SEEK_SET);
 
 	votemenu_cleanup_filebuffer();
 
-	coopMapFileBuffer = (char *)malloc(sizeof(char)*(fileSize+2)); /* FS: In case we have to add a newline terminator */
-	if(!coopMapFileBuffer)
+	coopMapFileBuffer = (char*)gi.TagMalloc((int)sizeof(char) * ((int)fileSize + 2), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
+	if (!coopMapFileBuffer)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "votemenu_loadmaplist: can't allocate memory for coopMapFileBuffer!\n");
 		fclose(f);
@@ -1104,7 +1106,7 @@ void votemenu_loadmaplist (void)
 	}
 	toEOF = fread(coopMapFileBuffer, sizeof(char), fileSize, f);
 	fclose(f);
-	if(toEOF <= 0)
+	if (toEOF <= 0)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "votemenu_loadmaplist: cannot read file '%s' into memory!\n", sv_coop_maplist->string);
 		votemenu_cleanup_filebuffer();
@@ -1113,52 +1115,52 @@ void votemenu_loadmaplist (void)
 
 	/* FS: Add newline terminator for some paranoia */
 	coopMapFileBuffer[toEOF] = '\n';
-	coopMapFileBuffer[toEOF+1] = '\0';
+	coopMapFileBuffer[toEOF + 1] = '\0';
 
-	coopMapTokenBuffer = strdup(coopMapFileBuffer);
+	coopMapTokenBuffer = G_CopyString(coopMapFileBuffer);
 
 	mapToken = strtok_r(coopMapTokenBuffer, separators, &listPtr);
-	if(!mapToken)
+	if (!mapToken)
 	{
-		if(coopMapTokenBuffer)
+		if (coopMapTokenBuffer)
 		{
-			free(coopMapTokenBuffer);
+			gi.TagFree(coopMapTokenBuffer);
 		}
 		return;
 	}
 
 	mapCount = 0;
-	while(mapToken)
+	while (mapToken)
 	{
 		mapCount++;
 		mapToken = strtok_r(NULL, separators, &listPtr);
 	}
 
-	if(coopMapTokenBuffer)
+	if (coopMapTokenBuffer)
 	{
-		free(coopMapTokenBuffer);
+		gi.TagFree(coopMapTokenBuffer);
 	}
 }
 
-void CoopInitBlinkyMenu(edict_t *ent)
+void CoopInitBlinkyMenu(edict_t* ent)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 }
 
-void CoopBlinkyToggleSummon(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopBlinkyToggleSummon(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	static char summon[32];
 	static char cmd[32];
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
-	if(ent->client->pers.noSummon)
+	if (ent->client->pers.noSummon)
 	{
 		Com_sprintf(summon, sizeof(summon), "Summon: enabled");
 		Com_sprintf(cmd, sizeof(cmd), "nosummon 0");
@@ -1176,23 +1178,23 @@ void CoopBlinkyToggleSummon(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menudirty = true;
 }
 
-void CoopUpdateBlinkyMenu(edict_t *ent)
+void CoopUpdateBlinkyMenu(edict_t* ent)
 {
 	static char summon[32];
-	pmenuhnd_t *p;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
 
-	if(ent->client->pers.noSummon)
+	if (ent->client->pers.noSummon)
 	{
 		Com_sprintf(summon, sizeof(summon), "Summon: disabled");
 	}
@@ -1204,9 +1206,9 @@ void CoopUpdateBlinkyMenu(edict_t *ent)
 	PMenu_UpdateEntry(p->entries + BLINKYMENU_SUMMON, summon, PMENU_ALIGN_LEFT, CoopBlinkyToggleSummon);
 }
 
-void CoopBlinkyCam(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopBlinkyCam(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1218,20 +1220,20 @@ void CoopBlinkyCam(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menu_update = CoopUpdateBlinkyMenu;
 }
 
-static void CoopBlinkyChaseCamExec(edict_t *ent, pmenuhnd_t *p)
+static void CoopBlinkyChaseCamExec(edict_t* ent, pmenuhnd_t* p)
 {
 	static char cmd[32];
 	int playernum;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	playernum = p->cur - CHASEMENU_START;
-	other = &g_edicts[playernum+1];
-	if(!other || !other->client)
+	other = &g_edicts[playernum + 1];
+	if (!other || !other->client)
 	{
 		return;
 	}
@@ -1245,12 +1247,12 @@ static void CoopBlinkyChaseCamExec(edict_t *ent, pmenuhnd_t *p)
 	PMenu_Close(ent);
 }
 
-static void CoopInitBlinkyChaseMenu(edict_t *ent)
+static void CoopInitBlinkyChaseMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1258,7 +1260,7 @@ static void CoopInitBlinkyChaseMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			chasemenu[i + CHASEMENU_START].text = NULL;
 			chasemenu[i + CHASEMENU_START].SelectFunc = NULL;
@@ -1270,19 +1272,19 @@ static void CoopInitBlinkyChaseMenu(edict_t *ent)
 	}
 }
 
-static void CoopUpdateBlinkyChaseMenu(edict_t *ent)
+static void CoopUpdateBlinkyChaseMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
-	pmenuhnd_t *p;
+	edict_t* other = NULL;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
@@ -1290,7 +1292,7 @@ static void CoopUpdateBlinkyChaseMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			PMenu_UpdateEntry(p->entries + i + CHASEMENU_START, NULL, PMENU_ALIGN_LEFT, NULL);
 			continue;
@@ -1300,9 +1302,9 @@ static void CoopUpdateBlinkyChaseMenu(edict_t *ent)
 	}
 }
 
-void CoopBlinkyChaseMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopBlinkyChaseMenu(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1314,20 +1316,20 @@ void CoopBlinkyChaseMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menu_update = CoopUpdateBlinkyChaseMenu;
 }
 
-static void CoopBlinkySummonExec(edict_t *ent, pmenuhnd_t *p)
+static void CoopBlinkySummonExec(edict_t* ent, pmenuhnd_t* p)
 {
 	static char cmd[32];
 	int playernum;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	playernum = p->cur - SUMMONMENU_START;
-	other = &g_edicts[playernum+1];
-	if(!other || !other->client)
+	other = &g_edicts[playernum + 1];
+	if (!other || !other->client)
 	{
 		return;
 	}
@@ -1341,12 +1343,12 @@ static void CoopBlinkySummonExec(edict_t *ent, pmenuhnd_t *p)
 	PMenu_Close(ent);
 }
 
-static void CoopInitBlinkySummonMenu(edict_t *ent)
+static void CoopInitBlinkySummonMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1354,7 +1356,7 @@ static void CoopInitBlinkySummonMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			summonmenu[i + SUMMONMENU_START].text = NULL;
 			summonmenu[i + SUMMONMENU_START].SelectFunc = NULL;
@@ -1366,19 +1368,19 @@ static void CoopInitBlinkySummonMenu(edict_t *ent)
 	}
 }
 
-static void CoopUpdateBlinkySummonMenu(edict_t *ent)
+static void CoopUpdateBlinkySummonMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
-	pmenuhnd_t *p;
+	edict_t* other = NULL;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
@@ -1386,7 +1388,7 @@ static void CoopUpdateBlinkySummonMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			PMenu_UpdateEntry(p->entries + i + SUMMONMENU_START, NULL, PMENU_ALIGN_LEFT, NULL);
 			continue;
@@ -1396,9 +1398,9 @@ static void CoopUpdateBlinkySummonMenu(edict_t *ent)
 	}
 }
 
-void CoopBlinkySummonMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopBlinkySummonMenu(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1410,20 +1412,20 @@ void CoopBlinkySummonMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menu_update = CoopUpdateBlinkySummonMenu;
 }
 
-static void CoopBlinkyTeleportExec(edict_t *ent, pmenuhnd_t *p)
+static void CoopBlinkyTeleportExec(edict_t* ent, pmenuhnd_t* p)
 {
 	static char cmd[32];
 	int playernum;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	playernum = p->cur - TELEPORTMENU_START;
-	other = &g_edicts[playernum+1];
-	if(!other || !other->client)
+	other = &g_edicts[playernum + 1];
+	if (!other || !other->client)
 	{
 		return;
 	}
@@ -1437,12 +1439,12 @@ static void CoopBlinkyTeleportExec(edict_t *ent, pmenuhnd_t *p)
 	PMenu_Close(ent);
 }
 
-static void CoopInitBlinkyTeleportMenu(edict_t *ent)
+static void CoopInitBlinkyTeleportMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1450,7 +1452,7 @@ static void CoopInitBlinkyTeleportMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			teleportmenu[i + TELEPORTMENU_START].text = NULL;
 			teleportmenu[i + TELEPORTMENU_START].SelectFunc = NULL;
@@ -1462,19 +1464,19 @@ static void CoopInitBlinkyTeleportMenu(edict_t *ent)
 	}
 }
 
-static void CoopUpdateBlinkyTeleportMenu(edict_t *ent)
+static void CoopUpdateBlinkyTeleportMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
-	pmenuhnd_t *p;
+	edict_t* other = NULL;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
@@ -1482,7 +1484,7 @@ static void CoopUpdateBlinkyTeleportMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			PMenu_UpdateEntry(p->entries + i + TELEPORTMENU_START, NULL, PMENU_ALIGN_LEFT, NULL);
 			continue;
@@ -1492,9 +1494,9 @@ static void CoopUpdateBlinkyTeleportMenu(edict_t *ent)
 	}
 }
 
-void CoopBlinkyTeleportMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopBlinkyTeleportMenu(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1506,27 +1508,27 @@ void CoopBlinkyTeleportMenu(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menu_update = CoopUpdateBlinkyTeleportMenu;
 }
 
-void CoopGamemodeInit (void)
+void CoopGamemodeInit(void)
 {
 	char fileName[MAX_OSPATH];
-	char *mapToken = NULL;
-	char *gamemodeToken = NULL;
-	char *fileBuffer = NULL;
-	char *listPtr = NULL;
-	char *listPtr2 = NULL;
+	char* mapToken = NULL;
+	char* gamemodeToken = NULL;
+	char* fileBuffer = NULL;
+	char* listPtr = NULL;
+	char* listPtr2 = NULL;
 	char separators[] = "\n";
-	long fileSize;
-	FILE *f = NULL;
+	size_t fileSize;
+	FILE* f = NULL;
 	size_t toEOF = 0;
 
-	memset(gamemode_array, 0, sizeof(gamemode_t)*MAX_GAMEMODES);
+	memset(gamemode_array, 0, sizeof(gamemode_t) * MAX_GAMEMODES);
 
 	CoopGamemodeAdd("vanilla", "vanilla", "base1.bsp");
 	CoopGamemodeAdd("xatrix", "xatrix", "xswamp.bsp");
 	CoopGamemodeAdd("rogue", "rogue", "rmine1.bsp");
 	CoopGamemodeAdd("zaero", "zaero", "zbase1.bsp");
 
-	if(sv_coop_maplist->string[0] == 0)
+	if (sv_coop_maplist->string[0] == 0)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "CoopGamemodeInit: sv_coop_maplist CVAR empty!\n");
 		return;
@@ -1536,19 +1538,19 @@ void CoopGamemodeInit (void)
 	Com_sprintf(fileName, sizeof(fileName), "%s/%s", gamedir->string, sv_coop_maplist->string);
 
 	f = fopen(fileName, "r");
-	if(!f)
+	if (!f)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "CoopGamemodeInit: couldn't find '%s'!\n", sv_coop_maplist->string);
 		return;
 	}
 
 	/* obtain file size */
-	fseek (f, 0, SEEK_END);
-	fileSize = ftell (f);
-	fseek (f, 0, SEEK_SET);
+	fseek(f, 0, SEEK_END);
+	fileSize = ftell(f);
+	fseek(f, 0, SEEK_SET);
 
-	fileBuffer = (char *)malloc(sizeof(char)*(fileSize+2)); /* FS: In case we have to add a newline terminator */
-	if(!fileBuffer)
+	fileBuffer = (char*)gi.TagMalloc((int)sizeof(char) * ((int)fileSize + 2), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
+	if (!fileBuffer)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "CoopGamemodeInit: can't allocate memory for coopGamemodeBuffer!\n");
 		fclose(f);
@@ -1556,23 +1558,23 @@ void CoopGamemodeInit (void)
 	}
 	toEOF = fread(fileBuffer, sizeof(char), fileSize, f);
 	fclose(f);
-	if(toEOF <= 0)
+	if (toEOF <= 0)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "CoopGamemodeInit: cannot read file '%s' into memory!\n", sv_coop_maplist->string);
-		if(fileBuffer)
+		if (fileBuffer)
 		{
-			free(fileBuffer);
+			gi.TagFree(fileBuffer);
 		}
 		return;
 	}
 
 	/* FS: Add newline terminator for some paranoia */
 	fileBuffer[toEOF] = '\n';
-	fileBuffer[toEOF+1] = '\0';
+	fileBuffer[toEOF + 1] = '\0';
 
 	mapToken = strtok_r(fileBuffer, separators, &listPtr);
 
-	while(mapToken)
+	while (mapToken)
 	{
 		char mapname[64];
 
@@ -1592,7 +1594,7 @@ void CoopGamemodeInit (void)
 				Com_sprintf(realgamemode, sizeof(realgamemode), "%s", gamemodeToken);
 			}
 
-			if((gamemode[0]) && (CoopGamemodeExists(gamemode) == GAMEMODE_AVAILABLE))
+			if ((gamemode[0]) && (CoopGamemodeExists(gamemode) == GAMEMODE_AVAILABLE))
 			{
 				gi.dprintf("CoopGamemodeInit: Adding %s %s %s\n", mapname, gamemode, realgamemode);
 				CoopGamemodeAdd(gamemode, realgamemode, mapname);
@@ -1601,13 +1603,13 @@ void CoopGamemodeInit (void)
 		mapToken = strtok_r(NULL, separators, &listPtr);
 	}
 
-	if(fileBuffer)
+	if (fileBuffer)
 	{
-		free(fileBuffer);
+		gi.TagFree(fileBuffer);
 	}
 }
 
-int CoopGamemodeExists (const char *gamemode)
+int CoopGamemodeExists(const char* gamemode)
 {
 	int i;
 
@@ -1623,15 +1625,15 @@ int CoopGamemodeExists (const char *gamemode)
 	return GAMEMODE_AVAILABLE;
 }
 
-void CoopGamemodeAdd (const char *gamemode, const char *realgamemode, const char *mapname)
+void CoopGamemodeAdd(const char* gamemode, const char* realgamemode, const char* mapname)
 {
-	static int gamemode_index;
-
 	if (!gamemode || !strlen(gamemode) || !mapname || !strlen(mapname) || !realgamemode || !strlen(realgamemode))
 		return;
 
-	if (gamemode_index > MAX_GAMEMODES-1)
-		gi.error("Can't add gamemode %s to voting list.  Limit %d reached.");
+	if (gamemode_index > MAX_GAMEMODES - 1) {
+		gi.error("Can't add gamemode %s to voting list.  Limit %d reached.", gamemode, MAX_GAMEMODES);
+		return;
+	}
 
 	Com_sprintf(gamemode_array[gamemode_index].gamemode, sizeof(gamemode_array[gamemode_index].gamemode), "%s", gamemode);
 	Com_sprintf(gamemode_array[gamemode_index].mapname, sizeof(gamemode_array[gamemode_index].mapname), "%s", mapname);
@@ -1641,12 +1643,12 @@ void CoopGamemodeAdd (const char *gamemode, const char *realgamemode, const char
 	gamemodeCount++;
 }
 
-void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVoteGamemodeDynamic(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
 	int i;
-	size_t size;
+	int size;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1654,18 +1656,18 @@ void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */)
 	PMenu_Close(ent);
 
 	votemenu_loadmaplist();
-	size = sizeof(pmenu_t) * (gamemodeCount + 2);
-	votegamemodemenu = malloc(size);
+	size = (int)sizeof(pmenu_t) * (gamemodeCount + 2);
+	votegamemodemenu = gi.TagMalloc(size, TAG_LEVEL);
 	if (!votegamemodemenu)
 	{
 		gi.error("CoopVoteGamemodeDynamic:  Failed allocating memory.\n");
 		return;
 	}
-	memset((pmenu_t *)votegamemodemenu, 0, size);
+	memset((pmenu_t*)votegamemodemenu, 0, size);
 
 	for (i = 0; i < gamemodeCount; i++)
 	{
-		if(i < MAX_GAMEMODES && gamemode_array[i].gamemode && strlen(gamemode_array[i].gamemode))
+		if (i < MAX_GAMEMODES && gamemode_array[i].gamemode && strlen(gamemode_array[i].gamemode))
 		{
 			votegamemodemenu[i].text = gamemode_array[i].gamemode;
 			votegamemodemenu[i].align = PMENU_ALIGN_LEFT;
@@ -1677,9 +1679,9 @@ void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */)
 	votegamemodemenu[i].align = PMENU_ALIGN_CENTER;
 	votegamemodemenu[i].SelectFunc = NULL;
 
-	votegamemodemenu[i+1].text = "Return to Voting Menu";
-	votegamemodemenu[i+1].align = PMENU_ALIGN_LEFT;
-	votegamemodemenu[i+1].SelectFunc = CoopReturnToVoteMenu;
+	votegamemodemenu[i + 1].text = "Return to Voting Menu";
+	votegamemodemenu[i + 1].align = PMENU_ALIGN_LEFT;
+	votegamemodemenu[i + 1].SelectFunc = CoopReturnToVoteMenu;
 
 	CoopUpdateGamemodeMenu(ent); /* FS: For current gamemode */
 
@@ -1687,25 +1689,25 @@ void CoopVoteGamemodeDynamic(edict_t *ent, pmenuhnd_t *p /* unused */)
 
 	if (votegamemodemenu)
 	{
-		free(votegamemodemenu);
+		gi.TagFree(votegamemodemenu);
 	}
 	votegamemodemenu = NULL;
 }
 
-static void CoopVotePlayerKickExec(edict_t *ent, pmenuhnd_t *p)
+static void CoopVotePlayerKickExec(edict_t* ent, pmenuhnd_t* p)
 {
 	static char cmd[32];
 	int playernum;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	playernum = p->cur - PLAYERKICKMENU_START;
-	other = &g_edicts[playernum+1];
-	if(!other || !other->client)
+	other = &g_edicts[playernum + 1];
+	if (!other || !other->client)
 	{
 		return;
 	}
@@ -1719,20 +1721,20 @@ static void CoopVotePlayerKickExec(edict_t *ent, pmenuhnd_t *p)
 	PMenu_Close(ent);
 }
 
-static void CoopVotePlayerBanExec(edict_t *ent, pmenuhnd_t *p)
+static void CoopVotePlayerBanExec(edict_t* ent, pmenuhnd_t* p)
 {
 	static char cmd[32];
 	int playernum;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	playernum = p->cur - PLAYERBANMENU_START;
-	other = &g_edicts[playernum+1];
-	if(!other || !other->client)
+	other = &g_edicts[playernum + 1];
+	if (!other || !other->client)
 	{
 		return;
 	}
@@ -1746,12 +1748,12 @@ static void CoopVotePlayerBanExec(edict_t *ent, pmenuhnd_t *p)
 	PMenu_Close(ent);
 }
 
-static void CoopInitVotePlayerKickMenu(edict_t *ent)
+static void CoopInitVotePlayerKickMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1759,7 +1761,7 @@ static void CoopInitVotePlayerKickMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			playerkickmenu[i + PLAYERKICKMENU_START].text = NULL;
 			playerkickmenu[i + PLAYERKICKMENU_START].SelectFunc = NULL;
@@ -1771,12 +1773,12 @@ static void CoopInitVotePlayerKickMenu(edict_t *ent)
 	}
 }
 
-static void CoopInitVotePlayerBanMenu(edict_t *ent)
+static void CoopInitVotePlayerBanMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
+	edict_t* other = NULL;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1784,7 +1786,7 @@ static void CoopInitVotePlayerBanMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			playerbanmenu[i + PLAYERBANMENU_START].text = NULL;
 			playerbanmenu[i + PLAYERBANMENU_START].SelectFunc = NULL;
@@ -1796,19 +1798,19 @@ static void CoopInitVotePlayerBanMenu(edict_t *ent)
 	}
 }
 
-static void CoopUpdateVotePlayerKickMenu(edict_t *ent)
+static void CoopUpdateVotePlayerKickMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
-	pmenuhnd_t *p;
+	edict_t* other = NULL;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
@@ -1816,7 +1818,7 @@ static void CoopUpdateVotePlayerKickMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			PMenu_UpdateEntry(p->entries + i + PLAYERKICKMENU_START, NULL, PMENU_ALIGN_LEFT, NULL);
 			continue;
@@ -1826,19 +1828,19 @@ static void CoopUpdateVotePlayerKickMenu(edict_t *ent)
 	}
 }
 
-static void CoopUpdateVotePlayerBanMenu(edict_t *ent)
+static void CoopUpdateVotePlayerBanMenu(edict_t* ent)
 {
 	int i;
-	edict_t *other = NULL;
-	pmenuhnd_t *p;
+	edict_t* other = NULL;
+	pmenuhnd_t* p;
 
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
 
 	p = ent->client->menu;
-	if(!p)
+	if (!p)
 	{
 		return;
 	}
@@ -1846,7 +1848,7 @@ static void CoopUpdateVotePlayerBanMenu(edict_t *ent)
 	for (i = 0; i < game.maxclients; i++)
 	{
 		other = &g_edicts[i + 1];
-		if(!other || !other->inuse || !other->client || other->client->pers.spectator)
+		if (!other || !other->inuse || !other->client || other->client->pers.spectator)
 		{
 			PMenu_UpdateEntry(p->entries + i + PLAYERBANMENU_START, NULL, PMENU_ALIGN_LEFT, NULL);
 			continue;
@@ -1856,9 +1858,9 @@ static void CoopUpdateVotePlayerBanMenu(edict_t *ent)
 	}
 }
 
-void CoopVotePlayerKick(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVotePlayerKick(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}
@@ -1870,9 +1872,9 @@ void CoopVotePlayerKick(edict_t *ent, pmenuhnd_t *p /* unused */)
 	ent->client->menu_update = CoopUpdateVotePlayerKickMenu;
 }
 
-void CoopVotePlayerBan(edict_t *ent, pmenuhnd_t *p /* unused */)
+void CoopVotePlayerBan(edict_t* ent, pmenuhnd_t* p /* unused */)
 {
-	if(!ent || !ent->client)
+	if (!ent || !ent->client)
 	{
 		return;
 	}

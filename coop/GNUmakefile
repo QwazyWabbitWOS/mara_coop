@@ -16,7 +16,7 @@ ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/ar
 # On 64-bit OS use the command: setarch i386 make all
 # to obtain the 32-bit binary DLL on 64-bit Linux.
 
-CC = gcc -std=gnu11 -Wall
+CC = gcc -std=c99 -Wall
 
 # on x64 machines do this preparation:
 # sudo apt-get install ia32-libs
@@ -32,7 +32,7 @@ CFLAGS =-m32 -O3 -fPIC -DARCH="$(ARCH)" -DSTDC_HEADERS -I/usr/include
 endif
 
 # use this when debugging
-#CFLAGS=-g -Og -DDEBUG -DARCH="$(ARCH)" -Wall -pedantic
+#CFLAGS=-g -Og -DDEBUG -DARCH="$(ARCH)" -Wall
 
 # flavors of Linux
 ifeq ($(shell uname),Linux)

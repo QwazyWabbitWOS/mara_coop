@@ -7,7 +7,7 @@
 
 /* this is used for communications out of
  * sv_movestep to say what entity is blocking us */
-edict_t *new_bad; /* FS: Coop: Rogue specific */
+edict_t* new_bad; /* FS: Coop: Rogue specific */
 
 /*
  * Returns false if any part of the
@@ -17,9 +17,9 @@ edict_t *new_bad; /* FS: Coop: Rogue specific */
 int c_yes, c_no;
 
 qboolean
-M_CheckBottom(edict_t *ent)
+M_CheckBottom(edict_t* ent)
 {
-	vec3_t mins, maxs, start, stop;
+	vec3_t mins = { 0 }, maxs = { 0 }, start = { 0 }, stop = { 0 };
 	trace_t trace;
 	int x, y;
 	float mid, bottom;
@@ -91,7 +91,7 @@ realcheck:
 	}
 
 	trace = gi.trace(start, vec3_origin, vec3_origin,
-			stop, ent, MASK_MONSTERSOLID);
+		stop, ent, MASK_MONSTERSOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -109,7 +109,7 @@ realcheck:
 			start[1] = stop[1] = y ? maxs[1] : mins[1];
 
 			trace = gi.trace(start, vec3_origin, vec3_origin,
-					stop, ent, MASK_MONSTERSOLID);
+				stop, ent, MASK_MONSTERSOLID);
 
 			if ((game.gametype == rogue_coop) && (ent->gravityVector[2] > 0)) /* FS: Coop: Rogue specific */
 			{
@@ -144,12 +144,12 @@ realcheck:
 }
 
 qboolean
-IsBadAhead(edict_t *self, edict_t *bad, vec3_t move) /* FS: Coop: Rogue specific */
+IsBadAhead(edict_t* self, edict_t* bad, vec3_t move) /* FS: Coop: Rogue specific */
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	vec3_t forward;
 	float dp_bad, dp_move;
-	vec3_t move_copy;
+	vec3_t move_copy = { 0 };
 
 	if (!self || !bad)
 	{
@@ -190,14 +190,14 @@ IsBadAhead(edict_t *self, edict_t *bad, vec3_t move) /* FS: Coop: Rogue specific
  */
 
 qboolean
-SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
+SV_movestep_zaero(edict_t* ent, vec3_t move, qboolean relink)
 {
 	float dz;
-	vec3_t oldorg, neworg, end;
+	vec3_t oldorg = { 0 }, neworg = { 0 }, end = { 0 };
 	trace_t trace;
 	int i;
 	float stepsize;
-	vec3_t test;
+	vec3_t test = { 0 };
 	int contents;
 
 	if (!ent)
@@ -263,7 +263,7 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 			}
 
 			trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-					neworg, ent, MASK_MONSTERSOLID);
+				neworg, ent, MASK_MONSTERSOLID);
 
 			/* fly monsters don't enter water voluntarily */
 			if (ent->flags & FL_FLY)
@@ -346,7 +346,7 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 	{
 		neworg[2] -= stepsize;
 		trace = gi.trace(neworg, ent->mins, ent->maxs,
-				end, ent, MASK_MONSTERSOLID);
+			end, ent, MASK_MONSTERSOLID);
 
 		if (trace.allsolid || trace.startsolid)
 		{
@@ -371,13 +371,13 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 	if (trace.fraction == 1)
 	{
 		/* if monster had the ground pulled out, go ahead and fall */
-		if ( ent->flags & FL_PARTIALGROUND )
+		if (ent->flags & FL_PARTIALGROUND)
 		{
-			VectorAdd (ent->s.origin, move, ent->s.origin);
+			VectorAdd(ent->s.origin, move, ent->s.origin);
 			if (relink)
 			{
-				gi.linkentity (ent);
-				G_TouchTriggers (ent);
+				gi.linkentity(ent);
+				G_TouchTriggers(ent);
 			}
 			ent->groundentity = NULL;
 			return true;
@@ -385,11 +385,11 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 		else if (ent->movetype == MOVETYPE_FALLFLOAT) /* FS: Zaero specific game dll changes */
 		{
 			// can fall over the edge
-			VectorAdd (ent->s.origin, move, ent->s.origin);
+			VectorAdd(ent->s.origin, move, ent->s.origin);
 			if (relink)
 			{
-				gi.linkentity (ent);
-				G_TouchTriggers (ent);
+				gi.linkentity(ent);
+				G_TouchTriggers(ent);
 			}
 			ent->groundentity = NULL;
 			return true;
@@ -401,15 +401,15 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 	/* check point traces down for dangling corners */
 	VectorCopy(trace.endpos, ent->s.origin);
 
-	if (!M_CheckBottom (ent))
+	if (!M_CheckBottom(ent))
 	{
-		if ( ent->flags & FL_PARTIALGROUND )
+		if (ent->flags & FL_PARTIALGROUND)
 		{	// entity had floor mostly pulled out from underneath it
 			// and is trying to correct
 			if (relink) /* FS: Zaero specific game dll changes */
 			{
-				gi.linkentity (ent);
-				G_TouchTriggers (ent);
+				gi.linkentity(ent);
+				G_TouchTriggers(ent);
 			}
 			return true;
 		}
@@ -418,8 +418,8 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 			// can fall over the edge
 			if (relink)
 			{
-				gi.linkentity (ent);
-				G_TouchTriggers (ent);
+				gi.linkentity(ent);
+				G_TouchTriggers(ent);
 			}
 			return true;
 		}
@@ -447,16 +447,16 @@ SV_movestep_zaero(edict_t *ent, vec3_t move, qboolean relink)
 }
 
 qboolean
-SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
+SV_movestep(edict_t* ent, vec3_t move, qboolean relink)
 {
 	float dz;
-	vec3_t oldorg, neworg, end;
+	vec3_t oldorg = { 0 }, neworg = { 0 }, end;
 	trace_t trace;
 	int i;
 	float stepsize;
-	vec3_t test;
+	vec3_t test = { 0 };
 	int contents;
-	edict_t *current_bad = NULL; /* FS: Coop: Rogue specific */
+	edict_t* current_bad = NULL; /* FS: Coop: Rogue specific */
 	float minheight; /* FS: Coop: Rogue specific */
 
 	if (!ent)
@@ -609,7 +609,7 @@ SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 			}
 
 			trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-					neworg, ent, MASK_MONSTERSOLID);
+				neworg, ent, MASK_MONSTERSOLID);
 
 			/* fly monsters don't enter water voluntarily */
 			if (ent->flags & FL_FLY)
@@ -726,7 +726,7 @@ SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 	{
 		neworg[2] -= stepsize;
 		trace = gi.trace(neworg, ent->mins, ent->maxs,
-				end, ent, MASK_MONSTERSOLID);
+			end, ent, MASK_MONSTERSOLID);
 
 		if (trace.allsolid || trace.startsolid)
 		{
@@ -867,7 +867,7 @@ SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 /* ============================================================================ */
 
 void
-M_ChangeYaw(edict_t *ent)
+M_ChangeYaw(edict_t* ent)
 {
 	float ideal;
 	float current;
@@ -928,9 +928,9 @@ M_ChangeYaw(edict_t *ent)
  * walks the current distance if facing it.
  */
 qboolean
-SV_StepDirection(edict_t *ent, float yaw, float dist)
+SV_StepDirection(edict_t* ent, float yaw, float dist)
 {
-	vec3_t move, oldorigin;
+	vec3_t move = { 0 }, oldorigin = { 0 };
 	float delta;
 
 	if (!ent)
@@ -974,7 +974,7 @@ SV_StepDirection(edict_t *ent, float yaw, float dist)
 		{
 			if ((delta > 45) && (delta < 315))
 			{
-		 		/* not turned far enough, so don't take the step */
+				/* not turned far enough, so don't take the step */
 				VectorCopy(oldorigin, ent->s.origin);
 			}
 		}
@@ -990,7 +990,7 @@ SV_StepDirection(edict_t *ent, float yaw, float dist)
 }
 
 void
-SV_FixCheckBottom(edict_t *ent)
+SV_FixCheckBottom(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1001,10 +1001,10 @@ SV_FixCheckBottom(edict_t *ent)
 }
 
 void
-SV_NewChaseDir(edict_t *actor, edict_t *enemy, float dist)
+SV_NewChaseDir(edict_t* actor, edict_t* enemy, float dist)
 {
 	float deltax, deltay;
-	float d[3];
+	float d[3] = { 0 };
 	float tdir, olddir, turnaround;
 
 	if (!actor || !enemy)
@@ -1140,7 +1140,7 @@ SV_NewChaseDir(edict_t *actor, edict_t *enemy, float dist)
 }
 
 qboolean
-SV_CloseEnough(edict_t *ent, edict_t *goal, float dist)
+SV_CloseEnough(edict_t* ent, edict_t* goal, float dist)
 {
 	int i;
 
@@ -1166,9 +1166,9 @@ SV_CloseEnough(edict_t *ent, edict_t *goal, float dist)
 }
 
 void
-M_MoveToGoal(edict_t *ent, float dist)
+M_MoveToGoal(edict_t* ent, float dist)
 {
-	edict_t *goal;
+	edict_t* goal;
 
 	if (!ent)
 	{
@@ -1192,7 +1192,7 @@ M_MoveToGoal(edict_t *ent, float dist)
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		if ((((rand() & 3) == 1) &&
-			 !(ent->monsterinfo.aiflags & AI_CHARGING)) ||
+			!(ent->monsterinfo.aiflags & AI_CHARGING)) ||
 			!SV_StepDirection(ent, ent->ideal_yaw, dist))
 		{
 			if (ent->monsterinfo.aiflags & AI_BLOCKED)
@@ -1220,9 +1220,9 @@ M_MoveToGoal(edict_t *ent, float dist)
 }
 
 qboolean
-M_walkmove(edict_t *ent, float yaw, float dist)
+M_walkmove(edict_t* ent, float yaw, float dist)
 {
-	vec3_t move;
+	vec3_t move = { 0 };
 	qboolean retval;
 
 	if (!ent)
@@ -1254,15 +1254,15 @@ M_walkmove(edict_t *ent, float yaw, float dist)
 M_MoveAwayFromFlare
 ====================
 */
-qboolean M_MoveAwayFromFlare(edict_t *self, float dist) /* FS: Zaero specific game dll changes */
+qboolean M_MoveAwayFromFlare(edict_t* self, float dist) /* FS: Zaero specific game dll changes */
 {
-	edict_t *e = NULL;
-	edict_t *goal = NULL;
-	vec3_t delta;
+	edict_t* e = NULL;
+	edict_t* goal = NULL;
+	vec3_t delta = { 0 };
 	vec3_t forward;
 
 	// find the closest flare
-	while(1)
+	while (1)
 	{
 		e = findradius(e, self->s.origin, 256);
 		if (e == NULL)
@@ -1271,7 +1271,7 @@ qboolean M_MoveAwayFromFlare(edict_t *self, float dist) /* FS: Zaero specific ga
 		if (e->classname && Q_stricmp(e->classname, "flare") == 0)
 			break;
 	}
-	
+
 	goal = G_Spawn();
 	self->goalentity = goal;
 	if (e == NULL)
@@ -1294,9 +1294,9 @@ qboolean M_MoveAwayFromFlare(edict_t *self, float dist) /* FS: Zaero specific ga
 		self->ideal_yaw = vectoyaw(delta);
 	}
 
-	if ( (rand()&3)==1 || !SV_StepDirection (self, self->ideal_yaw, dist))
+	if ((rand() & 3) == 1 || !SV_StepDirection(self, self->ideal_yaw, dist))
 	{
-		SV_NewChaseDir (self, goal, dist);
+		SV_NewChaseDir(self, goal, dist);
 	}
 
 	self->goalentity = NULL;

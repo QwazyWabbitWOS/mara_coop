@@ -13,10 +13,10 @@
 
 static int windsound;
 
-void trigger_push_active (edict_t *self); /* FS: Coop: Xatrix specific */
+void trigger_push_active(edict_t* self); /* FS: Coop: Xatrix specific */
 
 void
-InitTrigger(edict_t *self)
+InitTrigger(edict_t* self)
 {
 	if (!self)
 	{
@@ -39,7 +39,7 @@ InitTrigger(edict_t *self)
  * back up for another activation
  */
 void
-multi_wait(edict_t *ent)
+multi_wait(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -50,7 +50,7 @@ multi_wait(edict_t *ent)
 }
 
 void
-multi_trigger(edict_t *ent)
+multi_trigger(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -81,7 +81,7 @@ multi_trigger(edict_t *ent)
 }
 
 void
-Use_Multi(edict_t *ent, edict_t *other /* unused */, edict_t *activator)
+Use_Multi(edict_t* ent, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!ent || !activator)
 	{
@@ -109,7 +109,7 @@ Use_Multi(edict_t *ent, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+Touch_Multi(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -167,7 +167,7 @@ Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurfac
  * set "message" to text string
  */
 void
-trigger_enable(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+trigger_enable(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -180,7 +180,7 @@ trigger_enable(edict_t *self, edict_t *other /* unused */, edict_t *activator /*
 }
 
 void
-SP_trigger_multiple(edict_t *ent)
+SP_trigger_multiple(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -209,8 +209,8 @@ SP_trigger_multiple(edict_t *ent)
 	ent->movetype = MOVETYPE_NONE;
 	ent->svflags |= SVF_NOCLIENT;
 
-	if ( ( (game.gametype != rogue_coop) && (ent->spawnflags & 4)) || 
-	     ( (game.gametype == rogue_coop) && (ent->spawnflags & (TRIGGER_TRIGGERED | TRIGGER_TOGGLE))) ) /* FS: Coop: Rogue specific */
+	if (((game.gametype != rogue_coop) && (ent->spawnflags & 4)) ||
+		((game.gametype == rogue_coop) && (ent->spawnflags & (TRIGGER_TRIGGERED | TRIGGER_TOGGLE)))) /* FS: Coop: Rogue specific */
 	{
 		ent->solid = SOLID_NOT;
 		ent->use = trigger_enable;
@@ -248,7 +248,7 @@ SP_trigger_multiple(edict_t *ent)
  */
 
 void
-SP_trigger_once(edict_t *ent)
+SP_trigger_once(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -276,7 +276,7 @@ SP_trigger_once(edict_t *ent)
  * This fixed size trigger cannot be touched, it can only be fired by other events.
  */
 void
-trigger_relay_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+trigger_relay_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self) /* FS: DO NOT PARANOIA CHECK ACTIVATOR!  BREAKS XWARE.BSP PLATS! */
 	{
@@ -287,7 +287,7 @@ trigger_relay_use(edict_t *self, edict_t *other /* unused */, edict_t *activator
 }
 
 void
-SP_trigger_relay(edict_t *self)
+SP_trigger_relay(edict_t* self)
 {
 	if (!self)
 	{
@@ -304,12 +304,12 @@ SP_trigger_relay(edict_t *self)
  * Use "item" to specify the required key, for example "key_data_cd"
  */
 void
-trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+trigger_key_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	int index;
 	qboolean firstHit = true;
 
-	if (!self|| !activator)
+	if (!self || !activator)
 	{
 		return;
 	}
@@ -344,7 +344,7 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 	if (coop->value)
 	{
 		int player;
-		edict_t *ent;
+		edict_t* ent;
 
 		if (self->item && self->item->classname && strcmp(self->item->classname, "key_power_cube") == 0)
 		{
@@ -410,7 +410,7 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 			}
 		}
 
-		if(activator->client->pers.netname[0] && self->item->pickup_name) /* FS: Broadcast that a key/powercube/etc has been used */
+		if (activator->client->pers.netname[0] && self->item->pickup_name) /* FS: Broadcast that a key/powercube/etc has been used */
 		{
 			gi.bprintf(PRINT_HIGH, "\x02[MAPMSG][%s]: ", activator->client->pers.netname);
 			gi.bprintf(PRINT_HIGH, "The %s has been used.\n", self->item->pickup_name);
@@ -427,7 +427,7 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-SP_trigger_key(edict_t *self)
+SP_trigger_key(edict_t* self)
 {
 	if (!self)
 	{
@@ -445,14 +445,14 @@ SP_trigger_key(edict_t *self)
 	if (!self->item)
 	{
 		gi.dprintf("item %s not found for trigger_key at %s\n", st.item,
-				vtos(self->s.origin));
+			vtos(self->s.origin));
 		return;
 	}
 
 	if (!self->target)
 	{
 		gi.dprintf("%s at %s has no target\n", self->classname,
-				vtos(self->s.origin));
+			vtos(self->s.origin));
 		return;
 	}
 
@@ -475,7 +475,7 @@ SP_trigger_key(edict_t *self)
  */
 
 void
-trigger_counter_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+trigger_counter_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self || !activator)
 	{
@@ -511,7 +511,7 @@ trigger_counter_use(edict_t *self, edict_t *other /* unused */, edict_t *activat
 }
 
 void
-SP_trigger_counter(edict_t *self)
+SP_trigger_counter(edict_t* self)
 {
 	if (!self)
 	{
@@ -534,7 +534,7 @@ SP_trigger_counter(edict_t *self)
  * This trigger will always fire. It is activated by the world.
  */
 void
-SP_trigger_always(edict_t *ent)
+SP_trigger_always(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -551,7 +551,7 @@ SP_trigger_always(edict_t *ent)
 }
 
 void
-trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+trigger_push_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -562,7 +562,7 @@ trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 	{
 		if (self->message && self->touch_debounce_time < level.time)
 		{
-			gi.centerprintf (other, "%s", self->message);
+			gi.centerprintf(other, "%s", self->message);
 			self->touch_debounce_time = level.time + 5.0;
 		}
 		return;
@@ -581,7 +581,7 @@ trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 			/* don't take falling damage immediately from this */
 			VectorCopy(other->velocity, other->client->oldvelocity);
 
-			if ( ((game.gametype == rogue_coop) && !(self->spawnflags & PUSH_SILENT) && /* FS: Coop: Rogue specific. */
+			if (((game.gametype == rogue_coop) && !(self->spawnflags & PUSH_SILENT) && /* FS: Coop: Rogue specific. */
 				(other->fly_sound_debounce_time < level.time)) ||
 				((game.gametype != rogue_coop) && (other->fly_sound_debounce_time < level.time))
 				)
@@ -602,7 +602,7 @@ trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 }
 
 void
-trigger_push_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+trigger_push_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -634,13 +634,13 @@ trigger_push_use(edict_t *self, edict_t *other /* unused */, edict_t *activator 
 	gi.linkentity(self);
 }
 
-void trigger_effect (edict_t *self) /* FS: Coop: Xatrix specific */
+void trigger_effect(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-	vec3_t origin;
+	vec3_t origin = { 0 };
 	vec3_t size;
 	int i;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -661,9 +661,9 @@ void trigger_effect (edict_t *self) /* FS: Coop: Xatrix specific */
 	}
 }
 
-void trigger_push_inactive (edict_t *self) /* FS: Coop: Xatrix specific */
+void trigger_push_inactive(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -681,9 +681,9 @@ void trigger_push_inactive (edict_t *self) /* FS: Coop: Xatrix specific */
 	}
 }
 
-void trigger_push_active (edict_t *self) /* FS: Coop: Xatrix specific */
+void trigger_push_active(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -713,7 +713,7 @@ void trigger_push_active (edict_t *self) /* FS: Coop: Xatrix specific */
  * SILENT - doesn't make wind noise
  */
 void
-SP_trigger_push(edict_t *self)
+SP_trigger_push(edict_t* self)
 {
 	if (!self)
 	{
@@ -785,7 +785,7 @@ SP_trigger_push(edict_t *self)
  *
  */
 void
-hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+hurt_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	int dflags;
 
@@ -831,11 +831,11 @@ hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface
 	}
 
 	T_Damage(other, self, self, vec3_origin, other->s.origin, vec3_origin,
-			self->dmg, self->dmg, dflags, MOD_TRIGGER_HURT);
+		self->dmg, self->dmg, dflags, MOD_TRIGGER_HURT);
 }
 
 void
-hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+hurt_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -845,18 +845,18 @@ hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unuse
 	if (self->solid == SOLID_NOT)
 	{
 		int	i, num;
-		edict_t	*touch[MAX_EDICTS], *hurtme;
+		edict_t* touch[MAX_EDICTS], * hurtme;
 
 		self->solid = SOLID_TRIGGER;
-		num = gi.BoxEdicts (self->absmin, self->absmax,
-			   	touch, MAX_EDICTS, AREA_SOLID);
+		num = gi.BoxEdicts(self->absmin, self->absmax,
+			touch, MAX_EDICTS, AREA_SOLID);
 
 		/* Check for idle monsters in
 		   trigger hurt */
-		for (i = 0 ; i < num ; i++)
+		for (i = 0; i < num; i++)
 		{
 			hurtme = touch[i];
-			hurt_touch (self, hurtme, NULL, NULL);
+			hurt_touch(self, hurtme, NULL, NULL);
 		}
 	}
 	else
@@ -873,7 +873,7 @@ hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unuse
 }
 
 void
-SP_trigger_hurt(edict_t *self)
+SP_trigger_hurt(edict_t* self)
 {
 	if (!self)
 	{
@@ -908,7 +908,7 @@ SP_trigger_hurt(edict_t *self)
 }
 
 void
-trigger_gravity_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+trigger_gravity_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -942,7 +942,7 @@ gravity for the level.
 */
 
 void
-trigger_gravity_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+trigger_gravity_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -962,7 +962,7 @@ trigger_gravity_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused *
  * START_OFF - trigger_gravity starts turned off (implies TOGGLE)
  */
 void
-SP_trigger_gravity(edict_t *self)
+SP_trigger_gravity(edict_t* self)
 {
 	if (!self)
 	{
@@ -997,7 +997,7 @@ SP_trigger_gravity(edict_t *self)
 	}
 	else
 	{
-		self->gravity = (int)strtol(st.gravity, (char **)NULL, 10);
+		self->gravity = (int)strtol(st.gravity, (char**)NULL, 10);
 		self->touch = trigger_gravity_touch;
 	}
 }
@@ -1011,7 +1011,7 @@ SP_trigger_gravity(edict_t *self)
  */
 
 void
-trigger_monsterjump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+trigger_monsterjump_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1047,7 +1047,7 @@ trigger_monsterjump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unus
 }
 
 void
-SP_trigger_monsterjump(edict_t *self)
+SP_trigger_monsterjump(edict_t* self)
 {
 	if (!self)
 	{

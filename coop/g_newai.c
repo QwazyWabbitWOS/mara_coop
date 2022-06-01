@@ -10,7 +10,7 @@
 		gi.WriteByte (TE_DEBUGTRAIL);
 		gi.WritePosition (pt1);
 		gi.WritePosition (pt2);
-		gi.multicast (pt1, MULTICAST_PVS);	
+		gi.multicast (pt1, MULTICAST_PVS);
 
 		self->nextthink = level.time + 10;
 */
@@ -27,17 +27,17 @@
 
 #define TESLA_DAMAGE_RADIUS 128
 
-edict_t *hint_path_start[MAX_HINT_CHAINS];
+edict_t* hint_path_start[MAX_HINT_CHAINS];
 int hint_paths_present;
 int num_hint_paths;
 
-qboolean face_wall(edict_t *self);
-qboolean monsterlost_checkhint2(edict_t *self);
+qboolean face_wall(edict_t* self);
+qboolean monsterlost_checkhint2(edict_t* self);
 qboolean parasite_drain_attack_ok(vec3_t start, vec3_t end);
-void HuntTarget(edict_t *self);
+void HuntTarget(edict_t* self);
 
 qboolean
-blocked_checkshot(edict_t *self, float shotChance)
+blocked_checkshot(edict_t* self, float shotChance)
 {
 	qboolean playerVisible;
 
@@ -66,7 +66,7 @@ blocked_checkshot(edict_t *self, float shotChance)
 
 	if (self->classname && !strcmp(self->classname, "monster_parasite"))
 	{
-		vec3_t f, r, offset, start, end;
+		vec3_t f, r, offset = { 0 }, start, end = { 0 };
 		trace_t tr;
 		AngleVectors(self->s.angles, f, r, NULL);
 		VectorSet(offset, 24, 0, 6);
@@ -132,13 +132,13 @@ blocked_checkshot(edict_t *self, float shotChance)
 }
 
 qboolean
-blocked_checkplat(edict_t *self, float dist)
+blocked_checkplat(edict_t* self, float dist)
 {
 	int playerPosition;
 	trace_t trace;
-	vec3_t pt1, pt2;
+	vec3_t pt1, pt2 = { 0 };
 	vec3_t forward;
-	edict_t *plat;
+	edict_t* plat;
 
 	if (!self)
 	{
@@ -190,7 +190,7 @@ blocked_checkplat(edict_t *self, float dist)
 		pt2[2] -= 384;
 
 		trace = gi.trace(pt1, vec3_origin, vec3_origin, pt2,
-				self, MASK_MONSTERSOLID);
+			self, MASK_MONSTERSOLID);
 
 		if ((trace.fraction < 1) && !trace.allsolid && !trace.startsolid)
 		{
@@ -207,9 +207,9 @@ blocked_checkplat(edict_t *self, float dist)
 		if (playerPosition == 1)
 		{
 			if (((self->groundentity == plat) &&
-				 (plat->moveinfo.state == STATE_BOTTOM)) ||
+				(plat->moveinfo.state == STATE_BOTTOM)) ||
 				((self->groundentity != plat) &&
-				 (plat->moveinfo.state == STATE_TOP)))
+					(plat->moveinfo.state == STATE_TOP)))
 			{
 				plat->use(plat, self, self);
 				return true;
@@ -218,9 +218,9 @@ blocked_checkplat(edict_t *self, float dist)
 		else if (playerPosition == -1)
 		{
 			if (((self->groundentity == plat) &&
-				 (plat->moveinfo.state == STATE_TOP)) ||
+				(plat->moveinfo.state == STATE_TOP)) ||
 				((self->groundentity != plat) &&
-				 (plat->moveinfo.state == STATE_BOTTOM)))
+					(plat->moveinfo.state == STATE_BOTTOM)))
 			{
 				plat->use(plat, self, self);
 				return true;
@@ -232,11 +232,11 @@ blocked_checkplat(edict_t *self, float dist)
 }
 
 qboolean
-blocked_checkjump(edict_t *self, float dist, float maxDown, float maxUp)
+blocked_checkjump(edict_t* self, float dist, float maxDown, float maxUp)
 {
 	int playerPosition;
 	trace_t trace;
-	vec3_t pt1, pt2;
+	vec3_t pt1, pt2 = { 0 };
 	vec3_t forward, up;
 
 	if (!self)
@@ -269,7 +269,7 @@ blocked_checkjump(edict_t *self, float dist, float maxDown, float maxUp)
 		/* check to make sure we can even get to the spot we're going to "fall" from */
 		VectorMA(self->s.origin, 48, forward, pt1);
 		trace = gi.trace(self->s.origin, self->mins, self->maxs, pt1,
-				self, MASK_MONSTERSOLID);
+			self, MASK_MONSTERSOLID);
 
 		if (trace.fraction < 1)
 		{
@@ -280,12 +280,12 @@ blocked_checkjump(edict_t *self, float dist, float maxDown, float maxUp)
 		pt2[2] = self->mins[2] - maxDown - 1;
 
 		trace = gi.trace(pt1, vec3_origin, vec3_origin, pt2, self,
-				MASK_MONSTERSOLID | MASK_WATER);
+			MASK_MONSTERSOLID | MASK_WATER);
 
 		if ((trace.fraction < 1) && !trace.allsolid && !trace.startsolid)
 		{
 			if (((self->absmin[2] - trace.endpos[2]) >=
-				 24) && trace.contents & MASK_SOLID)
+				24) && trace.contents & MASK_SOLID)
 			{
 				if ((self->enemy->absmin[2] - trace.endpos[2]) > 32)
 				{
@@ -308,7 +308,7 @@ blocked_checkjump(edict_t *self, float dist, float maxDown, float maxUp)
 		pt1[2] = self->absmax[2] + maxUp;
 
 		trace = gi.trace(pt1, vec3_origin, vec3_origin, pt2, self,
-				MASK_MONSTERSOLID | MASK_WATER);
+			MASK_MONSTERSOLID | MASK_WATER);
 
 		if ((trace.fraction < 1) && !trace.allsolid && !trace.startsolid)
 		{
@@ -325,16 +325,16 @@ blocked_checkjump(edict_t *self, float dist, float maxDown, float maxUp)
 }
 
 qboolean
-blocked_checknewenemy(edict_t *self)
+blocked_checknewenemy(edict_t* self)
 {
 	return false;
 }
 
-edict_t *
-hintpath_findstart(edict_t *ent)
+edict_t*
+hintpath_findstart(edict_t* ent)
 {
-	edict_t *e;
-	edict_t *last;
+	edict_t* e;
+	edict_t* last;
 	int field;
 
 	if (!ent)
@@ -392,11 +392,11 @@ hintpath_findstart(edict_t *ent)
 	return last;
 }
 
-edict_t *
-hintpath_other_end(edict_t *ent)
+edict_t*
+hintpath_other_end(edict_t* ent)
 {
-	edict_t *e;
-	edict_t *last;
+	edict_t* e;
+	edict_t* last;
 	int field;
 
 	if (!ent)
@@ -455,9 +455,9 @@ hintpath_other_end(edict_t *ent)
 }
 
 void
-hintpath_go(edict_t *self, edict_t *point)
+hintpath_go(edict_t* self, edict_t* point)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	vec3_t angles;
 
 	if (!self || !point)
@@ -480,7 +480,7 @@ hintpath_go(edict_t *self, edict_t *point)
 }
 
 void
-hintpath_stop(edict_t *self)
+hintpath_stop(edict_t* self)
 {
 	if (!self)
 	{
@@ -519,17 +519,17 @@ hintpath_stop(edict_t *self)
 }
 
 qboolean
-monsterlost_checkhint(edict_t *self)
+monsterlost_checkhint(edict_t* self)
 {
-	edict_t *e, *monster_pathchain, *target_pathchain;
-	edict_t *checkpoint = NULL;
-	edict_t *closest;
+	edict_t* e, * monster_pathchain, * target_pathchain;
+	edict_t* checkpoint = NULL;
+	edict_t* closest;
 	float closest_range = 1000000;
-	edict_t *start, *destination;
+	edict_t* start, * destination;
 	int count1 = 0, count2 = 0, count4 = 0, count5 = 0;
 	float r;
 	int i;
-	qboolean hint_path_represented[MAX_HINT_CHAINS];
+	qboolean hint_path_represented[MAX_HINT_CHAINS] = { 0 };
 
 	if (!self)
 	{
@@ -644,7 +644,7 @@ monsterlost_checkhint(edict_t *self)
 				checkpoint->monster_hint_chain = NULL;
 
 				/* and clear it again */
-				
+
 				checkpoint = NULL;
 				/* since we have yet to find a valid one (or else
 				   checkpoint would be set) move the start of
@@ -793,13 +793,13 @@ monsterlost_checkhint(edict_t *self)
 	}
 
 	/* at this point we should have:
-	    - monster_pathchain - a list of "monster valid" hint_path nodes linked
+		- monster_pathchain - a list of "monster valid" hint_path nodes linked
 							  together by monster_hint_chain
-	    - target_pathcain   - a list of "target valid" hint_path nodes linked
+		- target_pathcain   - a list of "target valid" hint_path nodes linked
 							  together by target_hint_chain. these are filtered
 							  such that only nodes which are on the same chain
 							  as "monster valid" nodes
-	
+
 	   Now, we figure out which "monster valid" node we want to use. To do this, we
 	   first off make sure we have some target nodes. If we don't, there are no
 	   valid hint_path nodes for us to take. If we have some, we filter all of our
@@ -903,11 +903,11 @@ monsterlost_checkhint(edict_t *self)
 }
 
 void
-hint_path_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+hint_path_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
-	edict_t *e, *goal;
-	edict_t *next = NULL;
+	edict_t* e, * goal;
+	edict_t* next = NULL;
 	qboolean goalFound = false;
 
 	if (!self || !other)
@@ -988,7 +988,7 @@ hint_path_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
  * "wait" - set this if you want the monster to freeze when they touch this hintpath
  */
 void
-SP_hint_path(edict_t *self)
+SP_hint_path(edict_t* self)
 {
 	if (!self)
 	{
@@ -1019,7 +1019,7 @@ SP_hint_path(edict_t *self)
 void
 InitHintPaths(void)
 {
-	edict_t *e, *current;
+	edict_t* e, * current;
 	int field, i, count2;
 
 	hint_paths_present = 0;
@@ -1037,7 +1037,7 @@ InitHintPaths(void)
 		return;
 	}
 
-	memset(hint_path_start, 0, MAX_HINT_CHAINS * sizeof(edict_t *));
+	memset(hint_path_start, 0, MAX_HINT_CHAINS * sizeof(edict_t*));
 	num_hint_paths = 0;
 
 	while (e)
@@ -1049,7 +1049,7 @@ InitHintPaths(void)
 				if (e->targetname) /* this is a bad end, ignore it */
 				{
 					gi.dprintf("Hint path at %s marked as endpoint with both target (%s) and targetname (%s)\n",
-							vtos(e->s.origin), e->target, e->targetname);
+						vtos(e->s.origin), e->target, e->targetname);
 				}
 				else
 				{
@@ -1078,7 +1078,7 @@ InitHintPaths(void)
 		if (G_Find(e, field, current->target))
 		{
 			gi.dprintf("\nForked hint path at %s detected for chain %d, target %s\n",
-					vtos(current->s.origin), num_hint_paths, current->target);
+				vtos(current->s.origin), num_hint_paths, current->target);
 			hint_path_start[i]->hint_chain = NULL;
 			continue;
 		}
@@ -1088,7 +1088,7 @@ InitHintPaths(void)
 			if (e->hint_chain)
 			{
 				gi.dprintf("\nCircular hint path at %s detected for chain %d, targetname %s\n",
-						vtos(e->s.origin), num_hint_paths, e->targetname);
+					vtos(e->s.origin), num_hint_paths, e->targetname);
 				hint_path_start[i]->hint_chain = NULL;
 				break;
 			}
@@ -1108,7 +1108,7 @@ InitHintPaths(void)
 			if (G_Find(e, field, current->target))
 			{
 				gi.dprintf("\nForked hint path at %s detected for chain %d, target %s\n",
-						vtos(current->s.origin), num_hint_paths, current->target);
+					vtos(current->s.origin), num_hint_paths, current->target);
 				hint_path_start[i]->hint_chain = NULL;
 				break;
 			}
@@ -1117,9 +1117,9 @@ InitHintPaths(void)
 }
 
 qboolean
-inback(edict_t *self, edict_t *other)
+inback(edict_t* self, edict_t* other)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	float dot;
 	vec3_t forward;
 
@@ -1142,9 +1142,9 @@ inback(edict_t *self, edict_t *other)
 }
 
 float
-realrange(edict_t *self, edict_t *other)
+realrange(edict_t* self, edict_t* other)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !other)
 	{
@@ -1157,7 +1157,7 @@ realrange(edict_t *self, edict_t *other)
 }
 
 qboolean
-face_wall(edict_t *self)
+face_wall(edict_t* self)
 {
 	vec3_t pt;
 	vec3_t forward;
@@ -1172,7 +1172,7 @@ face_wall(edict_t *self)
 	AngleVectors(self->s.angles, forward, NULL, NULL);
 	VectorMA(self->s.origin, 64, forward, pt);
 	tr = gi.trace(self->s.origin, vec3_origin, vec3_origin,
-			pt, self, MASK_MONSTERSOLID);
+		pt, self, MASK_MONSTERSOLID);
 
 	if ((tr.fraction < 1) && !tr.allsolid && !tr.startsolid)
 	{
@@ -1192,15 +1192,15 @@ face_wall(edict_t *self)
 }
 
 void
-badarea_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+badarea_touch(edict_t* ent, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 }
 
-edict_t *
-SpawnBadArea(vec3_t mins, vec3_t maxs, float lifespan, edict_t *owner)
+edict_t*
+SpawnBadArea(vec3_t mins, vec3_t maxs, float lifespan, edict_t* owner)
 {
-	edict_t *badarea;
-	vec3_t origin;
+	edict_t* badarea;
+	vec3_t origin = { 0 };
 
 	if (!owner)
 	{
@@ -1237,12 +1237,12 @@ SpawnBadArea(vec3_t mins, vec3_t maxs, float lifespan, edict_t *owner)
 	return badarea;
 }
 
-edict_t *
-CheckForBadArea(edict_t *ent)
+edict_t*
+CheckForBadArea(edict_t* ent)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
-	vec3_t mins, maxs;
+	edict_t* touch[MAX_EDICTS], * hit;
+	vec3_t mins = { 0 }, maxs = { 0 };
 
 	if (!ent)
 	{
@@ -1275,12 +1275,12 @@ CheckForBadArea(edict_t *ent)
 }
 
 qboolean
-MarkTeslaArea(edict_t *self, edict_t *tesla)
+MarkTeslaArea(edict_t* self, edict_t* tesla)
 {
-	vec3_t mins, maxs;
-	edict_t *e;
-	edict_t *tail;
-	edict_t *area;
+	vec3_t mins = { 0 }, maxs = { 0 };
+	edict_t* e;
+	edict_t* tail;
+	edict_t* area;
 
 	if (!tesla || !self)
 	{
@@ -1308,7 +1308,7 @@ MarkTeslaArea(edict_t *self, edict_t *tesla)
 	/* see if we can grab the trigger directly */
 	if (tesla->teamchain && tesla->teamchain->inuse)
 	{
-		edict_t *trigger;
+		edict_t* trigger;
 
 		trigger = tesla->teamchain;
 
@@ -1328,7 +1328,7 @@ MarkTeslaArea(edict_t *self, edict_t *tesla)
 	else
 	{
 		VectorSet(mins, -TESLA_DAMAGE_RADIUS, -TESLA_DAMAGE_RADIUS,
-				tesla->mins[2]);
+			tesla->mins[2]);
 		VectorSet(maxs, TESLA_DAMAGE_RADIUS, TESLA_DAMAGE_RADIUS, TESLA_DAMAGE_RADIUS);
 
 		area = SpawnBadArea(mins, maxs, 30, tesla);
@@ -1344,10 +1344,10 @@ MarkTeslaArea(edict_t *self, edict_t *tesla)
 }
 
 void
-PredictAim(edict_t *target, vec3_t start, float bolt_speed, qboolean eye_height,
-		float offset, vec3_t aimdir, vec3_t aimpoint)
+PredictAim(edict_t* target, vec3_t start, float bolt_speed, qboolean eye_height,
+	float offset, vec3_t aimdir, vec3_t aimpoint)
 {
-	vec3_t dir, vec;
+	vec3_t dir = { 0 }, vec;
 	float dist, time;
 
 	if (!target || !target->inuse)
@@ -1386,11 +1386,11 @@ PredictAim(edict_t *target, vec3_t start, float bolt_speed, qboolean eye_height,
 }
 
 qboolean
-below(edict_t *self, edict_t *other)
+below(edict_t* self, edict_t* other)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	float dot;
-	vec3_t down;
+	vec3_t down = { 0 };
 
 	if (!self || !other)
 	{
@@ -1411,7 +1411,7 @@ below(edict_t *self, edict_t *other)
 }
 
 void
-drawbbox(edict_t *self)
+drawbbox(edict_t* self)
 {
 	int lines[4][3] = {
 		{1, 2, 4},
@@ -1419,10 +1419,10 @@ drawbbox(edict_t *self)
 		{1, 4, 5},
 		{2, 4, 7}
 	};
-	int starts[4] = {0, 3, 5, 6};
-	vec3_t pt[8];
+	int starts[4] = { 0, 3, 5, 6 };
+	vec3_t pt[8] = { 0 };
 	int i, j, k;
-	vec3_t coords[2];
+	vec3_t coords[2] = { 0 };
 	vec3_t newbox;
 	vec3_t f, r, u, dir;
 
@@ -1488,7 +1488,7 @@ drawbbox(edict_t *self)
 }
 
 void
-M_MonsterDodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr)
+M_MonsterDodge(edict_t* self, edict_t* attacker, float eta, trace_t* tr)
 {
 	float r = random();
 	float height;
@@ -1534,7 +1534,7 @@ M_MonsterDodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr)
 	}
 
 	/* skill level determination.. */
-	if (r > (0.25 * ((skill->value) + 1)))
+	if (r > (0.25f * ((skill->value) + 1)))
 	{
 		return;
 	}
@@ -1565,7 +1565,7 @@ M_MonsterDodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr)
 		/* if we're ducking already, or the shot is at our knees */
 		if ((tr->endpos[2] <= height) || (self->monsterinfo.aiflags & AI_DUCKED))
 		{
-			vec3_t right, diff;
+			vec3_t right, diff = { 0 };
 
 			AngleVectors(self->s.angles, NULL, right, NULL);
 			VectorSubtract(tr->endpos, self->s.origin, diff);
@@ -1610,7 +1610,7 @@ M_MonsterDodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr)
 }
 
 void
-monster_duck_down(edict_t *self)
+monster_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -1630,7 +1630,7 @@ monster_duck_down(edict_t *self)
 }
 
 void
-monster_duck_hold(edict_t *self)
+monster_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -1648,7 +1648,7 @@ monster_duck_hold(edict_t *self)
 }
 
 void
-monster_duck_up(edict_t *self)
+monster_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -1663,7 +1663,7 @@ monster_duck_up(edict_t *self)
 }
 
 qboolean
-has_valid_enemy(edict_t *self)
+has_valid_enemy(edict_t* self)
 {
 	if (!self)
 	{
@@ -1689,7 +1689,7 @@ has_valid_enemy(edict_t *self)
 }
 
 void
-TargetTesla(edict_t *self, edict_t *tesla)
+TargetTesla(edict_t* self, edict_t* tesla)
 {
 	if ((!self) || (!tesla))
 	{
@@ -1734,13 +1734,13 @@ TargetTesla(edict_t *self, edict_t *tesla)
 	}
 }
 
-edict_t *
-PickCoopTarget(edict_t *self)
+edict_t*
+PickCoopTarget(edict_t* self)
 {
 	/* no more than 4 players in coop, so.. */
-	edict_t *targets[4];
+	edict_t* targets[4];
 	int num_targets = 0, targetID;
-	edict_t *ent;
+	edict_t* ent;
 	int player;
 
 	if (!self)
@@ -1754,7 +1754,7 @@ PickCoopTarget(edict_t *self)
 		return NULL;
 	}
 
-	memset(targets, 0, 4 * sizeof(edict_t *));
+	memset(targets, 0, 4 * sizeof(edict_t*));
 
 	for (player = 1; player <= game.maxclients; player++)
 	{
@@ -1796,7 +1796,7 @@ PickCoopTarget(edict_t *self)
 int
 CountPlayers(void)
 {
-	edict_t *ent;
+	edict_t* ent;
 	int count = 0;
 	int player;
 
@@ -1827,7 +1827,7 @@ CountPlayers(void)
 }
 
 void
-monster_jump_start(edict_t *self)
+monster_jump_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1838,7 +1838,7 @@ monster_jump_start(edict_t *self)
 }
 
 qboolean
-monster_jump_finished(edict_t *self)
+monster_jump_finished(edict_t* self)
 {
 	if (!self)
 	{

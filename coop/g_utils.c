@@ -4,31 +4,31 @@
 
 #define MAXCHOICES 8
 
-vec3_t VEC_UP = {0, -1, 0};
-vec3_t MOVEDIR_UP = {0, 0, 1};
-vec3_t VEC_DOWN = {0, -2, 0};
-vec3_t MOVEDIR_DOWN = {0, 0, -1};
+vec3_t VEC_UP = { 0, -1, 0 };
+vec3_t MOVEDIR_UP = { 0, 0, 1 };
+vec3_t VEC_DOWN = { 0, -2, 0 };
+vec3_t MOVEDIR_DOWN = { 0, 0, -1 };
 
 void
 G_ProjectSource(vec3_t point, vec3_t distance, vec3_t forward,
-		vec3_t right, vec3_t result)
+	vec3_t right, vec3_t result)
 {
 	result[0] = point[0] + forward[0] * distance[0] + right[0] * distance[1];
 	result[1] = point[1] + forward[1] * distance[0] + right[1] * distance[1];
 	result[2] = point[2] + forward[2] * distance[0] + right[2] * distance[1] +
-				distance[2];
+		distance[2];
 }
 
 void
 G_ProjectSource2(vec3_t point, vec3_t distance, vec3_t forward, /* FS: Coop: Rogue specific */
-		vec3_t right, vec3_t up, vec3_t result)
+	vec3_t right, vec3_t up, vec3_t result)
 {
 	result[0] = point[0] + forward[0] * distance[0] + right[0] * distance[1] +
-				up[0] * distance[2];
+		up[0] * distance[2];
 	result[1] = point[1] + forward[1] * distance[0] + right[1] * distance[1] +
-				up[1] * distance[2];
+		up[1] * distance[2];
 	result[2] = point[2] + forward[2] * distance[0] + right[2] * distance[1] +
-				up[2] * distance[2];
+		up[2] * distance[2];
 }
 
 /*
@@ -40,10 +40,10 @@ G_ProjectSource2(vec3_t point, vec3_t distance, vec3_t forward, /* FS: Coop: Rog
  * the beginning. If NULL, NULL will be returned
  * if the end of the list is reached.
  */
-edict_t *
-G_Find(edict_t *from, int fieldofs, char *match)
+edict_t*
+G_Find(edict_t* from, int fieldofs, char* match)
 {
-	char *s;
+	char* s;
 
 	if (!match)
 	{
@@ -59,14 +59,14 @@ G_Find(edict_t *from, int fieldofs, char *match)
 		from++;
 	}
 
-	for ( ; from < &g_edicts[globals.num_edicts]; from++)
+	for (; from < &g_edicts[globals.num_edicts]; from++)
 	{
 		if (!from->inuse)
 		{
 			continue;
 		}
 
-		s = *(char **)((byte *)from + fieldofs);
+		s = *(char**)((byte*)from + fieldofs);
 
 		if (!s)
 		{
@@ -86,8 +86,8 @@ G_Find(edict_t *from, int fieldofs, char *match)
  * Returns entities that have origins
  * within a spherical area
  */
-edict_t *
-findradius(edict_t *from, vec3_t org, float rad)
+edict_t*
+findradius(edict_t* from, vec3_t org, float rad)
 {
 	vec3_t eorg = { 0 };
 	int j;
@@ -101,7 +101,7 @@ findradius(edict_t *from, vec3_t org, float rad)
 		from++;
 	}
 
-	for ( ; from < &g_edicts[globals.num_edicts]; from++)
+	for (; from < &g_edicts[globals.num_edicts]; from++)
 	{
 		if (!from->inuse)
 		{
@@ -116,7 +116,7 @@ findradius(edict_t *from, vec3_t org, float rad)
 		for (j = 0; j < 3; j++)
 		{
 			eorg[j] = org[j] - (from->s.origin[j] +
-					   (from->mins[j] + from->maxs[j]) * 0.5f);
+				(from->mins[j] + from->maxs[j]) * 0.5f);
 		}
 
 		if (VectorLength(eorg) > rad)
@@ -133,8 +133,8 @@ findradius(edict_t *from, vec3_t org, float rad)
 /*
  * Returns entities that have origins within a spherical area
  */
-edict_t *
-findradius2(edict_t *from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
+edict_t*
+findradius2(edict_t* from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
 {
 	/* rad must be positive */
 	vec3_t eorg = { 0 };
@@ -149,7 +149,7 @@ findradius2(edict_t *from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
 		from++;
 	}
 
-	for ( ; from < &g_edicts[globals.num_edicts]; from++)
+	for (; from < &g_edicts[globals.num_edicts]; from++)
 	{
 		if (!from->inuse)
 		{
@@ -197,12 +197,12 @@ findradius2(edict_t *from, vec3_t org, float rad) /* FS: Coop: Rogue specific */
  * or the beginning. If NULL, NULL will be
  * returned if the end of the list is reached.
  */
-edict_t *
-G_PickTarget(char *targetname)
+edict_t*
+G_PickTarget(char* targetname)
 {
-	edict_t *ent = NULL;
+	edict_t* ent = NULL;
 	int num_choices = 0;
-	edict_t *choice[MAXCHOICES] = { 0 };
+	edict_t* choice[MAXCHOICES] = { 0 };
 
 	if (!targetname)
 	{
@@ -237,7 +237,7 @@ G_PickTarget(char *targetname)
 }
 
 void
-Think_Delay(edict_t *ent)
+Think_Delay(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -262,10 +262,10 @@ Think_Delay(edict_t *ent)
  * match (string)self.target and call their .use function
  */
 void
-G_UseTargets(edict_t *ent, edict_t *activator)
+G_UseTargets(edict_t* ent, edict_t* activator)
 {
-	edict_t *t;
-	edict_t *master; /* FS: Coop: Rogue specific */
+	edict_t* t;
+	edict_t* master; /* FS: Coop: Rogue specific */
 	qboolean done = false; /* FS: Coop: Rogue specific */
 
 	if (!ent) /* FS: DO NOT PARANOIA CHECK ACTIVATOR! BREAKS PLATS IN XWARE.BSP! */
@@ -297,7 +297,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 	/* print the message */
 	if ((activator) && (ent->message) && !(activator->svflags & SVF_MONSTER))
 	{
-		if(coop->value && activator->client && activator->client->pers.netname && strcmp("This item must be activated to use it.", ent->message)) /* FS: Coop: Print any use target stuff as global map message to all players */
+		if (coop->value && activator->client && activator->client->pers.netname && strcmp("This item must be activated to use it.", ent->message)) /* FS: Coop: Print any use target stuff as global map message to all players */
 		{
 			gi.bprintf(PRINT_HIGH, "\x02[MAPMSG][%s]: ", activator->client->pers.netname);
 			gi.bprintf(PRINT_HIGH, "%s\n", ent->message);
@@ -312,7 +312,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 		else
 		{
 			gi.sound(activator, CHAN_AUTO, gi.soundindex(
-							"misc/talk1.wav"), 1, ATTN_NORM, 0);
+				"misc/talk1.wav"), 1, ATTN_NORM, 0);
 		}
 	}
 
@@ -346,21 +346,21 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 				}
 			}
 
-			if(t->classname)
+			if (t->classname)
 			{
 				/* decrement secret count if target_secret is removed */
-				if (!Q_stricmp(t->classname,"target_secret"))
+				if (!Q_stricmp(t->classname, "target_secret"))
 				{
 					level.total_secrets--;
 				}
 				/* same deal with target_goal, but also turn off CD music if applicable */
-				else if (!Q_stricmp(t->classname,"target_goal"))
+				else if (!Q_stricmp(t->classname, "target_goal"))
 				{
 					level.total_goals--;
 
 					if (level.found_goals >= level.total_goals)
 					{
-						gi.configstring (CS_CDTRACK, "0");
+						gi.configstring(CS_CDTRACK, "0");
 					}
 				}
 			}
@@ -385,7 +385,7 @@ G_UseTargets(edict_t *ent, edict_t *activator)
 			/* doors fire area portals in a specific way */
 			if ((t->classname && !Q_stricmp(t->classname, "func_areaportal")) &&
 				(ent->classname && (!Q_stricmp(ent->classname, "func_door") ||
-				 !Q_stricmp(ent->classname, "func_door_rotating"))))
+					!Q_stricmp(ent->classname, "func_door_rotating"))))
 			{
 				continue;
 			}
@@ -415,16 +415,14 @@ G_UseTargets(edict_t *ent, edict_t *activator)
  * This is just a convenience function
  * for making temporary vectors for function calls
  */
-float *
-tv(float x, float y, float z)
+float* tv(float x, float y, float z)
 {
-	static int index = { 0 };
-	static vec3_t vecs[8] = { 0 };
-	float *v;
+	static	int		index;
+	static	vec3_t	vecs[8];
+	float* v;
 
-	/* use an array so that multiple
-	   tempvectors won't collide
-	   for a while */
+	// use an array so that multiple tempvectors won't collide
+	// for a while
 	v = vecs[index];
 	index = (index + 1) & 7;
 
@@ -435,16 +433,17 @@ tv(float x, float y, float z)
 	return v;
 }
 
+
 /*
  * This is just a convenience function
  * for printing vectors
  */
-char *
+char*
 vtos(vec3_t v)
 {
 	static int index = { 0 };
 	static char str[8][32] = { 0 };
-	char *s;
+	char* s;
 
 	/* use an array so that multiple vtos won't collide */
 	s = str[index];
@@ -662,7 +661,7 @@ vectoangles2(vec3_t value1, vec3_t angles) /* FS: Coop: Rogue specific */
 	}
 	else
 	{
-	/* PMM - fixed to correct for pitch of 0 */
+		/* PMM - fixed to correct for pitch of 0 */
 		if (value1[0])
 		{
 			yaw = (atan2(value1[1], value1[0]) * 180 / M_PI);
@@ -696,23 +695,21 @@ vectoangles2(vec3_t value1, vec3_t angles) /* FS: Coop: Rogue specific */
 }
 #endif /* !GAME_HARD_LINKED */
 
-char *
-G_CopyString(char *in)
+char*
+G_CopyString(const char* in)
 {
-	char *out;
+	char* out;
 
 	if (!in)
-	{
 		return NULL;
-	}
 
-	out = gi.TagMalloc(strlen(in) + 1, TAG_LEVEL);
+	out = gi.TagMalloc((int)strlen(in) + 1, TAG_LEVEL);
 	strcpy(out, in);
 	return out;
 }
 
 void
-G_InitEdict(edict_t *e)
+G_InitEdict(edict_t* e)
 {
 	if (!e)
 	{
@@ -745,11 +742,11 @@ G_InitEdict(edict_t *e)
  * and recreated, which can cause interpolated angles and
  * bad trails.
  */
-edict_t *
+edict_t*
 G_Spawn(void)
 {
 	int i;
-	edict_t *e;
+	edict_t* e;
 
 	e = &g_edicts[(int)maxclients->value + 1];
 
@@ -779,7 +776,7 @@ G_Spawn(void)
  * Marks the edict as free
  */
 void
-G_FreeEdict(edict_t *ed)
+G_FreeEdict(edict_t* ed)
 {
 
 	if (!ed)
@@ -812,10 +809,10 @@ G_FreeEdict(edict_t *ed)
 }
 
 void
-G_TouchTriggers(edict_t *ent)
+G_TouchTriggers(edict_t* ent)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
+	edict_t* touch[MAX_EDICTS], * hit;
 
 	if (!ent)
 	{
@@ -829,7 +826,7 @@ G_TouchTriggers(edict_t *ent)
 	}
 
 	num = gi.BoxEdicts(ent->absmin, ent->absmax, touch,
-			MAX_EDICTS, AREA_TRIGGERS);
+		MAX_EDICTS, AREA_TRIGGERS);
 
 	/* be careful, it is possible to have an entity in this
 	   list removed before we get to it (killtriggered) */
@@ -858,10 +855,10 @@ G_TouchTriggers(edict_t *ent)
  * touch it
  */
 void
-G_TouchSolids(edict_t *ent)
+G_TouchSolids(edict_t* ent)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
+	edict_t* touch[MAX_EDICTS], * hit;
 
 	if (!ent)
 	{
@@ -869,7 +866,7 @@ G_TouchSolids(edict_t *ent)
 	}
 
 	num = gi.BoxEdicts(ent->absmin, ent->absmax, touch,
-			MAX_EDICTS, AREA_SOLID);
+		MAX_EDICTS, AREA_SOLID);
 
 	/* be careful, it is possible to have an entity in this
 	   list removed before we get to it (killtriggered) */
@@ -900,7 +897,7 @@ G_TouchSolids(edict_t *ent)
  * hould be unlinked before calling this!
  */
 qboolean
-KillBox(edict_t *ent)
+KillBox(edict_t* ent)
 {
 	trace_t tr;
 
@@ -912,7 +909,7 @@ KillBox(edict_t *ent)
 	while (1)
 	{
 		tr = gi.trace(ent->s.origin, ent->mins, ent->maxs, ent->s.origin,
-				NULL, MASK_PLAYERSOLID);
+			NULL, MASK_PLAYERSOLID);
 
 		if (!tr.ent)
 		{
@@ -921,7 +918,7 @@ KillBox(edict_t *ent)
 
 		/* nail it */
 		T_Damage(tr.ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin,
-				100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+			100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
 
 		/* if we didn't kill it, fail */
 		if (tr.ent->solid)
@@ -937,25 +934,25 @@ KillBox(edict_t *ent)
 =================
 MonsterKillBox
 
-Kills all entities except players that would touch the proposed new 
+Kills all entities except players that would touch the proposed new
 positioning of ent.  Ent should be unlinked before calling this!
 =================
 */
-qboolean MonsterKillBox (edict_t *ent) /* FS: Zaero specific game dll changes */
+qboolean MonsterKillBox(edict_t* ent) /* FS: Zaero specific game dll changes */
 {
 	trace_t		tr;
 
 	while (1)
 	{
-		tr = gi.trace (ent->s.origin, ent->mins, ent->maxs, ent->s.origin, NULL, MASK_PLAYERSOLID);
+		tr = gi.trace(ent->s.origin, ent->mins, ent->maxs, ent->s.origin, NULL, MASK_PLAYERSOLID);
 		if (!tr.ent)
 			break;
 
-    if(!((ent->svflags & SVF_MONSTER) && tr.ent->client && tr.ent->health))
-    {
-		  // nail it
-		  T_Damage (tr.ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
-    }
+		if (!((ent->svflags & SVF_MONSTER) && tr.ent->client && tr.ent->health))
+		{
+			// nail it
+			T_Damage(tr.ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+		}
 
 		// if we didn't kill it, fail
 		if (tr.ent->solid)
@@ -969,31 +966,31 @@ qboolean MonsterKillBox (edict_t *ent) /* FS: Zaero specific game dll changes */
 =================
 MonsterPlayerKillBox
 
-Kills all entities except players that would touch the proposed new 
+Kills all entities except players that would touch the proposed new
 positioning of ent.  Ent should be unlinked before calling this!
 =================
 */
-qboolean MonsterPlayerKillBox (edict_t *ent) /* FS: Zaero specific game dll changes */
+qboolean MonsterPlayerKillBox(edict_t* ent) /* FS: Zaero specific game dll changes */
 {
 	trace_t		tr;
 
 	while (1)
 	{
-		tr = gi.trace (ent->s.origin, ent->mins, ent->maxs, ent->s.origin, ent, MASK_PLAYERSOLID);
+		tr = gi.trace(ent->s.origin, ent->mins, ent->maxs, ent->s.origin, ent, MASK_PLAYERSOLID);
 		if (!tr.ent)
 			break;
 
-    if((ent->svflags & SVF_MONSTER) && tr.ent->client && tr.ent->health)
-    {
-		  // nail myself
-		  T_Damage (ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
-      return true;
-    }
-    else
-    {
-		  // nail it
-		  T_Damage (tr.ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
-    }
+		if ((ent->svflags & SVF_MONSTER) && tr.ent->client && tr.ent->health)
+		{
+			// nail myself
+			T_Damage(ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+			return true;
+		}
+		else
+		{
+			// nail it
+			T_Damage(tr.ent, ent, ent, vec3_origin, ent->s.origin, vec3_origin, 100000, 0, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+		}
 
 		// if we didn't kill it, fail
 		if (tr.ent->solid)
@@ -1003,12 +1000,12 @@ qboolean MonsterPlayerKillBox (edict_t *ent) /* FS: Zaero specific game dll chan
 	return true;		// all clear
 }
 
-edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: People want this for various Tastyspleen-like commands */
+edict_t* Find_LikePlayer(edict_t* ent, char* name, qboolean exactMatch) /* FS: People want this for various Tastyspleen-like commands */
 {
 	int i, count;
-	edict_t *player = NULL;
-	edict_t *foundPlayer = NULL;
-	char *nameLwrd = NULL;
+	edict_t* player = NULL;
+	edict_t* foundPlayer = NULL;
+	char* nameLwrd = NULL;
 
 	if (!ent || !ent->client || !name || !name[0])
 	{
@@ -1036,7 +1033,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 
 	for (i = 0; i < maxclients->value; i++)
 	{
-		char *netName;
+		char* netName;
 		player = &g_edicts[i + 1];
 
 		if (!player || !player->inuse || !player->client)
@@ -1044,7 +1041,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 			continue;
 		}
 
-		netName = strdup(player->client->pers.netname);
+		netName = G_CopyString(player->client->pers.netname);
 
 		netName = Q_strlwr(netName);
 
@@ -1067,7 +1064,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 
 		if (netName)
 		{
-			free(netName);
+			gi.TagFree(netName);
 			netName = NULL;
 		}
 	}
@@ -1096,7 +1093,7 @@ edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exactMatch) /* FS: 
 qboolean G_SpawnCheck(int cap)
 {
 	int i;
-	edict_t *e;
+	edict_t* e;
 
 	e = &g_edicts[(int)maxclients->value + 1];
 
@@ -1111,12 +1108,12 @@ qboolean G_SpawnCheck(int cap)
 			((e->freetime < 2) || (level.time - e->freetime > 0.5f))
 			&& (i <= game.maxentities - cap))
 		{
-//			Com_Printf("%d / %d / %d\n", i, game.maxentities-cap, game.maxentities);
+			//			Com_Printf("%d / %d / %d\n", i, game.maxentities-cap, game.maxentities);
 			return true;
 		}
 	}
 
-//	Com_Printf("%d / %d / %d\n", i, game.maxentities-cap, game.maxentities);
+	//	Com_Printf("%d / %d / %d\n", i, game.maxentities-cap, game.maxentities);
 	if (i >= game.maxentities - cap)
 	{
 		return false;

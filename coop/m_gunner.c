@@ -17,15 +17,15 @@ static int sound_open;
 static int sound_search;
 static int sound_sight;
 
-qboolean visible(edict_t *self, edict_t *other);
-void GunnerGrenade(edict_t *self);
-void GunnerFire(edict_t *self);
-void gunner_fire_chain(edict_t *self);
-void gunner_refire_chain(edict_t *self);
-void gunner_stand(edict_t *self);
+qboolean visible(edict_t* self, edict_t* other);
+void GunnerGrenade(edict_t* self);
+void GunnerFire(edict_t* self);
+void gunner_fire_chain(edict_t* self);
+void gunner_refire_chain(edict_t* self);
+void gunner_stand(edict_t* self);
 
 void
-gunner_idlesound(edict_t *self)
+gunner_idlesound(edict_t* self)
 {
 	if (!self)
 	{
@@ -36,7 +36,7 @@ gunner_idlesound(edict_t *self)
 }
 
 void
-gunner_sight(edict_t *self, edict_t *other /* unused */)
+gunner_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -47,7 +47,7 @@ gunner_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-gunner_search(edict_t *self)
+gunner_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -116,13 +116,13 @@ mframe_t gunner_frames_fidget[] = {
 mmove_t gunner_move_fidget =
 {
 	FRAME_stand31,
-   	FRAME_stand70,
+	FRAME_stand70,
 	gunner_frames_fidget,
-   	gunner_stand
+	gunner_stand
 };
 
 void
-gunner_fidget(edict_t *self)
+gunner_fidget(edict_t* self)
 {
 	if (!self)
 	{
@@ -184,7 +184,7 @@ mmove_t gunner_move_stand =
 };
 
 void
-gunner_stand(edict_t *self)
+gunner_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -219,7 +219,7 @@ mmove_t gunner_move_walk =
 };
 
 void
-gunner_walk(edict_t *self)
+gunner_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -243,7 +243,7 @@ mframe_t gunner_frames_run_rogue[] = {
 mmove_t gunner_move_run_rogue =
 {
 	FRAME_run01,
-   	FRAME_run08,
+	FRAME_run08,
 	gunner_frames_run_rogue,
 	NULL
 };
@@ -262,13 +262,13 @@ mframe_t gunner_frames_run[] = {
 mmove_t gunner_move_run =
 {
 	FRAME_run01,
-   	FRAME_run08,
+	FRAME_run08,
 	gunner_frames_run,
 	NULL
 };
 
 void
-gunner_run(edict_t *self)
+gunner_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -310,12 +310,12 @@ mmove_t gunner_move_runandshoot =
 {
 	FRAME_runs01,
 	FRAME_runs06,
-   	gunner_frames_runandshoot,
+	gunner_frames_runandshoot,
 	NULL
 };
 
 void
-gunner_runandshoot(edict_t *self)
+gunner_runandshoot(edict_t* self)
 {
 	if (!self)
 	{
@@ -390,8 +390,8 @@ mmove_t gunner_move_pain1 =
 };
 
 void
-gunner_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+gunner_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	if (!self)
 	{
@@ -466,7 +466,7 @@ gunner_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-gunner_dead(edict_t *self)
+gunner_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -504,9 +504,9 @@ mmove_t gunner_move_death =
 };
 
 void
-gunner_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage /* unused */,
-		vec3_t point)
+gunner_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage /* unused */,
+	vec3_t point)
 {
 	int n;
 
@@ -524,22 +524,22 @@ gunner_die(edict_t *self, edict_t *inflictor /* unused */,
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
-		gi.sound(self, CHAN_VOICE, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/bone/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 4; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -557,7 +557,7 @@ gunner_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-gunner_duck_down(edict_t *self)
+gunner_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -600,7 +600,7 @@ gunner_duck_down(edict_t *self)
 }
 
 void
-gunner_duck_hold(edict_t *self)
+gunner_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -618,7 +618,7 @@ gunner_duck_hold(edict_t *self)
 }
 
 void
-gunner_duck_up(edict_t *self)
+gunner_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -670,7 +670,7 @@ mmove_t gunner_move_duck =
 };
 
 void
-gunner_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *fake /* unused */)
+gunner_dodge(edict_t* self, edict_t* attacker, float eta /* unused */, trace_t* fake /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -698,7 +698,7 @@ gunner_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *
 }
 
 void
-gunner_opengun(edict_t *self)
+gunner_opengun(edict_t* self)
 {
 	if (!self)
 	{
@@ -709,12 +709,12 @@ gunner_opengun(edict_t *self)
 }
 
 void
-GunnerFire(edict_t *self)
+GunnerFire(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t target;
-	vec3_t aim;
+	vec3_t target = { 0 };
+	vec3_t aim = { 0 };
 	int flash_number;
 
 	if (!self || !self->enemy || !self->enemy->inuse)
@@ -726,7 +726,7 @@ GunnerFire(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	/* project enemy back a bit and target there */
 	VectorCopy(self->enemy->s.origin, target);
@@ -736,16 +736,16 @@ GunnerFire(edict_t *self)
 	VectorSubtract(target, start, aim);
 	VectorNormalize(aim);
 	monster_fire_bullet(self, start, aim, 3, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, flash_number);
+		DEFAULT_BULLET_VSPREAD, flash_number);
 }
 
 qboolean
-gunner_grenade_check(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_grenade_check(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t start;
 	vec3_t forward, right;
 	trace_t tr;
-	vec3_t target, dir;
+	vec3_t target = { 0 }, dir = { 0 };
 
 	if (!self)
 	{
@@ -777,7 +777,7 @@ gunner_grenade_check(edict_t *self) /* FS: Coop: Rogue specific */
 	   before we start tossing grenades around. */
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_GUNNER_GRENADE_1],
-			forward, right, start);
+		forward, right, start);
 
 	/* check for blindfire flag */
 	if (self->monsterinfo.aiflags & AI_MANUAL_STEERING)
@@ -808,15 +808,15 @@ gunner_grenade_check(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-GunnerGrenade_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
+GunnerGrenade_Rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	int flash_number;
 	float spread;
 	float pitch = 0;
-	vec3_t target;
+	vec3_t target = { 0 };
 	qboolean blindfire = false;
 
 	if (!self)
@@ -874,7 +874,7 @@ GunnerGrenade_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 
 	AngleVectors(self->s.angles, forward, right, up);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	if (self->enemy)
 	{
@@ -909,11 +909,11 @@ GunnerGrenade_Rogue(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-GunnerGrenade(edict_t *self)
+GunnerGrenade(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	int flash_number;
 
 	if (!self)
@@ -946,7 +946,7 @@ GunnerGrenade(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(forward, aim);
 
@@ -1009,9 +1009,9 @@ mmove_t gunner_move_endfire_chain =
 };
 
 void
-gunner_blind_check(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_blind_check(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -1020,8 +1020,7 @@ gunner_blind_check(edict_t *self) /* FS: Coop: Rogue specific */
 
 	if (self->monsterinfo.aiflags & AI_MANUAL_STEERING)
 	{
-		VectorSubtract(self->monsterinfo.blind_fire_target, self->s.origin,
-				aim);
+		VectorSubtract(self->monsterinfo.blind_fire_target, self->s.origin, aim);
 		self->ideal_yaw = vectoyaw(aim);
 	}
 }
@@ -1059,7 +1058,7 @@ mmove_t gunner_move_attack_grenade =
 };
 
 void
-gunner_attack(edict_t *self)
+gunner_attack(edict_t* self)
 {
 	float chance, r; /* FS: Coop: Rogue specific */
 
@@ -1158,7 +1157,7 @@ gunner_attack(edict_t *self)
 }
 
 void
-gunner_fire_chain(edict_t *self)
+gunner_fire_chain(edict_t* self)
 {
 	if (!self)
 	{
@@ -1169,7 +1168,7 @@ gunner_fire_chain(edict_t *self)
 }
 
 void
-gunner_refire_chain(edict_t *self)
+gunner_refire_chain(edict_t* self)
 {
 	if (!self)
 	{
@@ -1192,7 +1191,7 @@ gunner_refire_chain(edict_t *self)
 }
 
 void
-gunner_jump_now(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_jump_now(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, up;
 
@@ -1209,7 +1208,7 @@ gunner_jump_now(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-gunner_jump2_now(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_jump2_now(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, up;
 
@@ -1226,7 +1225,7 @@ gunner_jump2_now(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-gunner_jump_wait_land(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_jump_wait_land(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1263,9 +1262,9 @@ mframe_t gunner_frames_jump[] = { /* FS: Coop: Rogue specific */
 
 mmove_t gunner_move_jump = { /* FS: Coop: Rogue specific */
 	FRAME_jump01,
-   	FRAME_jump10,
-   	gunner_frames_jump,
-   	gunner_run
+	FRAME_jump10,
+	gunner_frames_jump,
+	gunner_run
 };
 
 mframe_t gunner_frames_jump2[] = { /* FS: Coop: Rogue specific */
@@ -1283,13 +1282,13 @@ mframe_t gunner_frames_jump2[] = { /* FS: Coop: Rogue specific */
 
 mmove_t gunner_move_jump2 = { /* FS: Coop: Rogue specific */
 	FRAME_jump01,
-   	FRAME_jump10,
-   	gunner_frames_jump2,
-   	gunner_run
+	FRAME_jump10,
+	gunner_frames_jump2,
+	gunner_run
 };
 
 void
-gunner_jump(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_jump(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1314,7 +1313,7 @@ gunner_jump(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 qboolean
-gunner_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+gunner_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1342,7 +1341,7 @@ gunner_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
 
 /* new duck code */
 void
-gunner_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
+gunner_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1387,7 +1386,7 @@ gunner_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 }
 
 void
-gunner_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
+gunner_sidestep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1423,7 +1422,7 @@ gunner_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
  * QUAKED monster_gunner (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_gunner(edict_t *self)
+SP_monster_gunner(edict_t* self)
 {
 	if (!self)
 	{

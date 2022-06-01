@@ -11,212 +11,212 @@ void Z_SpawnDMItems(); /* FS: Zaero specific game dll changes */
 
 typedef struct
 {
-	char *name;
-	void (*spawn)(edict_t *ent);
+	char* name;
+	void (*spawn)(edict_t* ent);
 } spawn_t;
 
-void SP_item_health(edict_t *self);
-void SP_item_health_small(edict_t *self);
-void SP_item_health_large(edict_t *self);
-void SP_item_health_mega(edict_t *self);
+void SP_item_health(edict_t* self);
+void SP_item_health_small(edict_t* self);
+void SP_item_health_large(edict_t* self);
+void SP_item_health_mega(edict_t* self);
 
-void SP_info_player_start(edict_t *ent);
-void SP_info_player_deathmatch(edict_t *ent);
-void SP_info_player_coop(edict_t *ent);
-void SP_info_player_intermission(edict_t *ent);
+void SP_info_player_start(edict_t* ent);
+void SP_info_player_deathmatch(edict_t* ent);
+void SP_info_player_coop(edict_t* ent);
+void SP_info_player_intermission(edict_t* ent);
 
-void SP_func_plat(edict_t *ent);
-void SP_func_rotating(edict_t *ent);
-void SP_func_button(edict_t *ent);
-void SP_func_door(edict_t *ent);
-void SP_func_door_secret(edict_t *ent);
-void SP_func_door_rotating(edict_t *ent);
-void SP_func_water(edict_t *ent);
-void SP_func_train(edict_t *ent);
-void SP_func_conveyor(edict_t *self);
-void SP_func_wall(edict_t *self);
-void SP_func_object(edict_t *self);
-void SP_func_explosive(edict_t *self);
-void SP_func_timer(edict_t *self);
-void SP_func_areaportal(edict_t *ent);
-void SP_func_clock(edict_t *ent);
-void SP_func_killbox(edict_t *ent);
+void SP_func_plat(edict_t* ent);
+void SP_func_rotating(edict_t* ent);
+void SP_func_button(edict_t* ent);
+void SP_func_door(edict_t* ent);
+void SP_func_door_secret(edict_t* ent);
+void SP_func_door_rotating(edict_t* ent);
+void SP_func_water(edict_t* ent);
+void SP_func_train(edict_t* ent);
+void SP_func_conveyor(edict_t* self);
+void SP_func_wall(edict_t* self);
+void SP_func_object(edict_t* self);
+void SP_func_explosive(edict_t* self);
+void SP_func_timer(edict_t* self);
+void SP_func_areaportal(edict_t* ent);
+void SP_func_clock(edict_t* ent);
+void SP_func_killbox(edict_t* ent);
 
-void SP_trigger_always(edict_t *ent);
-void SP_trigger_once(edict_t *ent);
-void SP_trigger_multiple(edict_t *ent);
-void SP_trigger_relay(edict_t *ent);
-void SP_trigger_push(edict_t *ent);
-void SP_trigger_hurt(edict_t *ent);
-void SP_trigger_key(edict_t *ent);
-void SP_trigger_counter(edict_t *ent);
-void SP_trigger_elevator(edict_t *ent);
-void SP_trigger_gravity(edict_t *ent);
-void SP_trigger_monsterjump(edict_t *ent);
+void SP_trigger_always(edict_t* ent);
+void SP_trigger_once(edict_t* ent);
+void SP_trigger_multiple(edict_t* ent);
+void SP_trigger_relay(edict_t* ent);
+void SP_trigger_push(edict_t* ent);
+void SP_trigger_hurt(edict_t* ent);
+void SP_trigger_key(edict_t* ent);
+void SP_trigger_counter(edict_t* ent);
+void SP_trigger_elevator(edict_t* ent);
+void SP_trigger_gravity(edict_t* ent);
+void SP_trigger_monsterjump(edict_t* ent);
 
-void SP_target_temp_entity(edict_t *ent);
-void SP_target_speaker(edict_t *ent);
-void SP_target_explosion(edict_t *ent);
-void SP_target_changelevel(edict_t *ent);
-void SP_target_secret(edict_t *ent);
-void SP_target_goal(edict_t *ent);
-void SP_target_splash(edict_t *ent);
-void SP_target_spawner(edict_t *ent);
-void SP_target_blaster(edict_t *ent);
-void SP_target_crosslevel_trigger(edict_t *ent);
-void SP_target_crosslevel_target(edict_t *ent);
-void SP_target_laser(edict_t *self);
-void SP_target_help(edict_t *ent);
-void SP_target_actor(edict_t *ent);
-void SP_target_lightramp(edict_t *self);
-void SP_target_earthquake(edict_t *ent);
-void SP_target_character(edict_t *ent);
-void SP_target_string(edict_t *ent);
+void SP_target_temp_entity(edict_t* ent);
+void SP_target_speaker(edict_t* ent);
+void SP_target_explosion(edict_t* ent);
+void SP_target_changelevel(edict_t* ent);
+void SP_target_secret(edict_t* ent);
+void SP_target_goal(edict_t* ent);
+void SP_target_splash(edict_t* ent);
+void SP_target_spawner(edict_t* ent);
+void SP_target_blaster(edict_t* ent);
+void SP_target_crosslevel_trigger(edict_t* ent);
+void SP_target_crosslevel_target(edict_t* ent);
+void SP_target_laser(edict_t* self);
+void SP_target_help(edict_t* ent);
+void SP_target_actor(edict_t* ent);
+void SP_target_lightramp(edict_t* self);
+void SP_target_earthquake(edict_t* ent);
+void SP_target_character(edict_t* ent);
+void SP_target_string(edict_t* ent);
 
-void SP_worldspawn(edict_t *ent);
-void SP_viewthing(edict_t *ent);
+void SP_worldspawn(edict_t* ent);
+void SP_viewthing(edict_t* ent);
 
-void SP_light(edict_t *self);
-void SP_light_mine1(edict_t *ent);
-void SP_light_mine2(edict_t *ent);
-void SP_info_null(edict_t *self);
-void SP_info_notnull(edict_t *self);
-void SP_path_corner(edict_t *self);
-void SP_point_combat(edict_t *self);
+void SP_light(edict_t* self);
+void SP_light_mine1(edict_t* ent);
+void SP_light_mine2(edict_t* ent);
+void SP_info_null(edict_t* self);
+void SP_info_notnull(edict_t* self);
+void SP_path_corner(edict_t* self);
+void SP_point_combat(edict_t* self);
 
-void SP_misc_explobox(edict_t *self);
-void SP_misc_banner(edict_t *self);
-void SP_misc_satellite_dish(edict_t *self);
-void SP_misc_actor(edict_t *self);
-void SP_misc_gib_arm(edict_t *self);
-void SP_misc_gib_leg(edict_t *self);
-void SP_misc_gib_head(edict_t *self);
-void SP_misc_insane(edict_t *self);
-void SP_misc_deadsoldier(edict_t *self);
-void SP_misc_viper(edict_t *self);
-void SP_misc_viper_bomb(edict_t *self);
-void SP_misc_bigviper(edict_t *self);
-void SP_misc_strogg_ship(edict_t *self);
-void SP_misc_teleporter(edict_t *self);
-void SP_misc_teleporter_dest(edict_t *self);
-void SP_misc_blackhole(edict_t *self);
-void SP_misc_eastertank(edict_t *self);
-void SP_misc_easterchick(edict_t *self);
-void SP_misc_easterchick2(edict_t *self);
-void SP_misc_teleporter_offworld (edict_t *self);
+void SP_misc_explobox(edict_t* self);
+void SP_misc_banner(edict_t* self);
+void SP_misc_satellite_dish(edict_t* self);
+void SP_misc_actor(edict_t* self);
+void SP_misc_gib_arm(edict_t* self);
+void SP_misc_gib_leg(edict_t* self);
+void SP_misc_gib_head(edict_t* self);
+void SP_misc_insane(edict_t* self);
+void SP_misc_deadsoldier(edict_t* self);
+void SP_misc_viper(edict_t* self);
+void SP_misc_viper_bomb(edict_t* self);
+void SP_misc_bigviper(edict_t* self);
+void SP_misc_strogg_ship(edict_t* self);
+void SP_misc_teleporter(edict_t* self);
+void SP_misc_teleporter_dest(edict_t* self);
+void SP_misc_blackhole(edict_t* self);
+void SP_misc_eastertank(edict_t* self);
+void SP_misc_easterchick(edict_t* self);
+void SP_misc_easterchick2(edict_t* self);
+void SP_misc_teleporter_offworld(edict_t* self);
 
-void SP_monster_berserk(edict_t *self);
-void SP_monster_gladiator(edict_t *self);
-void SP_monster_gunner(edict_t *self);
-void SP_monster_infantry(edict_t *self);
-void SP_monster_soldier_light(edict_t *self);
-void SP_monster_soldier(edict_t *self);
-void SP_monster_soldier_ss(edict_t *self);
-void SP_monster_tank(edict_t *self);
-void SP_monster_medic(edict_t *self);
-void SP_monster_flipper(edict_t *self);
-void SP_monster_chick(edict_t *self);
-void SP_monster_parasite(edict_t *self);
-void SP_monster_flyer(edict_t *self);
-void SP_monster_brain(edict_t *self);
-void SP_monster_floater(edict_t *self);
-void SP_monster_hover(edict_t *self);
-void SP_monster_mutant(edict_t *self);
-void SP_monster_supertank(edict_t *self);
-void SP_monster_boss2(edict_t *self);
-void SP_monster_jorg(edict_t *self);
-void SP_monster_boss3_stand(edict_t *self);
+void SP_monster_berserk(edict_t* self);
+void SP_monster_gladiator(edict_t* self);
+void SP_monster_gunner(edict_t* self);
+void SP_monster_infantry(edict_t* self);
+void SP_monster_soldier_light(edict_t* self);
+void SP_monster_soldier(edict_t* self);
+void SP_monster_soldier_ss(edict_t* self);
+void SP_monster_tank(edict_t* self);
+void SP_monster_medic(edict_t* self);
+void SP_monster_flipper(edict_t* self);
+void SP_monster_chick(edict_t* self);
+void SP_monster_parasite(edict_t* self);
+void SP_monster_flyer(edict_t* self);
+void SP_monster_brain(edict_t* self);
+void SP_monster_floater(edict_t* self);
+void SP_monster_hover(edict_t* self);
+void SP_monster_mutant(edict_t* self);
+void SP_monster_supertank(edict_t* self);
+void SP_monster_boss2(edict_t* self);
+void SP_monster_jorg(edict_t* self);
+void SP_monster_boss3_stand(edict_t* self);
 
-void SP_monster_commander_body(edict_t *self);
+void SP_monster_commander_body(edict_t* self);
 
-void SP_turret_breach(edict_t *self);
-void SP_turret_base(edict_t *self);
-void SP_turret_driver(edict_t *self);
+void SP_turret_breach(edict_t* self);
+void SP_turret_base(edict_t* self);
+void SP_turret_driver(edict_t* self);
 
-void SP_func_plat2(edict_t *ent); /* FS: Coop: Rogue specific */
-void SP_func_door_secret2(edict_t *ent); /* FS: Coop: Rogue specific */
-void SP_func_force_wall(edict_t *ent); /* FS: Coop: Rogue specific */
-void SP_info_player_coop_lava(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_info_teleport_destination(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_trigger_teleport(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_trigger_disguise(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_stalker(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_turret(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_target_steam(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_target_anger(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_target_killplayers(edict_t *self); /* FS: Coop: Rogue specific */
+void SP_func_plat2(edict_t* ent); /* FS: Coop: Rogue specific */
+void SP_func_door_secret2(edict_t* ent); /* FS: Coop: Rogue specific */
+void SP_func_force_wall(edict_t* ent); /* FS: Coop: Rogue specific */
+void SP_info_player_coop_lava(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_info_teleport_destination(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_trigger_teleport(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_trigger_disguise(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_stalker(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_turret(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_target_steam(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_target_anger(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_target_killplayers(edict_t* self); /* FS: Coop: Rogue specific */
 
-void SP_target_blacklight(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_target_orb(edict_t *self); /* FS: Coop: Rogue specific */
+void SP_target_blacklight(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_target_orb(edict_t* self); /* FS: Coop: Rogue specific */
 
-void SP_hint_path(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_carrier(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_widow(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_widow2(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_tag_token(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_goal(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_ball(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_team1_start(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_team2_start(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_ball_start(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_dm_dball_speed_change(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_monster_kamikaze(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_turret_invisible_brain(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_xatrix_item(edict_t *self); /* FS: Coop: Rogue specific */
-void SP_misc_nuke_core(edict_t *self); /* FS: Coop: Rogue specific */
+void SP_hint_path(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_carrier(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_widow(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_widow2(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_tag_token(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_goal(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_ball(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_team1_start(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_team2_start(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_ball_start(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_dm_dball_speed_change(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_monster_kamikaze(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_turret_invisible_brain(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_xatrix_item(edict_t* self); /* FS: Coop: Rogue specific */
+void SP_misc_nuke_core(edict_t* self); /* FS: Coop: Rogue specific */
 
-void ThrowMoreStuff(edict_t *self, vec3_t point); /* FS: Coop: Rogue specific */
-void ThrowSmallStuff(edict_t *self, vec3_t point); /* FS: Coop: Rogue specific */
-void ThrowWidowGibLoc(edict_t *self, char *gibname, int damage, /* FS: Coop: Rogue specific */
-		int type, vec3_t startpos, qboolean fade); /* FS: Coop: Rogue specific */
-void ThrowWidowGibSized(edict_t *self, char *gibname, int damage, int type, /* FS: Coop: Rogue specific */
-		vec3_t startpos, int hitsound, qboolean fade);
+void ThrowMoreStuff(edict_t* self, vec3_t point); /* FS: Coop: Rogue specific */
+void ThrowSmallStuff(edict_t* self, vec3_t point); /* FS: Coop: Rogue specific */
+void ThrowWidowGibLoc(edict_t* self, char* gibname, int damage, /* FS: Coop: Rogue specific */
+	int type, vec3_t startpos, qboolean fade); /* FS: Coop: Rogue specific */
+void ThrowWidowGibSized(edict_t* self, char* gibname, int damage, int type, /* FS: Coop: Rogue specific */
+	vec3_t startpos, int hitsound, qboolean fade);
 
-void SP_monster_soldier_hypergun (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_soldier_lasergun (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_soldier_ripper (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_fixbot (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_gekk (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_chick_heat (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_gladb (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_monster_boss5 (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_rotating_light (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_object_repair (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_misc_crashviper (edict_t *ent); /* FS: Coop: Xatrix specific */
-void SP_misc_viper_missile (edict_t *self); /* FS: Coop: Xatrix specific */
-void SP_misc_amb4 (edict_t *ent); /* FS: Coop: Xatrix specific */
-void SP_target_mal_laser (edict_t *ent); /* FS: Coop: Xatrix specific */
-void SP_misc_transport (edict_t *ent); /* FS: Coop: Xatrix specific */
+void SP_monster_soldier_hypergun(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_soldier_lasergun(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_soldier_ripper(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_fixbot(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_gekk(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_chick_heat(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_gladb(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_monster_boss5(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_rotating_light(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_object_repair(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_misc_crashviper(edict_t* ent); /* FS: Coop: Xatrix specific */
+void SP_misc_viper_missile(edict_t* self); /* FS: Coop: Xatrix specific */
+void SP_misc_amb4(edict_t* ent); /* FS: Coop: Xatrix specific */
+void SP_target_mal_laser(edict_t* ent); /* FS: Coop: Xatrix specific */
+void SP_misc_transport(edict_t* ent); /* FS: Coop: Xatrix specific */
 
-void SP_misc_nuke (edict_t *ent); /* FS: Coop: Xatrix specific */
+void SP_misc_nuke(edict_t* ent); /* FS: Coop: Xatrix specific */
 
-void SP_sound_echo (edict_t *self); /* FS: Zaero specific game dll changes */
+void SP_sound_echo(edict_t* self); /* FS: Zaero specific game dll changes */
 
-void SP_misc_lasertripbomb (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_load_mirrorlevel (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_trigger_laser(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_autocannon(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_autocannon_floor(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_sentien(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_securitycamera(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_hound (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_handler (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_commdish (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_crate(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_crate_medium(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_crate_small(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_monster_zboss (edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_target_zboss_target(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_func_barrier(edict_t *self); /* FS: Zaero specific game dll changes */
-void SP_misc_seat(edict_t *self); /* FS: Zaero specific game dll changes */
+void SP_misc_lasertripbomb(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_load_mirrorlevel(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_trigger_laser(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_autocannon(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_autocannon_floor(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_sentien(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_securitycamera(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_hound(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_handler(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_commdish(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_crate(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_crate_medium(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_crate_small(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_monster_zboss(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_target_zboss_target(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_func_barrier(edict_t* self); /* FS: Zaero specific game dll changes */
+void SP_misc_seat(edict_t* self); /* FS: Zaero specific game dll changes */
 
 void SP_SetCDTrack(int track); /* FS: Coop: Added */
-void SP_info_coop_checkpoint (edict_t * self ); /* FS: Coop: Added */
+void SP_info_coop_checkpoint(edict_t* self); /* FS: Coop: Added */
 
-qboolean Spawn_CheckCoop_MapHacks (edict_t *ent); /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
-int G_SpawnCheckpoints (edict_t *ent); /* FS: Coop: Add checkpoints if we got them */
-extern void SP_info_coop_checkpoint_touch ( edict_t * self , edict_t * other , cplane_t * plane , csurface_t * surf );
-void G_CheckCoopVictory (void); /* FS: Coop: Added */
+qboolean Spawn_CheckCoop_MapHacks(edict_t* ent); /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
+int G_SpawnCheckpoints(edict_t* ent); /* FS: Coop: Add checkpoints if we got them */
+extern void SP_info_coop_checkpoint_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
+void G_CheckCoopVictory(void); /* FS: Coop: Added */
 
 spawn_t spawns[] = {
 	{"item_health", SP_item_health},
@@ -320,7 +320,7 @@ spawn_t spawns[] = {
 	{"misc_amb4", SP_misc_amb4}, /* FS: Coop: Xatrix specific */
 	{"misc_transport", SP_misc_transport}, /* FS: Coop: Xatrix specific */
 	{"misc_nuke", SP_misc_nuke}, /* FS: Coop: Xatrix specific */
-	
+
 	{"monster_berserk", SP_monster_berserk},
 	{"monster_gladiator", SP_monster_gladiator},
 	{"monster_gunner", SP_monster_gunner},
@@ -354,7 +354,7 @@ spawn_t spawns[] = {
 	{"monster_chick_heat", SP_monster_chick_heat}, /* FS: Coop: Xatrix specific */
 	{"monster_gladb", SP_monster_gladb}, /* FS: Coop: Xatrix specific */
 	{"monster_boss5", SP_monster_boss5}, /* FS: Coop: Xatrix specific */
-	
+
 	{"turret_breach", SP_turret_breach},
 	{"turret_base", SP_turret_base},
 	{"turret_driver", SP_turret_driver},
@@ -428,10 +428,10 @@ spawn_t spawns[] = {
  * Finds the spawn function for the entity and calls it
  */
 void
-ED_CallSpawn(edict_t *ent)
+ED_CallSpawn(edict_t* ent)
 {
-	spawn_t *s;
-	gitem_t *item;
+	spawn_t* s;
+	gitem_t* item;
 	int i;
 
 	if (!ent)
@@ -478,7 +478,7 @@ ED_CallSpawn(edict_t *ent)
 
 		if (!strcmp(item->classname, ent->classname))
 		{
-		 	/* found it */
+			/* found it */
 			SpawnItem(ent, item);
 			return;
 		}
@@ -489,7 +489,7 @@ ED_CallSpawn(edict_t *ent)
 	{
 		if (!strcmp(s->name, ent->classname))
 		{
-		 	/* found it */
+			/* found it */
 			s->spawn(ent);
 			return;
 		}
@@ -498,10 +498,10 @@ ED_CallSpawn(edict_t *ent)
 	gi.dprintf("%s doesn't have a spawn function\n", ent->classname);
 }
 
-char *
-ED_NewString(const char *string)
+char*
+ED_NewString(const char* string)
 {
-	char *newb, *new_p;
+	char* newb, * new_p;
 	int i, l;
 
 	if (!string)
@@ -509,7 +509,7 @@ ED_NewString(const char *string)
 		return NULL;
 	}
 
-	l = strlen(string) + 1;
+	l = (int)strlen(string) + 1;
 
 	newb = gi.TagMalloc(l, TAG_LEVEL);
 
@@ -544,12 +544,12 @@ ED_NewString(const char *string)
  * the binary values in an edict
  */
 void
-ED_ParseField(const char *key, const char *value, edict_t *ent)
+ED_ParseField(const char* key, const char* value, edict_t* ent)
 {
-	field_t *f;
-	byte *b;
+	field_t* f;
+	byte* b;
 	float v;
-	vec3_t vec;
+	vec3_t vec = { 0 };
 
 	if (!ent || !value || !key)
 	{
@@ -558,49 +558,49 @@ ED_ParseField(const char *key, const char *value, edict_t *ent)
 
 	for (f = fields; f->name; f++)
 	{
-		if (!(f->flags & FFL_NOSPAWN) && !Q_strcasecmp(f->name, (char *)key))
+		if (!(f->flags & FFL_NOSPAWN) && !Q_strcasecmp(f->name, (char*)key))
 		{
-		 	/* found it */
+			/* found it */
 			if (f->flags & FFL_SPAWNTEMP)
 			{
-				b = (byte *)&st;
+				b = (byte*)&st;
 			}
 			else
 			{
-				b = (byte *)ent;
+				b = (byte*)ent;
 			}
 
 			switch (f->type)
 			{
-				case F_LSTRING:
-					*(char **)(b + f->ofs) = ED_NewString(value);
-					break;
-				case F_VECTOR:
-					if (sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]) != 3) {
-						gi.dprintf("WARNING: Vector field incomplete in %s, map: %s, field: %s\n", __func__, level.mapname, f->name);
-						VectorClear(vec);
-					}
-					else
+			case F_LSTRING:
+				*(char**)(b + f->ofs) = ED_NewString(value);
+				break;
+			case F_VECTOR:
+				if (sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]) != 3) {
+					gi.dprintf("WARNING: Vector field incomplete in %s, map: %s, field: %s\n", __func__, level.mapname, f->name);
+					VectorClear(vec);
+				}
+				else
 					((float*)(b + f->ofs))[0] = vec[0];
-					((float*)(b + f->ofs))[1] = vec[1];
-					((float*)(b + f->ofs))[2] = vec[2];
-					break;
-				case F_INT:
-					*(int *)(b + f->ofs) = (int)strtol(value, (char **)NULL, 10);
-					break;
-				case F_FLOAT:
-					*(float *)(b + f->ofs) = atof(value);
-					break;
-				case F_ANGLEHACK:
-					v = atof(value);
-					((float *)(b + f->ofs))[0] = 0;
-					((float *)(b + f->ofs))[1] = v;
-					((float *)(b + f->ofs))[2] = 0;
-					break;
-				case F_IGNORE:
-					break;
-				default:
-					break;
+				((float*)(b + f->ofs))[1] = vec[1];
+				((float*)(b + f->ofs))[2] = vec[2];
+				break;
+			case F_INT:
+				*(int*)(b + f->ofs) = (int)strtol(value, (char**)NULL, 10);
+				break;
+			case F_FLOAT:
+				*(float*)(b + f->ofs) = atof(value);
+				break;
+			case F_ANGLEHACK:
+				v = atof(value);
+				((float*)(b + f->ofs))[0] = 0;
+				((float*)(b + f->ofs))[1] = v;
+				((float*)(b + f->ofs))[2] = 0;
+				break;
+			case F_IGNORE:
+				break;
+			default:
+				break;
 			}
 
 			return;
@@ -613,12 +613,12 @@ ED_ParseField(const char *key, const char *value, edict_t *ent)
 /*
  * Parses an edict out of the given string, returning the new position
  */
-char *
-ED_ParseEdict(char *data, edict_t *ent)
+char*
+ED_ParseEdict(char* data, edict_t* ent)
 {
 	qboolean init;
 	char keyname[256];
-	const char *com_token;
+	const char* com_token;
 
 	if (!ent)
 	{
@@ -690,7 +690,7 @@ void
 G_FixTeams(void) /* FS: Coop: Rogue specific */
 
 {
-	edict_t *e, *e2, *chain;
+	edict_t* e, * e2, * chain;
 	int i, j;
 	int c, c2;
 
@@ -709,7 +709,7 @@ G_FixTeams(void) /* FS: Coop: Rogue specific */
 			continue;
 		}
 
-		if(!e->classname)
+		if (!e->classname)
 		{
 			continue;
 		}
@@ -726,8 +726,8 @@ G_FixTeams(void) /* FS: Coop: Rogue specific */
 				c2++;
 
 				for (j = 1, e2 = g_edicts + j;
-					 j < globals.num_edicts;
-					 j++, e2++)
+					j < globals.num_edicts;
+					j++, e2++)
 				{
 					if (e2 == e)
 					{
@@ -766,7 +766,7 @@ G_FixTeams(void) /* FS: Coop: Rogue specific */
 void
 G_FindTeams(void)
 {
-	edict_t *e, *e2, *chain;
+	edict_t* e, * e2, * chain;
 	int i, j;
 	int c, c2;
 
@@ -836,11 +836,11 @@ G_FindTeams(void)
  * parsing textual entity definitions out of an ent file.
  */
 void
-SpawnEntities(char *mapname, char *entities, char *spawnpoint)
+SpawnEntities(char* mapname, char* entities, char* spawnpoint)
 {
-	edict_t *ent;
+	edict_t* ent;
 	int inhibit;
-	const char *com_token;
+	const char* com_token;
 	int i;
 	float skill_level;
 	int checkpoint_index; /* FS: Added */
@@ -902,6 +902,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 		if (com_token[0] != '{')
 		{
 			gi.error("ED_LoadFromFile: found %s when expecting {", com_token);
+			return;
 		}
 
 		if (!ent)
@@ -938,7 +939,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 
 			if (!Q_stricmp(level.mapname, "rhangar2") &&
 				!Q_stricmp(ent->classname, "trigger_always") &&
-		   		ent->target && !Q_stricmp(ent->target, "t265"))
+				ent->target && !Q_stricmp(ent->target, "t265"))
 			{
 				ent->spawnflags |= SPAWNFLAG_NOT_COOP;
 			}
@@ -946,7 +947,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 			if (!Q_stricmp(level.mapname, "rhangar2") &&
 				!Q_stricmp(ent->classname, "func_wall") &&
 				ent->model &&
-		   		!Q_stricmp(ent->model, "*15"))
+				!Q_stricmp(ent->model, "*15"))
 			{
 				ent->spawnflags |= SPAWNFLAG_NOT_COOP;
 			}
@@ -978,8 +979,8 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 
 					/* stuff marked !easy & !med & !hard are coop only, all levels */
 					if (!((ent->spawnflags & SPAWNFLAG_NOT_EASY) &&
-						  (ent->spawnflags & SPAWNFLAG_NOT_MEDIUM) &&
-						  (ent->spawnflags & SPAWNFLAG_NOT_HARD)))
+						(ent->spawnflags & SPAWNFLAG_NOT_MEDIUM) &&
+						(ent->spawnflags & SPAWNFLAG_NOT_HARD)))
 					{
 						if (((skill->value == 0) && (ent->spawnflags & SPAWNFLAG_NOT_EASY)) ||
 							((skill->value == 1) && (ent->spawnflags & SPAWNFLAG_NOT_MEDIUM)) ||
@@ -993,7 +994,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 				}
 				else
 				{
-					if(Spawn_CheckCoop_MapHacks(ent)) /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
+					if (Spawn_CheckCoop_MapHacks(ent)) /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
 					{
 						G_FreeEdict(ent);
 						inhibit++;
@@ -1023,7 +1024,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 			}
 
 			ent->spawnflags &= ~(SPAWNFLAG_NOT_EASY | SPAWNFLAG_NOT_MEDIUM |
-				  SPAWNFLAG_NOT_HARD | SPAWNFLAG_NOT_COOP | SPAWNFLAG_NOT_DEATHMATCH);
+				SPAWNFLAG_NOT_HARD | SPAWNFLAG_NOT_COOP | SPAWNFLAG_NOT_DEATHMATCH);
 		}
 
 		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
@@ -1077,13 +1078,13 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 		Z_SpawnDMItems(); /* FS: Zaero specific game dll changes */
 	}
 
-	if(coop->value) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
+	if (coop->value) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
 	{
 		G_CheckCoopVictory();
 	}
 
 	checkpoint_index = gi.modelindex("models/items/tagtoken/tris.md2"); /* FS: info_coop_checkpoint */
-	if(checkpoint_index < 220) /* FS: Moved this because of MAX_MODELS overflows in city3.bsp and probably others */
+	if (checkpoint_index < 220) /* FS: Moved this because of MAX_MODELS overflows in city3.bsp and probably others */
 	{
 		/* sexed models: THIS ORDER MUST MATCH THE DEFINES IN g_local.h
 		   you can add more, max 19 (pete change)these models are only
@@ -1120,7 +1121,7 @@ SpawnEntities(char *mapname, char *entities, char *spawnpoint)
 
 /* =================================================================== */
 
-char *single_statusbar =
+char* single_statusbar =
 "yb	-24 "
 
 /* health */
@@ -1179,18 +1180,18 @@ char *single_statusbar =
 
 /* spectator */
 "if 17 "
-  "xv 0 "
-  "yb -58 "
-  "string2 \"SPECTATOR MODE\" "
+"xv 0 "
+"yb -58 "
+"string2 \"SPECTATOR MODE\" "
 "endif "
 
 /* chase camera */
 "if 16 "
-  "xv 0 "
-  "yb -68 "
-  "string \"Chasing\" "
-  "xv 64 "
-  "stat_string 16 "
+"xv 0 "
+"yb -68 "
+"string \"Chasing\" "
+"xv 64 "
+"stat_string 16 "
 "endif "
 
 // player origin /* FS: Zaero specific game dll changes */
@@ -1205,7 +1206,7 @@ char *single_statusbar =
 "endif "
 ;
 
-char *dm_statusbar =
+char* dm_statusbar =
 "yb	-24 "
 
 /* health */
@@ -1280,18 +1281,18 @@ char *dm_statusbar =
 
 /* spectator */
 "if 17 "
-  "xv 0 "
-  "yb -58 "
-  "string2 \"SPECTATOR MODE\" "
+"xv 0 "
+"yb -58 "
+"string2 \"SPECTATOR MODE\" "
 "endif "
 
 /* chase camera */
 "if 16 "
-  "xv 0 "
-  "yb -68 "
-  "string \"Chasing\" "
-  "xv 64 "
-  "stat_string 16 "
+"xv 0 "
+"yb -68 "
+"string \"Chasing\" "
+"xv 64 "
+"stat_string 16 "
 "endif "
 ;
 
@@ -1307,7 +1308,7 @@ char *dm_statusbar =
  * "message"	text to print at user logon
  */
 void
-SP_worldspawn(edict_t *ent)
+SP_worldspawn(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1336,7 +1337,7 @@ SP_worldspawn(edict_t *ent)
 	if (ent->message && ent->message[0])
 	{
 		gi.configstring(CS_NAME, ent->message);
-		strncpy(level.level_name, ent->message, sizeof(level.level_name));
+		strncpy(level.level_name, ent->message, sizeof(level.level_name - 1));
 	}
 	else
 	{
@@ -1449,39 +1450,39 @@ SP_worldspawn(edict_t *ent)
 	if (game.gametype == zaero_coop)
 	{
 		/* FS: Coop: Zaero */
-		gi.imageindex ("a_flares");
-		gi.imageindex ("w_flare");
-		gi.modelindex ("models/weapons/v_flare/tris.md2");
-		gi.modelindex ("models/objects/flare/tris.md2");
-		gi.soundindex ("weapons/flare/flarehis.wav");
-		gi.soundindex ("weapons/flare/shoot.wav");
-		gi.modelindex ("models/items/plasma/tris.md2");
-		gi.imageindex ("i_plasma");
-		gi.modelindex ("sprites/plasmashield_fixed.sp2");
-		gi.modelindex ("sprites/plasma1_fixed.sp2");
-		gi.soundindex ("items/plasmashield/psactive.wav");
-		gi.imageindex ("w_enuke");
-		gi.modelindex ("models/weapons/g_enuke/tris.md2");
-		gi.modelindex ("models/weapons/v_enuke/tris.md2");
-		gi.soundindex ("items/empnuke/emp_trg.wav");
-		gi.imageindex ("w_a2k");
-		gi.modelindex ("models/weapons/g_a2k/tris.md2");
-		gi.modelindex ("models/weapons/v_a2k/tris.md2");
-		gi.soundindex ("weapons/a2k/countdn.wav");
-		gi.soundindex ("weapons/a2k/ak_exp01.wav");
-		gi.imageindex ("w_sonic");
-		gi.modelindex ("models/weapons/g_sonic/tris.md2");
-		gi.modelindex ("models/weapons/v_sonic/tris.md2");
-		gi.soundindex ("weapons/sonic/sc_warm.wav"); 
-		gi.soundindex ("weapons/sonic/sc_cool.wav"); 
-		gi.soundindex ("weapons/sonic/sc_fire.wav");
-		gi.imageindex ("w_sniper");
-		gi.modelindex ("models/weapons/g_sniper/tris.md2");
-		gi.modelindex ("models/weapons/v_sniper/tris.md2");
-		gi.modelindex ("models/weapons/v_sniper/scope/tris.md2"); 
-		gi.modelindex ("models/weapons/v_sniper/dmscope/tris.md2"); 
-		gi.soundindex ("weapons/sniper/beep.wav"); 
-		gi.soundindex ("weapons/sniper/fire.wav");
+		gi.imageindex("a_flares");
+		gi.imageindex("w_flare");
+		gi.modelindex("models/weapons/v_flare/tris.md2");
+		gi.modelindex("models/objects/flare/tris.md2");
+		gi.soundindex("weapons/flare/flarehis.wav");
+		gi.soundindex("weapons/flare/shoot.wav");
+		gi.modelindex("models/items/plasma/tris.md2");
+		gi.imageindex("i_plasma");
+		gi.modelindex("sprites/plasmashield_fixed.sp2");
+		gi.modelindex("sprites/plasma1_fixed.sp2");
+		gi.soundindex("items/plasmashield/psactive.wav");
+		gi.imageindex("w_enuke");
+		gi.modelindex("models/weapons/g_enuke/tris.md2");
+		gi.modelindex("models/weapons/v_enuke/tris.md2");
+		gi.soundindex("items/empnuke/emp_trg.wav");
+		gi.imageindex("w_a2k");
+		gi.modelindex("models/weapons/g_a2k/tris.md2");
+		gi.modelindex("models/weapons/v_a2k/tris.md2");
+		gi.soundindex("weapons/a2k/countdn.wav");
+		gi.soundindex("weapons/a2k/ak_exp01.wav");
+		gi.imageindex("w_sonic");
+		gi.modelindex("models/weapons/g_sonic/tris.md2");
+		gi.modelindex("models/weapons/v_sonic/tris.md2");
+		gi.soundindex("weapons/sonic/sc_warm.wav");
+		gi.soundindex("weapons/sonic/sc_cool.wav");
+		gi.soundindex("weapons/sonic/sc_fire.wav");
+		gi.imageindex("w_sniper");
+		gi.modelindex("models/weapons/g_sniper/tris.md2");
+		gi.modelindex("models/weapons/v_sniper/tris.md2");
+		gi.modelindex("models/weapons/v_sniper/scope/tris.md2");
+		gi.modelindex("models/weapons/v_sniper/dmscope/tris.md2");
+		gi.soundindex("weapons/sniper/beep.wav");
+		gi.soundindex("weapons/sniper/fire.wav");
 	}
 
 	sm_meat_index = gi.modelindex("models/objects/gibs/sm_meat/tris.md2");
@@ -1549,10 +1550,10 @@ SP_worldspawn(edict_t *ent)
  *  CreateGroundMonster - this checks the volume and makes sure the floor under the volume is suitable
  */
 
-edict_t *
-CreateMonster(vec3_t origin, vec3_t angles, char *classname) /* FS: Coop: Rogue specific */
+edict_t*
+CreateMonster(vec3_t origin, vec3_t angles, char* classname) /* FS: Coop: Rogue specific */
 {
-	edict_t *newEnt;
+	edict_t* newEnt;
 
 	if (!classname)
 	{
@@ -1573,9 +1574,9 @@ CreateMonster(vec3_t origin, vec3_t angles, char *classname) /* FS: Coop: Rogue 
 	return newEnt;
 }
 
-edict_t *
+edict_t*
 CreateFlyMonster(vec3_t origin, vec3_t angles, vec3_t mins, /* FS: Coop: Rogue specific */
-		vec3_t maxs, char *classname)
+	vec3_t maxs, char* classname)
 {
 	if (!classname)
 	{
@@ -1596,11 +1597,11 @@ CreateFlyMonster(vec3_t origin, vec3_t angles, vec3_t mins, /* FS: Coop: Rogue s
 	return CreateMonster(origin, angles, classname);
 }
 
-edict_t *
+edict_t*
 CreateGroundMonster(vec3_t origin, vec3_t angles, vec3_t entMins, /* FS: Coop: Rogue specific */
-		vec3_t entMaxs, char *classname, int height)
+	vec3_t entMaxs, char* classname, int height)
 {
-	edict_t *newEnt;
+	edict_t* newEnt;
 	vec3_t mins, maxs;
 
 	if (!classname)
@@ -1610,7 +1611,7 @@ CreateGroundMonster(vec3_t origin, vec3_t angles, vec3_t entMins, /* FS: Coop: R
 
 	/* if they don't provide us a bounding box, figure it out */
 	if (!entMins || !entMaxs || VectorCompare(entMins,
-				vec3_origin) || VectorCompare(entMaxs, vec3_origin))
+		vec3_origin) || VectorCompare(entMaxs, vec3_origin))
 	{
 		DetermineBBox(classname, mins, maxs);
 	}
@@ -1638,13 +1639,13 @@ CreateGroundMonster(vec3_t origin, vec3_t angles, vec3_t entMins, /* FS: Coop: R
 
 qboolean
 FindSpawnPoint(vec3_t startpoint, vec3_t mins, vec3_t maxs, /* FS: Coop: Rogue specific */
-		vec3_t spawnpoint, float maxMoveUp)
+	vec3_t spawnpoint, float maxMoveUp)
 {
 	trace_t tr;
-	vec3_t top;
+	vec3_t top = { 0 };
 
 	tr = gi.trace(startpoint, mins, maxs, startpoint,
-			NULL, MASK_MONSTERSOLID | CONTENTS_PLAYERCLIP);
+		NULL, MASK_MONSTERSOLID | CONTENTS_PLAYERCLIP);
 
 	if ((tr.startsolid || tr.allsolid) || (tr.ent != world))
 	{
@@ -1698,11 +1699,11 @@ CheckSpawnPoint(vec3_t origin, vec3_t mins, vec3_t maxs) /* FS: Coop: Rogue spec
 
 qboolean
 CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs, /* FS: Coop: Rogue specific */
-		float height, float gravity)
+	float height, float gravity)
 {
 	trace_t tr;
-	vec3_t start, stop;
-	vec3_t mins, maxs;
+	vec3_t start = { 0 }, stop = { 0 };
+	vec3_t mins = { 0 }, maxs = { 0 };
 	int x, y;
 	float mid, bottom;
 
@@ -1716,7 +1717,7 @@ CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs, /* FS: Coop
 	stop[2] = origin[2] + entMins[2] - height;
 
 	tr = gi.trace(origin, entMins, entMaxs, stop,
-			NULL, MASK_MONSTERSOLID | MASK_WATER);
+		NULL, MASK_MONSTERSOLID | MASK_WATER);
 
 	if ((tr.fraction < 1) && (tr.contents & MASK_MONSTERSOLID))
 	{
@@ -1759,7 +1760,7 @@ CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs, /* FS: Coop
 		start[2] = mins[2];
 
 		tr = gi.trace(start, vec3_origin, vec3_origin,
-				stop, NULL, MASK_MONSTERSOLID);
+			stop, NULL, MASK_MONSTERSOLID);
 
 		if (tr.fraction == 1.0)
 		{
@@ -1787,7 +1788,7 @@ CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs, /* FS: Coop
 				start[1] = stop[1] = y ? maxs[1] : mins[1];
 
 				tr = gi.trace(start, vec3_origin, vec3_origin,
-						stop, NULL, MASK_MONSTERSOLID);
+					stop, NULL, MASK_MONSTERSOLID);
 
 				if (gravity > 0)
 				{
@@ -1825,9 +1826,9 @@ CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs, /* FS: Coop
 }
 
 void
-DetermineBBox(char *classname, vec3_t mins, vec3_t maxs) /* FS: Coop: Rogue specific */
+DetermineBBox(char* classname, vec3_t mins, vec3_t maxs) /* FS: Coop: Rogue specific */
 {
-	edict_t *newEnt;
+	edict_t* newEnt;
 
 	if (!classname)
 	{
@@ -1851,7 +1852,7 @@ DetermineBBox(char *classname, vec3_t mins, vec3_t maxs) /* FS: Coop: Rogue spec
 
 
 void
-spawngrow_think(edict_t *self) /* FS: Coop: Rogue specific */
+spawngrow_think(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	int i;
 
@@ -1896,7 +1897,7 @@ spawngrow_think(edict_t *self) /* FS: Coop: Rogue specific */
 void
 SpawnGrow_Spawn(vec3_t startpos, int size) /* FS: Coop: Rogue specific */
 {
-	edict_t *ent;
+	edict_t* ent;
 	int i;
 	float lifespan;
 
@@ -1945,9 +1946,9 @@ SpawnGrow_Spawn(vec3_t startpos, int size) /* FS: Coop: Rogue specific */
 }
 
 void
-widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
+widowlegs_think(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	vec3_t point;
 	vec3_t f, r, u;
 
@@ -1992,9 +1993,9 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 		ThrowSmallStuff(self, point);
 
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib1/tris.md2",
-				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
+			80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib2/tris.md2",
-				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
+			80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 
 		VectorSet(offset, -1.04f, -51.18f, 7.04f);
 		G_ProjectSource2(self->s.origin, offset, f, r, u, point);
@@ -2005,11 +2006,11 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 		ThrowSmallStuff(self, point);
 
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib1/tris.md2",
-				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
+			80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib2/tris.md2",
-				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
+			80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 		ThrowWidowGibSized(self, "models/monsters/blackwidow/gib3/tris.md2",
-				80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
+			80 + (int)(random() * 20.0), GIB_METALLIC, point, 0, true);
 
 		G_FreeEdict(self);
 		return;
@@ -2044,7 +2045,7 @@ widowlegs_think(edict_t *self) /* FS: Coop: Rogue specific */
 void
 Widowlegs_Spawn(vec3_t startpos, vec3_t angles) /* FS: Coop: Rogue specific */
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	ent = G_Spawn();
 	VectorCopy(startpos, ent->s.origin);
@@ -2076,19 +2077,19 @@ SP_SetCDTrack(int track) /* FS: Coop: Added */
 	// an out-of-order mix from Q2 and Rogue CDs
 	else if (game.gametype == xatrix_coop)
 	{
-		switch(track)
+		switch (track)
 		{
-			case 2: modifiedTrack = 9;	break;
-			case 3: modifiedTrack = 13;	break;
-			case 4: modifiedTrack = 14;	break;
-			case 5: modifiedTrack = 7;	break;
-			case 6: modifiedTrack = 16;	break;
-			case 7: modifiedTrack = 2;	break;
-			case 8: modifiedTrack = 15;	break;
-			case 9: modifiedTrack = 3;	break;
-			case 10: modifiedTrack = 4;	break;
-			case 11: modifiedTrack = 18; break;
-			default: modifiedTrack = track; break;
+		case 2: modifiedTrack = 9;	break;
+		case 3: modifiedTrack = 13;	break;
+		case 4: modifiedTrack = 14;	break;
+		case 5: modifiedTrack = 7;	break;
+		case 6: modifiedTrack = 16;	break;
+		case 7: modifiedTrack = 2;	break;
+		case 8: modifiedTrack = 15;	break;
+		case 9: modifiedTrack = 3;	break;
+		case 10: modifiedTrack = 4;	break;
+		case 11: modifiedTrack = 18; break;
+		default: modifiedTrack = track; break;
 		}
 	}
 	else
@@ -2097,29 +2098,29 @@ SP_SetCDTrack(int track) /* FS: Coop: Added */
 	gi.configstring(CS_CDTRACK, va("%i", modifiedTrack));
 }
 
-qboolean Spawn_CheckCoop_MapHacks (edict_t *ent) /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
+qboolean Spawn_CheckCoop_MapHacks(edict_t* ent) /* FS: Coop: Check if we have to modify some stuff for coop so we don't have to rely on distributing ent files. */
 {
-	if(!coop->value || !ent)
+	if (!coop->value || !ent)
 	{
 		return false;
 	}
 
 	if (game.gametype == xatrix_coop) /* FS: Coop: Progress breaker hack in xsewer1.bsp */
 	{
-		if(!Q_stricmp(level.mapname, "xsewer1"))
+		if (!Q_stricmp(level.mapname, "xsewer1"))
 		{
-			if(ent->classname && !Q_stricmp(ent->classname, "trigger_relay") && ent->target && !Q_stricmp(ent->target, "t3") && ent->targetname && !Q_stricmp(ent->targetname, "t2"))
+			if (ent->classname && !Q_stricmp(ent->classname, "trigger_relay") && ent->target && !Q_stricmp(ent->target, "t3") && ent->targetname && !Q_stricmp(ent->targetname, "t2"))
 			{
 				return true;
 			}
 
-			if(ent->classname && !Q_stricmp(ent->classname, "func_button") && ent->target && !Q_stricmp(ent->target, "t16") && ent->model && !Q_stricmp(ent->model, "*71"))
+			if (ent->classname && !Q_stricmp(ent->classname, "func_button") && ent->target && !Q_stricmp(ent->target, "t16") && ent->model && !Q_stricmp(ent->model, "*71"))
 			{
 				ent->message = "Overflow valve maintenance\nhatch A opened.";
 				return false;
 			}
 
-			if(ent->classname && !Q_stricmp(ent->classname, "trigger_once") && ent->model && !Q_stricmp(ent->model, "*3"))
+			if (ent->classname && !Q_stricmp(ent->classname, "trigger_once") && ent->model && !Q_stricmp(ent->model, "*3"))
 			{
 				ent->message = "Overflow valve maintenance\nhatch B opened.";
 				return false;
@@ -2130,32 +2131,32 @@ qboolean Spawn_CheckCoop_MapHacks (edict_t *ent) /* FS: Coop: Check if we have t
 	return false;
 }
 
-int G_SpawnCheckpoints (edict_t *ent)
+int G_SpawnCheckpoints(edict_t* ent)
 {
 	char fileName[MAX_OSPATH];
-	FILE *f = NULL;
+	FILE* f = NULL;
 	long fileSize;
-	char *fileBuffer = NULL;
+	char* fileBuffer = NULL;
 	size_t toEOF = 0;
 
 	int inhibit = 0, found = 0;
-	const char *com_token;
+	const char* com_token;
 
 	Sys_Mkdir(va("%s/maps", gamedir->string));
 	Com_sprintf(fileName, sizeof(fileName), "%s/maps/%s_checkpoints.txt", gamedir->string, level.mapname);
 	f = fopen(fileName, "r");
-	if(!f)
+	if (!f)
 	{
-//		gi.cprintf(NULL, PRINT_CHAT, "G_SpawnCheckpoints: couldn't find '%s'!\n", fileName);
+		//		gi.cprintf(NULL, PRINT_CHAT, "G_SpawnCheckpoints: couldn't find '%s'!\n", fileName);
 		return 0;
 	}
 
 	/* obtain file size */
-	fseek (f, 0, SEEK_END);
-	fileSize = ftell (f);
-	fseek (f, 0, SEEK_SET);
-	fileBuffer = (char *)gi.TagMalloc((sizeof(char)*(fileSize+2)), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
-	if(!fileBuffer)
+	fseek(f, 0, SEEK_END);
+	fileSize = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	fileBuffer = (char*)gi.TagMalloc((sizeof(char) * (fileSize + 2)), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
+	if (!fileBuffer)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "G_SpawnCheckpoints: can't allocate memory for fileBuffer!\n");
 		fclose(f);
@@ -2164,19 +2165,19 @@ int G_SpawnCheckpoints (edict_t *ent)
 
 	toEOF = fread(fileBuffer, sizeof(char), fileSize, f);
 	fclose(f);
-	if(toEOF <= 0)
+	if (toEOF <= 0)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "G_SpawnCheckpoints: cannot read file '%s' into memory!\n", fileName);
-		if(fileBuffer)
+		if (fileBuffer)
 		{
-			free(fileBuffer);
+			gi.TagFree(fileBuffer);
 		}
 		return false;
 	}
 
 	/* FS: Add newline terminator for some paranoia */
 	fileBuffer[toEOF] = '\n';
-	fileBuffer[toEOF+1] = '\0';
+	fileBuffer[toEOF + 1] = '\0';
 
 	/* parse ents */
 	while (1)
@@ -2192,6 +2193,7 @@ int G_SpawnCheckpoints (edict_t *ent)
 		if (com_token[0] != '{')
 		{
 			gi.error("ED_LoadFromFile: found %s when expecting {", com_token);
+			return 0;
 		}
 
 		if (!ent)
@@ -2207,7 +2209,7 @@ int G_SpawnCheckpoints (edict_t *ent)
 
 		if (ent != g_edicts)
 		{
-			if(!ent->classname || Q_stricmp(ent->classname,"info_coop_checkpoint")) /* FS: No funky stuff in these special overrides please, use ent files for that. */
+			if (!ent->classname || Q_stricmp(ent->classname, "info_coop_checkpoint")) /* FS: No funky stuff in these special overrides please, use ent files for that. */
 			{
 				gi.cprintf(NULL, PRINT_CHAT, "WARNING: Not an info_coop_checkpoint: %s.  Removing...\n", ent->classname);
 				G_FreeEdict(ent);
@@ -2216,7 +2218,7 @@ int G_SpawnCheckpoints (edict_t *ent)
 			}
 
 			ent->spawnflags &= ~(SPAWNFLAG_NOT_EASY | SPAWNFLAG_NOT_MEDIUM |
-				  SPAWNFLAG_NOT_HARD | SPAWNFLAG_NOT_COOP | SPAWNFLAG_NOT_DEATHMATCH);
+				SPAWNFLAG_NOT_HARD | SPAWNFLAG_NOT_COOP | SPAWNFLAG_NOT_DEATHMATCH);
 		}
 
 		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
@@ -2233,36 +2235,36 @@ int G_SpawnCheckpoints (edict_t *ent)
 		found++;
 	}
 
-	if(found)
+	if (found)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "Found %i checkpoints to add\n", found);
 	}
 	return inhibit;
 }
 
-void G_CheckCoopVictory (void) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
+void G_CheckCoopVictory(void) /* FS: Coop: Check if victory.pcx is the current map, workaround the "gamemap" crap in sv_init.c */
 {
-	if(!Q_stricmp("victory.pcx", level.mapname))
+	if (!Q_stricmp("victory.pcx", level.mapname))
 	{
 		switch (game.gametype)
 		{
-			default:
-			case vanilla_coop:
-				gi.cvar_forceset("sv_coop_gamemode", "xatrix");
-				gi.cvar_forceset("sv_coop_gamemode_vote", "xatrix");
-				gi.cvar_forceset("nextserver", "map \"xswamp\"\n");
-				break;
-			case xatrix_coop:
-				gi.cvar_forceset("sv_coop_gamemode", "rogue");
-				gi.cvar_forceset("sv_coop_gamemode_vote", "rogue");
-				gi.cvar_forceset("nextserver", "map \"rmine1\"\n");
-				break;
-			case rogue_coop:
-			case zaero_coop:
-				gi.cvar_forceset("sv_coop_gamemode", "vanilla");
-				gi.cvar_forceset("sv_coop_gamemode_vote", "vanilla");
-				gi.cvar_forceset("nextserver", "map \"base1\"\n");
-				break;
+		default:
+		case vanilla_coop:
+			gi.cvar_forceset("sv_coop_gamemode", "xatrix");
+			gi.cvar_forceset("sv_coop_gamemode_vote", "xatrix");
+			gi.cvar_forceset("nextserver", "map \"xswamp\"\n");
+			break;
+		case xatrix_coop:
+			gi.cvar_forceset("sv_coop_gamemode", "rogue");
+			gi.cvar_forceset("sv_coop_gamemode_vote", "rogue");
+			gi.cvar_forceset("nextserver", "map \"rmine1\"\n");
+			break;
+		case rogue_coop:
+		case zaero_coop:
+			gi.cvar_forceset("sv_coop_gamemode", "vanilla");
+			gi.cvar_forceset("sv_coop_gamemode_vote", "vanilla");
+			gi.cvar_forceset("nextserver", "map \"base1\"\n");
+			break;
 		}
 	}
 }

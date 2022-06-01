@@ -9,15 +9,15 @@ boss2
 #include "g_local.h"
 #include "m_boss2.h"
 
-qboolean infront(edict_t *self, edict_t *other);
-void BossExplode(edict_t *self);
-void boss2_run(edict_t *self);
-void boss2_stand(edict_t *self);
-void boss2_dead(edict_t *self);
-void boss2_attack(edict_t *self);
-void boss2_attack_mg(edict_t *self);
-void boss2_reattack_mg(edict_t *self);
-void boss2_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point);
+qboolean infront(edict_t* self, edict_t* other);
+void BossExplode(edict_t* self);
+void boss2_run(edict_t* self);
+void boss2_stand(edict_t* self);
+void boss2_dead(edict_t* self);
+void boss2_attack(edict_t* self);
+void boss2_attack_mg(edict_t* self);
+void boss2_reattack_mg(edict_t* self);
+void boss2_die(edict_t* self, edict_t* inflictor, edict_t* attacker, int damage, vec3_t point);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -26,7 +26,7 @@ static int sound_death;
 static int sound_search1;
 
 void
-boss2_search(edict_t *self)
+boss2_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -40,12 +40,12 @@ boss2_search(edict_t *self)
 }
 
 void
-Boss2Rocket(edict_t *self)
+Boss2Rocket(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 
 	if (!self)
 	{
@@ -55,7 +55,7 @@ Boss2Rocket(edict_t *self)
 	AngleVectors(self->s.angles, forward, right, NULL);
 
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_ROCKET_1],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
 	VectorSubtract(vec, start, dir);
@@ -63,7 +63,7 @@ Boss2Rocket(edict_t *self)
 	monster_fire_rocket(self, start, dir, 50, 500, MZ2_BOSS2_ROCKET_1);
 
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_ROCKET_2],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
 	VectorSubtract(vec, start, dir);
@@ -71,7 +71,7 @@ Boss2Rocket(edict_t *self)
 	monster_fire_rocket(self, start, dir, 50, 500, MZ2_BOSS2_ROCKET_2);
 
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_ROCKET_3],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
 	VectorSubtract(vec, start, dir);
@@ -79,7 +79,7 @@ Boss2Rocket(edict_t *self)
 	monster_fire_rocket(self, start, dir, 50, 500, MZ2_BOSS2_ROCKET_3);
 
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_ROCKET_4],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
 	VectorSubtract(vec, start, dir);
@@ -88,7 +88,7 @@ Boss2Rocket(edict_t *self)
 }
 
 void
-boss2_firebullet_right(edict_t *self)
+boss2_firebullet_right(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -100,25 +100,25 @@ boss2_firebullet_right(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_MACHINEGUN_R1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorMA(self->enemy->s.origin, -0.2, self->enemy->velocity, target);
 	target[2] += self->enemy->viewheight;
 	VectorSubtract(target, start, forward);
 	VectorNormalize(forward);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, MZ2_BOSS2_MACHINEGUN_R1);
+		DEFAULT_BULLET_VSPREAD, MZ2_BOSS2_MACHINEGUN_R1);
 }
 
 void
-boss2_firebullet_left(edict_t *self)
+boss2_firebullet_left(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -130,7 +130,7 @@ boss2_firebullet_left(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_MACHINEGUN_L1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorMA(self->enemy->s.origin, -0.2, self->enemy->velocity, target);
 
@@ -138,18 +138,18 @@ boss2_firebullet_left(edict_t *self)
 	VectorSubtract(target, start, forward);
 	VectorNormalize(forward);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, MZ2_BOSS2_MACHINEGUN_L1);
+		DEFAULT_BULLET_VSPREAD, MZ2_BOSS2_MACHINEGUN_L1);
 }
 
 void
-Boss2MachineGun(edict_t *self)
+Boss2MachineGun(edict_t* self)
 {
 	if (!self)
 	{
@@ -186,9 +186,9 @@ mframe_t boss2_frames_stand[] = {
 
 mmove_t boss2_move_stand = {
 	FRAME_stand30,
-   	FRAME_stand50,
-   	boss2_frames_stand,
-   	NULL
+	FRAME_stand50,
+	boss2_frames_stand,
+	NULL
 };
 
 mframe_t boss2_frames_fidget[] = {
@@ -226,9 +226,9 @@ mframe_t boss2_frames_fidget[] = {
 
 mmove_t boss2_move_fidget = {
 	FRAME_stand1,
-   	FRAME_stand30,
-   	boss2_frames_fidget,
-   	NULL
+	FRAME_stand30,
+	boss2_frames_fidget,
+	NULL
 };
 
 mframe_t boss2_frames_walk[] = {
@@ -257,8 +257,8 @@ mframe_t boss2_frames_walk[] = {
 mmove_t boss2_move_walk = {
 	FRAME_walk1,
 	FRAME_walk20,
-   	boss2_frames_walk,
-   	NULL
+	boss2_frames_walk,
+	NULL
 };
 
 mframe_t boss2_frames_run[] = {
@@ -286,9 +286,9 @@ mframe_t boss2_frames_run[] = {
 
 mmove_t boss2_move_run = {
 	FRAME_walk1,
-   	FRAME_walk20,
-   	boss2_frames_run,
-   	NULL
+	FRAME_walk20,
+	boss2_frames_run,
+	NULL
 };
 
 mframe_t boss2_frames_attack_pre_mg[] = {
@@ -305,9 +305,9 @@ mframe_t boss2_frames_attack_pre_mg[] = {
 
 mmove_t boss2_move_attack_pre_mg = {
 	FRAME_attack1,
-   	FRAME_attack9,
-   	boss2_frames_attack_pre_mg,
-   	NULL
+	FRAME_attack9,
+	boss2_frames_attack_pre_mg,
+	NULL
 };
 
 /* Loop this */
@@ -322,9 +322,9 @@ mframe_t boss2_frames_attack_mg[] = {
 
 mmove_t boss2_move_attack_mg = {
 	FRAME_attack10,
-   	FRAME_attack15,
-   	boss2_frames_attack_mg,
-   	NULL
+	FRAME_attack15,
+	boss2_frames_attack_mg,
+	NULL
 };
 
 mframe_t boss2_frames_attack_post_mg[] = {
@@ -337,9 +337,9 @@ mframe_t boss2_frames_attack_post_mg[] = {
 
 mmove_t boss2_move_attack_post_mg = {
 	FRAME_attack16,
-   	FRAME_attack19,
-   	boss2_frames_attack_post_mg,
-   	boss2_run
+	FRAME_attack19,
+	boss2_frames_attack_post_mg,
+	boss2_run
 };
 
 mframe_t boss2_frames_attack_rocket[] = {
@@ -366,10 +366,10 @@ mframe_t boss2_frames_attack_rocket[] = {
 	{ai_charge, 1, NULL}
 };
 
-mmove_t boss2_move_attack_rocket = {FRAME_attack20,
-   	FRAME_attack40,
-   	boss2_frames_attack_rocket,
-   	boss2_run
+mmove_t boss2_move_attack_rocket = { FRAME_attack20,
+	FRAME_attack40,
+	boss2_frames_attack_rocket,
+	boss2_run
 };
 
 mframe_t boss2_frames_pain_heavy[] = {
@@ -395,9 +395,9 @@ mframe_t boss2_frames_pain_heavy[] = {
 
 mmove_t boss2_move_pain_heavy = {
 	FRAME_pain2,
-   	FRAME_pain19,
-   	boss2_frames_pain_heavy,
-   	boss2_run
+	FRAME_pain19,
+	boss2_frames_pain_heavy,
+	boss2_run
 };
 
 mframe_t boss2_frames_pain_light[] = {
@@ -409,9 +409,9 @@ mframe_t boss2_frames_pain_light[] = {
 
 mmove_t boss2_move_pain_light = {
 	FRAME_pain20,
-   	FRAME_pain23,
-   	boss2_frames_pain_light,
-   	boss2_run
+	FRAME_pain23,
+	boss2_frames_pain_light,
+	boss2_run
 };
 
 mframe_t boss2_frames_death[] = {
@@ -468,13 +468,13 @@ mframe_t boss2_frames_death[] = {
 
 mmove_t boss2_move_death = {
 	FRAME_death2,
-   	FRAME_death50,
-   	boss2_frames_death,
-   	boss2_dead
+	FRAME_death50,
+	boss2_frames_death,
+	boss2_dead
 };
 
 void
-boss2_stand(edict_t *self)
+boss2_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -485,7 +485,7 @@ boss2_stand(edict_t *self)
 }
 
 void
-boss2_run(edict_t *self)
+boss2_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -503,7 +503,7 @@ boss2_run(edict_t *self)
 }
 
 void
-boss2_walk(edict_t *self)
+boss2_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -514,9 +514,9 @@ boss2_walk(edict_t *self)
 }
 
 void
-boss2_attack(edict_t *self)
+boss2_attack(edict_t* self)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	float range;
 
 	if (!self)
@@ -545,7 +545,7 @@ boss2_attack(edict_t *self)
 }
 
 void
-boss2_attack_mg(edict_t *self)
+boss2_attack_mg(edict_t* self)
 {
 	if (!self)
 	{
@@ -556,7 +556,7 @@ boss2_attack_mg(edict_t *self)
 }
 
 void
-boss2_reattack_mg(edict_t *self)
+boss2_reattack_mg(edict_t* self)
 {
 	if (!self)
 	{
@@ -581,7 +581,7 @@ boss2_reattack_mg(edict_t *self)
 }
 
 void
-boss2_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
+boss2_pain(edict_t* self, edict_t* other /* unused */, float kick, int damage)
 {
 	if (!self)
 	{
@@ -618,7 +618,7 @@ boss2_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
 }
 
 void
-boss2_dead(edict_t *self)
+boss2_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -634,8 +634,8 @@ boss2_dead(edict_t *self)
 }
 
 void
-boss2_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+boss2_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -650,10 +650,10 @@ boss2_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* u
 }
 
 qboolean
-Boss2_CheckAttack(edict_t *self)
+Boss2_CheckAttack(edict_t* self)
 {
-	vec3_t spot1, spot2;
-	vec3_t temp;
+	vec3_t spot1 = { 0 }, spot2 = { 0 };
+	vec3_t temp = { 0 };
 	float chance;
 	trace_t tr;
 	int enemy_range;
@@ -673,8 +673,8 @@ Boss2_CheckAttack(edict_t *self)
 		spot2[2] += self->enemy->viewheight;
 
 		tr = gi.trace(spot1, NULL, NULL, spot2, self,
-				CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
-				CONTENTS_LAVA);
+			CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
+			CONTENTS_LAVA);
 
 		/* do we have a clear shot? */
 		if (tr.ent != self->enemy)
@@ -767,7 +767,7 @@ Boss2_CheckAttack(edict_t *self)
  * QUAKED monster_boss2 (1 .5 0) (-56 -56 0) (56 56 80) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_boss2(edict_t *self)
+SP_monster_boss2(edict_t* self)
 {
 	if (!self)
 	{

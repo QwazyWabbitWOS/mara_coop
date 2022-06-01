@@ -3,28 +3,28 @@
 #define CAMERA_FRAME_FIRST	0
 #define CAMERA_FRAME_LAST	59
 
-void Weapon_Generic (edict_t *ent, 
-					 int FRAME_ACTIVATE_LAST, 
-					 int FRAME_FIRE_LAST, 
-					 int FRAME_IDLE_LAST, 
-					 int FRAME_DEACTIVATE_LAST, 
-					 int *pause_frames, 
-					 int *fire_frames, 
-					 void (*fire)(edict_t *ent));
-void NoAmmoWeaponChange (edict_t *ent);
-void zCam_TrackEntity(struct edict_s *player, struct edict_s *track, qboolean playerVisiable, qboolean playerOffset);
-void zCam_Stop(struct edict_s *player);
-void fire_empnuke(edict_t	*ent, vec3_t center, int radius);
-void barrel_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
+void Weapon_Generic(edict_t* ent,
+	int FRAME_ACTIVATE_LAST,
+	int FRAME_FIRE_LAST,
+	int FRAME_IDLE_LAST,
+	int FRAME_DEACTIVATE_LAST,
+	int* pause_frames,
+	int* fire_frames,
+	void (*fire)(edict_t* ent));
+void NoAmmoWeaponChange(edict_t* ent);
+void zCam_TrackEntity(struct edict_s* player, struct edict_s* track, qboolean playerVisiable, qboolean playerOffset);
+void zCam_Stop(struct edict_s* player);
+void fire_empnuke(edict_t* ent, vec3_t center, int radius);
+void barrel_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
 
 /*
 	misc_securitycamera
 
 	This is where the visor locates too...
 */
-void use_securitycamera (edict_t *self, edict_t *other, edict_t *activator)
+void use_securitycamera(edict_t* self, edict_t* other, edict_t* activator)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -32,9 +32,9 @@ void use_securitycamera (edict_t *self, edict_t *other, edict_t *activator)
 	self->active = !self->active;
 }
 
-void securitycamera_think(edict_t *self)
+void securitycamera_think(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -62,9 +62,9 @@ void securitycamera_think(edict_t *self)
 	self->nextthink = level.time + FRAMETIME;
 }
 
-void camera_pain(edict_t *self, edict_t *other, float kick, int damage)
+void camera_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -72,9 +72,9 @@ void camera_pain(edict_t *self, edict_t *other, float kick, int damage)
 	self->timeout = level.time + FRAMETIME * 2;
 }
 
-void SP_misc_securitycamera(edict_t *self)
+void SP_misc_securitycamera(edict_t* self)
 {
-	vec3_t offset, forward, up;
+	vec3_t offset = { 0 }, forward, up;
 
 	if (!self)
 	{
@@ -100,7 +100,7 @@ void SP_misc_securitycamera(edict_t *self)
 	// set the angle of direction
 	VectorCopy(self->mangle, self->move_angles);
 	VectorSet(self->s.angles, 0, self->mangle[YAW], 0);
-	
+
 	// get an offset
 	AngleVectors(self->s.angles, forward, NULL, up);
 	VectorSet(offset, 0, 0, 0);
@@ -128,7 +128,7 @@ void SP_misc_securitycamera(edict_t *self)
 	gi.linkentity(self);
 }
 
-char *camera_statusbar =
+char* camera_statusbar =
 "xv 26 yb -75 string \"Tracking %s\" "
 // timer
 "if 22 " /* FS: Must mirror STAT_CAMERA_ICON! */
@@ -139,23 +139,23 @@ char *camera_statusbar =
 "endif "
 ;
 
-void updateVisorHud(edict_t *ent)
+void updateVisorHud(edict_t* ent)
 {
 	static char buf[1024];
-	
-	if(!ent)
+
+	if (!ent)
 	{
 		return;
 	}
 
-	gi.WriteByte (svc_layout);
+	gi.WriteByte(svc_layout);
 	sprintf(buf, camera_statusbar, ent->client->zCameraTrack->message);
 	gi.WriteString(buf);
 }
 
-void startVisorStatic(edict_t *ent)
+void startVisorStatic(edict_t* ent)
 {
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -163,7 +163,7 @@ void startVisorStatic(edict_t *ent)
 	ent->client->zCameraStaticFramenum = level.time + FRAMETIME * 2;
 }
 
-void startVisor(edict_t *ent, edict_t *e)
+void startVisor(edict_t* ent, edict_t* e)
 {
 	if (!ent || !e)
 	{
@@ -195,9 +195,9 @@ void startVisor(edict_t *ent, edict_t *e)
 	gi.sound(ent, CHAN_AUTO, gi.soundindex("items/visor/act.wav"), 1, ATTN_NORM, 0);
 }
 
-void stopCamera(edict_t *self)
+void stopCamera(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -207,9 +207,9 @@ void stopCamera(edict_t *self)
 	gi.sound(self, CHAN_AUTO, gi.soundindex("items/visor/deact.wav"), 1, ATTN_NORM, 0);
 }
 
-edict_t *findNextCamera(edict_t *old /* May be NULL */)
+edict_t* findNextCamera(edict_t* old /* May be NULL */)
 {
-	edict_t *e = NULL;
+	edict_t* e = NULL;
 
 	// first of all, are there *any* cameras?
 	e = G_Find(NULL, FOFS(classname), "misc_securitycamera");
@@ -222,7 +222,7 @@ edict_t *findNextCamera(edict_t *old /* May be NULL */)
 	// start with the current and try to find another good camera
 	e = old;
 
-	while(1)
+	while (1)
 	{
 		e = G_Find(e, FOFS(classname), "misc_securitycamera");
 
@@ -235,7 +235,7 @@ edict_t *findNextCamera(edict_t *old /* May be NULL */)
 		{
 			return e;
 		}
-		
+
 		if (!e->active)
 		{
 			continue;
@@ -247,16 +247,16 @@ edict_t *findNextCamera(edict_t *old /* May be NULL */)
 	return NULL;
 }
 
-void Use_Visor (edict_t *ent, gitem_t *item)
+void Use_Visor(edict_t* ent, gitem_t* item)
 {
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
 
 	if (ent->client->zCameraTrack == NULL)
 	{
-		edict_t *e = findNextCamera(NULL);
+		edict_t* e = findNextCamera(NULL);
 		if (e == NULL)
 		{
 			gi.cprintf(ent, PRINT_HIGH, "No cameras are available\n");
@@ -267,8 +267,8 @@ void Use_Visor (edict_t *ent, gitem_t *item)
 	}
 	else
 	{
-		edict_t *e = findNextCamera(ent->client->zCameraTrack);
-		if (e != NULL && 
+		edict_t* e = findNextCamera(ent->client->zCameraTrack);
+		if (e != NULL &&
 			e != ent->client->zCameraTrack)
 		{
 			ent->client->zCameraTrack = e;
@@ -289,9 +289,9 @@ EMP Nuke
 */
 
 
-void weapon_EMPNuke_fire (edict_t *ent)
+void weapon_EMPNuke_fire(edict_t* ent)
 {
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -300,25 +300,25 @@ void weapon_EMPNuke_fire (edict_t *ent)
 
 	ent->client->pers.inventory[ent->client->ammo_index]--;
 
-	if(ent->client->pers.inventory[ent->client->ammo_index])
+	if (ent->client->pers.inventory[ent->client->ammo_index])
 	{
 		ent->client->weaponstate = WEAPON_ACTIVATING;
 		ent->client->ps.gunframe = 0;
 	}
 	else
 	{
-		NoAmmoWeaponChange (ent);
+		NoAmmoWeaponChange(ent);
 		ChangeWeapon(ent);
 	}
 }
 
 
-void Weapon_EMPNuke (edict_t *ent)
+void Weapon_EMPNuke(edict_t* ent)
 {
-	static int	pause_frames[] = {25, 34, 43, 0};
-	static int	fire_frames[]	= {16, 0};
+	static int	pause_frames[] = { 25, 34, 43, 0 };
+	static int	fire_frames[] = { 16, 0 };
 
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -339,13 +339,13 @@ void Weapon_EMPNuke (edict_t *ent)
 		}
 	}
 
-	Weapon_Generic (ent, 9, 16, 43, 47, pause_frames, fire_frames, weapon_EMPNuke_fire);
+	Weapon_Generic(ent, 9, 16, 43, 47, pause_frames, fire_frames, weapon_EMPNuke_fire);
 }
 
 
-void empnukeFinish(edict_t	*ent)
+void empnukeFinish(edict_t* ent)
 {
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -354,9 +354,9 @@ void empnukeFinish(edict_t	*ent)
 }
 
 
-void empBlastAnim(edict_t	*ent)
+void empBlastAnim(edict_t* ent)
 {
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -364,7 +364,7 @@ void empBlastAnim(edict_t	*ent)
 	ent->s.frame++;
 	ent->s.skinnum++;
 
-	if(ent->s.frame > 5)
+	if (ent->s.frame > 5)
 	{
 		ent->svflags |= SVF_NOCLIENT;
 		ent->s.modelindex = 0;
@@ -381,11 +381,11 @@ void empBlastAnim(edict_t	*ent)
 }
 
 
-void fire_empnuke(edict_t	*ent, vec3_t center, int radius)
+void fire_empnuke(edict_t* ent, vec3_t center, int radius)
 {
-	edict_t	*empnuke;
+	edict_t* empnuke;
 
-	if(!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -403,28 +403,28 @@ void fire_empnuke(edict_t	*ent, vec3_t center, int radius)
 
 	empnuke->think = empBlastAnim;
 	empnuke->nextthink = level.time + FRAMETIME;
-	gi.linkentity (empnuke);
+	gi.linkentity(empnuke);
 }
 
 
-qboolean EMPNukeCheck(edict_t	*ent, vec3_t pos)
+qboolean EMPNukeCheck(edict_t* ent, vec3_t pos)
 {
-	edict_t	*check = NULL;
+	edict_t* check = NULL;
 
-	if(!ent)
+	if (!ent)
 	{
 		return false;
 	}
 
-	while ((check = G_Find (check, FOFS(classname), "EMPNukeCenter")) != NULL)
+	while ((check = G_Find(check, FOFS(classname), "EMPNukeCenter")) != NULL)
 	{
-		vec3_t	v;
+		vec3_t	v = { 0 };
 
-		if(check->owner != ent)
+		if (check->owner != ent)
 		{
-			VectorSubtract (check->s.origin, pos, v);
+			VectorSubtract(check->s.origin, pos, v);
 
-			if(VectorLength(v) <= check->dmg)
+			if (VectorLength(v) <= check->dmg)
 			{
 				return true;
 			}
@@ -433,16 +433,16 @@ qboolean EMPNukeCheck(edict_t	*ent, vec3_t pos)
 
 	return false;
 }
-  
+
 /*
 =================
 Plasma Shield
 =================
 */
 
-void PlasmaShield_die (edict_t *self)
+void PlasmaShield_die(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -456,9 +456,9 @@ void PlasmaShield_die (edict_t *self)
 }
 
 
-void PlasmaShield_killed (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
+void PlasmaShield_killed(edict_t* self, edict_t* inflictor, edict_t* attacker, int damage, vec3_t point)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -467,31 +467,31 @@ void PlasmaShield_killed (edict_t *self, edict_t *inflictor, edict_t *attacker, 
 }
 
 
-void Use_PlasmaShield (edict_t *ent, gitem_t *item)
+void Use_PlasmaShield(edict_t* ent, gitem_t* item)
 {
 	int ammoIdx;
-	edict_t	*PlasmaShield;
+	edict_t* PlasmaShield;
 	vec3_t forward, right, up, frontbottomleft, backtopright;
 
-	if(!ent || !item)
+	if (!ent || !item)
 	{
 		return;
 	}
 
 	ammoIdx = ITEM_INDEX(item);
 
-	if(!ent->client->pers.inventory[ammoIdx])
+	if (!ent->client->pers.inventory[ammoIdx])
 	{
 		return;
 	}
 
-	if(EMPNukeCheck(ent, ent->s.origin))
+	if (EMPNukeCheck(ent, ent->s.origin))
 	{
-		gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
-	if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
+	if (!((int)dmflags->value & DF_INFINITE_AMMO))
 	{
 		ent->client->pers.inventory[ammoIdx]--;
 	}
@@ -507,12 +507,12 @@ void Use_PlasmaShield (edict_t *ent, gitem_t *item)
 	PlasmaShield->solid = SOLID_BBOX;
 	PlasmaShield->s.modelindex = gi.modelindex("sprites/plasmashield_fixed.sp2"); /* FS: Coop: Original is broken with bad backslashes */
 	PlasmaShield->s.effects |= EF_POWERSCREEN;
-	PlasmaShield->s.sound = gi.soundindex ("items/plasmashield/psactive.wav");
+	PlasmaShield->s.sound = gi.soundindex("items/plasmashield/psactive.wav");
 
-	AngleVectors (ent->client->v_angle, forward, right, up);
-	vectoangles (forward, PlasmaShield->s.angles);
+	AngleVectors(ent->client->v_angle, forward, right, up);
+	vectoangles(forward, PlasmaShield->s.angles);
 
-	VectorMA (ent->s.origin, 50, forward, PlasmaShield->s.origin);
+	VectorMA(ent->s.origin, 50, forward, PlasmaShield->s.origin);
 
 	VectorScale(forward, 10, frontbottomleft);
 	VectorMA(frontbottomleft, -30, right, frontbottomleft);
@@ -522,10 +522,10 @@ void Use_PlasmaShield (edict_t *ent, gitem_t *item)
 	VectorMA(backtopright, 30, right, backtopright);
 	VectorMA(backtopright, 50, up, backtopright);
 
-	ClearBounds (PlasmaShield->mins, PlasmaShield->maxs);
+	ClearBounds(PlasmaShield->mins, PlasmaShield->maxs);
 
-	AddPointToBounds (frontbottomleft, PlasmaShield->mins, PlasmaShield->maxs);
-	AddPointToBounds (backtopright, PlasmaShield->mins, PlasmaShield->maxs);
+	AddPointToBounds(frontbottomleft, PlasmaShield->mins, PlasmaShield->maxs);
+	AddPointToBounds(backtopright, PlasmaShield->mins, PlasmaShield->maxs);
 
 	PlasmaShield->health = PlasmaShield->max_health = 4000;
 	PlasmaShield->die = PlasmaShield_killed;
@@ -534,23 +534,23 @@ void Use_PlasmaShield (edict_t *ent, gitem_t *item)
 	PlasmaShield->think = PlasmaShield_die;
 	PlasmaShield->nextthink = level.time + 10;
 
-	gi.linkentity (PlasmaShield);
+	gi.linkentity(PlasmaShield);
 }
 
 /*
 	misc_crate
 */
 
-void setupCrate(edict_t *self)
+void setupCrate(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
 	self->solid = SOLID_BBOX;
 	self->movetype = MOVETYPE_FALLFLOAT;
-	
+
 	if (!self->mass)
 	{
 		self->mass = 400;
@@ -563,60 +563,60 @@ void setupCrate(edict_t *self)
 	gi.linkentity(self);
 }
 
-void SP_misc_crate(edict_t *self)
+void SP_misc_crate(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate64.md2");
-	VectorSet (self->mins, -32, -32, 0);
-	VectorSet (self->maxs, 32, 32, 64);
+	VectorSet(self->mins, -32, -32, 0);
+	VectorSet(self->maxs, 32, 32, 64);
 
 	// generic crate setup
 	setupCrate(self);
 }
 
-void SP_misc_crate_medium(edict_t *self)
+void SP_misc_crate_medium(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate48.md2");
-	VectorSet (self->mins, -24, -24, 0);
-	VectorSet (self->maxs, 24, 24, 48);
+	VectorSet(self->mins, -24, -24, 0);
+	VectorSet(self->maxs, 24, 24, 48);
 
 	// generic crate setup
 	setupCrate(self);
 }
 
-void SP_misc_crate_small(edict_t *self)
+void SP_misc_crate_small(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate32.md2");
-	VectorSet (self->mins, -16, -16, 0);
-	VectorSet (self->maxs, 16, 16, 32);
+	VectorSet(self->mins, -16, -16, 0);
+	VectorSet(self->maxs, 16, 16, 32);
 
 	// generic crate setup
 	setupCrate(self);
 }
 
-qboolean thruBarrier(edict_t *targ, edict_t *inflictor)
+qboolean thruBarrier(edict_t* targ, edict_t* inflictor)
 {
 	trace_t tr;
-	edict_t *e = inflictor;
+	edict_t* e = inflictor;
 
-	while(e)
+	while (e)
 	{
 		tr = gi.trace(e->s.origin, NULL, NULL, targ->s.origin, e, MASK_SHOT);
 
@@ -635,7 +635,7 @@ qboolean thruBarrier(edict_t *targ, edict_t *inflictor)
 			return true;
 		}
 
-		if(e == tr.ent)
+		if (e == tr.ent)
 		{
 			break;
 		}
@@ -646,9 +646,9 @@ qboolean thruBarrier(edict_t *targ, edict_t *inflictor)
 	return false;
 }
 
-void barrier_think(edict_t *self)
+void barrier_think(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -665,9 +665,9 @@ void barrier_think(edict_t *self)
 	self->nextthink = level.time + FRAMETIME;
 }
 
-void barrier_pain(edict_t *self, edict_t *other, float kick, int damage)
+void barrier_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -676,13 +676,13 @@ void barrier_pain(edict_t *self, edict_t *other, float kick, int damage)
 
 	if (self->damage_debounce_time < level.time)
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("weapons/lashit.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("weapons/lashit.wav"), 1, ATTN_NORM, 0);
 		self->damage_debounce_time = level.time + FRAMETIME * 2;
 	}
 }
-void barrier_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+void barrier_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
-	if(!self || !other)
+	if (!self || !other)
 	{
 		return;
 	}
@@ -696,15 +696,15 @@ void barrier_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 
 	if (self->touch_debounce_time < level.time)
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("weapons/lashit.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("weapons/lashit.wav"), 1, ATTN_NORM, 0);
 		self->touch_debounce_time = level.time + FRAMETIME * 2;
 	}
 
 }
 
-void SP_func_barrier(edict_t *self)
+void SP_func_barrier(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
@@ -725,9 +725,9 @@ void SP_func_barrier(edict_t *self)
 	gi.linkentity(self);
 }
 
-void SP_misc_seat(edict_t *self)
+void SP_misc_seat(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}

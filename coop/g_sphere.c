@@ -13,17 +13,17 @@
 #define VENGEANCE_LIFESPAN 30
 #define MINIMUM_FLY_TIME 15
 
-extern char *ED_NewString(char *string);
-void LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker);
+extern char* ED_NewString(char* string);
+void LookAtKiller(edict_t* self, edict_t* inflictor, edict_t* attacker);
 
-void defender_think(edict_t *self);
-void hunter_think(edict_t *self);
-void vengeance_think(edict_t *self);
-void vengeance_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
-void hunter_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
+void defender_think(edict_t* self);
+void hunter_think(edict_t* self);
+void vengeance_think(edict_t* self);
+void vengeance_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
+void hunter_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
 
 void
-sphere_think_explode(edict_t *self)
+sphere_think_explode(edict_t* self)
 {
 	if (!self)
 	{
@@ -40,8 +40,8 @@ sphere_think_explode(edict_t *self)
 }
 
 void
-sphere_explode(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+sphere_explode(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -52,8 +52,8 @@ sphere_explode(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 }
 
 void
-sphere_if_idle_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+sphere_if_idle_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -67,10 +67,10 @@ sphere_if_idle_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *atta
 }
 
 void
-sphere_fly(edict_t *self)
+sphere_fly(edict_t* self)
 {
-	vec3_t dest;
-	vec3_t dir;
+	vec3_t dest = { 0 };
+	vec3_t dir = { 0 };
 
 	if (!self)
 	{
@@ -101,10 +101,10 @@ sphere_fly(edict_t *self)
 }
 
 void
-sphere_chase(edict_t *self, int stupidChase)
+sphere_chase(edict_t* self, int stupidChase)
 {
-	vec3_t dest;
-	vec3_t dir;
+	vec3_t dest = { 0 };
+	vec3_t dir = { 0 };
 	float dist;
 
 	if (!self)
@@ -197,10 +197,10 @@ sphere_chase(edict_t *self, int stupidChase)
 }
 
 void
-sphere_fire(edict_t *self, edict_t *enemy)
+sphere_fire(edict_t* self, edict_t* enemy)
 {
-	vec3_t dest;
-	vec3_t dir;
+	vec3_t dest = { 0 };
+	vec3_t dir = { 0 };
 
 	if (!self)
 	{
@@ -227,8 +227,8 @@ sphere_fire(edict_t *self, edict_t *enemy)
 }
 
 void
-sphere_touch(edict_t *self, edict_t *other, cplane_t *plane,
-		csurface_t *surf, int mod)
+sphere_touch(edict_t* self, edict_t* other, cplane_t* plane,
+	csurface_t* surf, int mod)
 {
 	if (!self || !other || !plane || !surf)
 	{
@@ -269,7 +269,7 @@ sphere_touch(edict_t *self, edict_t *other, cplane_t *plane,
 	if (other->takedamage)
 	{
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, 10000, 1, DAMAGE_DESTROY_ARMOR, mod);
+			plane->normal, 10000, 1, DAMAGE_DESTROY_ARMOR, mod);
 	}
 	else
 	{
@@ -280,8 +280,8 @@ sphere_touch(edict_t *self, edict_t *other, cplane_t *plane,
 }
 
 void
-vengeance_touch(edict_t *self, edict_t *other, cplane_t *plane,
-		csurface_t *surf)
+vengeance_touch(edict_t* self, edict_t* other, cplane_t* plane,
+	csurface_t* surf)
 {
 	if (!self || !other || !plane)
 	{
@@ -299,9 +299,9 @@ vengeance_touch(edict_t *self, edict_t *other, cplane_t *plane,
 }
 
 void
-hunter_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+hunter_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
-	edict_t *owner;
+	edict_t* owner;
 
 	if (!self || !other || !plane || !surf)
 	{
@@ -338,10 +338,10 @@ hunter_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 }
 
 void
-defender_shoot(edict_t *self, edict_t *enemy)
+defender_shoot(edict_t* self, edict_t* enemy)
 {
-	vec3_t dir;
-	vec3_t start;
+	vec3_t dir = { 0 };
+	vec3_t start = { 0 };
 
 	if (!self || !enemy)
 	{
@@ -379,7 +379,7 @@ defender_shoot(edict_t *self, edict_t *enemy)
 }
 
 void
-body_gib(edict_t *self)
+body_gib(edict_t* self)
 {
 	int n;
 
@@ -399,11 +399,11 @@ body_gib(edict_t *self)
 }
 
 void
-hunter_pain(edict_t *self, edict_t *other, float kick, int damage)
+hunter_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
-	edict_t *owner;
+	edict_t* owner;
 	float dist;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !other)
 	{
@@ -491,7 +491,7 @@ hunter_pain(edict_t *self, edict_t *other, float kick, int damage)
 }
 
 void
-defender_pain(edict_t *self, edict_t *other, float kick, int damage)
+defender_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	if (!self || !other)
 	{
@@ -507,7 +507,7 @@ defender_pain(edict_t *self, edict_t *other, float kick, int damage)
 }
 
 void
-vengeance_pain(edict_t *self, edict_t *other, float kick, int damage)
+vengeance_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	if (!self || !other)
 	{
@@ -547,7 +547,7 @@ vengeance_pain(edict_t *self, edict_t *other, float kick, int damage)
 }
 
 void
-defender_think(edict_t *self)
+defender_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -601,10 +601,10 @@ defender_think(edict_t *self)
 }
 
 void
-hunter_think(edict_t *self)
+hunter_think(edict_t* self)
 {
-	edict_t *owner;
-	vec3_t dir, ang;
+	edict_t* owner;
+	vec3_t dir = { 0 }, ang;
 
 	if (!self)
 	{
@@ -680,7 +680,7 @@ hunter_think(edict_t *self)
 }
 
 void
-vengeance_think(edict_t *self)
+vengeance_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -715,10 +715,10 @@ vengeance_think(edict_t *self)
 	}
 }
 
-edict_t *
-Sphere_Spawn(edict_t *owner, int spawnflags)
+edict_t*
+Sphere_Spawn(edict_t* owner, int spawnflags)
 {
-	edict_t *sphere;
+	edict_t* sphere;
 
 	if (!owner)
 	{
@@ -752,37 +752,37 @@ Sphere_Spawn(edict_t *owner, int spawnflags)
 
 	switch (spawnflags & SPHERE_TYPE)
 	{
-		case SPHERE_DEFENDER:
-			sphere->s.modelindex = gi.modelindex("models/items/defender/tris.md2");
-			sphere->s.modelindex2 =
-				gi.modelindex("models/items/shell/tris.md2");
-			sphere->s.sound = gi.soundindex("spheres/d_idle.wav");
-			sphere->pain = defender_pain;
-			sphere->wait = level.time + DEFENDER_LIFESPAN;
-			sphere->die = sphere_explode;
-			sphere->think = defender_think;
-			break;
-		case SPHERE_HUNTER:
-			sphere->s.modelindex = gi.modelindex("models/items/hunter/tris.md2");
-			sphere->s.sound = gi.soundindex("spheres/h_idle.wav");
-			sphere->wait = level.time + HUNTER_LIFESPAN;
-			sphere->pain = hunter_pain;
-			sphere->die = sphere_if_idle_die;
-			sphere->think = hunter_think;
-			break;
-		case SPHERE_VENGEANCE:
-			sphere->s.modelindex = gi.modelindex("models/items/vengnce/tris.md2");
-			sphere->s.sound = gi.soundindex("spheres/v_idle.wav");
-			sphere->wait = level.time + VENGEANCE_LIFESPAN;
-			sphere->pain = vengeance_pain;
-			sphere->die = sphere_if_idle_die;
-			sphere->think = vengeance_think;
-			VectorSet(sphere->avelocity, 30, 30, 0);
-			break;
-		default:
-			gi.dprintf("Tried to create an invalid sphere\n");
-			G_FreeEdict(sphere);
-			return NULL;
+	case SPHERE_DEFENDER:
+		sphere->s.modelindex = gi.modelindex("models/items/defender/tris.md2");
+		sphere->s.modelindex2 =
+			gi.modelindex("models/items/shell/tris.md2");
+		sphere->s.sound = gi.soundindex("spheres/d_idle.wav");
+		sphere->pain = defender_pain;
+		sphere->wait = level.time + DEFENDER_LIFESPAN;
+		sphere->die = sphere_explode;
+		sphere->think = defender_think;
+		break;
+	case SPHERE_HUNTER:
+		sphere->s.modelindex = gi.modelindex("models/items/hunter/tris.md2");
+		sphere->s.sound = gi.soundindex("spheres/h_idle.wav");
+		sphere->wait = level.time + HUNTER_LIFESPAN;
+		sphere->pain = hunter_pain;
+		sphere->die = sphere_if_idle_die;
+		sphere->think = hunter_think;
+		break;
+	case SPHERE_VENGEANCE:
+		sphere->s.modelindex = gi.modelindex("models/items/vengnce/tris.md2");
+		sphere->s.sound = gi.soundindex("spheres/v_idle.wav");
+		sphere->wait = level.time + VENGEANCE_LIFESPAN;
+		sphere->pain = vengeance_pain;
+		sphere->die = sphere_if_idle_die;
+		sphere->think = vengeance_think;
+		VectorSet(sphere->avelocity, 30, 30, 0);
+		break;
+	default:
+		gi.dprintf("Tried to create an invalid sphere\n");
+		G_FreeEdict(sphere);
+		return NULL;
 	}
 
 	sphere->nextthink = level.time + 0.1;
@@ -793,7 +793,7 @@ Sphere_Spawn(edict_t *owner, int spawnflags)
 }
 
 void
-Own_Sphere(edict_t *self, edict_t *sphere)
+Own_Sphere(edict_t* self, edict_t* sphere)
 {
 	if (!sphere || !self)
 	{
@@ -825,9 +825,9 @@ Own_Sphere(edict_t *self, edict_t *sphere)
 }
 
 void
-Defender_Launch(edict_t *self)
+Defender_Launch(edict_t* self)
 {
-	edict_t *sphere;
+	edict_t* sphere;
 
 	if (!self)
 	{
@@ -839,9 +839,9 @@ Defender_Launch(edict_t *self)
 }
 
 void
-Hunter_Launch(edict_t *self)
+Hunter_Launch(edict_t* self)
 {
-	edict_t *sphere;
+	edict_t* sphere;
 
 	if (!self)
 	{
@@ -853,9 +853,9 @@ Hunter_Launch(edict_t *self)
 }
 
 void
-Vengeance_Launch(edict_t *self)
+Vengeance_Launch(edict_t* self)
 {
-	edict_t *sphere;
+	edict_t* sphere;
 
 	if (!self)
 	{

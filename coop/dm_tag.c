@@ -4,16 +4,16 @@
 
 #include "g_local.h"
 
-extern edict_t *SelectFarthestDeathmatchSpawnPoint(void);
-extern void SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles);
-void SP_dm_tag_token(edict_t *self);
+extern edict_t* SelectFarthestDeathmatchSpawnPoint(void);
+extern void SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles);
+void SP_dm_tag_token(edict_t* self);
 
-edict_t *tag_token;
-edict_t *tag_owner;
+edict_t* tag_token;
+edict_t* tag_owner;
 int tag_count;
 
 void
-Tag_PlayerDeath(edict_t *targ, edict_t *inflictor /* unused */, edict_t *attacker /* unused */)
+Tag_PlayerDeath(edict_t* targ, edict_t* inflictor /* unused */, edict_t* attacker /* unused */)
 {
 	if (!targ)
 	{
@@ -29,9 +29,9 @@ Tag_PlayerDeath(edict_t *targ, edict_t *inflictor /* unused */, edict_t *attacke
 }
 
 void
-Tag_KillItBonus(edict_t *self)
+Tag_KillItBonus(edict_t* self)
 {
-	edict_t *armor;
+	edict_t* armor;
 
 	if (!self)
 	{
@@ -62,7 +62,7 @@ Tag_KillItBonus(edict_t *self)
 }
 
 void
-Tag_PlayerDisconnect(edict_t *self)
+Tag_PlayerDisconnect(edict_t* self)
 {
 	if (!self)
 	{
@@ -78,9 +78,9 @@ Tag_PlayerDisconnect(edict_t *self)
 }
 
 void
-Tag_Score(edict_t *attacker, edict_t *victim, int scoreChange)
+Tag_Score(edict_t* attacker, edict_t* victim, int scoreChange)
 {
-	gitem_t *quad;
+	gitem_t* quad;
 	int mod;
 
 	if (!attacker || !victim)
@@ -132,7 +132,7 @@ Tag_Score(edict_t *attacker, edict_t *victim, int scoreChange)
 }
 
 qboolean
-Tag_PickupToken(edict_t *ent, edict_t *other)
+Tag_PickupToken(edict_t* ent, edict_t* other)
 {
 	if (gamerules && (gamerules->value != 2))
 	{
@@ -161,9 +161,9 @@ Tag_PickupToken(edict_t *ent, edict_t *other)
 }
 
 void
-Tag_Respawn(edict_t *ent)
+Tag_Respawn(edict_t* ent)
 {
-	edict_t *spot;
+	edict_t* spot;
 
 	if (!ent)
 	{
@@ -183,7 +183,7 @@ Tag_Respawn(edict_t *ent)
 }
 
 void
-Tag_MakeTouchable(edict_t *ent)
+Tag_MakeTouchable(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -206,11 +206,11 @@ Tag_MakeTouchable(edict_t *ent)
 }
 
 void
-Tag_DropToken(edict_t *ent, gitem_t *item)
+Tag_DropToken(edict_t* ent, gitem_t* item)
 {
 	trace_t trace;
 	vec3_t forward, right;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 
 	if (!ent || !item)
 	{
@@ -255,7 +255,7 @@ Tag_DropToken(edict_t *ent, gitem_t *item)
 }
 
 void
-Tag_PlayerEffects(edict_t *ent)
+Tag_PlayerEffects(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -269,7 +269,7 @@ Tag_PlayerEffects(edict_t *ent)
 }
 
 void
-Tag_DogTag(edict_t *ent, edict_t *killer /* unused */, char **pic)
+Tag_DogTag(edict_t* ent, edict_t* killer /* unused */, char** pic)
 {
 	if (!ent || !pic)
 	{
@@ -283,7 +283,7 @@ Tag_DogTag(edict_t *ent, edict_t *killer /* unused */, char **pic)
 }
 
 int
-Tag_ChangeDamage(edict_t *targ, edict_t *attacker, int damage, int mod)
+Tag_ChangeDamage(edict_t* targ, edict_t* attacker, int damage, int mod)
 {
 	if (!targ || !attacker)
 	{
@@ -309,7 +309,7 @@ Tag_GameInit(void)
 void
 Tag_PostInitSetup(void)
 {
-	edict_t *e;
+	edict_t* e;
 	vec3_t origin, angles;
 
 	/* automatic spawning of tag token if one is not present on map. */
@@ -333,7 +333,7 @@ Tag_PostInitSetup(void)
  * The tag token for deathmatch tag games.
  */
 void
-SP_dm_tag_token(edict_t *self)
+SP_dm_tag_token(edict_t* self)
 {
 	if (!self)
 	{

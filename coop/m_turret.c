@@ -20,27 +20,27 @@ TURRET
 #define TURRET_BULLET_DAMAGE 4
 #define TURRET_HEAT_DAMAGE 4
 
-extern qboolean FindTarget(edict_t *self);
+extern qboolean FindTarget(edict_t* self);
 
-void turret_run(edict_t *self);
-void TurretAim(edict_t *self);
-void turret_sight(edict_t *self, edict_t *other);
-void turret_search(edict_t *self);
-void turret_stand(edict_t *self);
-void turret_wake(edict_t *self);
-void turret_ready_gun(edict_t *self);
-void turret_run(edict_t *self);
-void turret_attack(edict_t *self);
+void turret_run(edict_t* self);
+void TurretAim(edict_t* self);
+void turret_sight(edict_t* self, edict_t* other);
+void turret_search(edict_t* self);
+void turret_stand(edict_t* self);
+void turret_wake(edict_t* self);
+void turret_ready_gun(edict_t* self);
+void turret_run(edict_t* self);
+void turret_attack(edict_t* self);
 
-extern void Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *));
+extern void Move_Calc(edict_t* ent, vec3_t dest, void (*func)(edict_t*));
 
 mmove_t turret_move_fire;
 mmove_t turret_move_fire_blind;
 
 void
-TurretAim(edict_t *self)
+TurretAim(edict_t* self)
 {
-	vec3_t end, dir;
+	vec3_t end = { 0 }, dir = { 0 };
 	vec3_t ang;
 	float move, idealPitch, idealYaw, current, speed;
 	int orientation;
@@ -105,155 +105,155 @@ TurretAim(edict_t *self)
 
 	switch (orientation)
 	{
-		case -1: /* up		pitch: 0 to 90 */
+	case -1: /* up		pitch: 0 to 90 */
 
-			if (idealPitch < -90)
-			{
-				idealPitch += 360;
-			}
+		if (idealPitch < -90)
+		{
+			idealPitch += 360;
+		}
 
-			if (idealPitch > -5)
-			{
-				idealPitch = -5;
-			}
+		if (idealPitch > -5)
+		{
+			idealPitch = -5;
+		}
 
-			break;
-		case -2: /* down	pitch: -180 to -360 */
+		break;
+	case -2: /* down	pitch: -180 to -360 */
 
-			if (idealPitch > -90)
-			{
-				idealPitch -= 360;
-			}
+		if (idealPitch > -90)
+		{
+			idealPitch -= 360;
+		}
 
-			if (idealPitch < -355)
-			{
-				idealPitch = -355;
-			}
-			else if (idealPitch > -185)
-			{
-				idealPitch = -185;
-			}
+		if (idealPitch < -355)
+		{
+			idealPitch = -355;
+		}
+		else if (idealPitch > -185)
+		{
+			idealPitch = -185;
+		}
 
-			break;
-		case 0: /* +X		pitch: 0 to -90, -270 to -360 (or 0 to 90) */
+		break;
+	case 0: /* +X		pitch: 0 to -90, -270 to -360 (or 0 to 90) */
 
-			if (idealPitch < -180)
-			{
-				idealPitch += 360;
-			}
+		if (idealPitch < -180)
+		{
+			idealPitch += 360;
+		}
 
-			if (idealPitch > 85)
-			{
-				idealPitch = 85;
-			}
-			else if (idealPitch < -85)
-			{
-				idealPitch = -85;
-			}
+		if (idealPitch > 85)
+		{
+			idealPitch = 85;
+		}
+		else if (idealPitch < -85)
+		{
+			idealPitch = -85;
+		}
 
-			if (idealYaw > 180)
-			{
-				idealYaw -= 360;
-			}
+		if (idealYaw > 180)
+		{
+			idealYaw -= 360;
+		}
 
-			if (idealYaw > 85)
-			{
-				idealYaw = 85;
-			}
-			else if (idealYaw < -85)
-			{
-				idealYaw = -85;
-			}
+		if (idealYaw > 85)
+		{
+			idealYaw = 85;
+		}
+		else if (idealYaw < -85)
+		{
+			idealYaw = -85;
+		}
 
-			break;
-		case 90: /* +Y		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
+		break;
+	case 90: /* +Y		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
 
-			if (idealPitch < -180)
-			{
-				idealPitch += 360;
-			}
+		if (idealPitch < -180)
+		{
+			idealPitch += 360;
+		}
 
-			if (idealPitch > 85)
-			{
-				idealPitch = 85;
-			}
-			else if (idealPitch < -85)
-			{
-				idealPitch = -85;
-			}
+		if (idealPitch > 85)
+		{
+			idealPitch = 85;
+		}
+		else if (idealPitch < -85)
+		{
+			idealPitch = -85;
+		}
 
-			if (idealYaw > 270)
-			{
-				idealYaw -= 360;
-			}
+		if (idealYaw > 270)
+		{
+			idealYaw -= 360;
+		}
 
-			if (idealYaw > 175)
-			{
-				idealYaw = 175;
-			}
-			else if (idealYaw < 5)
-			{
-				idealYaw = 5;
-			}
+		if (idealYaw > 175)
+		{
+			idealYaw = 175;
+		}
+		else if (idealYaw < 5)
+		{
+			idealYaw = 5;
+		}
 
-			break;
-		case 180: /* -X		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
+		break;
+	case 180: /* -X		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
 
-			if (idealPitch < -180)
-			{
-				idealPitch += 360;
-			}
+		if (idealPitch < -180)
+		{
+			idealPitch += 360;
+		}
 
-			if (idealPitch > 85)
-			{
-				idealPitch = 85;
-			}
-			else if (idealPitch < -85)
-			{
-				idealPitch = -85;
-			}
+		if (idealPitch > 85)
+		{
+			idealPitch = 85;
+		}
+		else if (idealPitch < -85)
+		{
+			idealPitch = -85;
+		}
 
-			if (idealYaw > 265)
-			{
-				idealYaw = 265;
-			}
-			else if (idealYaw < 95)
-			{
-				idealYaw = 95;
-			}
+		if (idealYaw > 265)
+		{
+			idealYaw = 265;
+		}
+		else if (idealYaw < 95)
+		{
+			idealYaw = 95;
+		}
 
-			break;
-		case 270: /* -Y		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
+		break;
+	case 270: /* -Y		pitch: 0 to 90, -270 to -360 (or 0 to 90) */
 
-			if (idealPitch < -180)
-			{
-				idealPitch += 360;
-			}
+		if (idealPitch < -180)
+		{
+			idealPitch += 360;
+		}
 
-			if (idealPitch > 85)
-			{
-				idealPitch = 85;
-			}
-			else if (idealPitch < -85)
-			{
-				idealPitch = -85;
-			}
+		if (idealPitch > 85)
+		{
+			idealPitch = 85;
+		}
+		else if (idealPitch < -85)
+		{
+			idealPitch = -85;
+		}
 
-			if (idealYaw < 90)
-			{
-				idealYaw += 360;
-			}
+		if (idealYaw < 90)
+		{
+			idealYaw += 360;
+		}
 
-			if (idealYaw > 355)
-			{
-				idealYaw = 355;
-			}
-			else if (idealYaw < 185)
-			{
-				idealYaw = 185;
-			}
+		if (idealYaw > 355)
+		{
+			idealYaw = 355;
+		}
+		else if (idealYaw < 185)
+		{
+			idealYaw = 185;
+		}
 
-			break;
+		break;
 	}
 
 	current = self->s.angles[PITCH];
@@ -338,12 +338,12 @@ TurretAim(edict_t *self)
 }
 
 void
-turret_sight(edict_t *self, edict_t *other)
+turret_sight(edict_t* self, edict_t* other)
 {
 }
 
 void
-turret_search(edict_t *self)
+turret_search(edict_t* self)
 {
 }
 
@@ -354,13 +354,13 @@ mframe_t turret_frames_stand[] = {
 
 mmove_t turret_move_stand = {
 	FRAME_stand01,
-   	FRAME_stand02,
-   	turret_frames_stand,
-   	NULL
+	FRAME_stand02,
+	turret_frames_stand,
+	NULL
 };
 
 void
-turret_stand(edict_t *self)
+turret_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -384,13 +384,13 @@ mframe_t turret_frames_ready_gun[] = {
 
 mmove_t turret_move_ready_gun = {
 	FRAME_active01,
-   	FRAME_run01,
-   	turret_frames_ready_gun,
-   	turret_run
+	FRAME_run01,
+	turret_frames_ready_gun,
+	turret_run
 };
 
 void
-turret_ready_gun(edict_t *self)
+turret_ready_gun(edict_t* self)
 {
 	if (!self)
 	{
@@ -407,13 +407,13 @@ mframe_t turret_frames_seek[] = {
 
 mmove_t turret_move_seek = {
 	FRAME_run01,
-   	FRAME_run02,
-   	turret_frames_seek,
-   	NULL
+	FRAME_run02,
+	turret_frames_seek,
+	NULL
 };
 
 void
-turret_walk(edict_t *self)
+turret_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -437,13 +437,13 @@ mframe_t turret_frames_run[] = {
 
 mmove_t turret_move_run = {
 	FRAME_run01,
-   	FRAME_run02,
-   	turret_frames_run,
-   	turret_run
+	FRAME_run02,
+	turret_frames_run,
+	turret_run
 };
 
 void
-turret_run(edict_t *self)
+turret_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -461,10 +461,10 @@ turret_run(edict_t *self)
 }
 
 void
-TurretFire(edict_t *self)
+TurretFire(edict_t* self)
 {
 	vec3_t forward;
-	vec3_t start, end, dir;
+	vec3_t start = { 0 }, end = { 0 }, dir = { 0 };
 	float time, dist, chance;
 	trace_t trace;
 	int rocketSpeed = 0;
@@ -564,13 +564,13 @@ TurretFire(edict_t *self)
 			if (self->spawnflags & SPAWN_BLASTER)
 			{
 				monster_fire_blaster(self, start, dir, 20, rocketSpeed,
-						MZ2_TURRET_BLASTER, EF_BLASTER);
+					MZ2_TURRET_BLASTER, EF_BLASTER);
 			}
 			else if (self->spawnflags & SPAWN_MACHINEGUN)
 			{
 				monster_fire_bullet(self, start, dir, TURRET_BULLET_DAMAGE,
-						0, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
-						MZ2_TURRET_MACHINEGUN);
+					0, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
+					MZ2_TURRET_MACHINEGUN);
 			}
 			else if (self->spawnflags & SPAWN_ROCKET)
 			{
@@ -584,10 +584,10 @@ TurretFire(edict_t *self)
 }
 
 void
-TurretFireBlind(edict_t *self)
+TurretFireBlind(edict_t* self)
 {
 	vec3_t forward;
-	vec3_t start, end, dir;
+	vec3_t start = { 0 }, end = { 0 }, dir = { 0 };
 	float chance;
 	int rocketSpeed = 0;
 
@@ -645,12 +645,12 @@ TurretFireBlind(edict_t *self)
 	if (self->spawnflags & SPAWN_BLASTER)
 	{
 		monster_fire_blaster(self, start, dir, 20, 1000,
-				MZ2_TURRET_BLASTER, EF_BLASTER);
+			MZ2_TURRET_BLASTER, EF_BLASTER);
 	}
 	else if (self->spawnflags & SPAWN_ROCKET)
 	{
 		monster_fire_rocket(self, start, dir, 50, rocketSpeed,
-				MZ2_TURRET_ROCKET);
+			MZ2_TURRET_ROCKET);
 	}
 }
 
@@ -663,9 +663,9 @@ mframe_t turret_frames_fire[] = {
 
 mmove_t turret_move_fire = {
 	FRAME_pow01,
-   	FRAME_pow04,
-   	turret_frames_fire,
-   	turret_run
+	FRAME_pow04,
+	turret_frames_fire,
+	turret_run
 };
 
 /* the blind frames need to aim first */
@@ -678,13 +678,13 @@ mframe_t turret_frames_fire_blind[] = {
 
 mmove_t turret_move_fire_blind = {
 	FRAME_pow01,
-   	FRAME_pow04,
-   	turret_frames_fire_blind,
-   	turret_run
+	FRAME_pow04,
+	turret_frames_fire_blind,
+	turret_run
 };
 
 void
-turret_attack(edict_t *self)
+turret_attack(edict_t* self)
 {
 	float r, chance;
 
@@ -741,18 +741,18 @@ turret_attack(edict_t *self)
 }
 
 void
-turret_pain(edict_t *self, edict_t *other, float kick, int damage)
+turret_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	return;
 }
 
 void
-turret_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+turret_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	vec3_t forward;
 	vec3_t start;
-	edict_t *base;
+	edict_t* base;
 
 	if (!self)
 	{
@@ -797,9 +797,9 @@ turret_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* 
 }
 
 void
-turret_wall_spawn(edict_t *turret)
+turret_wall_spawn(edict_t* turret)
 {
-	edict_t *ent;
+	edict_t* ent;
 	int angle;
 
 	if (!turret)
@@ -824,30 +824,30 @@ turret_wall_spawn(edict_t *turret)
 
 	switch (angle)
 	{
-		case -1:
-			VectorSet(ent->mins, -16, -16, -8);
-			VectorSet(ent->maxs, 16, 16, 0);
-			break;
-		case -2:
-			VectorSet(ent->mins, -16, -16, 0);
-			VectorSet(ent->maxs, 16, 16, 8);
-			break;
-		case 0:
-			VectorSet(ent->mins, -8, -16, -16);
-			VectorSet(ent->maxs, 0, 16, 16);
-			break;
-		case 90:
-			VectorSet(ent->mins, -16, -8, -16);
-			VectorSet(ent->maxs, 16, 0, 16);
-			break;
-		case 180:
-			VectorSet(ent->mins, 0, -16, -16);
-			VectorSet(ent->maxs, 8, 16, 16);
-			break;
-		case 270:
-			VectorSet(ent->mins, -16, 0, -16);
-			VectorSet(ent->maxs, 16, 8, 16);
-			break;
+	case -1:
+		VectorSet(ent->mins, -16, -16, -8);
+		VectorSet(ent->maxs, 16, 16, 0);
+		break;
+	case -2:
+		VectorSet(ent->mins, -16, -16, 0);
+		VectorSet(ent->maxs, 16, 16, 8);
+		break;
+	case 0:
+		VectorSet(ent->mins, -8, -16, -16);
+		VectorSet(ent->maxs, 0, 16, 16);
+		break;
+	case 90:
+		VectorSet(ent->mins, -16, -8, -16);
+		VectorSet(ent->maxs, 16, 0, 16);
+		break;
+	case 180:
+		VectorSet(ent->mins, 0, -16, -16);
+		VectorSet(ent->maxs, 8, 16, 16);
+		break;
+	case 270:
+		VectorSet(ent->mins, -16, 0, -16);
+		VectorSet(ent->maxs, 16, 8, 16);
+		break;
 	}
 
 	ent->movetype = MOVETYPE_PUSH;
@@ -866,7 +866,7 @@ turret_wall_spawn(edict_t *turret)
 }
 
 void
-turret_wake(edict_t *self)
+turret_wake(edict_t* self)
 {
 	if (!self)
 	{
@@ -910,11 +910,11 @@ turret_wake(edict_t *self)
 }
 
 void
-turret_activate(edict_t *self, edict_t *other, edict_t *activator)
+turret_activate(edict_t* self, edict_t* other, edict_t* activator)
 {
 	vec3_t endpos;
-	vec3_t forward;
-	edict_t *base;
+	vec3_t forward = { 0 };
+	edict_t* base;
 
 	self->movetype = MOVETYPE_PUSH;
 
@@ -976,9 +976,9 @@ turret_activate(edict_t *self, edict_t *other, edict_t *activator)
 
 /* checkattack .. ignore range, just attack if available */
 qboolean
-turret_checkattack(edict_t *self)
+turret_checkattack(edict_t* self)
 {
-	vec3_t spot1, spot2;
+	vec3_t spot1 = { 0 }, spot2 = { 0 };
 	float chance, nexttime;
 	trace_t tr;
 	int enemy_range;
@@ -997,8 +997,8 @@ turret_checkattack(edict_t *self)
 		spot2[2] += self->enemy->viewheight;
 
 		tr = gi.trace(spot1, NULL, NULL, spot2, self,
-				CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME | CONTENTS_LAVA |
-				CONTENTS_WINDOW);
+			CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME | CONTENTS_LAVA |
+			CONTENTS_WINDOW);
 
 		/* do we have a clear shot? */
 		if (tr.ent != self->enemy)
@@ -1025,7 +1025,7 @@ turret_checkattack(edict_t *self)
 						{
 							/* make sure we're not going to shoot something we don't want to shoot */
 							tr = gi.trace(spot1, NULL, NULL, self->monsterinfo.blind_fire_target,
-									self, CONTENTS_MONSTER);
+								self, CONTENTS_MONSTER);
 
 							if (tr.allsolid || tr.startsolid || ((tr.fraction < 1.0) && (tr.ent != self->enemy)))
 							{
@@ -1108,7 +1108,7 @@ turret_checkattack(edict_t *self)
  * When activated, wall units move 32 units in the direction they're facing.
  */
 void
-SP_monster_turret(edict_t *self)
+SP_monster_turret(edict_t* self)
 {
 	int angle;
 
@@ -1181,30 +1181,30 @@ SP_monster_turret(edict_t *self)
 
 	switch (angle)
 	{
-		case -1:                    /* up */
-			self->s.angles[0] = 270;
-			self->s.angles[1] = 0;
-			self->s.origin[2] += 2;
-			break;
-		case -2:                    /* down */
-			self->s.angles[0] = 90;
-			self->s.angles[1] = 0;
-			self->s.origin[2] -= 2;
-			break;
-		case 0:
-			self->s.origin[0] += 2;
-			break;
-		case 90:
-			self->s.origin[1] += 2;
-			break;
-		case 180:
-			self->s.origin[0] -= 2;
-			break;
-		case 270:
-			self->s.origin[1] -= 2;
-			break;
-		default:
-			break;
+	case -1:                    /* up */
+		self->s.angles[0] = 270;
+		self->s.angles[1] = 0;
+		self->s.origin[2] += 2;
+		break;
+	case -2:                    /* down */
+		self->s.angles[0] = 90;
+		self->s.angles[1] = 0;
+		self->s.origin[2] -= 2;
+		break;
+	case 0:
+		self->s.origin[0] += 2;
+		break;
+	case 90:
+		self->s.origin[1] += 2;
+		break;
+	case 180:
+		self->s.origin[0] -= 2;
+		break;
+	case 270:
+		self->s.origin[1] -= 2;
+		break;
+	default:
+		break;
 	}
 
 	gi.linkentity(self);

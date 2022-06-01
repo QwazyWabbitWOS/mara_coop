@@ -9,8 +9,8 @@ jorg
 #include "g_local.h"
 #include "m_boss31.h"
 
-extern void SP_monster_makron(edict_t *self);
-qboolean visible(edict_t *self, edict_t *other);
+extern void SP_monster_makron(edict_t* self);
+qboolean visible(edict_t* self, edict_t* other);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -27,22 +27,22 @@ static int sound_step_left;
 static int sound_step_right;
 static int sound_death_hit;
 
-void BossExplode(edict_t *self);
-void MakronToss(edict_t *self);
+void BossExplode(edict_t* self);
+void MakronToss(edict_t* self);
 void MakronPrecache(void);
-void jorg_dead(edict_t *self);
-void jorgBFG(edict_t *self);
-void jorgMachineGun(edict_t *self);
-void jorg_firebullet(edict_t *self);
-void jorg_reattack1(edict_t *self);
-void jorg_attack1(edict_t *self);
-void jorg_idle(edict_t *self);
-void jorg_step_left(edict_t *self);
-void jorg_step_right(edict_t *self);
-void jorg_death_hit(edict_t *self);
+void jorg_dead(edict_t* self);
+void jorgBFG(edict_t* self);
+void jorgMachineGun(edict_t* self);
+void jorg_firebullet(edict_t* self);
+void jorg_reattack1(edict_t* self);
+void jorg_attack1(edict_t* self);
+void jorg_idle(edict_t* self);
+void jorg_step_left(edict_t* self);
+void jorg_step_right(edict_t* self);
+void jorg_death_hit(edict_t* self);
 
 void
-jorg_search(edict_t *self)
+jorg_search(edict_t* self)
 {
 	float r;
 
@@ -124,13 +124,13 @@ mframe_t jorg_frames_stand[] = {
 
 mmove_t jorg_move_stand = {
 	FRAME_stand01,
-   	FRAME_stand51,
-   	jorg_frames_stand,
-   	NULL
+	FRAME_stand51,
+	jorg_frames_stand,
+	NULL
 };
 
 void
-jorg_idle(edict_t *self)
+jorg_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -141,7 +141,7 @@ jorg_idle(edict_t *self)
 }
 
 void
-jorg_death_hit(edict_t *self)
+jorg_death_hit(edict_t* self)
 {
 	if (!self)
 	{
@@ -152,7 +152,7 @@ jorg_death_hit(edict_t *self)
 }
 
 void
-jorg_step_left(edict_t *self)
+jorg_step_left(edict_t* self)
 {
 	if (!self)
 	{
@@ -163,7 +163,7 @@ jorg_step_left(edict_t *self)
 }
 
 void
-jorg_step_right(edict_t *self)
+jorg_step_right(edict_t* self)
 {
 	if (!self)
 	{
@@ -174,7 +174,7 @@ jorg_step_right(edict_t *self)
 }
 
 void
-jorg_stand(edict_t *self)
+jorg_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -203,9 +203,9 @@ mframe_t jorg_frames_run[] = {
 
 mmove_t jorg_move_run = {
 	FRAME_walk06,
-   	FRAME_walk19,
-   	jorg_frames_run,
-   	NULL
+	FRAME_walk19,
+	jorg_frames_run,
+	NULL
 };
 
 /* walk */
@@ -219,9 +219,9 @@ mframe_t jorg_frames_start_walk[] = {
 
 mmove_t jorg_move_start_walk = {
 	FRAME_walk01,
-   	FRAME_walk05,
-   	jorg_frames_start_walk,
-   	NULL
+	FRAME_walk05,
+	jorg_frames_start_walk,
+	NULL
 };
 
 mframe_t jorg_frames_walk[] = {
@@ -243,9 +243,9 @@ mframe_t jorg_frames_walk[] = {
 
 mmove_t jorg_move_walk = {
 	FRAME_walk06,
-   	FRAME_walk19,
-   	jorg_frames_walk,
-   	NULL
+	FRAME_walk19,
+	jorg_frames_walk,
+	NULL
 };
 
 mframe_t jorg_frames_end_walk[] = {
@@ -259,13 +259,13 @@ mframe_t jorg_frames_end_walk[] = {
 
 mmove_t jorg_move_end_walk = {
 	FRAME_walk20,
-   	FRAME_walk25,
-   	jorg_frames_end_walk,
-   	NULL
+	FRAME_walk25,
+	jorg_frames_end_walk,
+	NULL
 };
 
 void
-jorg_walk(edict_t *self)
+jorg_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -276,7 +276,7 @@ jorg_walk(edict_t *self)
 }
 
 void
-jorg_run(edict_t *self)
+jorg_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -323,9 +323,9 @@ mframe_t jorg_frames_pain3[] = {
 
 mmove_t jorg_move_pain3 = {
 	FRAME_pain301,
-   	FRAME_pain325,
-   	jorg_frames_pain3,
-   	jorg_run
+	FRAME_pain325,
+	jorg_frames_pain3,
+	jorg_run
 };
 
 mframe_t jorg_frames_pain2[] = {
@@ -336,9 +336,9 @@ mframe_t jorg_frames_pain2[] = {
 
 mmove_t jorg_move_pain2 = {
 	FRAME_pain201,
-   	FRAME_pain203,
-   	jorg_frames_pain2,
-   	jorg_run
+	FRAME_pain203,
+	jorg_frames_pain2,
+	jorg_run
 };
 
 mframe_t jorg_frames_pain1[] = {
@@ -349,9 +349,9 @@ mframe_t jorg_frames_pain1[] = {
 
 mmove_t jorg_move_pain1 = {
 	FRAME_pain101,
-   	FRAME_pain103,
-   	jorg_frames_pain1,
-   	jorg_run
+	FRAME_pain103,
+	jorg_frames_pain1,
+	jorg_run
 };
 
 mframe_t jorg_frames_death1[] = {
@@ -409,9 +409,9 @@ mframe_t jorg_frames_death1[] = {
 
 mmove_t jorg_move_death = {
 	FRAME_death01,
-   	FRAME_death50,
-   	jorg_frames_death1,
-   	jorg_dead
+	FRAME_death50,
+	jorg_frames_death1,
+	jorg_dead
 };
 
 mframe_t jorg_frames_attack2[] = {
@@ -432,9 +432,9 @@ mframe_t jorg_frames_attack2[] = {
 
 mmove_t jorg_move_attack2 = {
 	FRAME_attak201,
-   	FRAME_attak213,
-   	jorg_frames_attack2,
-   	jorg_run
+	FRAME_attak213,
+	jorg_frames_attack2,
+	jorg_run
 };
 
 mframe_t jorg_frames_start_attack1[] = {
@@ -450,9 +450,9 @@ mframe_t jorg_frames_start_attack1[] = {
 
 mmove_t jorg_move_start_attack1 = {
 	FRAME_attak101,
-   	FRAME_attak108,
-   	jorg_frames_start_attack1,
-   	jorg_attack1
+	FRAME_attak108,
+	jorg_frames_start_attack1,
+	jorg_attack1
 };
 
 mframe_t jorg_frames_attack1[] = {
@@ -466,9 +466,9 @@ mframe_t jorg_frames_attack1[] = {
 
 mmove_t jorg_move_attack1 = {
 	FRAME_attak109,
-   	FRAME_attak114,
-   	jorg_frames_attack1,
-   	jorg_reattack1
+	FRAME_attak114,
+	jorg_frames_attack1,
+	jorg_reattack1
 };
 
 mframe_t jorg_frames_end_attack1[] = {
@@ -480,13 +480,13 @@ mframe_t jorg_frames_end_attack1[] = {
 
 mmove_t jorg_move_end_attack1 = {
 	FRAME_attak115,
-   	FRAME_attak118,
-   	jorg_frames_end_attack1,
-   	jorg_run
+	FRAME_attak118,
+	jorg_frames_end_attack1,
+	jorg_run
 };
 
 void
-jorg_reattack1(edict_t *self)
+jorg_reattack1(edict_t* self)
 {
 	if (!self)
 	{
@@ -513,7 +513,7 @@ jorg_reattack1(edict_t *self)
 }
 
 void
-jorg_attack1(edict_t *self)
+jorg_attack1(edict_t* self)
 {
 	if (!self)
 	{
@@ -524,8 +524,8 @@ jorg_attack1(edict_t *self)
 }
 
 void
-jorg_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+jorg_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	if (!self)
 	{
@@ -609,12 +609,12 @@ jorg_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-jorgBFG(edict_t *self)
+jorgBFG(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 
 	if (!self)
 	{
@@ -623,7 +623,7 @@ jorgBFG(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_JORG_BFG_1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
@@ -634,7 +634,7 @@ jorgBFG(edict_t *self)
 }
 
 void
-jorg_firebullet_right(edict_t *self)
+jorg_firebullet_right(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -646,25 +646,25 @@ jorg_firebullet_right(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_JORG_MACHINEGUN_R1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorMA(self->enemy->s.origin, -0.2, self->enemy->velocity, target);
 	target[2] += self->enemy->viewheight;
 	VectorSubtract(target, start, forward);
 	VectorNormalize(forward);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, MZ2_JORG_MACHINEGUN_R1);
+		DEFAULT_BULLET_VSPREAD, MZ2_JORG_MACHINEGUN_R1);
 }
 
 void
-jorg_firebullet_left(edict_t *self)
+jorg_firebullet_left(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -676,25 +676,25 @@ jorg_firebullet_left(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_JORG_MACHINEGUN_L1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorMA(self->enemy->s.origin, -0.2, self->enemy->velocity, target);
 	target[2] += self->enemy->viewheight;
 	VectorSubtract(target, start, forward);
 	VectorNormalize(forward);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, MZ2_JORG_MACHINEGUN_L1);
+		DEFAULT_BULLET_VSPREAD, MZ2_JORG_MACHINEGUN_L1);
 }
 
 void
-jorg_firebullet(edict_t *self)
+jorg_firebullet(edict_t* self)
 {
 	if (!self)
 	{
@@ -706,7 +706,7 @@ jorg_firebullet(edict_t *self)
 }
 
 void
-jorg_attack(edict_t *self)
+jorg_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -727,13 +727,13 @@ jorg_attack(edict_t *self)
 }
 
 void
-jorg_dead(edict_t *self)
+jorg_dead(edict_t* self)
 {
 }
 
 void
-jorg_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+jorg_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -749,10 +749,10 @@ jorg_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* un
 }
 
 qboolean
-Jorg_CheckAttack(edict_t *self)
+Jorg_CheckAttack(edict_t* self)
 {
-	vec3_t spot1, spot2;
-	vec3_t temp;
+	vec3_t spot1 = { 0 }, spot2 = { 0 };
+	vec3_t temp = { 0 };
 	float chance;
 	trace_t tr;
 	int enemy_range;
@@ -772,8 +772,8 @@ Jorg_CheckAttack(edict_t *self)
 		spot2[2] += self->enemy->viewheight;
 
 		tr = gi.trace(spot1, NULL, NULL, spot2, self,
-				CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
-				CONTENTS_LAVA);
+			CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
+			CONTENTS_LAVA);
 
 		/* do we have a clear shot? */
 		if (tr.ent != self->enemy)
@@ -866,9 +866,9 @@ Jorg_CheckAttack(edict_t *self)
  * QUAKED monster_jorg (1 .5 0) (-80 -80 0) (90 90 140) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_jorg(edict_t *self)
+SP_monster_jorg(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

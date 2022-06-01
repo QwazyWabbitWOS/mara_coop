@@ -16,12 +16,12 @@ static int sound_punch;
 static int sound_sight;
 static int sound_search;
 
-void berserk_fidget(edict_t *self);
+void berserk_fidget(edict_t* self);
 
 void
-berserk_sight(edict_t *self, edict_t *other /* unused */)
+berserk_sight(edict_t* self, edict_t* other /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -30,7 +30,7 @@ berserk_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-berserk_search(edict_t *self)
+berserk_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -50,13 +50,13 @@ mframe_t berserk_frames_stand[] = {
 
 mmove_t berserk_move_stand = {
 	FRAME_stand1,
-   	FRAME_stand5,
-   	berserk_frames_stand,
-   	NULL
+	FRAME_stand5,
+	berserk_frames_stand,
+	NULL
 };
 
 void
-berserk_stand(edict_t *self)
+berserk_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -97,7 +97,7 @@ mmove_t berserk_move_stand_fidget = {
 };
 
 void
-berserk_fidget(edict_t *self)
+berserk_fidget(edict_t* self)
 {
 	if (!self)
 	{
@@ -135,13 +135,13 @@ mframe_t berserk_frames_walk[] = {
 
 mmove_t berserk_move_walk = {
 	FRAME_walkc1,
-   	FRAME_walkc11,
-   	berserk_frames_walk,
-   	NULL
+	FRAME_walkc11,
+	berserk_frames_walk,
+	NULL
 };
 
 void
-berserk_walk(edict_t *self)
+berserk_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -162,13 +162,13 @@ mframe_t berserk_frames_run1[] = {
 
 mmove_t berserk_move_run1 = {
 	FRAME_run1,
-   	FRAME_run6,
-   	berserk_frames_run1,
-   	NULL
+	FRAME_run6,
+	berserk_frames_run1,
+	NULL
 };
 
 void
-berserk_run(edict_t *self)
+berserk_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -186,9 +186,9 @@ berserk_run(edict_t *self)
 }
 
 void
-berserk_attack_spike(edict_t *self)
+berserk_attack_spike(edict_t* self)
 {
-	static vec3_t 	aim = {MELEE_DISTANCE, 0, -24};
+	static vec3_t 	aim = { MELEE_DISTANCE, 0, -24 };
 
 	if (!self)
 	{
@@ -199,7 +199,7 @@ berserk_attack_spike(edict_t *self)
 }
 
 void
-berserk_swing(edict_t *self)
+berserk_swing(edict_t* self)
 {
 	if (!self)
 	{
@@ -222,15 +222,15 @@ mframe_t berserk_frames_attack_spike[] = {
 
 mmove_t berserk_move_attack_spike = {
 	FRAME_att_c1,
-   	FRAME_att_c8,
-   	berserk_frames_attack_spike,
-   	berserk_run
+	FRAME_att_c8,
+	berserk_frames_attack_spike,
+	berserk_run
 };
 
 void
-berserk_attack_club(edict_t *self)
+berserk_attack_club(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -258,13 +258,13 @@ mframe_t berserk_frames_attack_club[] = {
 
 mmove_t berserk_move_attack_club = {
 	FRAME_att_c9,
-   	FRAME_att_c20,
-   	berserk_frames_attack_club,
-   	berserk_run
+	FRAME_att_c20,
+	berserk_frames_attack_club,
+	berserk_run
 };
 
 void
-berserk_strike(edict_t *self)
+berserk_strike(edict_t* self)
 {
 }
 
@@ -287,13 +287,13 @@ mframe_t berserk_frames_attack_strike[] = {
 
 mmove_t berserk_move_attack_strike = {
 	FRAME_att_c21,
-   	FRAME_att_c34,
-   	berserk_frames_attack_strike,
-   	berserk_run
+	FRAME_att_c34,
+	berserk_frames_attack_strike,
+	berserk_run
 };
 
 void
-berserk_melee(edict_t *self)
+berserk_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -319,9 +319,9 @@ mframe_t berserk_frames_pain1[] = {
 
 mmove_t berserk_move_pain1 = {
 	FRAME_painc1,
-   	FRAME_painc4,
-   	berserk_frames_pain1,
-   	berserk_run
+	FRAME_painc4,
+	berserk_frames_pain1,
+	berserk_run
 };
 
 mframe_t berserk_frames_pain2[] = {
@@ -349,14 +349,14 @@ mframe_t berserk_frames_pain2[] = {
 
 mmove_t berserk_move_pain2 = {
 	FRAME_painb1,
-   	FRAME_painb20,
-   	berserk_frames_pain2,
-   	berserk_run
+	FRAME_painb20,
+	berserk_frames_pain2,
+	berserk_run
 };
 
 void
-berserk_pain(edict_t *self, edict_t *other /* unsued */,
-		float kick /* unused */, int damage)
+berserk_pain(edict_t* self, edict_t* other /* unsued */,
+	float kick /* unused */, int damage)
 {
 	if (!self)
 	{
@@ -392,7 +392,7 @@ berserk_pain(edict_t *self, edict_t *other /* unsued */,
 }
 
 void
-berserk_dead(edict_t *self)
+berserk_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -425,9 +425,9 @@ mframe_t berserk_frames_death1[] = {
 
 mmove_t berserk_move_death1 = {
 	FRAME_death1,
-   	FRAME_death13,
-   	berserk_frames_death1,
-   	berserk_dead
+	FRAME_death13,
+	berserk_frames_death1,
+	berserk_dead
 };
 
 mframe_t berserk_frames_death2[] = {
@@ -443,14 +443,14 @@ mframe_t berserk_frames_death2[] = {
 
 mmove_t berserk_move_death2 = {
 	FRAME_deathc1,
-   	FRAME_deathc8,
-   	berserk_frames_death2,
-   	berserk_dead
+	FRAME_deathc8,
+	berserk_frames_death2,
+	berserk_dead
 };
 
 void
-berserk_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point)
+berserk_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage, vec3_t point)
 {
 	int n;
 
@@ -501,7 +501,7 @@ berserk_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /*
  * QUAKED monster_berserk (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_berserk(edict_t *self)
+SP_monster_berserk(edict_t* self)
 {
 	if (!self)
 	{

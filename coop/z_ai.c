@@ -2,10 +2,10 @@
 
 #define Z_RADUISLISTSIZE	2000
 
-void ai_run_melee(edict_t *self);
-qboolean FindTarget (edict_t *self);
-qboolean SV_StepDirection (edict_t *ent, float yaw, float dist);
-void SV_NewChaseDir (edict_t *actor, vec3_t eOrigin, float dist);
+void ai_run_melee(edict_t* self);
+qboolean FindTarget(edict_t* self);
+qboolean SV_StepDirection(edict_t* ent, float yaw, float dist);
+void SV_NewChaseDir(edict_t* actor, vec3_t eOrigin, float dist);
 
 /*
 =============
@@ -14,17 +14,17 @@ zSchoolAllVisiable
 Creates a list of all entities in the raduis of Z_RADUISLISTSIZE
 ==============
 */
-void zCreateRaduisList(edict_t *self)
+void zCreateRaduisList(edict_t* self)
 {
-	edict_t *head, *list;
-	vec3_t vec;
+	edict_t* head, * list;
+	vec3_t vec = { 0 };
 
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
-	if(self->zRaduisList)
+	if (self->zRaduisList)
 	{
 		// already created for this think, don't bother doing it again...
 		return;
@@ -33,15 +33,15 @@ void zCreateRaduisList(edict_t *self)
 	head = NULL;
 	list = self;
 
-	while(1)
+	while (1)
 	{
 		head = findradius(head, self->s.origin, Z_RADUISLISTSIZE);
-		if(head == NULL)
+		if (head == NULL)
 		{
 			break;
 		}
 
-		if(head != self)
+		if (head != self)
 		{
 			list->zRaduisList = head;
 			VectorSubtract(self->s.origin, head->s.origin, vec);
@@ -57,13 +57,13 @@ void zCreateRaduisList(edict_t *self)
 =============
 zSchoolAllVisiable
 
-Create list of monsters of the same schooling type that are ahead of you. 
+Create list of monsters of the same schooling type that are ahead of you.
 ==============
 */
-int zSchoolAllVisiable(edict_t *self)
+int zSchoolAllVisiable(edict_t* self)
 {
 	int max;
-	edict_t *head, *list;
+	edict_t* head, * list;
 
 	max = 0;
 
@@ -73,7 +73,7 @@ int zSchoolAllVisiable(edict_t *self)
 
 	while (head)
 	{
-		if(head->classname && self->classname && strcmp(head->classname, self->classname) == 0 && (self->monsterinfo.aiflags & AI_SCHOOLING) && (head->health > 0) && 
+		if (head->classname && self->classname && strcmp(head->classname, self->classname) == 0 && (self->monsterinfo.aiflags & AI_SCHOOLING) && (head->health > 0) &&
 			(head->zDistance <= self->monsterinfo.zSchoolSightRadius) && (visible(self, head)) && (infront(self, head)))
 		{
 			list->zSchoolChain = head;
@@ -95,30 +95,30 @@ zFindRoamYaw
 Check direction moving in does not hit a wall... if it does change direction.
 ==============
 */
-int zFindRoamYaw(edict_t *self, float distcheck)
+int zFindRoamYaw(edict_t* self, float distcheck)
 {
-	vec3_t	forward, end, angles;
+	vec3_t	forward, end, angles = { 0 };
 	trace_t	tr;
 	float current;
-	
+
 	current = anglemod(self->s.angles[YAW]);
 
-	if(current <= self->ideal_yaw - 1 || current > self->ideal_yaw + 1)
+	if (current <= self->ideal_yaw - 1 || current > self->ideal_yaw + 1)
 	{
-		if(fabsf(current - self->ideal_yaw) <= 359.0)
+		if (fabsf(current - self->ideal_yaw) <= 359.0)
 		{
 			return 0;
 		}
 	}
 
-	AngleVectors (self->s.angles, forward, NULL, NULL);
-	VectorMA (self->s.origin, distcheck, forward, end);
+	AngleVectors(self->s.angles, forward, NULL, NULL);
+	VectorMA(self->s.origin, distcheck, forward, end);
 
-	tr = gi.trace (self->s.origin, self->mins, self->maxs, end, self, MASK_SOLID);
+	tr = gi.trace(self->s.origin, self->mins, self->maxs, end, self, MASK_SOLID);
 
 	if (tr.fraction < 1.0)
 	{
-		if(random() > 0.75)
+		if (random() > 0.75)
 		{
 			self->ideal_yaw = vectoyaw(forward);
 			self->ideal_yaw = self->ideal_yaw + 180;
@@ -127,26 +127,26 @@ int zFindRoamYaw(edict_t *self, float distcheck)
 		{
 			float dir = random() > 0.5 ? -45 : 45;
 			float maxtrys = 100;
-    
+
 			VectorCopy(self->s.angles, angles);
 
-			while(tr.fraction < 1.0 && maxtrys)
+			while (tr.fraction < 1.0 && maxtrys)
 			{
 				// blocked, change ideal yaw...
 				self->ideal_yaw = vectoyaw(forward);
 				self->ideal_yaw = self->ideal_yaw + (random() * dir);
 
-				angles[YAW] = anglemod (self->ideal_yaw);
-				AngleVectors (angles, forward, NULL, NULL);
-				VectorMA (self->s.origin, distcheck, forward, end);
+				angles[YAW] = anglemod(self->ideal_yaw);
+				AngleVectors(angles, forward, NULL, NULL);
+				VectorMA(self->s.origin, distcheck, forward, end);
 
-				tr = gi.trace (self->s.origin, self->mins, self->maxs, end, self, MASK_SOLID);
+				tr = gi.trace(self->s.origin, self->mins, self->maxs, end, self, MASK_SOLID);
 				maxtrys--;
 			}
 		}
 		return 1;
 	}
-  
+
 	return 0;
 }
 
@@ -154,10 +154,10 @@ int zFindRoamYaw(edict_t *self, float distcheck)
 =============
 zSchoolMonsters
 
-Roaming schooling ai. 
+Roaming schooling ai.
 ==============
 */
-int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed)
+int zSchoolMonsters(edict_t* self, float dist, int runStyle, float* currentSpeed)
 {
 	int maxInsight;
 	int newRunStyle;
@@ -165,13 +165,13 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 	maxInsight = zSchoolAllVisiable(self);
 
 	// If you're not out in front
-	if(maxInsight > 0)
+	if (maxInsight > 0)
 	{
 		float totalSpeed;
 		float totalBearing;
 		float distanceToNearest, distanceToLeader, dist;
-		edict_t *nearestEntity = 0, *list;
-		vec3_t vec;
+		edict_t* nearestEntity = 0, * list;
+		vec3_t vec = { 0 };
 
 		totalSpeed = 0.0f;
 		totalBearing = 0.0f;
@@ -179,7 +179,7 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 		distanceToLeader = 0.0f;
 		list = self->zSchoolChain;
 
-		while(list)
+		while (list)
 		{
 			// Gather data on those you see
 			totalSpeed += list->speed;
@@ -188,13 +188,13 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 			VectorSubtract(self->s.origin, list->s.origin, vec);
 			dist = VectorLength(vec);
 
-			if(dist < distanceToNearest)
+			if (dist < distanceToNearest)
 			{
 				distanceToNearest = dist;
 				nearestEntity = list;
 			}
 
-			if(dist > distanceToLeader)
+			if (dist > distanceToLeader)
 			{
 				distanceToLeader = dist;
 			}
@@ -209,10 +209,10 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 		self->ideal_yaw = totalBearing / maxInsight;
 
 		// check if hitting something
-		if(!zFindRoamYaw(self, 10))
+		if (!zFindRoamYaw(self, 10))
 		{
 			// Rule 3) Maintain a minimum distance from those around you
-			if(distanceToNearest <= self->monsterinfo.zSchoolMinimumDistance)
+			if (distanceToNearest <= self->monsterinfo.zSchoolMinimumDistance)
 			{
 				self->ideal_yaw = nearestEntity->s.angles[YAW];
 				self->speed = nearestEntity->speed;
@@ -223,7 +223,7 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 	else
 	{
 		//You are in front, so slow down a bit
-		edict_t *head;
+		edict_t* head;
 
 		self->speed = (self->speed * self->monsterinfo.zSchoolDecayRate);
 
@@ -236,31 +236,31 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 
 		while (head)
 		{
-			if(head->classname && self->classname && strcmp(head->classname, self->classname) == 0 && (head->health > 0) && 
+			if (head->classname && self->classname && strcmp(head->classname, self->classname) == 0 && (head->health > 0) &&
 				(head->zDistance <= self->monsterinfo.zSchoolSightRadius) && (visible(self, head)))
-  
+
 			{
-				head->ideal_yaw = self->ideal_yaw + (-20 +  (random() * 40));
+				head->ideal_yaw = self->ideal_yaw + (-20 + (random() * 40));
 			}
 			head = head->zRaduisList;
 		}
 	}
 
-	if(self->speed > self->monsterinfo.zSchoolMaxSpeed)
+	if (self->speed > self->monsterinfo.zSchoolMaxSpeed)
 	{
 		self->speed = self->monsterinfo.zSchoolMaxSpeed;
 	}
 
-	if(self->speed < self->monsterinfo.zSchoolMinSpeed)
+	if (self->speed < self->monsterinfo.zSchoolMinSpeed)
 	{
 		self->speed = self->monsterinfo.zSchoolMinSpeed;
 	}
 
-	if(self->speed <= self->monsterinfo.zSpeedStandMax)
+	if (self->speed <= self->monsterinfo.zSpeedStandMax)
 	{
 		newRunStyle = 0;
 
-		if(newRunStyle != runStyle)
+		if (newRunStyle != runStyle)
 		{
 			*currentSpeed = 1;
 		}
@@ -269,11 +269,11 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 			*currentSpeed = (self->speed - self->monsterinfo.zSchoolMinSpeed) + 1;
 		}
 	}
-	else if(self->speed <= self->monsterinfo.zSpeedWalkMax)
+	else if (self->speed <= self->monsterinfo.zSpeedWalkMax)
 	{
 		newRunStyle = 1;
 
-		if(newRunStyle  != runStyle)
+		if (newRunStyle != runStyle)
 		{
 			*currentSpeed = 1;
 		}
@@ -282,11 +282,11 @@ int zSchoolMonsters(edict_t *self, float dist, int runStyle, float *currentSpeed
 			*currentSpeed = (self->speed - self->monsterinfo.zSpeedStandMax) + 1;
 		}
 	}
-	else 
+	else
 	{
 		newRunStyle = 2;
 
-		if(newRunStyle  != runStyle)
+		if (newRunStyle != runStyle)
 		{
 			*currentSpeed = 1;
 		}
@@ -307,16 +307,16 @@ Used for standing around and looking for players / schooling monsters of the sam
 Distance is for slight position adjustments needed by the animations
 ==============
 */
-void ai_schoolStand (edict_t *self, float dist)
+void ai_schoolStand(edict_t* self, float dist)
 {
-	float speed;
+	float speed = 0;
 
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
-	
-	if(!(self->monsterinfo.aiflags & AI_SCHOOLING))
+
+	if (!(self->monsterinfo.aiflags & AI_SCHOOLING))
 	{
 		ai_stand(self, dist);
 		return;
@@ -325,7 +325,7 @@ void ai_schoolStand (edict_t *self, float dist)
 	// init school var's for this frame
 	self->zRaduisList = NULL;
 
-	if(self->enemy || FindTarget(self))
+	if (self->enemy || FindTarget(self))
 	{
 		ai_stand(self, dist);
 		return;
@@ -333,22 +333,22 @@ void ai_schoolStand (edict_t *self, float dist)
 	else
 	{
 		// run schooling routines
-		switch(zSchoolMonsters(self, dist, 0, &speed))
+		switch (zSchoolMonsters(self, dist, 0, &speed))
 		{
-			case 1:
-				self->monsterinfo.walk (self);
-				break;
+		case 1:
+			self->monsterinfo.walk(self);
+			break;
 
-			case 2:
-				self->monsterinfo.run (self);
-				break;
+		case 2:
+			self->monsterinfo.run(self);
+			break;
 		}
 	}
 
 	// do the normal stand stuff
 	if (dist)
 	{
-		M_walkmove (self, self->ideal_yaw, dist);
+		M_walkmove(self, self->ideal_yaw, dist);
 	}
 }
 
@@ -359,16 +359,16 @@ ai_schoolRun
 The monster has an enemy it is trying to kill
 =============
 */
-void ai_schoolRun (edict_t *self, float dist)
+void ai_schoolRun(edict_t* self, float dist)
 {
-	float speed;
+	float speed = 0;
 
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
-	if(!(self->monsterinfo.aiflags & AI_SCHOOLING))
+	if (!(self->monsterinfo.aiflags & AI_SCHOOLING))
 	{
 		ai_run(self, dist);
 		return;
@@ -377,7 +377,7 @@ void ai_schoolRun (edict_t *self, float dist)
 	// init school var's for this frame
 	self->zRaduisList = NULL;
 
-	if(self->enemy || FindTarget(self))
+	if (self->enemy || FindTarget(self))
 	{
 		ai_run(self, dist);
 		return;
@@ -385,20 +385,20 @@ void ai_schoolRun (edict_t *self, float dist)
 	else
 	{
 		// run schooling routines
-		switch(zSchoolMonsters(self, dist, 2, &speed))
+		switch (zSchoolMonsters(self, dist, 2, &speed))
 		{
-			case 0:
-				self->monsterinfo.stand (self);
-				break;
+		case 0:
+			self->monsterinfo.stand(self);
+			break;
 
-			case 1:
-				self->monsterinfo.walk (self);
-				break;
+		case 1:
+			self->monsterinfo.walk(self);
+			break;
 		}
 	}
 
 	// do the normal run stuff
-	SV_StepDirection (self, self->ideal_yaw, dist);
+	SV_StepDirection(self, self->ideal_yaw, dist);
 }
 
 /*
@@ -408,16 +408,16 @@ ai_schoolWalk
 The monster is walking it's beat
 =============
 */
-void ai_schoolWalk (edict_t *self, float dist)
+void ai_schoolWalk(edict_t* self, float dist)
 {
-	float speed;
+	float speed = 0;
 
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
-	if(!(self->monsterinfo.aiflags & AI_SCHOOLING))
+	if (!(self->monsterinfo.aiflags & AI_SCHOOLING))
 	{
 		ai_walk(self, dist);
 		return;
@@ -426,7 +426,7 @@ void ai_schoolWalk (edict_t *self, float dist)
 	// init school var's for this frame
 	self->zRaduisList = NULL;
 
-	if(self->enemy || FindTarget(self))
+	if (self->enemy || FindTarget(self))
 	{
 		ai_walk(self, dist);
 		return;
@@ -434,20 +434,20 @@ void ai_schoolWalk (edict_t *self, float dist)
 	else
 	{
 		// run schooling routines
-		switch(zSchoolMonsters(self, dist, 1, &speed))
+		switch (zSchoolMonsters(self, dist, 1, &speed))
 		{
-			case 0:
-				self->monsterinfo.stand (self);
-				break;
+		case 0:
+			self->monsterinfo.stand(self);
+			break;
 
-			case 2:
-				self->monsterinfo.run (self);
-				break;
+		case 2:
+			self->monsterinfo.run(self);
+			break;
 		}
 	}
 
 	// do the normal walk stuff
-	SV_StepDirection (self, self->ideal_yaw, dist);
+	SV_StepDirection(self, self->ideal_yaw, dist);
 }
 
 /*
@@ -458,9 +458,9 @@ Turns towards target and advances
 Use this call with a distnace of 0 to replace ai_face
 ==============
 */
-void ai_schoolCharge (edict_t *self, float dist)
+void ai_schoolCharge(edict_t* self, float dist)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}

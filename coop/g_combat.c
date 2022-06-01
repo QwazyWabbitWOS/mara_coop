@@ -2,13 +2,13 @@
 
 #include "g_local.h"
 
-void M_SetEffects(edict_t *self); /* FS: Coop: Rogue specific */
+void M_SetEffects(edict_t* self); /* FS: Coop: Rogue specific */
 
 /*
  * clean up heal targets for medic
  */
 void
-cleanupHealTarget(edict_t *ent) /* FS: Coop: Rogue specific */
+cleanupHealTarget(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	if (!ent)
 	{
@@ -26,9 +26,9 @@ cleanupHealTarget(edict_t *ent) /* FS: Coop: Rogue specific */
  * target. Used for explosions and melee attacks.
  */
 qboolean
-CanDamage(edict_t *targ, edict_t *inflictor)
+CanDamage(edict_t* targ, edict_t* inflictor)
 {
-	vec3_t dest;
+	vec3_t dest = { 0 };
 	trace_t trace;
 
 	if (!targ || !inflictor)
@@ -42,7 +42,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 		VectorAdd(targ->absmin, targ->absmax, dest);
 		VectorScale(dest, 0.5, dest);
 		trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-				dest, inflictor, MASK_SOLID);
+			dest, inflictor, MASK_SOLID);
 
 		if (trace.fraction == 1.0)
 		{
@@ -58,7 +58,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	}
 
 	trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-			targ->s.origin, inflictor, MASK_SOLID);
+		targ->s.origin, inflictor, MASK_SOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -69,7 +69,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	dest[0] += 15.0;
 	dest[1] += 15.0;
 	trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-			dest, inflictor, MASK_SOLID);
+		dest, inflictor, MASK_SOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -80,7 +80,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	dest[0] += 15.0;
 	dest[1] -= 15.0;
 	trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-			dest, inflictor, MASK_SOLID);
+		dest, inflictor, MASK_SOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -91,7 +91,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	dest[0] -= 15.0;
 	dest[1] += 15.0;
 	trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-			dest, inflictor, MASK_SOLID);
+		dest, inflictor, MASK_SOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -102,7 +102,7 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	dest[0] -= 15.0;
 	dest[1] -= 15.0;
 	trace = gi.trace(inflictor->s.origin, vec3_origin, vec3_origin,
-			dest, inflictor, MASK_SOLID);
+		dest, inflictor, MASK_SOLID);
 
 	if (trace.fraction == 1.0)
 	{
@@ -112,138 +112,138 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	return false;
 }
 
-char *GetProperMonsterName (char *monsterName) /* FS: Coop: Get proper name for classname */
+char* GetProperMonsterName(char* monsterName) /* FS: Coop: Get proper name for classname */
 {
-	if(!monsterName)
+	if (!monsterName)
 		return "Unknown Monster";
-	else if(!strcmp("monster_soldier", monsterName))
+	else if (!strcmp("monster_soldier", monsterName))
 		return "Shotgun Guard";
-	else if(!strcmp("monster_soldier_light", monsterName))
+	else if (!strcmp("monster_soldier_light", monsterName))
 		return "Light Guard";
-	else if(!strcmp("monster_soldier_ss", monsterName))
+	else if (!strcmp("monster_soldier_ss", monsterName))
 		return "Machinegun Guard";
-	else if(!strcmp("monster_flipper", monsterName))
+	else if (!strcmp("monster_flipper", monsterName))
 		return "Barracuda Shark";
-	else if(!strcmp("monster_flyer", monsterName))
+	else if (!strcmp("monster_flyer", monsterName))
 		return "Flyer";
-	else if(!strcmp("monster_infantry", monsterName))
+	else if (!strcmp("monster_infantry", monsterName))
 		return "Enforcer";
-	else if(!strcmp("monster_parasite", monsterName))
+	else if (!strcmp("monster_parasite", monsterName))
 		return "Parasite";
-	else if(!strcmp("monster_gunner", monsterName))
+	else if (!strcmp("monster_gunner", monsterName))
 		return "Gunner";
-	else if(!strcmp("monster_chick", monsterName))
+	else if (!strcmp("monster_chick", monsterName))
 		return "Iron Maiden";
-	else if(!strcmp("monster_floater", monsterName))
+	else if (!strcmp("monster_floater", monsterName))
 		return "Technician";
-	else if(!strcmp("monster_berserk", monsterName))
+	else if (!strcmp("monster_berserk", monsterName))
 		return "Berserker";
-	else if(!strcmp("monster_hover", monsterName))
+	else if (!strcmp("monster_hover", monsterName))
 		return "Icarus";
-	else if(!strcmp("monster_medic", monsterName))
+	else if (!strcmp("monster_medic", monsterName))
 		return "Medic";
-	else if(!strcmp("monster_mutant", monsterName))
+	else if (!strcmp("monster_mutant", monsterName))
 		return "Mutant";
-	else if(!strcmp("monster_brain", monsterName))
+	else if (!strcmp("monster_brain", monsterName))
 		return "Brain";
-	else if(!strcmp("monster_gladiator", monsterName))
+	else if (!strcmp("monster_gladiator", monsterName))
 		return "Gladiator";
-	else if(!strcmp("monster_tank", monsterName))
+	else if (!strcmp("monster_tank", monsterName))
 		return "Tank";
-	else if(!strcmp("monster_tank_commander", monsterName))
+	else if (!strcmp("monster_tank_commander", monsterName))
 		return "Tank Commander";
-	else if(!strcmp("monster_supertank", monsterName))
+	else if (!strcmp("monster_supertank", monsterName))
 		return "Super Tank";
-	else if(!strcmp("monster_boss2", monsterName))
+	else if (!strcmp("monster_boss2", monsterName))
 		return "Hornet";
-	else if(!strcmp("monster_jorg", monsterName))
+	else if (!strcmp("monster_jorg", monsterName))
 		return "Jorg";
-	else if(!strcmp("makron", monsterName))
+	else if (!strcmp("makron", monsterName))
 		return "Makron";
-	else if(!strcmp("misc_insane", monsterName))
+	else if (!strcmp("misc_insane", monsterName))
 		return "Prisoner";
 	/* FS: Xatrix specific stuff */
-	else if(!strcmp("monster_gekk", monsterName))
+	else if (!strcmp("monster_gekk", monsterName))
 		return "Gekk";
-	else if(!strcmp("monster_soldier_hypergun", monsterName))
+	else if (!strcmp("monster_soldier_hypergun", monsterName))
 		return "Hyper Blaster Guard";
-	else if(!strcmp("monster_soldier_lasergun", monsterName))
+	else if (!strcmp("monster_soldier_lasergun", monsterName))
 		return "Laser Guard";
-	else if(!strcmp("monster_soldier_ripper", monsterName))
+	else if (!strcmp("monster_soldier_ripper", monsterName))
 		return "Ripper Guard";
-	else if(!strcmp("monster_fixbot", monsterName))
+	else if (!strcmp("monster_fixbot", monsterName))
 		return "Repair Bot";
-	else if(!strcmp("monster_chick_heat", monsterName))
+	else if (!strcmp("monster_chick_heat", monsterName))
 		return "Iron Maiden (Beta Class)";
-	else if(!strcmp("monster_gladb", monsterName))
+	else if (!strcmp("monster_gladb", monsterName))
 		return "Gladiator (Beta Class)";
-	else if(!strcmp("monster_boss5", monsterName))
+	else if (!strcmp("monster_boss5", monsterName))
 		return "Tank Boss";
 	/* FS: Rogue specific stuff */
-	else if(!strcmp("monster_stalker", monsterName))
+	else if (!strcmp("monster_stalker", monsterName))
 		return "Stalker";
-	else if(!strcmp("monster_turret", monsterName))
+	else if (!strcmp("monster_turret", monsterName))
 		return "Turret";
-	else if(!strcmp("monster_daedalus", monsterName))
+	else if (!strcmp("monster_daedalus", monsterName))
 		return "Daedalus";
-	else if(!strcmp("monster_carrier", monsterName))
+	else if (!strcmp("monster_carrier", monsterName))
 		return "Carrier";
-	else if(!strcmp("monster_medic_commander", monsterName))
+	else if (!strcmp("monster_medic_commander", monsterName))
 		return "Medic Commander";
-	else if(!strcmp("monster_widow", monsterName))
+	else if (!strcmp("monster_widow", monsterName))
 		return "Black Widow Guardian";
-	else if(!strcmp("monster_widow2", monsterName))
+	else if (!strcmp("monster_widow2", monsterName))
 		return "Black Widow Guardian";
-	else if(!strcmp("monster_kamikaze", monsterName))
+	else if (!strcmp("monster_kamikaze", monsterName))
 		return "Kamikaze Flyer";
 	/* FS: Zaero specific stuff */
-	else if(!strcmp("monster_handler", monsterName))
+	else if (!strcmp("monster_handler", monsterName))
 		return "Enforcer Hound Handler";
-	else if(!strcmp("monster_hound", monsterName))
+	else if (!strcmp("monster_hound", monsterName))
 		return "Hound Dog";
-	else if(!strcmp("monster_sentien", monsterName))
+	else if (!strcmp("monster_sentien", monsterName))
 		return "Sentien";
 	else
 		return monsterName;
 }
 
-char *GetCoopInsult (void) /* FS: Coop: Pick a random insult */
+char* GetCoopInsult(void) /* FS: Coop: Pick a random insult */
 {
 	int x;
 
-	srand ((unsigned)time (NULL));
+	srand((unsigned)time(NULL));
 	x = rand() % 10;
-	switch(x)
+	switch (x)
 	{
-		case 0:
-			return "was killed by";
-		case 1:
-			return "was creamed by";
-		case 2:
-			return "was annihilated by";
-		case 3:
-			return "was torn to bits by";
-		case 4:
-			return "sucked it down to";
-		case 5:
-			return "was ripped apart by";
-		case 6:
-			return "bowed down to";
-		case 7:
-			return "was taken to the pearly gates by";
-		case 8:
-			return "was given a dirtnap by";
-		case 9:
-			return "saw the light thanks to";
+	case 0:
+		return "was killed by";
+	case 1:
+		return "was creamed by";
+	case 2:
+		return "was annihilated by";
+	case 3:
+		return "was torn to bits by";
+	case 4:
+		return "sucked it down to";
+	case 5:
+		return "was ripped apart by";
+	case 6:
+		return "bowed down to";
+	case 7:
+		return "was taken to the pearly gates by";
+	case 8:
+		return "was given a dirtnap by";
+	case 9:
+		return "saw the light thanks to";
 	}
 	return "was killed by";
 }
 
-void GetCoopMeansOfDeath (char *monsterName, char *playerName)
+void GetCoopMeansOfDeath(char* monsterName, char* playerName)
 {
 	int mod;
-	char *message = NULL;
-	char *message2 = "";
+	char* message = NULL;
+	char* message2 = "";
 
 	if (!monsterName || !playerName)
 	{
@@ -260,144 +260,144 @@ void GetCoopMeansOfDeath (char *monsterName, char *playerName)
 
 	switch (mod)
 	{
-		case MOD_BLASTER:
-			message = "was blasted by";
-			break;
-		case MOD_SHOTGUN:
-			message = "was gunned down by";
-			break;
-		case MOD_SSHOTGUN:
-			message = "was blown away by";
-			message2 = "'s super shotgun";
-			break;
-		case MOD_MACHINEGUN:
-			message = "was machinegunned by";
-			break;
-		case MOD_CHAINGUN:
-			message = "was cut in half by";
-			message2 = "'s chaingun";
-			break;
-		case MOD_GRENADE:
-			message = "was popped by";
-			message2 = "'s grenade";
-			break;
-		case MOD_G_SPLASH:
-			message = "was shredded by";
-			message2 = "'s shrapnel";
-			break;
-		case MOD_ROCKET:
-			message = "ate";
-			message2 = "'s rocket";
-			break;
-		case MOD_R_SPLASH:
-			message = "almost dodged";
-			message2 = "'s rocket";
-			break;
-		case MOD_HYPERBLASTER:
-			message = "was melted by";
-			message2 = "'s hyperblaster";
-			break;
-		case MOD_RAILGUN:
-			message = "was railed by";
-			break;
-		case MOD_BFG_LASER:
-			message = "saw the pretty lights from";
-			message2 = "'s BFG";
-			break;
-		case MOD_BFG_BLAST:
-			message = "was disintegrated by";
-			message2 = "'s BFG blast";
-			break;
-		case MOD_BFG_EFFECT:
-			message = "couldn't hide from";
-			message2 = "'s BFG";
-			break;
-		case MOD_HANDGRENADE:
-			message = "caught";
-			message2 = "'s handgrenade";
-			break;
-		case MOD_HG_SPLASH:
-			message = "didn't see";
-			message2 = "'s handgrenade";
-			break;
-		case MOD_HELD_GRENADE:
-			message = "feels";
-			message2 = "'s pain";
-			break;
-		case MOD_TELEFRAG:
-			message = "tried to invade";
-			message2 = "'s personal space";
-			break;
-		case MOD_CHAINFIST: /* FS: Coop: Rogue specific */
-			message = "was shredded by";
-			message2 = "'s ripsaw";
-			break;
-		case MOD_DISINTEGRATOR: /* FS: Coop: Rogue specific */
-			message = "lost his grip courtesy of";
-			message2 = "'s disintegrator";
-			break;
-		case MOD_ETF_RIFLE: /* FS: Coop: Rogue specific */
-			message = "was perforated by";
-			break;
-		case MOD_HEATBEAM: /* FS: Coop: Rogue specific */
-			message = "was scorched by";
-			message2 = "'s plasma beam";
-			break;
-		case MOD_TESLA: /* FS: Coop: Rogue specific */
-			message = "was enlightened by";
-			message2 = "'s tesla mine";
-			break;
-		case MOD_PROX: /* FS: Coop: Rogue specific */
-			message = "got too close to";
-			message2 = "'s proximity mine";
-			break;
-		case MOD_NUKE: /* FS: Coop: Rogue specific */
-			message = "was nuked by";
-			message2 = "'s antimatter bomb";
-			break;
-		case MOD_VENGEANCE_SPHERE: /* FS: Coop: Rogue specific */
-			message = "was purged by";
-			message2 = "'s vengeance sphere";
-			break;
-		case MOD_DEFENDER_SPHERE: /* FS: Coop: Rogue specific */
-			message = "had a blast with";
-			message2 = "'s defender sphere";
-			break;
-		case MOD_HUNTER_SPHERE: /* FS: Coop: Rogue specific */
-			message = "was killed like a dog by";
-			message2 = "'s hunter sphere";
-			break;
-		case MOD_TRACKER: /* FS: Coop: Rogue specific */
-			message = "was annihilated by";
-			message2 = "'s disruptor";
-			break;
-		case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
-			message = "was blown up by";
-			message2 = "'s doppleganger";
-			break;
-		case MOD_DOPPLE_VENGEANCE: /* FS: Coop: Rogue specific */
-			message = "was purged by";
-			message2 = "'s doppleganger";
-			break;
-		case MOD_DOPPLE_HUNTER: /* FS: Coop: Rogue specific */
-			message = "was hunted down by";
-			message2 = "'s doppleganger";
-			break;
-		case MOD_RIPPER: /* FS: Coop: Xatrix specific */
-			message = "ripped to shreds by";
-			message2 = "'s ripper gun";
-			break;
-		case MOD_PHALANX: /* FS: Coop: Xatrix specific */
-			message = "was evaporated by";
-			break;
-		case MOD_TRAP: /* FS: Coop: Xatrix specific */
-			message = "caught in trap by";
-			break;
-		default:
-			break;
+	case MOD_BLASTER:
+		message = "was blasted by";
+		break;
+	case MOD_SHOTGUN:
+		message = "was gunned down by";
+		break;
+	case MOD_SSHOTGUN:
+		message = "was blown away by";
+		message2 = "'s super shotgun";
+		break;
+	case MOD_MACHINEGUN:
+		message = "was machinegunned by";
+		break;
+	case MOD_CHAINGUN:
+		message = "was cut in half by";
+		message2 = "'s chaingun";
+		break;
+	case MOD_GRENADE:
+		message = "was popped by";
+		message2 = "'s grenade";
+		break;
+	case MOD_G_SPLASH:
+		message = "was shredded by";
+		message2 = "'s shrapnel";
+		break;
+	case MOD_ROCKET:
+		message = "ate";
+		message2 = "'s rocket";
+		break;
+	case MOD_R_SPLASH:
+		message = "almost dodged";
+		message2 = "'s rocket";
+		break;
+	case MOD_HYPERBLASTER:
+		message = "was melted by";
+		message2 = "'s hyperblaster";
+		break;
+	case MOD_RAILGUN:
+		message = "was railed by";
+		break;
+	case MOD_BFG_LASER:
+		message = "saw the pretty lights from";
+		message2 = "'s BFG";
+		break;
+	case MOD_BFG_BLAST:
+		message = "was disintegrated by";
+		message2 = "'s BFG blast";
+		break;
+	case MOD_BFG_EFFECT:
+		message = "couldn't hide from";
+		message2 = "'s BFG";
+		break;
+	case MOD_HANDGRENADE:
+		message = "caught";
+		message2 = "'s handgrenade";
+		break;
+	case MOD_HG_SPLASH:
+		message = "didn't see";
+		message2 = "'s handgrenade";
+		break;
+	case MOD_HELD_GRENADE:
+		message = "feels";
+		message2 = "'s pain";
+		break;
+	case MOD_TELEFRAG:
+		message = "tried to invade";
+		message2 = "'s personal space";
+		break;
+	case MOD_CHAINFIST: /* FS: Coop: Rogue specific */
+		message = "was shredded by";
+		message2 = "'s ripsaw";
+		break;
+	case MOD_DISINTEGRATOR: /* FS: Coop: Rogue specific */
+		message = "lost his grip courtesy of";
+		message2 = "'s disintegrator";
+		break;
+	case MOD_ETF_RIFLE: /* FS: Coop: Rogue specific */
+		message = "was perforated by";
+		break;
+	case MOD_HEATBEAM: /* FS: Coop: Rogue specific */
+		message = "was scorched by";
+		message2 = "'s plasma beam";
+		break;
+	case MOD_TESLA: /* FS: Coop: Rogue specific */
+		message = "was enlightened by";
+		message2 = "'s tesla mine";
+		break;
+	case MOD_PROX: /* FS: Coop: Rogue specific */
+		message = "got too close to";
+		message2 = "'s proximity mine";
+		break;
+	case MOD_NUKE: /* FS: Coop: Rogue specific */
+		message = "was nuked by";
+		message2 = "'s antimatter bomb";
+		break;
+	case MOD_VENGEANCE_SPHERE: /* FS: Coop: Rogue specific */
+		message = "was purged by";
+		message2 = "'s vengeance sphere";
+		break;
+	case MOD_DEFENDER_SPHERE: /* FS: Coop: Rogue specific */
+		message = "had a blast with";
+		message2 = "'s defender sphere";
+		break;
+	case MOD_HUNTER_SPHERE: /* FS: Coop: Rogue specific */
+		message = "was killed like a dog by";
+		message2 = "'s hunter sphere";
+		break;
+	case MOD_TRACKER: /* FS: Coop: Rogue specific */
+		message = "was annihilated by";
+		message2 = "'s disruptor";
+		break;
+	case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
+		message = "was blown up by";
+		message2 = "'s doppleganger";
+		break;
+	case MOD_DOPPLE_VENGEANCE: /* FS: Coop: Rogue specific */
+		message = "was purged by";
+		message2 = "'s doppleganger";
+		break;
+	case MOD_DOPPLE_HUNTER: /* FS: Coop: Rogue specific */
+		message = "was hunted down by";
+		message2 = "'s doppleganger";
+		break;
+	case MOD_RIPPER: /* FS: Coop: Xatrix specific */
+		message = "ripped to shreds by";
+		message2 = "'s ripper gun";
+		break;
+	case MOD_PHALANX: /* FS: Coop: Xatrix specific */
+		message = "was evaporated by";
+		break;
+	case MOD_TRAP: /* FS: Coop: Xatrix specific */
+		message = "caught in trap by";
+		break;
+	default:
+		break;
 	}
 
-	if(message && message[0])
+	if (message && message[0])
 	{
 		gi.bprintf(PRINT_MEDIUM, "%s %s %s%s\n", GetProperMonsterName(monsterName), message, playerName, message2);
 	}
@@ -408,8 +408,8 @@ void GetCoopMeansOfDeath (char *monsterName, char *playerName)
 }
 
 void
-Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point)
+Killed(edict_t* targ, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point)
 {
 	if (!targ || !targ->die || !inflictor || !attacker) /* FS: Need to check targ->die.  Got a crash from a player_noise classname. */
 	{
@@ -509,9 +509,9 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 		(targ->movetype == MOVETYPE_NONE))
 	{
 		/* doors, triggers, etc */
-		if(game.gametype == rogue_coop)
+		if (game.gametype == rogue_coop)
 		{
-			if((targ->svflags & SVF_MONSTER) &&
+			if ((targ->svflags & SVF_MONSTER) &&
 				attacker &&
 				attacker->client &&
 				attacker->client->pers.netname[0] &&
@@ -528,7 +528,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 	if ((targ->svflags & SVF_MONSTER) && (targ->deadflag != DEAD_DEAD))
 	{
 		targ->touch = NULL;
-		if(attacker && attacker->client && attacker->client->pers.netname[0] && targ && targ->classname) /* FS: Coop: Announce who we killed */
+		if (attacker && attacker->client && attacker->client->pers.netname[0] && targ && targ->classname) /* FS: Coop: Announce who we killed */
 		{
 			GetCoopMeansOfDeath(targ->classname, attacker->client->pers.netname);
 		}
@@ -570,10 +570,10 @@ SpawnDamage(int type, vec3_t origin, vec3_t normal)
  */
 
 int
-CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
-		int dflags)
+CheckPowerArmor(edict_t* ent, vec3_t point, vec3_t normal, int damage,
+	int dflags)
 {
-	gclient_t *client;
+	gclient_t* client;
 	int save;
 	int power_armor_type;
 	int index;
@@ -601,11 +601,11 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 		return 0;
 	}
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(ent, point))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(ent, point))) /* FS: Zaero specific game dll changes */
 	{
 		return 0;
 	}
-  
+
 	if (client)
 	{
 		power_armor_type = PowerArmorType(ent);
@@ -622,7 +622,7 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 		power = ent->monsterinfo.power_armor_power;
 		index = 0;
 	}
-	else if((game.gametype == zaero_coop) && (ent->classname) && (strcmp(ent->classname, "PlasmaShield") == 0)) /* FS: Zaero specific game dll changes */
+	else if ((game.gametype == zaero_coop) && (ent->classname) && (strcmp(ent->classname, "PlasmaShield") == 0)) /* FS: Zaero specific game dll changes */
 	{
 		power_armor_type = POWER_ARMOR_SHIELD;
 		power = ent->health;
@@ -644,7 +644,7 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 
 	if (power_armor_type == POWER_ARMOR_SCREEN)
 	{
-		vec3_t vec;
+		vec3_t vec = { 0 };
 		float dot;
 		vec3_t forward;
 
@@ -662,9 +662,9 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 		damagePerCell = 1;
 		pa_te_type = TE_SCREEN_SPARKS;
 
-		if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+		if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 		{
-			if(!(dflags & DAMAGE_ARMORMOSTLY))
+			if (!(dflags & DAMAGE_ARMORMOSTLY))
 			{
 				damage = damage / 3;
 			}
@@ -679,11 +679,11 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 		damagePerCell = 2;
 		pa_te_type = TE_SHIELD_SPARKS;
 
-		if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+		if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 		{
-			if(!(dflags & DAMAGE_ARMORMOSTLY))
+			if (!(dflags & DAMAGE_ARMORMOSTLY))
 			{
-	 	 		damage = (2 * damage) / 3;
+				damage = (2 * damage) / 3;
 			}
 		}
 		else
@@ -707,7 +707,7 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 		return 0;
 	}
 
-    if((game.gametype == zaero_coop) && (!(dflags & DAMAGE_ARMORMOSTLY))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (!(dflags & DAMAGE_ARMORMOSTLY))) /* FS: Zaero specific game dll changes */
 	{
 		save *= 2;
 	}
@@ -733,9 +733,9 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 	{
 		client->pers.inventory[index] -= power_used;
 	}
-	else if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	else if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		if(ent->svflags & SVF_MONSTER)
+		if (ent->svflags & SVF_MONSTER)
 		{
 			ent->monsterinfo.power_armor_power -= power_used;
 		}
@@ -749,13 +749,13 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 }
 
 int
-CheckArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
-		int te_sparks, int dflags)
+CheckArmor(edict_t* ent, vec3_t point, vec3_t normal, int damage,
+	int te_sparks, int dflags)
 {
-	gclient_t *client;
+	gclient_t* client;
 	int save;
 	int index;
-	gitem_t *armor;
+	gitem_t* armor;
 
 	if (!ent)
 	{
@@ -790,11 +790,11 @@ CheckArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 
 	if (dflags & DAMAGE_ENERGY)
 	{
-		save = ceilf(((gitem_armor_t *)armor->info)->energy_protection * damage);
+		save = ceilf(((gitem_armor_t*)armor->info)->energy_protection * damage);
 	}
 	else
 	{
-		save = ceilf(((gitem_armor_t *)armor->info)->normal_protection * damage);
+		save = ceilf(((gitem_armor_t*)armor->info)->normal_protection * damage);
 	}
 
 	if (save >= client->pers.inventory[index])
@@ -809,22 +809,22 @@ CheckArmor(edict_t *ent, vec3_t point, vec3_t normal, int damage,
 
 	client->pers.inventory[index] -= save;
 
-	if((game.gametype == zaero_coop) && (dflags & DAMAGE_ARMORMOSTLY)) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (dflags & DAMAGE_ARMORMOSTLY)) /* FS: Zaero specific game dll changes */
 	{
 		save *= 2;
 	}
 
-	SpawnDamage (te_sparks, point, normal);
+	SpawnDamage(te_sparks, point, normal);
 
 	return save;
 }
 
 void
-M_ReactToDamage(edict_t *targ, edict_t *attacker, edict_t *inflictor)
+M_ReactToDamage(edict_t* targ, edict_t* attacker, edict_t* inflictor)
 {
 	qboolean new_tesla; /* FS: Coop: Rogue specific */
 
-    if (!targ || !attacker)
+	if (!targ || !attacker)
 	{
 		return;
 	}
@@ -839,7 +839,7 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker, edict_t *inflictor)
 		return;
 	}
 
-	if ((game.gametype == zaero_coop) && ( !(attacker->client) && !(attacker->svflags & SVF_MONSTER) && (attacker->classname) && (strcmp(attacker->classname, "monster_autocannon") != 0))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (!(attacker->client) && !(attacker->svflags & SVF_MONSTER) && (attacker->classname) && (strcmp(attacker->classname, "monster_autocannon") != 0))) /* FS: Zaero specific game dll changes */
 	{
 		return;
 	}
@@ -963,7 +963,7 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker, edict_t *inflictor)
 		(strcmp(attacker->classname, "monster_tank") != 0) &&
 		(strcmp(attacker->classname, "monster_supertank") != 0) &&
 		(strcmp(attacker->classname, "monster_makron") != 0) &&
-		(strcmp(attacker->classname, "monster_jorg") != 0) && 
+		(strcmp(attacker->classname, "monster_jorg") != 0) &&
 		!(attacker->monsterinfo.aiflags & AI_IGNORE_SHOTS) && /* FS: Coop: Rogue specific */
 		!(targ->monsterinfo.aiflags & AI_IGNORE_SHOTS) && /* FS: Coop: Rogue specific */
 		(!(attacker->mteam && targ->mteam && strcmp(attacker->mteam, targ->mteam) == 0))) /* FS: Zaero specific: Added monster team edict */
@@ -1013,17 +1013,17 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker, edict_t *inflictor)
 }
 
 qboolean
-CheckTeamDamage(edict_t *targ, edict_t *attacker) /* FS: Coop: Rogue specific */
+CheckTeamDamage(edict_t* targ, edict_t* attacker) /* FS: Coop: Rogue specific */
 {
 	return false;
 }
 
 void
-T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
-		vec3_t point, vec3_t normal, int damage, int knockback, int dflags,
-		int mod)
+T_Damage(edict_t* targ, edict_t* inflictor, edict_t* attacker, vec3_t dir,
+	vec3_t point, vec3_t normal, int damage, int knockback, int dflags,
+	int mod)
 {
-	gclient_t *client;
+	gclient_t* client;
 	int take;
 	int save;
 	int asave;
@@ -1047,8 +1047,8 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	   hurt teammates (but you can hurt yourself)
 	   knockback still occurs */
 	if ((targ != attacker) && (((int)deathmatch->value &&
-		 ((int)(dmflags->value) & (DF_MODELTEAMS | DF_SKINTEAMS))) ||
-		 (int)coop->value))
+		((int)(dmflags->value) & (DF_MODELTEAMS | DF_SKINTEAMS))) ||
+		(int)coop->value))
 	{
 		if (OnSameTeam(targ, attacker))
 		{
@@ -1120,7 +1120,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
 		if ((targ->svflags & SVF_MONSTER) && ((targ->monsterinfo.aiflags & AI_REDUCEDDAMAGE) ||
-					((targ->monsterinfo.aiflags & AI_MONREDUCEDDAMAGE) && (inflictor->svflags & SVF_MONSTER))))
+			((targ->monsterinfo.aiflags & AI_MONREDUCEDDAMAGE) && (inflictor->svflags & SVF_MONSTER))))
 		{
 			damage *= targ->monsterinfo.reducedDamageAmount;
 			if (!damage)
@@ -1186,7 +1186,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	{
 		if (targ->pain_debounce_time < level.time)
 		{
-			gi.sound(targ, CHAN_ITEM, gi.soundindex( "items/protect4.wav"), 1, ATTN_NORM, 0);
+			gi.sound(targ, CHAN_ITEM, gi.soundindex("items/protect4.wav"), 1, ATTN_NORM, 0);
 			targ->pain_debounce_time = level.time + 2;
 		}
 
@@ -1198,12 +1198,12 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		if (((targ->svflags & SVF_MONSTER) &&
-			 (targ->monsterinfo.invincible_framenum > level.framenum)) &&
+			(targ->monsterinfo.invincible_framenum > level.framenum)) &&
 			!(dflags & DAMAGE_NO_PROTECTION))
 		{
 			if (targ->pain_debounce_time < level.time)
 			{
-				gi.sound(targ, CHAN_ITEM, gi.soundindex( "items/protect4.wav"), 1, ATTN_NORM, 0);
+				gi.sound(targ, CHAN_ITEM, gi.soundindex("items/protect4.wav"), 1, ATTN_NORM, 0);
 				targ->pain_debounce_time = level.time + 2;
 			}
 
@@ -1235,7 +1235,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 			if (game.gametype == zaero_coop) /* FS: Zaero specific */
 			{
-				if((dflags & DAMAGE_ARMORMOSTLY) && damage > take)
+				if ((dflags & DAMAGE_ARMORMOSTLY) && damage > take)
 				{
 					knockback = (int)((float)knockback * (((float)(damage - take) / (float)damage) + 1.0));
 				}
@@ -1312,9 +1312,9 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 			SpawnDamage(te_sparks, point, normal);
 		}
 
-		if(game.gametype == zaero_coop)
+		if (game.gametype == zaero_coop)
 		{
-			if(targ->takedamage != DAMAGE_IMMORTAL)
+			if (targ->takedamage != DAMAGE_IMMORTAL)
 			{
 				targ->health = targ->health - take;
 			}
@@ -1361,7 +1361,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				if (client->owned_sphere->pain)
 				{
 					client->owned_sphere->pain(client->owned_sphere, attacker, 0,
-							0);
+						0);
 				}
 			}
 		}
@@ -1411,13 +1411,13 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 }
 
 void
-T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage,
-		edict_t *ignore, float radius, int mod)
+T_RadiusDamage(edict_t* inflictor, edict_t* attacker, float damage,
+	edict_t* ignore, float radius, int mod)
 {
 	float points;
-	edict_t *ent = NULL;
-	vec3_t v;
-	vec3_t dir;
+	edict_t* ent = NULL;
+	vec3_t v = { 0 };
+	vec3_t dir = { 0 };
 
 	if (!inflictor || !attacker)
 	{
@@ -1452,21 +1452,21 @@ T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage,
 			{
 				VectorSubtract(ent->s.origin, inflictor->s.origin, dir);
 				T_Damage(ent, inflictor, attacker, dir, inflictor->s.origin,
-						vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
-						mod);
+					vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
+					mod);
 			}
 		}
 	}
 }
 
 void
-T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: Coop: Rogue specific */
-		edict_t *ignore, float radius, int mod)
+T_RadiusNukeDamage(edict_t* inflictor, edict_t* attacker, float damage, /* FS: Coop: Rogue specific */
+	edict_t* ignore, float radius, int mod)
 {
 	float points;
-	edict_t *ent = NULL;
-	vec3_t v;
-	vec3_t dir;
+	edict_t* ent = NULL;
+	vec3_t v = { 0 };
+	vec3_t dir = { 0 };
 	float len;
 	float killzone, killzone2;
 	trace_t tr;
@@ -1499,7 +1499,7 @@ T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: C
 		}
 
 		if (!(ent->client || (ent->svflags & SVF_MONSTER) ||
-			  (ent->svflags & SVF_DAMAGEABLE)))
+			(ent->svflags & SVF_DAMAGEABLE)))
 		{
 			continue;
 		}
@@ -1536,8 +1536,8 @@ T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: C
 
 			VectorSubtract(ent->s.origin, inflictor->s.origin, dir);
 			T_Damage(ent, inflictor, attacker, dir, inflictor->s.origin,
-					vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
-					mod);
+				vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
+				mod);
 		}
 	}
 
@@ -1551,7 +1551,7 @@ T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: C
 			(ent->client->nuke_framenum != level.framenum + 20) && (ent->inuse))
 		{
 			tr = gi.trace(inflictor->s.origin, NULL, NULL, ent->s.origin,
-					inflictor, MASK_SOLID);
+				inflictor, MASK_SOLID);
 
 			if (tr.fraction == 1.0)
 			{
@@ -1564,12 +1564,12 @@ T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: C
 				if (dist < 2048)
 				{
 					ent->client->nuke_framenum = max(ent->client->nuke_framenum,
-							level.framenum + 15);
+						level.framenum + 15);
 				}
 				else
 				{
 					ent->client->nuke_framenum = max(ent->client->nuke_framenum,
-							level.framenum + 10);
+						level.framenum + 10);
 				}
 			}
 
@@ -1587,13 +1587,13 @@ T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: C
  * anything with classname=ignoreClass
  */
 void
-T_RadiusClassDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: Coop: Rogue specific */
-		char *ignoreClass, float radius, int mod)
+T_RadiusClassDamage(edict_t* inflictor, edict_t* attacker, float damage, /* FS: Coop: Rogue specific */
+	char* ignoreClass, float radius, int mod)
 {
 	float points;
-	edict_t *ent = NULL;
-	vec3_t v;
-	vec3_t dir;
+	edict_t* ent = NULL;
+	vec3_t v = { 0 };
+	vec3_t dir = { 0 };
 
 	if (!inflictor || !attacker || !ignoreClass)
 	{
@@ -1628,8 +1628,8 @@ T_RadiusClassDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: 
 			{
 				VectorSubtract(ent->s.origin, inflictor->s.origin, dir);
 				T_Damage(ent, inflictor, attacker, dir, inflictor->s.origin,
-						vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
-						mod);
+					vec3_origin, (int)points, (int)points, DAMAGE_RADIUS,
+					mod);
 			}
 		}
 	}
@@ -1641,12 +1641,12 @@ T_RadiusClassDamage(edict_t *inflictor, edict_t *attacker, float damage, /* FS: 
 T_RadiusDamagePosition
 ============
 */
-void T_RadiusDamagePosition (vec3_t origin, edict_t *inflictor, edict_t *attacker, float damage, edict_t *ignore, float radius, int mod) /* FS: Zaero specific game dll changes */
+void T_RadiusDamagePosition(vec3_t origin, edict_t* inflictor, edict_t* attacker, float damage, edict_t* ignore, float radius, int mod) /* FS: Zaero specific game dll changes */
 {
 	float	points;
-	edict_t	*ent = NULL;
-	vec3_t	v;
-	vec3_t	dir;
+	edict_t* ent = NULL;
+	vec3_t	v = { 0 };
+	vec3_t	dir = { 0 };
 
 	while ((ent = findradius(ent, origin, radius)) != NULL)
 	{
@@ -1655,18 +1655,18 @@ void T_RadiusDamagePosition (vec3_t origin, edict_t *inflictor, edict_t *attacke
 		if (!ent->takedamage)
 			continue;
 
-		VectorAdd (ent->mins, ent->maxs, v);
-		VectorMA (ent->s.origin, 0.5, v, v);
-		VectorSubtract (origin, v, v);
-		points = damage - 0.5 * VectorLength (v);
+		VectorAdd(ent->mins, ent->maxs, v);
+		VectorMA(ent->s.origin, 0.5, v, v);
+		VectorSubtract(origin, v, v);
+		points = damage - 0.5 * VectorLength(v);
 		if (ent == attacker)
 			points = points * 0.5;
 		if (points > 0)
 		{
-			if (CanDamage (ent, inflictor))
+			if (CanDamage(ent, inflictor))
 			{
-				VectorSubtract (ent->s.origin, origin, dir);
-				T_Damage (ent, inflictor, attacker, dir, origin, vec3_origin, (int)points, (int)points, DAMAGE_RADIUS, mod);
+				VectorSubtract(ent->s.origin, origin, dir);
+				T_Damage(ent, inflictor, attacker, dir, origin, vec3_origin, (int)points, (int)points, DAMAGE_RADIUS, mod);
 			}
 		}
 	}

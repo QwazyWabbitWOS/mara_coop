@@ -7,19 +7,19 @@
 #define sv_friction 6
 #define sv_waterfriction 1
 
-void SV_Physics_NewToss(edict_t *ent);
-void adjustRiders(edict_t *ent); /* FS: Zaero specific game dll changes */
+void SV_Physics_NewToss(edict_t* ent);
+void adjustRiders(edict_t* ent); /* FS: Zaero specific game dll changes */
 
 typedef struct
 {
-	edict_t *ent;
+	edict_t* ent;
 	vec3_t origin;
 	vec3_t angles;
 	float deltayaw;
 } pushed_t;
-pushed_t pushed[MAX_EDICTS], *pushed_p;
+pushed_t pushed[MAX_EDICTS], * pushed_p;
 
-edict_t *obstacle;
+edict_t* obstacle;
 
 /*
  * pushmove objects do not obey gravity, and do not interact with each other or
@@ -38,8 +38,8 @@ edict_t *obstacle;
  *
  */
 
-edict_t *
-SV_TestEntityPosition(edict_t *ent)
+edict_t*
+SV_TestEntityPosition(edict_t* ent)
 {
 	trace_t trace;
 	int mask;
@@ -59,7 +59,7 @@ SV_TestEntityPosition(edict_t *ent)
 	}
 
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-			ent->s.origin, ent, mask);
+		ent->s.origin, ent, mask);
 
 	if (trace.startsolid)
 	{
@@ -78,7 +78,7 @@ SV_TestEntityPosition(edict_t *ent)
 }
 
 void
-SV_CheckVelocity(edict_t *ent)
+SV_CheckVelocity(edict_t* ent)
 {
 	int i;
 
@@ -113,40 +113,35 @@ SV_CheckVelocity(edict_t *ent)
 }
 
 /*
- * Runs thinking code for
- * this frame if necessary
- */
-qboolean
-SV_RunThink(edict_t *ent)
+=============
+Runs thinking code for this frame if necessary
+=============
+*/
+qboolean SV_RunThink(edict_t* ent)
 {
-	float thinktime;
-
-	if (!ent)
-	{
-		return false;
-	}
+	float	thinktime;
 
 	thinktime = ent->nextthink;
 
 	if (thinktime <= 0)
-	{
 		return true;
-	}
-
 	if (thinktime > level.time + 0.001)
-	{
 		return true;
-	}
 
 	ent->nextthink = 0;
 
-	if (!ent->think)
+	if (!ent->think || !ent->inuse)
 	{
-		gi.error("NULL ent->think");
+		if (ent->classname && ent->model)
+			gi.dprintf("NULL ent->think (classname %s, model %s mapname %s)\n", ent->classname, ent->model, level.mapname);
+		else if (ent->classname)
+			gi.dprintf("NULL ent->think (classname %s mapname %s)\n", ent->classname, level.mapname);
+		else
+			gi.dprintf("NULL ent->think (mapname %s)\n", level.mapname);
+		return false;
 	}
 
 	ent->think(ent);
-
 	return false;
 }
 
@@ -155,9 +150,9 @@ SV_RunThink(edict_t *ent)
  * run their touch functions
  */
 void
-SV_Impact(edict_t *e1, trace_t *trace)
+SV_Impact(edict_t* e1, trace_t* trace)
 {
-	edict_t *e2;
+	edict_t* e2;
 
 	if (!e1 || !trace)
 	{
@@ -227,18 +222,18 @@ ClipVelocity(vec3_t in, vec3_t normal, vec3_t out, float overbounce)
  * 4 = dead stop
  */
 int
-SV_FlyMove(edict_t *ent, float time, int mask)
+SV_FlyMove(edict_t* ent, float time, int mask)
 {
-	edict_t *hit;
+	edict_t* hit;
 	int bumpcount, numbumps;
 	vec3_t dir;
 	float d;
 	int numplanes;
-	vec3_t planes[MAX_CLIP_PLANES];
-	vec3_t primal_velocity, original_velocity, new_velocity;
+	vec3_t planes[MAX_CLIP_PLANES] = { 0 };
+	vec3_t primal_velocity = { 0 }, original_velocity = { 0 }, new_velocity;
 	int i, j;
 	trace_t trace;
-	vec3_t end;
+	vec3_t end = { 0 };
 	float time_left;
 	int blocked;
 
@@ -380,7 +375,7 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 }
 
 void
-SV_AddGravity(edict_t *ent)
+SV_AddGravity(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -390,7 +385,7 @@ SV_AddGravity(edict_t *ent)
 	if ((game.gametype == rogue_coop) && (ent->gravityVector[2] > 0)) /* FS: Coop: Rogue specific */
 	{
 		VectorMA(ent->velocity, ent->gravity * sv_gravity->value * FRAMETIME,
-				ent->gravityVector, ent->velocity);
+			ent->gravityVector, ent->velocity);
 	}
 	else
 	{
@@ -409,10 +404,10 @@ SV_AddGravity(edict_t *ent)
  * if another bmodel is in the vicinity.
  */
 void
-RealBoundingBox(edict_t *ent, vec3_t mins, vec3_t maxs)
+RealBoundingBox(edict_t* ent, vec3_t mins, vec3_t maxs)
 {
 	vec3_t forward, left, up, f1, l1, u1;
-	vec3_t p[8];
+	vec3_t p[8] = { 0 };
 	int i, j, k, j2, k4;
 
 	if (!ent)
@@ -519,16 +514,16 @@ RealBoundingBox(edict_t *ent, vec3_t mins, vec3_t maxs)
  * Does not change the entities velocity at all
  */
 trace_t
-SV_PushEntity(edict_t *ent, vec3_t push)
+SV_PushEntity(edict_t* ent, vec3_t push)
 {
 	trace_t trace;
-	vec3_t start;
-	vec3_t end;
+	vec3_t start = { 0 };
+	vec3_t end = { 0 };
 	int mask;
 
 	if (!ent) /* FS: Coop: Rogue specific.  Probably OK as-is. */
 	{
-		memset(&trace,0,sizeof(trace_t));
+		memset(&trace, 0, sizeof(trace_t));
 		return trace;
 	}
 
@@ -552,7 +547,7 @@ retry:
 		if (trace.startsolid || trace.allsolid)
 		{
 			mask ^= CONTENTS_DEADMONSTER;
-			trace = gi.trace (start, ent->mins, ent->maxs, end, ent, mask);
+			trace = gi.trace(start, ent->mins, ent->maxs, end, ent, mask);
 		}
 	}
 
@@ -591,12 +586,12 @@ retry:
  * otherwise riders would continue to slide.
  */
 qboolean
-SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
+SV_Push(edict_t* pusher, vec3_t move, vec3_t amove)
 {
 	int i, e;
-	edict_t *check, *block;
-	pushed_t *p;
-	vec3_t org, org2, move2, forward, right, up;
+	edict_t* check, * block;
+	pushed_t* p;
+	vec3_t org = { 0 }, org2 = { 0 }, move2 = { 0 }, forward, right, up;
 	vec3_t realmins, realmaxs;
 
 	if (!pusher)
@@ -718,11 +713,11 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
 			   running under amd64. This is most
 			   likey  caused by a too high float
 			   precision. -_-  */
-			/* FS: Coop: Xatrix specific hack */
+			   /* FS: Coop: Xatrix specific hack */
 			if (((pusher->s.number == 285) &&
-				 (Q_strcasecmp(level.mapname, "xcompnd2") == 0)) ||
+				(Q_strcasecmp(level.mapname, "xcompnd2") == 0)) ||
 				((pusher->s.number == 520) &&
-				 (Q_strcasecmp(level.mapname, "xsewer2") == 0)))
+					(Q_strcasecmp(level.mapname, "xsewer2") == 0)))
 			{
 				org2[2] = DotProduct(org, up) + 2;
 			}
@@ -803,10 +798,10 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
  * other, but push all box objects
  */
 void
-SV_Physics_Pusher(edict_t *ent)
+SV_Physics_Pusher(edict_t* ent)
 {
 	vec3_t move, amove;
-	edict_t *part, *mv;
+	edict_t* part, * mv;
 
 	if (!ent)
 	{
@@ -841,7 +836,7 @@ SV_Physics_Pusher(edict_t *ent)
 		}
 	}
 
-	if (pushed_p > &pushed[MAX_EDICTS-1])
+	if (pushed_p > &pushed[MAX_EDICTS - 1])
 	{
 		gi.error("pushed_p > &pushed[MAX_EDICTS-1], memory corrupted");
 	}
@@ -883,7 +878,7 @@ SV_Physics_Pusher(edict_t *ent)
  * Non moving objects can only think
  */
 void
-SV_Physics_None(edict_t *ent)
+SV_Physics_None(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -898,7 +893,7 @@ SV_Physics_None(edict_t *ent)
  * A moving object that doesn't obey physics
  */
 void
-SV_Physics_Noclip(edict_t *ent)
+SV_Physics_Noclip(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -921,15 +916,15 @@ SV_Physics_Noclip(edict_t *ent)
  * Toss, bounce, and fly movement.  When onground, do nothing.
  */
 void
-SV_Physics_Toss(edict_t *ent)
+SV_Physics_Toss(edict_t* ent)
 {
 	trace_t trace;
 	vec3_t move;
 	float backoff;
-	edict_t *slave;
+	edict_t* slave;
 	qboolean wasinwater;
 	qboolean isinwater;
-	vec3_t old_origin;
+	vec3_t old_origin = { 0 };
 	float speed = 0.0f; /* FS: Zaero specific */
 
 	if (!ent)
@@ -983,7 +978,7 @@ SV_Physics_Toss(edict_t *ent)
 	if ((ent->movetype != MOVETYPE_FLY) &&
 		(ent->movetype != MOVETYPE_FLYMISSILE) &&
 		(ent->movetype != MOVETYPE_WALLBOUNCE) && /* FS: Coop: Xatrix specific -- MOVETYPE_WALLBOUNCE */
-		(ent->movetype != MOVETYPE_BOUNCEFLY)) /* FS: Coop: Xatrix specific -- MOVETYPE_BOUNCEFLY */	
+		(ent->movetype != MOVETYPE_BOUNCEFLY)) /* FS: Coop: Xatrix specific -- MOVETYPE_BOUNCEFLY */
 	{
 		SV_AddGravity(ent);
 	}
@@ -1006,7 +1001,7 @@ SV_Physics_Toss(edict_t *ent)
 		{
 			backoff = 2.0;
 		}
-		else if(ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
+		else if (ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
 		{
 			backoff = 2;
 		}
@@ -1019,7 +1014,7 @@ SV_Physics_Toss(edict_t *ent)
 			backoff = 1;
 		}
 
-		if(ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
+		if (ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
 		{
 			speed = VectorLength(ent->velocity);
 		}
@@ -1031,10 +1026,10 @@ SV_Physics_Toss(edict_t *ent)
 			vectoangles(ent->velocity, ent->s.angles);
 		}
 
-		if(ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
+		if (ent->movetype == MOVETYPE_BOUNCEFLY) /* FS: Zaero specific game dll changes */
 		{
-			VectorNormalize (ent->velocity);
-			VectorScale (ent->velocity, speed, ent->velocity);
+			VectorNormalize(ent->velocity);
+			VectorScale(ent->velocity, speed, ent->velocity);
 		}
 
 		/* stop if on ground */
@@ -1091,7 +1086,7 @@ SV_Physics_Toss(edict_t *ent)
  * will fall if the floor is pulled out from under them.
  */
 void
-SV_AddRotationalFriction(edict_t *ent)
+SV_AddRotationalFriction(edict_t* ent)
 {
 	int n;
 	float adjustment;
@@ -1128,14 +1123,14 @@ SV_AddRotationalFriction(edict_t *ent)
 }
 
 void
-SV_Physics_Step(edict_t *ent)
+SV_Physics_Step(edict_t* ent)
 {
 	qboolean wasonground;
 	qboolean hitsound = false;
-	float *vel;
+	float* vel;
 	float speed, newspeed, control;
 	float friction;
-	edict_t *groundentity;
+	edict_t* groundentity;
 	int mask;
 
 	if (!ent)
@@ -1168,8 +1163,8 @@ SV_Physics_Step(edict_t *ent)
 	}
 
 	/* add gravity except:
-	     flying monsters
-	     swimming monsters who are in the water */
+		 flying monsters
+		 swimming monsters who are in the water */
 	if (!wasonground)
 	{
 		if (!(ent->flags & FL_FLY))
@@ -1192,7 +1187,7 @@ SV_Physics_Step(edict_t *ent)
 	/* friction for flying monsters that have been given vertical velocity */
 	if ((ent->flags & FL_FLY) && (ent->velocity[2] != 0))
 	{
-		speed = fabs(ent->velocity[2]);
+		speed = fabsf(ent->velocity[2]);
 		control = speed < sv_stopspeed->value ? sv_stopspeed->value : speed;
 		friction = sv_friction / 3;
 		newspeed = speed - (FRAMETIME * control * friction);
@@ -1209,7 +1204,7 @@ SV_Physics_Step(edict_t *ent)
 	/* friction for flying monsters that have been given vertical velocity */
 	if ((ent->flags & FL_SWIM) && (ent->velocity[2] != 0))
 	{
-		speed = fabs(ent->velocity[2]);
+		speed = fabsf(ent->velocity[2]);
 		control = speed < sv_stopspeed->value ? sv_stopspeed->value : speed;
 		newspeed = speed - (FRAMETIME * control * sv_waterfriction * ent->waterlevel);
 
@@ -1230,7 +1225,7 @@ SV_Physics_Step(edict_t *ent)
 			if (!((ent->health <= 0.0) && !M_CheckBottom(ent)))
 			{
 				vel = ent->velocity;
-				speed = sqrt(vel[0] * vel[0] + vel[1] * vel[1]);
+				speed = sqrtf(vel[0] * vel[0] + vel[1] * vel[1]);
 
 				if (speed)
 				{
@@ -1298,30 +1293,30 @@ SV_Physics_Step(edict_t *ent)
 	SV_RunThink(ent);
 }
 
-void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes */
+void SV_Physics_FallFloat(edict_t* ent) /* FS: Zaero specific game dll changes */
 {
 	float gravVal = ent->gravity * sv_gravity->value * FRAMETIME;
 	qboolean wasonground = false;
 	qboolean hitsound = false;
-	
+
 	// check velocity
-	SV_CheckVelocity (ent);
+	SV_CheckVelocity(ent);
 
 	wasonground = (ent->groundentity == NULL);
-	if (ent->velocity[2] < sv_gravity->value*-0.1)
+	if (ent->velocity[2] < sv_gravity->value * -0.1)
 		hitsound = true;
 
 	if (!ent->waterlevel)
 	{
-		vec3_t min, max;
+		vec3_t min = { 0 }, max = { 0 };
 		trace_t tr;
-		vec3_t end;
-		vec3_t normal;
-		vec3_t gravity;
+		vec3_t end = { 0 };
+		vec3_t normal = { 0 };
+		vec3_t gravity = { 0 };
 
 		VectorCopy(ent->mins, min);
 		VectorCopy(ent->maxs, max);
-		
+
 		VectorCopy(ent->s.origin, end);
 		end[2] -= 0.25; // down 4
 
@@ -1349,7 +1344,7 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 	{
 		// where's the midpoint? above or below the water?
 		const double WATER_MASS = 500.0;
-		vec3_t accel;
+		vec3_t accel = { 0 };
 		double percentBelow = 0.0;
 		double massOfObject = 0.0;
 		double massOfVolumeWater = 0.0;
@@ -1361,20 +1356,20 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 		// TODO if we're not grounded on the bottom of the lake...
 
 		// calculate massPerCubicMetre
-		VectorScale(ent->size, 1.0/32.0, volume);
+		VectorScale(ent->size, 1.0 / 32.0, volume);
 		massOfObject = ent->mass;
-		massOfVolumeWater = WATER_MASS * (volume[0] * volume[1] * volume[2]);
+		massOfVolumeWater = WATER_MASS * ((double)volume[0] * (double)volume[1] * (double)volume[2]);
 
 		// how much of ourself is actually in the water?
 		percentBelow = 1.0;
 		for (i = 0.0; i <= 1.0; i += 0.05)
 		{
-			vec3_t midpoint;
+			vec3_t midpoint = { 0 };
 			int watertype;
-		
+
 			VectorAdd(ent->s.origin, ent->mins, midpoint);
 			VectorMA(midpoint, i, ent->maxs, midpoint);
-			watertype = gi.pointcontents (midpoint);
+			watertype = gi.pointcontents(midpoint);
 
 			if (!(watertype & MASK_WATER))
 			{
@@ -1397,22 +1392,22 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 	{
 		qboolean isinwater = false;
 		qboolean wasinwater = false;
-		vec3_t old_origin;
-		VectorCopy (ent->s.origin, old_origin);
-	
-		SV_FlyMove (ent, FRAMETIME, MASK_SHOT);
+		vec3_t old_origin = { 0 };
+		VectorCopy(ent->s.origin, old_origin);
 
-		gi.linkentity (ent);
-		G_TouchTriggers (ent);
+		SV_FlyMove(ent, FRAMETIME, MASK_SHOT);
+
+		gi.linkentity(ent);
+		G_TouchTriggers(ent);
 
 		if (ent->groundentity)
 			if (!wasonground)
 				if (hitsound)
-					gi.sound (ent, 0, gi.soundindex("world/land.wav"), 1, 1, 0);
+					gi.sound(ent, 0, gi.soundindex("world/land.wav"), 1, 1, 0);
 
 		// check for water transition
 		wasinwater = (ent->watertype & MASK_WATER);
-		ent->watertype = gi.pointcontents (ent->s.origin);
+		ent->watertype = gi.pointcontents(ent->s.origin);
 		isinwater = ent->watertype & MASK_WATER;
 
 		if (isinwater)
@@ -1421,9 +1416,9 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 			ent->waterlevel = 0;
 
 		if (!wasinwater && isinwater)
-			gi.positioned_sound (old_origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
+			gi.positioned_sound(old_origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
 		else if (wasinwater && !isinwater)
-			gi.positioned_sound (ent->s.origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
+			gi.positioned_sound(ent->s.origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
 
 	}
 
@@ -1431,10 +1426,10 @@ void SV_Physics_FallFloat (edict_t *ent) /* FS: Zaero specific game dll changes 
 	gi.linkentity(ent);
 
 	// regular thinking
-	SV_RunThink (ent);
+	SV_RunThink(ent);
 }
 
-void adjustRiders(edict_t *ent) /* FS: Zaero specific game dll changes */
+void adjustRiders(edict_t* ent) /* FS: Zaero specific game dll changes */
 {
 	int i = 0;
 
@@ -1446,7 +1441,7 @@ void adjustRiders(edict_t *ent) /* FS: Zaero specific game dll changes */
 	}
 }
 
-void SV_Physics_Ride (edict_t *ent) /* FS: Zaero specific game dll changes */
+void SV_Physics_Ride(edict_t* ent) /* FS: Zaero specific game dll changes */
 {
 	// base ourself on the step
 	SV_Physics_Step(ent);
@@ -1456,10 +1451,10 @@ void SV_Physics_Ride (edict_t *ent) /* FS: Zaero specific game dll changes */
 
 
 void
-G_RunEntity(edict_t *ent)
+G_RunEntity(edict_t* ent)
 {
 	trace_t trace; /* FS: Coop: Rogue specific */
-	vec3_t previous_origin; /* FS: Coop: Rogue specific */
+	vec3_t previous_origin = { 0 }; /* FS: Coop: Rogue specific */
 
 	if (!ent)
 	{
@@ -1478,40 +1473,40 @@ G_RunEntity(edict_t *ent)
 
 	switch ((int)ent->movetype)
 	{
-		case MOVETYPE_PUSH:
-		case MOVETYPE_STOP:
-			SV_Physics_Pusher(ent);
-			break;
-		case MOVETYPE_NONE:
-			SV_Physics_None(ent);
-			break;
-		case MOVETYPE_NOCLIP:
-			SV_Physics_Noclip(ent);
-			break;
-		case MOVETYPE_STEP:
-			SV_Physics_Step(ent);
-			break;
-		case MOVETYPE_TOSS:
-		case MOVETYPE_BOUNCE:
-		case MOVETYPE_FLY:
-		case MOVETYPE_BOUNCEFLY: /* FS: Zaero specific game dll changes */
-		case MOVETYPE_FLYMISSILE:
-			SV_Physics_Toss(ent);
-			break;
-		case MOVETYPE_NEWTOSS: /* FS: Coop: Rogue specific */
-			SV_Physics_NewToss(ent);
-			break;
-		case MOVETYPE_WALLBOUNCE: /* FS: Coop: Xatrix specific */
-			SV_Physics_Toss(ent);
-			break;
-		case MOVETYPE_FALLFLOAT: /* FS: Zaero specific game dll changes */
-			SV_Physics_FallFloat(ent);
-			break;
-		case MOVETYPE_RIDE: /* FS: Zaero specific game dll changes */
-			SV_Physics_Ride(ent);
-			break;
-		default:
-			gi.error("SV_Physics: bad movetype %i", (int)ent->movetype);
+	case MOVETYPE_PUSH:
+	case MOVETYPE_STOP:
+		SV_Physics_Pusher(ent);
+		break;
+	case MOVETYPE_NONE:
+		SV_Physics_None(ent);
+		break;
+	case MOVETYPE_NOCLIP:
+		SV_Physics_Noclip(ent);
+		break;
+	case MOVETYPE_STEP:
+		SV_Physics_Step(ent);
+		break;
+	case MOVETYPE_TOSS:
+	case MOVETYPE_BOUNCE:
+	case MOVETYPE_FLY:
+	case MOVETYPE_BOUNCEFLY: /* FS: Zaero specific game dll changes */
+	case MOVETYPE_FLYMISSILE:
+		SV_Physics_Toss(ent);
+		break;
+	case MOVETYPE_NEWTOSS: /* FS: Coop: Rogue specific */
+		SV_Physics_NewToss(ent);
+		break;
+	case MOVETYPE_WALLBOUNCE: /* FS: Coop: Xatrix specific */
+		SV_Physics_Toss(ent);
+		break;
+	case MOVETYPE_FALLFLOAT: /* FS: Zaero specific game dll changes */
+		SV_Physics_FallFloat(ent);
+		break;
+	case MOVETYPE_RIDE: /* FS: Zaero specific game dll changes */
+		SV_Physics_Ride(ent);
+		break;
+	default:
+		gi.error("SV_Physics: bad movetype %i", (int)ent->movetype);
 	}
 
 	if ((game.gametype == rogue_coop) && (ent->movetype == MOVETYPE_STEP)) /* FS: Coop: Rogue specific */
@@ -1520,7 +1515,7 @@ G_RunEntity(edict_t *ent)
 		if (!VectorCompare(ent->s.origin, previous_origin))
 		{
 			trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-					previous_origin, ent, MASK_MONSTERSOLID);
+				previous_origin, ent, MASK_MONSTERSOLID);
 
 			if (trace.allsolid || trace.startsolid)
 			{
@@ -1535,15 +1530,15 @@ G_RunEntity(edict_t *ent)
  * no velocity, do nothing. With velocity, slide.
  */
 void
-SV_Physics_NewToss(edict_t *ent) /* FS: Coop: Rogue specific */
+SV_Physics_NewToss(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	trace_t trace;
-	vec3_t move;
-	edict_t *slave;
+	vec3_t move = { 0 };
+	edict_t* slave;
 	qboolean wasinwater;
 	qboolean isinwater;
 	float speed, newspeed;
-	vec3_t old_origin;
+	vec3_t old_origin = { 0 };
 
 	if (!ent)
 	{
@@ -1563,7 +1558,7 @@ SV_Physics_NewToss(edict_t *ent) /* FS: Coop: Rogue specific */
 	VectorCopy(ent->s.origin, move);
 	move[2] -= 0.25;
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-			move, ent, ent->clipmask);
+		move, ent, ent->clipmask);
 
 	if (ent->groundentity && ent->groundentity->inuse)
 	{

@@ -9,9 +9,13 @@ stalker
 #include "g_local.h"
 #include "m_stalker.h"
 #include <float.h>
-#if defined(__DJGPP__) || defined(LINUX) /* FS: From IEEEFP.H  Not sure if this is proper, but there it is... */
+#if defined(__DJGPP__) /* FS: From IEEEFP.H  Not sure if this is proper, but there it is... */
 #define _isnan(x) (((*(long *)&(x) & 0x7f800000L)==0x7f800000L) && \
 		   ((*(long *)&(x) & 0x007fffffL)!=0000000000L))
+#endif
+
+#if defined (LINUX) && !defined (_WIN32) //QW//
+#define _isnan isnan
 #endif
 
 static int sound_pain;
@@ -21,20 +25,20 @@ static int sound_punch_hit1;
 static int sound_punch_hit2;
 static int sound_idle;
 
-int stalker_do_pounce(edict_t *self, vec3_t dest);
-void stalker_stand(edict_t *self);
-void stalker_run(edict_t *self);
-void stalker_walk(edict_t *self);
-void stalker_jump(edict_t *self);
-void stalker_dodge_jump(edict_t *self);
-void stalker_swing_check_l(edict_t *self);
-void stalker_swing_check_r(edict_t *self);
-void stalker_swing_attack(edict_t *self);
-void stalker_jump_straightup(edict_t *self);
-void stalker_jump_wait_land(edict_t *self);
-void stalker_false_death(edict_t *self);
-void stalker_false_death_start(edict_t *self);
-qboolean stalker_ok_to_transition(edict_t *self);
+int stalker_do_pounce(edict_t* self, vec3_t dest);
+void stalker_stand(edict_t* self);
+void stalker_run(edict_t* self);
+void stalker_walk(edict_t* self);
+void stalker_jump(edict_t* self);
+void stalker_dodge_jump(edict_t* self);
+void stalker_swing_check_l(edict_t* self);
+void stalker_swing_check_r(edict_t* self);
+void stalker_swing_attack(edict_t* self);
+void stalker_jump_straightup(edict_t* self);
+void stalker_jump_wait_land(edict_t* self);
+void stalker_false_death(edict_t* self);
+void stalker_false_death_start(edict_t* self);
+qboolean stalker_ok_to_transition(edict_t* self);
 
 #define STALKER_ON_CEILING(ent) (ent->gravityVector[2] > 0 ? 1 : 0)
 
@@ -43,14 +47,14 @@ qboolean stalker_ok_to_transition(edict_t *self);
 #endif
 #define FAUX_GRAVITY 800.0f
 
-extern qboolean SV_PointCloseEnough(edict_t *ent, vec3_t goal, float dist);
-extern void drawbbox(edict_t *self);
+extern qboolean SV_PointCloseEnough(edict_t* ent, vec3_t goal, float dist);
+extern void drawbbox(edict_t* self);
 
 qboolean
-stalker_ok_to_transition(edict_t *self)
+stalker_ok_to_transition(edict_t* self)
 {
 	trace_t trace;
-	vec3_t pt, start;
+	vec3_t pt = { 0 }, start = { 0 };
 	float max_dist;
 	float margin;
 	float end_height;
@@ -83,7 +87,7 @@ stalker_ok_to_transition(edict_t *self)
 	VectorCopy(self->s.origin, pt);
 	pt[2] += max_dist;
 	trace = gi.trace(self->s.origin, self->mins, self->maxs,
-			pt, self, MASK_MONSTERSOLID);
+		pt, self, MASK_MONSTERSOLID);
 
 	if ((trace.fraction == 1.0) ||
 		!(trace.contents & CONTENTS_SOLID) ||
@@ -180,7 +184,7 @@ stalker_ok_to_transition(edict_t *self)
 }
 
 void
-stalker_sight(edict_t *self, edict_t *other /* unused */)
+stalker_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -191,7 +195,7 @@ stalker_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-stalker_idle_noise(edict_t *self)
+stalker_idle_noise(edict_t* self)
 {
 	if (!self)
 	{
@@ -231,9 +235,9 @@ mframe_t stalker_frames_idle[] = {
 
 mmove_t stalker_move_idle = {
 	FRAME_idle01,
-   	FRAME_idle21,
-   	stalker_frames_idle,
-   	stalker_stand
+	FRAME_idle21,
+	stalker_frames_idle,
+	stalker_stand
 };
 
 mframe_t stalker_frames_idle2[] = {
@@ -256,13 +260,13 @@ mframe_t stalker_frames_idle2[] = {
 
 mmove_t stalker_move_idle2 = {
 	FRAME_idle201,
-   	FRAME_idle213,
-   	stalker_frames_idle2,
-   	stalker_stand
+	FRAME_idle213,
+	stalker_frames_idle2,
+	stalker_stand
 };
 
 void
-stalker_idle(edict_t *self)
+stalker_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -309,13 +313,13 @@ mframe_t stalker_frames_stand[] = {
 
 mmove_t stalker_move_stand = {
 	FRAME_idle01,
-   	FRAME_idle21,
-   	stalker_frames_stand,
-   	stalker_stand
+	FRAME_idle21,
+	stalker_frames_stand,
+	stalker_stand
 };
 
 void
-stalker_stand(edict_t *self)
+stalker_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -341,13 +345,13 @@ mframe_t stalker_frames_run[] = {
 
 mmove_t stalker_move_run = {
 	FRAME_run01,
-   	FRAME_run04,
-   	stalker_frames_run,
-   	NULL
+	FRAME_run04,
+	stalker_frames_run,
+	NULL
 };
 
 void
-stalker_run(edict_t *self)
+stalker_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -378,13 +382,13 @@ mframe_t stalker_frames_walk[] = {
 
 mmove_t stalker_move_walk = {
 	FRAME_walk01,
-   	FRAME_walk08,
-   	stalker_frames_walk,
-   	stalker_walk
+	FRAME_walk08,
+	stalker_frames_walk,
+	stalker_walk
 };
 
 void
-stalker_walk(edict_t *self)
+stalker_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -403,13 +407,13 @@ mframe_t stalker_frames_reactivate[] = {
 
 mmove_t stalker_move_false_death_end = {
 	FRAME_reactive01,
-   	FRAME_reactive04,
-   	stalker_frames_reactivate,
-   	stalker_run
+	FRAME_reactive04,
+	stalker_frames_reactivate,
+	stalker_run
 };
 
 void
-stalker_reactivate(edict_t *self)
+stalker_reactivate(edict_t* self)
 {
 	if (!self)
 	{
@@ -421,7 +425,7 @@ stalker_reactivate(edict_t *self)
 }
 
 void
-stalker_heal(edict_t *self)
+stalker_heal(edict_t* self)
 {
 	if (!self)
 	{
@@ -469,13 +473,13 @@ mframe_t stalker_frames_false_death[] = {
 
 mmove_t stalker_move_false_death = {
 	FRAME_twitch01,
-   	FRAME_twitch10,
-   	stalker_frames_false_death,
+	FRAME_twitch10,
+	stalker_frames_false_death,
 	stalker_false_death
 };
 
 void
-stalker_false_death(edict_t *self)
+stalker_false_death(edict_t* self)
 {
 	if (!self)
 	{
@@ -500,13 +504,13 @@ mframe_t stalker_frames_false_death_start[] = {
 
 mmove_t stalker_move_false_death_start = {
 	FRAME_death01,
-   	FRAME_death09,
-   	stalker_frames_false_death_start,
+	FRAME_death09,
+	stalker_frames_false_death_start,
 	stalker_false_death
 };
 
 void
-stalker_false_death_start(edict_t *self)
+stalker_false_death_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -529,13 +533,13 @@ mframe_t stalker_frames_pain[] = {
 
 mmove_t stalker_move_pain = {
 	FRAME_pain01,
-   	FRAME_pain04,
-   	stalker_frames_pain,
-   	stalker_run
+	FRAME_pain04,
+	stalker_frames_pain,
+	stalker_run
 };
 
 void
-stalker_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
+stalker_pain(edict_t* self, edict_t* other /* unused */, float kick, int damage)
 {
 	if (!self)
 	{
@@ -611,9 +615,9 @@ stalker_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
 }
 
 void
-stalker_shoot_attack(edict_t *self)
+stalker_shoot_attack(edict_t* self)
 {
-	vec3_t offset, start, f, r, dir;
+	vec3_t offset = { 0 }, start, f, r, dir = { 0 };
 	vec3_t end;
 	float time, dist;
 	trace_t trace;
@@ -670,7 +674,7 @@ stalker_shoot_attack(edict_t *self)
 }
 
 void
-stalker_shoot_attack2(edict_t *self)
+stalker_shoot_attack2(edict_t* self)
 {
 	if (!self)
 	{
@@ -692,13 +696,13 @@ mframe_t stalker_frames_shoot[] = {
 
 mmove_t stalker_move_shoot = {
 	FRAME_run01,
-   	FRAME_run04,
-   	stalker_frames_shoot,
-   	stalker_run
+	FRAME_run04,
+	stalker_frames_shoot,
+	stalker_run
 };
 
 void
-stalker_attack_ranged(edict_t *self)
+stalker_attack_ranged(edict_t* self)
 {
 	if (!self)
 	{
@@ -729,9 +733,9 @@ stalker_attack_ranged(edict_t *self)
 }
 
 void
-stalker_swing_attack(edict_t *self)
+stalker_swing_attack(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -766,9 +770,9 @@ mframe_t stalker_frames_swing_l[] = {
 
 mmove_t stalker_move_swing_l = {
 	FRAME_attack01,
-   	FRAME_attack08,
-   	stalker_frames_swing_l,
-   	stalker_run
+	FRAME_attack08,
+	stalker_frames_swing_l,
+	stalker_run
 };
 
 mframe_t stalker_frames_swing_r[] = {
@@ -781,13 +785,13 @@ mframe_t stalker_frames_swing_r[] = {
 
 mmove_t stalker_move_swing_r = {
 	FRAME_attack11,
-   	FRAME_attack15,
-   	stalker_frames_swing_r,
-   	stalker_run
+	FRAME_attack15,
+	stalker_frames_swing_r,
+	stalker_run
 };
 
 void
-stalker_attack_melee(edict_t *self)
+stalker_attack_melee(edict_t* self)
 {
 	if (!self)
 	{
@@ -815,7 +819,7 @@ calcJumpAngle(vec3_t start, vec3_t end, float velocity, vec3_t angles)
 	float distV, distH;
 	float one, cosU;
 	float l, U;
-	vec3_t dist;
+	vec3_t dist = { 0 };
 
 	VectorSubtract(end, start, dist);
 	distH = (float)sqrtf(dist[0] * dist[0] + dist[1] * dist[1]);
@@ -829,7 +833,7 @@ calcJumpAngle(vec3_t start, vec3_t end, float velocity, vec3_t angles)
 	if (distV)
 	{
 		l = (float)sqrtf(distH * distH + distV * distV);
-		U = (float)atan(distV / distH);
+		U = (float)atanf(distV / distH);
 
 		if (dist[2] > 0)
 		{
@@ -856,8 +860,8 @@ calcJumpAngle(vec3_t start, vec3_t end, float velocity, vec3_t angles)
 			angles[2] = 1.0;
 		}
 
-		angles[0] = RAD2DEG((angles[0] - U) / 2.0);
-		angles[1] = RAD2DEG((angles[1] - U) / 2.0);
+		angles[0] = (float)RAD2DEG((angles[0] - U) / 2.0f);
+		angles[1] = (float)RAD2DEG((angles[1] - U) / 2.0f);
 	}
 	else
 	{
@@ -881,15 +885,15 @@ calcJumpAngle(vec3_t start, vec3_t end, float velocity, vec3_t angles)
 			angles[2] = 1.0;
 		}
 
-		angles[0] = RAD2DEG((angles[0]) / 2.0);
-		angles[1] = RAD2DEG((angles[1]) / 2.0);
+		angles[0] = (float)RAD2DEG((angles[0]) / 2.0f);
+		angles[1] = (float)RAD2DEG((angles[1]) / 2.0f);
 	}
 }
 
 int
-stalker_check_lz(edict_t *self, edict_t *target, vec3_t dest)
+stalker_check_lz(edict_t* self, edict_t* target, vec3_t dest)
 {
-	vec3_t jumpLZ;
+	vec3_t jumpLZ = { 0 };
 
 	if (!self || !target)
 	{
@@ -945,13 +949,13 @@ stalker_check_lz(edict_t *self, edict_t *target, vec3_t dest)
 }
 
 int
-stalker_do_pounce(edict_t *self, vec3_t dest)
+stalker_do_pounce(edict_t* self, vec3_t dest)
 {
 	vec3_t forward, right;
-	vec3_t dist;
+	vec3_t dist = { 0 };
 	vec_t length;
 	vec3_t jumpAngles;
-	vec3_t jumpLZ;
+	vec3_t jumpLZ = { 0 };
 	float velocity = 400.1;
 	trace_t trace;
 	int preferHighJump;
@@ -1004,7 +1008,7 @@ stalker_do_pounce(edict_t *self, vec3_t dest)
 	}
 
 	trace = gi.trace(self->s.origin, vec3_origin, vec3_origin, dest,
-			self, MASK_MONSTERSOLID);
+		self, MASK_MONSTERSOLID);
 
 	if ((trace.fraction < 1) && (trace.ent != self->enemy))
 	{
@@ -1048,7 +1052,7 @@ stalker_do_pounce(edict_t *self, vec3_t dest)
 }
 
 void
-stalker_jump_straightup(edict_t *self)
+stalker_jump_straightup(edict_t* self)
 {
 	if (!self)
 	{
@@ -1099,13 +1103,13 @@ mframe_t stalker_frames_jump_straightup[] = {
 
 mmove_t stalker_move_jump_straightup = {
 	FRAME_jump04,
-   	FRAME_jump07,
-   	stalker_frames_jump_straightup,
-   	stalker_run
+	FRAME_jump07,
+	stalker_frames_jump_straightup,
+	stalker_run
 };
 
 void
-stalker_dodge_jump(edict_t *self)
+stalker_dodge_jump(edict_t* self)
 {
 	if (!self)
 	{
@@ -1124,13 +1128,13 @@ mframe_t stalker_frames_dodge_run[] = {
 
 mmove_t stalker_move_dodge_run = {
 	FRAME_run01,
-   	FRAME_run04,
-   	stalker_frames_dodge_run,
-   	NULL
+	FRAME_run04,
+	stalker_frames_dodge_run,
+	NULL
 };
 
 void
-stalker_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr /* unused */)
+stalker_dodge(edict_t* self, edict_t* attacker, float eta, trace_t* tr /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -1159,7 +1163,7 @@ stalker_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *tr /* unused
 }
 
 void
-stalker_jump_down(edict_t *self)
+stalker_jump_down(edict_t* self)
 {
 	vec3_t forward, up;
 
@@ -1176,7 +1180,7 @@ stalker_jump_down(edict_t *self)
 }
 
 void
-stalker_jump_up(edict_t *self)
+stalker_jump_up(edict_t* self)
 {
 	vec3_t forward, up;
 
@@ -1193,7 +1197,7 @@ stalker_jump_up(edict_t *self)
 }
 
 void
-stalker_jump_wait_land(edict_t *self)
+stalker_jump_wait_land(edict_t* self)
 {
 	if (!self)
 	{
@@ -1238,9 +1242,9 @@ mframe_t stalker_frames_jump_up[] = {
 
 mmove_t stalker_move_jump_up = {
 	FRAME_jump01,
-   	FRAME_jump07,
-   	stalker_frames_jump_up,
-   	stalker_run
+	FRAME_jump07,
+	stalker_frames_jump_up,
+	stalker_run
 };
 
 mframe_t stalker_frames_jump_down[] = {
@@ -1256,13 +1260,13 @@ mframe_t stalker_frames_jump_down[] = {
 
 mmove_t stalker_move_jump_down = {
 	FRAME_jump01,
-   	FRAME_jump07,
-   	stalker_frames_jump_down,
-   	stalker_run
+	FRAME_jump07,
+	stalker_frames_jump_down,
+	stalker_run
 };
 
 void
-stalker_jump(edict_t *self)
+stalker_jump(edict_t* self)
 {
 	if (!self)
 	{
@@ -1285,7 +1289,7 @@ stalker_jump(edict_t *self)
 }
 
 qboolean
-stalker_blocked(edict_t *self, float dist)
+stalker_blocked(edict_t* self, float dist)
 {
 	qboolean onCeiling;
 
@@ -1356,7 +1360,7 @@ stalker_blocked(edict_t *self, float dist)
 }
 
 void
-stalker_dead(edict_t *self)
+stalker_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -1387,14 +1391,14 @@ mframe_t stalker_frames_death[] = {
 
 mmove_t stalker_move_death = {
 	FRAME_death01,
-   	FRAME_death09,
-   	stalker_frames_death,
-   	stalker_dead
+	FRAME_death09,
+	stalker_frames_death,
+	stalker_dead
 };
 
 void
-stalker_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point /* unused */)
+stalker_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage, vec3_t point /* unused */)
 {
 	int n;
 
@@ -1447,7 +1451,7 @@ stalker_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /*
  * ONROOF - Monster starts sticking to the roof.
  */
 void
-SP_monster_stalker(edict_t *self)
+SP_monster_stalker(edict_t* self)
 {
 	if (!self)
 	{

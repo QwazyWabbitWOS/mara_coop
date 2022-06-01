@@ -20,17 +20,17 @@ static int sound_death;
 static int sound_death_ss;
 static int sound_cock;
 
-void soldier_duck_up(edict_t *self);
-void soldier_stand(edict_t *self);
-void soldier_run(edict_t *self);
-void soldier_fire(edict_t *self, int);
-void soldier_blind(edict_t *self);
-void soldierh_stand(edict_t *self); /* FS: Coop: Xatrix specific */
-void soldierh_run(edict_t *self); /* FS: Coop: Xatrix specific */
-extern void brain_dabeam(edict_t *self); /* FS: Coop: Xatrix specific */
+void soldier_duck_up(edict_t* self);
+void soldier_stand(edict_t* self);
+void soldier_run(edict_t* self);
+void soldier_fire(edict_t* self, int);
+void soldier_blind(edict_t* self);
+void soldierh_stand(edict_t* self); /* FS: Coop: Xatrix specific */
+void soldierh_run(edict_t* self); /* FS: Coop: Xatrix specific */
+extern void brain_dabeam(edict_t* self); /* FS: Coop: Xatrix specific */
 
 void
-soldier_start_charge(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_start_charge(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -41,7 +41,7 @@ soldier_start_charge(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-soldier_stop_charge(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_stop_charge(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -52,7 +52,7 @@ soldier_stop_charge(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-soldier_idle(edict_t *self)
+soldier_idle(edict_t* self)
 {
 	if (!self)
 	{
@@ -66,7 +66,7 @@ soldier_idle(edict_t *self)
 }
 
 void
-soldier_cock(edict_t *self)
+soldier_cock(edict_t* self)
 {
 	if (!self)
 	{
@@ -121,7 +121,7 @@ mframe_t soldier_frames_stand1[] = {
 mmove_t soldier_move_stand1 =
 {
 	FRAME_stand101,
-   	FRAME_stand130,
+	FRAME_stand130,
 	soldier_frames_stand1,
 	soldier_stand
 };
@@ -174,13 +174,13 @@ mframe_t soldier_frames_stand3[] = {
 mmove_t soldier_move_stand3 =
 {
 	FRAME_stand301,
-   	FRAME_stand339,
-   	soldier_frames_stand3,
-   	soldier_stand
+	FRAME_stand339,
+	soldier_frames_stand3,
+	soldier_stand
 };
 
 void
-soldier_stand(edict_t *self)
+soldier_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -199,7 +199,7 @@ soldier_stand(edict_t *self)
 }
 
 void
-soldier_walk1_random(edict_t *self)
+soldier_walk1_random(edict_t* self)
 {
 	if (!self)
 	{
@@ -251,9 +251,9 @@ mframe_t soldier_frames_walk1[] = {
 mmove_t soldier_move_walk1 =
 {
 	FRAME_walk101,
-   	FRAME_walk133,
-   	soldier_frames_walk1,
-   	NULL
+	FRAME_walk133,
+	soldier_frames_walk1,
+	NULL
 };
 
 mframe_t soldier_frames_walk2[] = {
@@ -272,13 +272,13 @@ mframe_t soldier_frames_walk2[] = {
 mmove_t soldier_move_walk2 =
 {
 	FRAME_walk209,
-   	FRAME_walk218,
+	FRAME_walk218,
 	soldier_frames_walk2,
-   	NULL
+	NULL
 };
 
 void
-soldier_walk(edict_t *self)
+soldier_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -303,13 +303,13 @@ mframe_t soldier_frames_start_run[] = {
 mmove_t soldier_move_start_run =
 {
 	FRAME_run01,
-   	FRAME_run02,
-   	soldier_frames_start_run,
-   	soldier_run
+	FRAME_run02,
+	soldier_frames_start_run,
+	soldier_run
 };
 
 void
-soldier_fire_run(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_fire_run(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -336,11 +336,11 @@ mmove_t soldier_move_run =
 	FRAME_run03,
 	FRAME_run08,
 	soldier_frames_run,
-   	NULL
+	NULL
 };
 
 void
-soldier_run(edict_t *self)
+soldier_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -381,9 +381,9 @@ mframe_t soldier_frames_pain1[] = {
 mmove_t soldier_move_pain1 =
 {
 	FRAME_pain101,
-   	FRAME_pain105,
-   	soldier_frames_pain1,
-   	soldier_run
+	FRAME_pain105,
+	soldier_frames_pain1,
+	soldier_run
 };
 
 mframe_t soldier_frames_pain2[] = {
@@ -400,8 +400,8 @@ mmove_t soldier_move_pain2 =
 {
 	FRAME_pain201,
 	FRAME_pain207,
-   	soldier_frames_pain2,
-   	soldier_run
+	soldier_frames_pain2,
+	soldier_run
 };
 
 mframe_t soldier_frames_pain3[] = {
@@ -428,9 +428,9 @@ mframe_t soldier_frames_pain3[] = {
 mmove_t soldier_move_pain3 =
 {
 	FRAME_pain301,
-   	FRAME_pain318,
-   	soldier_frames_pain3,
-   	soldier_run
+	FRAME_pain318,
+	soldier_frames_pain3,
+	soldier_run
 };
 
 mframe_t soldier_frames_pain4[] = {
@@ -458,12 +458,12 @@ mmove_t soldier_move_pain4 =
 	FRAME_pain401,
 	FRAME_pain417,
 	soldier_frames_pain4,
-   	soldier_run
+	soldier_run
 };
 
 void
-soldier_pain(edict_t *self, edict_t *other /* unused */,
-		float kick /* unused */, int damage /* unused */)
+soldier_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage /* unused */)
 {
 	float r;
 	int n;
@@ -491,8 +491,8 @@ soldier_pain(edict_t *self, edict_t *other /* unused */,
 	{
 		if ((self->velocity[2] > 100) &&
 			((self->monsterinfo.currentmove == &soldier_move_pain1) ||
-			 (self->monsterinfo.currentmove == &soldier_move_pain2) ||
-			 (self->monsterinfo.currentmove == &soldier_move_pain3)))
+				(self->monsterinfo.currentmove == &soldier_move_pain2) ||
+				(self->monsterinfo.currentmove == &soldier_move_pain3)))
 		{
 			if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 			{
@@ -572,13 +572,13 @@ soldier_pain(edict_t *self, edict_t *other /* unused */,
 static int blaster_flash[] =
 {
 	MZ2_SOLDIER_BLASTER_1,
-   	MZ2_SOLDIER_BLASTER_2,
-   	MZ2_SOLDIER_BLASTER_3,
+	MZ2_SOLDIER_BLASTER_2,
+	MZ2_SOLDIER_BLASTER_3,
 	MZ2_SOLDIER_BLASTER_4,
 	MZ2_SOLDIER_BLASTER_5,
 	MZ2_SOLDIER_BLASTER_6,
 	MZ2_SOLDIER_BLASTER_7,
-   	MZ2_SOLDIER_BLASTER_8
+	MZ2_SOLDIER_BLASTER_8
 };
 
 static int shotgun_flash[] =
@@ -606,21 +606,21 @@ static int machinegun_flash[] =
 };
 
 void
-soldier_fire_rogue(edict_t *self, int in_flash_number) /* FS: Coop: Rogue specific */
+soldier_fire_rogue(edict_t* self, int in_flash_number) /* FS: Coop: Rogue specific */
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	vec3_t dir;
-	vec3_t end;
+	vec3_t end = { 0 };
 	float r, u;
 	int flash_index;
 	int flash_number;
 
-	vec3_t aim_norm;
+	vec3_t aim_norm = { 0 };
 	float angle;
 	trace_t tr;
-	vec3_t aim_good;
+	vec3_t aim_good = { 0 };
 
 	if (!self)
 	{
@@ -657,7 +657,7 @@ soldier_fire_rogue(edict_t *self, int in_flash_number) /* FS: Coop: Rogue specif
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_index], forward,
-			right, start);
+		right, start);
 
 	if ((flash_number == 5) || (flash_number == 6)) /* he's dead */
 	{
@@ -721,7 +721,7 @@ soldier_fire_rogue(edict_t *self, int in_flash_number) /* FS: Coop: Rogue specif
 	else if (self->s.skinnum <= 3)
 	{
 		monster_fire_shotgun(self, start, aim, 2, 1, DEFAULT_SHOTGUN_HSPREAD,
-				DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SHOTGUN_COUNT, flash_index);
+			DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SHOTGUN_COUNT, flash_index);
 	}
 	else
 	{
@@ -732,7 +732,7 @@ soldier_fire_rogue(edict_t *self, int in_flash_number) /* FS: Coop: Rogue specif
 		}
 
 		monster_fire_bullet(self, start, aim, 2, 4, DEFAULT_BULLET_HSPREAD,
-				DEFAULT_BULLET_VSPREAD, flash_index);
+			DEFAULT_BULLET_VSPREAD, flash_index);
 
 		if (level.time >= self->wait)
 		{
@@ -746,13 +746,13 @@ soldier_fire_rogue(edict_t *self, int in_flash_number) /* FS: Coop: Rogue specif
 }
 
 void
-soldier_fire(edict_t *self, int flash_number)
+soldier_fire(edict_t* self, int flash_number)
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	vec3_t dir;
-	vec3_t end;
+	vec3_t end = { 0 };
 	float r, u;
 	int flash_index;
 
@@ -782,7 +782,7 @@ soldier_fire(edict_t *self, int flash_number)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_index],
-			forward, right, start);
+		forward, right, start);
 
 	if ((flash_number == 5) || (flash_number == 6))
 	{
@@ -813,8 +813,8 @@ soldier_fire(edict_t *self, int flash_number)
 	else if (self->s.skinnum <= 3)
 	{
 		monster_fire_shotgun(self, start, aim, 2, 1,
-				DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD,
-				DEFAULT_SHOTGUN_COUNT, flash_index);
+			DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD,
+			DEFAULT_SHOTGUN_COUNT, flash_index);
 	}
 	else
 	{
@@ -824,8 +824,8 @@ soldier_fire(edict_t *self, int flash_number)
 		}
 
 		monster_fire_bullet(self, start, aim, 2, 4,
-				DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
-				flash_index);
+			DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
+			flash_index);
 
 		if (level.time >= self->monsterinfo.pausetime)
 		{
@@ -840,7 +840,7 @@ soldier_fire(edict_t *self, int flash_number)
 
 /* ATTACK1 (blaster/shotgun) */
 void
-soldier_fire1(edict_t *self)
+soldier_fire1(edict_t* self)
 {
 	if (!self)
 	{
@@ -851,7 +851,7 @@ soldier_fire1(edict_t *self)
 }
 
 void
-soldier_attack1_refire1(edict_t *self)
+soldier_attack1_refire1(edict_t* self)
 {
 	if (!self)
 	{
@@ -883,7 +883,7 @@ soldier_attack1_refire1(edict_t *self)
 	}
 
 	if (((skill->value == 3) &&
-		 (random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
+		(random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
 	{
 		self->monsterinfo.nextframe = FRAME_attak102;
 	}
@@ -894,7 +894,7 @@ soldier_attack1_refire1(edict_t *self)
 }
 
 void
-soldier_attack1_refire2(edict_t *self)
+soldier_attack1_refire2(edict_t* self)
 {
 	if (!self || !self->enemy)
 	{
@@ -912,7 +912,7 @@ soldier_attack1_refire2(edict_t *self)
 	}
 
 	if (((skill->value == 3) &&
-		 (random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
+		(random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
 	{
 		self->monsterinfo.nextframe = FRAME_attak102;
 	}
@@ -938,12 +938,12 @@ mmove_t soldier_move_attack1 =
 	FRAME_attak101,
 	FRAME_attak112,
 	soldier_frames_attack1,
-   	soldier_run
+	soldier_run
 };
 
 /* ATTACK2 (blaster/shotgun) */
 void
-soldier_fire2(edict_t *self)
+soldier_fire2(edict_t* self)
 {
 	if (!self)
 	{
@@ -954,7 +954,7 @@ soldier_fire2(edict_t *self)
 }
 
 void
-soldier_attack2_refire1(edict_t *self)
+soldier_attack2_refire1(edict_t* self)
 {
 	if (!self || !self->enemy)
 	{
@@ -972,7 +972,7 @@ soldier_attack2_refire1(edict_t *self)
 	}
 
 	if (((skill->value == 3) &&
-		 (random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
+		(random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
 	{
 		self->monsterinfo.nextframe = FRAME_attak204;
 	}
@@ -983,7 +983,7 @@ soldier_attack2_refire1(edict_t *self)
 }
 
 void
-soldier_attack2_refire2(edict_t *self)
+soldier_attack2_refire2(edict_t* self)
 {
 	if (!self || !self->enemy)
 	{
@@ -1001,7 +1001,7 @@ soldier_attack2_refire2(edict_t *self)
 	}
 
 	if (((skill->value == 3) &&
-		 (random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
+		(random() < 0.5)) || (range(self, self->enemy) == RANGE_MELEE))
 	{
 		self->monsterinfo.nextframe = FRAME_attak204;
 	}
@@ -1031,14 +1031,14 @@ mframe_t soldier_frames_attack2[] = {
 mmove_t soldier_move_attack2 =
 {
 	FRAME_attak201,
-   	FRAME_attak218,
-   	soldier_frames_attack2,
-   	soldier_run
+	FRAME_attak218,
+	soldier_frames_attack2,
+	soldier_run
 };
 
 /* ATTACK3 (duck and shoot) */
 void
-soldier_duck_down(edict_t *self)
+soldier_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -1058,7 +1058,7 @@ soldier_duck_down(edict_t *self)
 }
 
 void
-soldier_duck_up(edict_t *self)
+soldier_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -1072,7 +1072,7 @@ soldier_duck_up(edict_t *self)
 }
 
 void
-soldier_fire3(edict_t *self)
+soldier_fire3(edict_t* self)
 {
 	if (!self)
 	{
@@ -1092,7 +1092,7 @@ soldier_fire3(edict_t *self)
 }
 
 void
-soldier_attack3_refire(edict_t *self)
+soldier_attack3_refire(edict_t* self)
 {
 	if (!self)
 	{
@@ -1157,7 +1157,7 @@ mmove_t soldier_move_attack3 =
 
 /* ATTACK4 (machinegun) */
 void
-soldier_fire4(edict_t *self)
+soldier_fire4(edict_t* self)
 {
 	if (!self)
 	{
@@ -1179,14 +1179,14 @@ mframe_t soldier_frames_attack4[] = {
 mmove_t soldier_move_attack4 =
 {
 	FRAME_attak401,
-   	FRAME_attak406,
-   	soldier_frames_attack4,
-   	soldier_run
+	FRAME_attak406,
+	soldier_frames_attack4,
+	soldier_run
 };
 
 /* ATTACK6 (run & shoot) */
 void
-soldier_fire8(edict_t *self)
+soldier_fire8(edict_t* self)
 {
 	if (!self)
 	{
@@ -1204,7 +1204,7 @@ soldier_fire8(edict_t *self)
 }
 
 void
-soldier_attack6_refire(edict_t *self)
+soldier_attack6_refire(edict_t* self)
 {
 	int rangeSoldier = RANGE_MID;
 
@@ -1237,7 +1237,7 @@ soldier_attack6_refire(edict_t *self)
 	}
 
 	if ((skill->value == 3) ||
-	((game.gametype == rogue_coop) && ((random() < (0.25 * ((float)skill->value))))) ) /* FS: Coop: Rogue specific */
+		((game.gametype == rogue_coop) && ((random() < (0.25 * ((float)skill->value)))))) /* FS: Coop: Rogue specific */
 	{
 		self->monsterinfo.nextframe = FRAME_runs03;
 	}
@@ -1294,7 +1294,7 @@ mmove_t soldier_move_attack6 =
 };
 
 void
-soldier_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_attack_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	float r, chance;
 
@@ -1351,7 +1351,7 @@ soldier_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 	if ((!(self->monsterinfo.aiflags & (AI_BLOCKED | AI_STAND_GROUND))) &&
 		(range(self, self->enemy) >= RANGE_NEAR) &&
 		((r < (skill->value * 0.25)) &&
-		 (self->s.skinnum <= 3)))
+			(self->s.skinnum <= 3)))
 	{
 		self->monsterinfo.currentmove = &soldier_move_attack6_rogue;
 	}
@@ -1376,7 +1376,7 @@ soldier_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-soldier_attack(edict_t *self)
+soldier_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -1407,7 +1407,7 @@ soldier_attack(edict_t *self)
 }
 
 void
-soldier_sight(edict_t *self, edict_t *other /* unused */)
+soldier_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -1448,7 +1448,7 @@ soldier_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-soldier_duck_hold(edict_t *self)
+soldier_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -1475,9 +1475,9 @@ mframe_t soldier_frames_duck_rogue[] = {
 
 mmove_t soldier_move_duck_rogue = {
 	FRAME_duck01,
-   	FRAME_duck05,
-   	soldier_frames_duck_rogue,
-   	soldier_run
+	FRAME_duck05,
+	soldier_frames_duck_rogue,
+	soldier_run
 };
 
 mframe_t soldier_frames_duck[] = {
@@ -1491,13 +1491,13 @@ mframe_t soldier_frames_duck[] = {
 mmove_t soldier_move_duck =
 {
 	FRAME_duck01,
-   	FRAME_duck05,
-   	soldier_frames_duck,
-   	soldier_run
+	FRAME_duck05,
+	soldier_frames_duck,
+	soldier_run
 };
 
 void
-soldier_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *fake /* unused */)
+soldier_dodge(edict_t* self, edict_t* attacker, float eta, trace_t* fake /* unused */)
 {
 	float r;
 
@@ -1559,7 +1559,7 @@ soldier_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *fake /* unus
 }
 
 qboolean
-soldier_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+soldier_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1587,7 +1587,7 @@ soldier_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
 }
 
 void
-soldier_fire6(edict_t *self)
+soldier_fire6(edict_t* self)
 {
 	if (!self)
 	{
@@ -1598,7 +1598,7 @@ soldier_fire6(edict_t *self)
 }
 
 void
-soldier_fire7(edict_t *self)
+soldier_fire7(edict_t* self)
 {
 	if (!self)
 	{
@@ -1609,7 +1609,7 @@ soldier_fire7(edict_t *self)
 }
 
 void
-soldier_dead(edict_t *self)
+soldier_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -1625,9 +1625,9 @@ soldier_dead(edict_t *self)
 }
 
 void
-soldier_dead2(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_dead2(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t tempmins, tempmaxs, temporg;
+	vec3_t tempmins = { 0 }, tempmaxs = { 0 }, temporg = { 0 };
 	trace_t tr;
 
 	if (!self)
@@ -1759,8 +1759,8 @@ mmove_t soldier_move_death2 =
 {
 	FRAME_death201,
 	FRAME_death235,
-   	soldier_frames_death2,
-   	soldier_dead
+	soldier_frames_death2,
+	soldier_dead
 };
 
 mframe_t soldier_frames_death3[] = {
@@ -1818,9 +1818,9 @@ mframe_t soldier_frames_death3[] = {
 mmove_t soldier_move_death3 =
 {
 	FRAME_death301,
-   	FRAME_death345,
-   	soldier_frames_death3,
-   	soldier_dead
+	FRAME_death345,
+	soldier_frames_death3,
+	soldier_dead
 };
 
 mframe_t soldier_frames_death4[] = {
@@ -1887,16 +1887,16 @@ mframe_t soldier_frames_death4[] = {
 mmove_t soldier_move_death4_rogue =
 {
 	FRAME_death401,
-   	FRAME_death453,
-   	soldier_frames_death4,
-   	soldier_dead2
+	FRAME_death453,
+	soldier_frames_death4,
+	soldier_dead2
 };
 
 mmove_t soldier_move_death4 =
 {
 	FRAME_death401,
-   	FRAME_death453,
-   	soldier_frames_death4,
+	FRAME_death453,
+	soldier_frames_death4,
 	soldier_dead
 };
 
@@ -1932,9 +1932,9 @@ mframe_t soldier_frames_death5[] = {
 mmove_t soldier_move_death5 =
 {
 	FRAME_death501,
-   	FRAME_death524,
-   	soldier_frames_death5,
-   	soldier_dead
+	FRAME_death524,
+	soldier_frames_death5,
+	soldier_dead
 };
 
 mframe_t soldier_frames_death6[] = {
@@ -1959,13 +1959,13 @@ mmove_t soldier_move_death6 =
 };
 
 void
-soldier_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+soldier_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage,
+	vec3_t point /* unused */)
 {
 	int n;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1978,13 +1978,13 @@ soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 		for (n = 0; n < 3; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowGib(self, "models/objects/gibs/chest/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -2051,7 +2051,7 @@ soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-soldier_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_sidestep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2075,7 +2075,7 @@ soldier_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-soldier_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
+soldier_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 {
 	float r;
 
@@ -2150,13 +2150,13 @@ mframe_t soldier_frames_blind[] = { /* FS: Coop: Rogue specific */
 
 mmove_t soldier_move_blind = { /* FS: Coop: Rogue specific */
 	FRAME_stand101,
-   	FRAME_stand130,
-   	soldier_frames_blind,
-   	soldier_blind
+	FRAME_stand130,
+	soldier_frames_blind,
+	soldier_blind
 };
 
 void
-soldier_blind(edict_t *self) /* FS: Coop: Rogue specific */
+soldier_blind(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2167,7 +2167,7 @@ soldier_blind(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-SP_monster_soldier_x(edict_t *self)
+SP_monster_soldier_x(edict_t* self)
 {
 	if (!self)
 	{
@@ -2234,7 +2234,7 @@ SP_monster_soldier_x(edict_t *self)
  * Blind - monster will just stand there until triggered
  */
 void
-SP_monster_soldier_light(edict_t *self)
+SP_monster_soldier_light(edict_t* self)
 {
 	if (!self)
 	{
@@ -2271,7 +2271,7 @@ SP_monster_soldier_light(edict_t *self)
  * Blind - monster will just stand there until triggered
  */
 void
-SP_monster_soldier(edict_t *self)
+SP_monster_soldier(edict_t* self)
 {
 	if (!self)
 	{
@@ -2301,7 +2301,7 @@ SP_monster_soldier(edict_t *self)
  * Blind - monster will just stand there until triggered
  */
 void
-SP_monster_soldier_ss(edict_t *self)
+SP_monster_soldier_ss(edict_t* self)
 {
 	if (!self)
 	{
@@ -2327,9 +2327,9 @@ SP_monster_soldier_ss(edict_t *self)
 
 /* FS: Coop: Xatrix specific.  Everything below this line! */
 void
-soldierh_idle(edict_t *self)
+soldierh_idle(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2341,9 +2341,9 @@ soldierh_idle(edict_t *self)
 }
 
 void
-soldierh_cock(edict_t *self)
+soldierh_cock(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2395,9 +2395,9 @@ mframe_t soldierh_frames_stand1[] = {
 
 mmove_t soldierh_move_stand1 = {
 	FRAME_stand101,
-   	FRAME_stand130,
-   	soldierh_frames_stand1,
-   	soldierh_stand
+	FRAME_stand130,
+	soldierh_frames_stand1,
+	soldierh_stand
 };
 
 mframe_t soldierh_frames_stand3[] = {
@@ -2447,15 +2447,15 @@ mframe_t soldierh_frames_stand3[] = {
 
 mmove_t soldierh_move_stand3 = {
 	FRAME_stand301,
-   	FRAME_stand339,
-   	soldierh_frames_stand3,
-   	soldierh_stand
+	FRAME_stand339,
+	soldierh_frames_stand3,
+	soldierh_stand
 };
 
 void
-soldierh_stand(edict_t *self)
+soldierh_stand(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2471,9 +2471,9 @@ soldierh_stand(edict_t *self)
 }
 
 void
-soldierh_walk1_random(edict_t *self)
+soldierh_walk1_random(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2522,9 +2522,9 @@ mframe_t soldierh_frames_walk1[] = {
 
 mmove_t soldierh_move_walk1 = {
 	FRAME_walk101,
-   	FRAME_walk133,
-   	soldierh_frames_walk1,
-   	NULL
+	FRAME_walk133,
+	soldierh_frames_walk1,
+	NULL
 };
 
 mframe_t soldierh_frames_walk2[] = {
@@ -2542,15 +2542,15 @@ mframe_t soldierh_frames_walk2[] = {
 
 mmove_t soldierh_move_walk2 = {
 	FRAME_walk209,
-   	FRAME_walk218,
-   	soldierh_frames_walk2,
-   	NULL
+	FRAME_walk218,
+	soldierh_frames_walk2,
+	NULL
 };
 
 void
-soldierh_walk(edict_t *self)
+soldierh_walk(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2572,9 +2572,9 @@ mframe_t soldierh_frames_start_run[] = {
 
 mmove_t soldierh_move_start_run = {
 	FRAME_run01,
-   	FRAME_run02,
-   	soldierh_frames_start_run,
-   	soldierh_run
+	FRAME_run02,
+	soldierh_frames_start_run,
+	soldierh_run
 };
 
 mframe_t soldierh_frames_run[] = {
@@ -2588,15 +2588,15 @@ mframe_t soldierh_frames_run[] = {
 
 mmove_t soldierh_move_run = {
 	FRAME_run03,
-   	FRAME_run08,
-   	soldierh_frames_run,
-   	NULL
+	FRAME_run08,
+	soldierh_frames_run,
+	NULL
 };
 
 void
-soldierh_run(edict_t *self)
+soldierh_run(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2629,9 +2629,9 @@ mframe_t soldierh_frames_pain1[] = {
 
 mmove_t soldierh_move_pain1 = {
 	FRAME_pain101,
-   	FRAME_pain105,
-   	soldierh_frames_pain1,
-   	soldierh_run
+	FRAME_pain105,
+	soldierh_frames_pain1,
+	soldierh_run
 };
 
 mframe_t soldierh_frames_pain2[] = {
@@ -2646,9 +2646,9 @@ mframe_t soldierh_frames_pain2[] = {
 
 mmove_t soldierh_move_pain2 = {
 	FRAME_pain201,
-   	FRAME_pain207,
-   	soldierh_frames_pain2,
-   	soldierh_run
+	FRAME_pain207,
+	soldierh_frames_pain2,
+	soldierh_run
 };
 
 mframe_t soldierh_frames_pain3[] = {
@@ -2674,9 +2674,9 @@ mframe_t soldierh_frames_pain3[] = {
 
 mmove_t soldierh_move_pain3 = {
 	FRAME_pain301,
-   	FRAME_pain318,
-   	soldierh_frames_pain3,
-   	soldierh_run
+	FRAME_pain318,
+	soldierh_frames_pain3,
+	soldierh_run
 };
 
 mframe_t soldierh_frames_pain4[] = {
@@ -2701,19 +2701,19 @@ mframe_t soldierh_frames_pain4[] = {
 
 mmove_t soldierh_move_pain4 = {
 	FRAME_pain401,
-   	FRAME_pain417,
-   	soldierh_frames_pain4,
-   	soldierh_run
+	FRAME_pain417,
+	soldierh_frames_pain4,
+	soldierh_run
 };
 
 void
-soldierh_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage /* unused */)
+soldierh_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage /* unused */)
 {
 	float r;
 	int n;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2727,8 +2727,8 @@ soldierh_pain(edict_t *self, edict_t *other /* unused */,
 	{
 		if ((self->velocity[2] > 100) &&
 			((self->monsterinfo.currentmove == &soldierh_move_pain1) ||
-		(self->monsterinfo.currentmove == &soldierh_move_pain2) ||
-		(self->monsterinfo.currentmove == &soldierh_move_pain3)))
+				(self->monsterinfo.currentmove == &soldierh_move_pain2) ||
+				(self->monsterinfo.currentmove == &soldierh_move_pain3)))
 		{
 			self->monsterinfo.currentmove = &soldierh_move_pain4;
 		}
@@ -2781,15 +2781,15 @@ soldierh_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-soldierh_laserbeam(edict_t *self, int flash_index)
+soldierh_laserbeam(edict_t* self, int flash_index)
 {
 	vec3_t forward, right, up;
-	vec3_t tempang, start;
-	vec3_t dir, angles, end;
-	vec3_t tempvec;
-	edict_t *ent;
+	vec3_t tempang = { 0 }, start = { 0 };
+	vec3_t dir = { 0 }, angles, end = { 0 };
+	vec3_t tempvec = { 0 };
+	edict_t* ent;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2835,17 +2835,17 @@ soldierh_laserbeam(edict_t *self, int flash_index)
 }
 
 void
-soldierh_fire(edict_t *self, int flash_number)
+soldierh_fire(edict_t* self, int flash_number)
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	vec3_t dir;
-	vec3_t end;
+	vec3_t end = { 0 };
 	float r, u;
 	int flash_index;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2865,7 +2865,7 @@ soldierh_fire(edict_t *self, int flash_number)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_index],
-			forward, right, start);
+		forward, right, start);
 
 	if ((flash_number == 5) || (flash_number == 6))
 	{
@@ -2892,12 +2892,12 @@ soldierh_fire(edict_t *self, int flash_number)
 	if (self->s.skinnum <= 1)
 	{
 		monster_fire_ionripper(self, start, aim, 5, 600,
-				flash_index, EF_IONRIPPER);
+			flash_index, EF_IONRIPPER);
 	}
 	else if (self->s.skinnum <= 3)
 	{
 		monster_fire_blueblaster(self, start, aim, 1, 600,
-				MZ_BLUEHYPERBLASTER, EF_BLUEHYPERBLASTER);
+			MZ_BLUEHYPERBLASTER, EF_BLUEHYPERBLASTER);
 	}
 	else
 	{
@@ -2920,9 +2920,9 @@ soldierh_fire(edict_t *self, int flash_number)
 }
 
 void
-soldierh_hyper_refire1(edict_t *self)
+soldierh_hyper_refire1(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2945,9 +2945,9 @@ soldierh_hyper_refire1(edict_t *self)
 }
 
 void
-soldierh_ripper1(edict_t *self)
+soldierh_ripper1(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2963,9 +2963,9 @@ soldierh_ripper1(edict_t *self)
 }
 
 void
-soldierh_fire1(edict_t *self)
+soldierh_fire1(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -2974,9 +2974,9 @@ soldierh_fire1(edict_t *self)
 }
 
 void
-soldierh_attack1_refire1(edict_t *self)
+soldierh_attack1_refire1(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3002,9 +3002,9 @@ soldierh_attack1_refire1(edict_t *self)
 }
 
 void
-soldierh_attack1_refire2(edict_t *self)
+soldierh_attack1_refire2(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3026,9 +3026,9 @@ soldierh_attack1_refire2(edict_t *self)
 }
 
 void
-soldierh_hyper_sound(edict_t *self)
+soldierh_hyper_sound(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3064,15 +3064,15 @@ mframe_t soldierh_frames_attack1[] = {
 
 mmove_t soldierh_move_attack1 = {
 	FRAME_attak101,
-   	FRAME_attak112,
-   	soldierh_frames_attack1,
-   	soldierh_run
+	FRAME_attak112,
+	soldierh_frames_attack1,
+	soldierh_run
 };
 
 void
-soldierh_hyper_refire2(edict_t *self)
+soldierh_hyper_refire2(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3095,9 +3095,9 @@ soldierh_hyper_refire2(edict_t *self)
 }
 
 void
-soldierh_ripper2(edict_t *self)
+soldierh_ripper2(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3113,9 +3113,9 @@ soldierh_ripper2(edict_t *self)
 }
 
 void
-soldierh_fire2(edict_t *self)
+soldierh_fire2(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3124,9 +3124,9 @@ soldierh_fire2(edict_t *self)
 }
 
 void
-soldierh_attack2_refire1(edict_t *self)
+soldierh_attack2_refire1(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3152,9 +3152,9 @@ soldierh_attack2_refire1(edict_t *self)
 }
 
 void
-soldierh_attack2_refire2(edict_t *self)
+soldierh_attack2_refire2(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3170,7 +3170,7 @@ soldierh_attack2_refire2(edict_t *self)
 	}
 
 	if (((skill->value == 3) &&
-		 (random() < 0.5)) ||
+		(random() < 0.5)) ||
 		((range(self, self->enemy) == RANGE_MELEE) && (self->s.skinnum < 4)))
 	{
 		self->monsterinfo.nextframe = FRAME_attak204;
@@ -3200,15 +3200,15 @@ mframe_t soldierh_frames_attack2[] = {
 
 mmove_t soldierh_move_attack2 = {
 	FRAME_attak201,
-   	FRAME_attak218,
-   	soldierh_frames_attack2,
-   	soldierh_run
+	FRAME_attak218,
+	soldierh_frames_attack2,
+	soldierh_run
 };
 
 void
-soldierh_duck_down(edict_t *self)
+soldierh_duck_down(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3226,9 +3226,9 @@ soldierh_duck_down(edict_t *self)
 }
 
 void
-soldierh_duck_up(edict_t *self)
+soldierh_duck_up(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3240,9 +3240,9 @@ soldierh_duck_up(edict_t *self)
 }
 
 void
-soldierh_fire3(edict_t *self)
+soldierh_fire3(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3252,9 +3252,9 @@ soldierh_fire3(edict_t *self)
 }
 
 void
-soldierh_attack3_refire(edict_t *self)
+soldierh_attack3_refire(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3279,15 +3279,15 @@ mframe_t soldierh_frames_attack3[] = {
 
 mmove_t soldierh_move_attack3 = {
 	FRAME_attak301,
-   	FRAME_attak309,
-   	soldierh_frames_attack3,
-   	soldierh_run
+	FRAME_attak309,
+	soldierh_frames_attack3,
+	soldierh_run
 };
 
 void
-soldierh_fire4(edict_t *self)
+soldierh_fire4(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3306,15 +3306,15 @@ mframe_t soldierh_frames_attack4[] = {
 
 mmove_t soldierh_move_attack4 = {
 	FRAME_attak401,
-   	FRAME_attak406,
-   	soldierh_frames_attack4,
-   	soldierh_run
+	FRAME_attak406,
+	soldierh_frames_attack4,
+	soldierh_run
 };
 
 void
-soldierh_fire8(edict_t *self)
+soldierh_fire8(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3323,9 +3323,9 @@ soldierh_fire8(edict_t *self)
 }
 
 void
-soldierh_attack6_refire(edict_t *self)
+soldierh_attack6_refire(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3365,15 +3365,15 @@ mframe_t soldierh_frames_attack6[] = {
 
 mmove_t soldierh_move_attack6 = {
 	FRAME_runs01,
-   	FRAME_runs14,
-   	soldierh_frames_attack6,
-   	soldierh_run
+	FRAME_runs14,
+	soldierh_frames_attack6,
+	soldierh_run
 };
 
 void
-soldierh_attack(edict_t *self)
+soldierh_attack(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3396,9 +3396,9 @@ soldierh_attack(edict_t *self)
 }
 
 void
-soldierh_sight(edict_t *self, edict_t *other /* unused */)
+soldierh_sight(edict_t* self, edict_t* other /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3429,9 +3429,9 @@ soldierh_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-soldierh_duck_hold(edict_t *self)
+soldierh_duck_hold(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3456,17 +3456,17 @@ mframe_t soldierh_frames_duck[] = {
 
 mmove_t soldierh_move_duck = {
 	FRAME_duck01,
-   	FRAME_duck05,
-   	soldierh_frames_duck,
-   	soldierh_run
+	FRAME_duck05,
+	soldierh_frames_duck,
+	soldierh_run
 };
 
 void
-soldierh_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *fake /* unused */)
+soldierh_dodge(edict_t* self, edict_t* attacker, float eta, trace_t* fake /* unused */)
 {
 	float r;
 
-  	if (!self || !attacker)
+	if (!self || !attacker)
 	{
 		return;
 	}
@@ -3524,9 +3524,9 @@ soldierh_dodge(edict_t *self, edict_t *attacker, float eta, trace_t *fake /* unu
 }
 
 void
-soldierh_fire6(edict_t *self)
+soldierh_fire6(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3539,9 +3539,9 @@ soldierh_fire6(edict_t *self)
 }
 
 void
-soldierh_fire7(edict_t *self)
+soldierh_fire7(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3554,9 +3554,9 @@ soldierh_fire7(edict_t *self)
 }
 
 void
-soldierh_dead(edict_t *self)
+soldierh_dead(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3613,9 +3613,9 @@ mframe_t soldierh_frames_death1[] = {
 
 mmove_t soldierh_move_death1 = {
 	FRAME_death101,
-   	FRAME_death136,
-   	soldierh_frames_death1,
-   	soldierh_dead
+	FRAME_death136,
+	soldierh_frames_death1,
+	soldierh_dead
 };
 
 mframe_t soldierh_frames_death2[] = {
@@ -3661,9 +3661,9 @@ mframe_t soldierh_frames_death2[] = {
 
 mmove_t soldierh_move_death2 = {
 	FRAME_death201,
-   	FRAME_death235,
-   	soldierh_frames_death2,
-   	soldierh_dead
+	FRAME_death235,
+	soldierh_frames_death2,
+	soldierh_dead
 };
 
 mframe_t soldierh_frames_death3[] = {
@@ -3720,9 +3720,9 @@ mframe_t soldierh_frames_death3[] = {
 
 mmove_t soldierh_move_death3 = {
 	FRAME_death301,
-   	FRAME_death345,
-   	soldierh_frames_death3,
-   	soldierh_dead
+	FRAME_death345,
+	soldierh_frames_death3,
+	soldierh_dead
 };
 
 mframe_t soldierh_frames_death4[] = {
@@ -3788,9 +3788,9 @@ mframe_t soldierh_frames_death4[] = {
 
 mmove_t soldierh_move_death4 = {
 	FRAME_death401,
-   	FRAME_death453,
-   	soldierh_frames_death4,
-   	soldierh_dead
+	FRAME_death453,
+	soldierh_frames_death4,
+	soldierh_dead
 };
 
 mframe_t soldierh_frames_death5[] = {
@@ -3824,9 +3824,9 @@ mframe_t soldierh_frames_death5[] = {
 
 mmove_t soldierh_move_death5 = {
 	FRAME_death501,
-   	FRAME_death524,
-   	soldierh_frames_death5,
-   	soldierh_dead
+	FRAME_death524,
+	soldierh_frames_death5,
+	soldierh_dead
 };
 
 mframe_t soldierh_frames_death6[] = {
@@ -3844,18 +3844,18 @@ mframe_t soldierh_frames_death6[] = {
 
 mmove_t soldierh_move_death6 = {
 	FRAME_death601,
-   	FRAME_death610,
-   	soldierh_frames_death6,
-   	soldierh_dead
+	FRAME_death610,
+	soldierh_frames_death6,
+	soldierh_dead
 };
 
 void
-soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage, vec3_t point)
+soldierh_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage, vec3_t point)
 {
 	int n;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3932,9 +3932,9 @@ soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-SP_monster_soldier_h(edict_t *self)
+SP_monster_soldier_h(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -3976,9 +3976,9 @@ SP_monster_soldier_h(edict_t *self)
  * QUAKED monster_soldier_ripper (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_soldier_ripper(edict_t *self)
+SP_monster_soldier_ripper(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -4007,9 +4007,9 @@ SP_monster_soldier_ripper(edict_t *self)
  * QUAKED monster_soldier_hypergun (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_soldier_hypergun(edict_t *self)
+SP_monster_soldier_hypergun(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -4036,9 +4036,9 @@ SP_monster_soldier_hypergun(edict_t *self)
  * QUAKED monster_soldier_lasergun (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_soldier_lasergun(edict_t *self)
+SP_monster_soldier_lasergun(edict_t* self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

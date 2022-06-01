@@ -17,33 +17,33 @@ carrier
 #define NUM_FLYERS_SPAWNED 6            /* max # of flyers he can spawn */
 #define RAIL_FIRE_TIME 3
 
-void BossExplode(edict_t *self);
-void Grenade_Explode(edict_t *ent);
+void BossExplode(edict_t* self);
+void Grenade_Explode(edict_t* ent);
 
-void carrier_run(edict_t *self);
-void carrier_stand(edict_t *self);
-void carrier_dead(edict_t *self);
-void carrier_attack(edict_t *self);
-void carrier_attack_mg(edict_t *self);
-void carrier_reattack_mg(edict_t *self);
-void carrier_die(edict_t *self,
-		edict_t *inflictor,
-		edict_t *attacker,
-		int damage,
-		vec3_t point);
-void carrier_attack_gren(edict_t *self);
-void carrier_reattack_gren(edict_t *self);
-void carrier_start_spawn(edict_t *self);
-void carrier_spawn_check(edict_t *self);
-void carrier_prep_spawn(edict_t *self);
-void CarrierMachineGunHold(edict_t *self);
-void CarrierRocket(edict_t *self);
+void carrier_run(edict_t* self);
+void carrier_stand(edict_t* self);
+void carrier_dead(edict_t* self);
+void carrier_attack(edict_t* self);
+void carrier_attack_mg(edict_t* self);
+void carrier_reattack_mg(edict_t* self);
+void carrier_die(edict_t* self,
+	edict_t* inflictor,
+	edict_t* attacker,
+	int damage,
+	vec3_t point);
+void carrier_attack_gren(edict_t* self);
+void carrier_reattack_gren(edict_t* self);
+void carrier_start_spawn(edict_t* self);
+void carrier_spawn_check(edict_t* self);
+void carrier_prep_spawn(edict_t* self);
+void CarrierMachineGunHold(edict_t* self);
+void CarrierRocket(edict_t* self);
 
-qboolean infront(edict_t *self, edict_t *other);
-qboolean inback(edict_t *self, edict_t *other);
-qboolean below(edict_t *self, edict_t *other);
-void drawbbox(edict_t *self);
-void ED_CallSpawn(edict_t *ent);
+qboolean infront(edict_t* self, edict_t* other);
+qboolean inback(edict_t* self, edict_t* other);
+qboolean below(edict_t* self, edict_t* other);
+void drawbbox(edict_t* self);
+void ED_CallSpawn(edict_t* ent);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -55,13 +55,13 @@ static int sound_spawn;
 
 float orig_yaw_speed;
 
-vec3_t flyer_mins = {-16, -16, -24};
-vec3_t flyer_maxs = {16, 16, 16};
+vec3_t flyer_mins = { -16, -16, -24 };
+vec3_t flyer_maxs = { 16, 16, 16 };
 
 extern mmove_t flyer_move_attack2, flyer_move_attack3, flyer_move_kamikaze;
 
 void
-carrier_sight(edict_t *self, edict_t *other /* other */)
+carrier_sight(edict_t* self, edict_t* other /* other */)
 {
 	if (!self)
 	{
@@ -72,12 +72,12 @@ carrier_sight(edict_t *self, edict_t *other /* other */)
 }
 
 void
-CarrierCoopCheck(edict_t *self)
+CarrierCoopCheck(edict_t* self)
 {
 	/* no more than 4 players in coop, so.. */
-	edict_t *targets[4];
+	edict_t* targets[4];
 	int num_targets = 0, target, player;
-	edict_t *ent;
+	edict_t* ent;
 	trace_t tr;
 
 	if (!self)
@@ -97,7 +97,7 @@ CarrierCoopCheck(edict_t *self)
 		return;
 	}
 
-	memset(targets, 0, 4 * sizeof(edict_t *));
+	memset(targets, 0, 4 * sizeof(edict_t*));
 
 	/* cycle through players */
 	for (player = 1; player <= game.maxclients; player++)
@@ -117,7 +117,7 @@ CarrierCoopCheck(edict_t *self)
 		if (inback(self, ent) || below(self, ent))
 		{
 			tr = gi.trace(self->s.origin, NULL, NULL, ent->s.origin,
-					self, MASK_SOLID);
+				self, MASK_SOLID);
 
 			if (tr.fraction == 1.0)
 			{
@@ -156,11 +156,11 @@ CarrierCoopCheck(edict_t *self)
 }
 
 void
-CarrierGrenade(edict_t *self)
+CarrierGrenade(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t aim;
+	vec3_t aim = { 0 };
 	int flash_number;
 	float direction; /* from lower left to upper right, or lower right to upper left */
 	float spreadR, spreadU;
@@ -218,7 +218,7 @@ CarrierGrenade(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, up);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_GRENADE],
-			forward, right, start);
+		forward, right, start);
 
 	VectorSubtract(self->enemy->s.origin, start, aim);
 	VectorNormalize(aim);
@@ -240,7 +240,7 @@ CarrierGrenade(edict_t *self)
 }
 
 void
-CarrierPredictiveRocket(edict_t *self)
+CarrierPredictiveRocket(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
@@ -255,36 +255,36 @@ CarrierPredictiveRocket(edict_t *self)
 
 	/* 1 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_1],
-			forward, right, start);
+		forward, right, start);
 	PredictAim(self->enemy, start, CARRIER_ROCKET_SPEED, false, -0.3, dir, NULL);
 	monster_fire_rocket(self, start, dir, 50, CARRIER_ROCKET_SPEED, MZ2_CARRIER_ROCKET_1);
 
 	/* 2 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_2],
-			forward, right, start);
+		forward, right, start);
 	PredictAim(self->enemy, start, CARRIER_ROCKET_SPEED, false, -0.15, dir, NULL);
 	monster_fire_rocket(self, start, dir, 50, CARRIER_ROCKET_SPEED, MZ2_CARRIER_ROCKET_2);
 
 	/* 3 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_3], forward,
-			right, start);
+		right, start);
 	PredictAim(self->enemy, start, CARRIER_ROCKET_SPEED, false, 0, dir, NULL);
 	monster_fire_rocket(self, start, dir, 50, CARRIER_ROCKET_SPEED, MZ2_CARRIER_ROCKET_3);
 
 	/* 4 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_4], forward,
-			right, start);
+		right, start);
 	PredictAim(self->enemy, start, CARRIER_ROCKET_SPEED, false, 0.15, dir, NULL);
 	monster_fire_rocket(self, start, dir, 50, CARRIER_ROCKET_SPEED, MZ2_CARRIER_ROCKET_4);
 }
 
 void
-CarrierRocket(edict_t *self)
+CarrierRocket(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 
 	if (!self)
 	{
@@ -308,7 +308,7 @@ CarrierRocket(edict_t *self)
 
 	/* 1 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_1],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] -= 15;
 	VectorSubtract(vec, start, dir);
@@ -319,7 +319,7 @@ CarrierRocket(edict_t *self)
 
 	/* 2 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_2],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	VectorSubtract(vec, start, dir);
 	VectorNormalize(dir);
@@ -329,7 +329,7 @@ CarrierRocket(edict_t *self)
 
 	/* 3 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_3],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	VectorSubtract(vec, start, dir);
 	VectorNormalize(dir);
@@ -339,7 +339,7 @@ CarrierRocket(edict_t *self)
 
 	/* 4 */
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_ROCKET_4],
-			forward, right, start);
+		forward, right, start);
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] -= 15;
 	VectorSubtract(vec, start, dir);
@@ -350,7 +350,7 @@ CarrierRocket(edict_t *self)
 }
 
 void
-carrier_firebullet_right(edict_t *self)
+carrier_firebullet_right(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -380,11 +380,11 @@ carrier_firebullet_right(edict_t *self)
 	VectorNormalize(forward);
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD * 3,
-			DEFAULT_BULLET_VSPREAD, flashnum);
+		DEFAULT_BULLET_VSPREAD, flashnum);
 }
 
 void
-carrier_firebullet_left(edict_t *self)
+carrier_firebullet_left(edict_t* self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
@@ -407,7 +407,7 @@ carrier_firebullet_left(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flashnum],
-			forward, right, start);
+		forward, right, start);
 
 	VectorMA(self->enemy->s.origin, -0.2, self->enemy->velocity, target);
 
@@ -416,11 +416,11 @@ carrier_firebullet_left(edict_t *self)
 	VectorNormalize(forward);
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD * 3,
-			DEFAULT_BULLET_VSPREAD, flashnum);
+		DEFAULT_BULLET_VSPREAD, flashnum);
 }
 
 void
-CarrierMachineGun(edict_t *self)
+CarrierMachineGun(edict_t* self)
 {
 	if (!self)
 	{
@@ -441,10 +441,10 @@ CarrierMachineGun(edict_t *self)
 }
 
 void
-CarrierSpawn(edict_t *self)
+CarrierSpawn(edict_t* self)
 {
-	vec3_t f, r, offset, startpoint, spawnpoint;
-	edict_t *ent;
+	vec3_t f, r, offset = { 0 }, startpoint, spawnpoint;
+	edict_t* ent;
 	int mytime;
 
 	if (!self)
@@ -485,7 +485,7 @@ CarrierSpawn(edict_t *self)
 		ent->think(ent);
 
 		ent->monsterinfo.aiflags |= AI_SPAWNED_CARRIER | AI_DO_NOT_COUNT |
-									AI_IGNORE_SHOTS;
+			AI_IGNORE_SHOTS;
 		ent->monsterinfo.commander = self;
 
 		if ((self->enemy->inuse) && (self->enemy->health > 0))
@@ -518,7 +518,7 @@ CarrierSpawn(edict_t *self)
 }
 
 void
-carrier_prep_spawn(edict_t *self)
+carrier_prep_spawn(edict_t* self)
 {
 	if (!self)
 	{
@@ -533,7 +533,7 @@ carrier_prep_spawn(edict_t *self)
 }
 
 void
-carrier_spawn_check(edict_t *self)
+carrier_spawn_check(edict_t* self)
 {
 	if (!self)
 	{
@@ -557,10 +557,10 @@ carrier_spawn_check(edict_t *self)
 }
 
 void
-carrier_ready_spawn(edict_t *self)
+carrier_ready_spawn(edict_t* self)
 {
 	float current_yaw;
-	vec3_t offset, f, r, startpoint, spawnpoint;
+	vec3_t offset = { 0 }, f, r, startpoint, spawnpoint;
 
 	if (!self)
 	{
@@ -592,11 +592,11 @@ carrier_ready_spawn(edict_t *self)
 }
 
 void
-carrier_start_spawn(edict_t *self)
+carrier_start_spawn(edict_t* self)
 {
 	int mytime;
 	float enemy_yaw;
-	vec3_t temp;
+	vec3_t temp = { 0 };
 
 	if (!self)
 	{
@@ -655,9 +655,9 @@ mframe_t carrier_frames_stand[] = {
 
 mmove_t carrier_move_stand = {
 	FRAME_search01,
-   	FRAME_search13,
-   	carrier_frames_stand,
-   	NULL
+	FRAME_search13,
+	carrier_frames_stand,
+	NULL
 };
 
 mframe_t carrier_frames_walk[] = {
@@ -678,9 +678,9 @@ mframe_t carrier_frames_walk[] = {
 
 mmove_t carrier_move_walk = {
 	FRAME_search01,
-   	FRAME_search13,
-   	carrier_frames_walk,
-   	NULL
+	FRAME_search13,
+	carrier_frames_walk,
+	NULL
 };
 
 mframe_t carrier_frames_run[] = {
@@ -701,9 +701,9 @@ mframe_t carrier_frames_run[] = {
 
 mmove_t carrier_move_run = {
 	FRAME_search01,
-   	FRAME_search13,
-   	carrier_frames_run,
-   	NULL
+	FRAME_search13,
+	carrier_frames_run,
+	NULL
 };
 
 mframe_t carrier_frames_attack_pre_mg[] = {
@@ -719,9 +719,9 @@ mframe_t carrier_frames_attack_pre_mg[] = {
 
 mmove_t carrier_move_attack_pre_mg = {
 	FRAME_firea01,
-   	FRAME_firea08,
-   	carrier_frames_attack_pre_mg,
-   	NULL
+	FRAME_firea08,
+	carrier_frames_attack_pre_mg,
+	NULL
 };
 
 /* Loop this */
@@ -733,9 +733,9 @@ mframe_t carrier_frames_attack_mg[] = {
 
 mmove_t carrier_move_attack_mg = {
 	FRAME_firea09,
-   	FRAME_firea11,
-   	carrier_frames_attack_mg,
-   	NULL
+	FRAME_firea11,
+	carrier_frames_attack_mg,
+	NULL
 };
 
 mframe_t carrier_frames_attack_post_mg[] = {
@@ -747,9 +747,9 @@ mframe_t carrier_frames_attack_post_mg[] = {
 
 mmove_t carrier_move_attack_post_mg = {
 	FRAME_firea12,
-   	FRAME_firea15,
-   	carrier_frames_attack_post_mg,
-   	carrier_run
+	FRAME_firea15,
+	carrier_frames_attack_post_mg,
+	carrier_run
 };
 
 mframe_t carrier_frames_attack_pre_gren[] = {
@@ -763,9 +763,9 @@ mframe_t carrier_frames_attack_pre_gren[] = {
 
 mmove_t carrier_move_attack_pre_gren = {
 	FRAME_fireb01,
-   	FRAME_fireb06,
-   	carrier_frames_attack_pre_gren,
-   	NULL
+	FRAME_fireb06,
+	carrier_frames_attack_pre_gren,
+	NULL
 };
 
 mframe_t carrier_frames_attack_gren[] = {
@@ -777,9 +777,9 @@ mframe_t carrier_frames_attack_gren[] = {
 
 mmove_t carrier_move_attack_gren = {
 	FRAME_fireb07,
-   	FRAME_fireb10,
-   	carrier_frames_attack_gren,
-   	NULL
+	FRAME_fireb10,
+	carrier_frames_attack_gren,
+	NULL
 };
 
 mframe_t carrier_frames_attack_post_gren[] = {
@@ -793,9 +793,9 @@ mframe_t carrier_frames_attack_post_gren[] = {
 
 mmove_t carrier_move_attack_post_gren = {
 	FRAME_fireb11,
-   	FRAME_fireb16,
-   	carrier_frames_attack_post_gren,
-   	carrier_run
+	FRAME_fireb16,
+	carrier_frames_attack_post_gren,
+	carrier_run
 };
 
 mframe_t carrier_frames_attack_rocket[] = {
@@ -804,16 +804,16 @@ mframe_t carrier_frames_attack_rocket[] = {
 
 mmove_t carrier_move_attack_rocket = {
 	FRAME_fireb01,
-   	FRAME_fireb01,
-   	carrier_frames_attack_rocket,
-   	carrier_run
+	FRAME_fireb01,
+	carrier_frames_attack_rocket,
+	carrier_run
 };
 
 void
-CarrierRail(edict_t *self)
+CarrierRail(edict_t* self)
 {
 	vec3_t start;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	vec3_t forward, right;
 
 	if (!self)
@@ -824,7 +824,7 @@ CarrierRail(edict_t *self)
 	CarrierCoopCheck(self);
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_CARRIER_RAILGUN],
-			forward, right, start);
+		forward, right, start);
 
 	/* calc direction to where we targeted */
 	VectorSubtract(self->pos1, start, dir);
@@ -835,7 +835,7 @@ CarrierRail(edict_t *self)
 }
 
 void
-CarrierSaveLoc(edict_t *self)
+CarrierSaveLoc(edict_t* self)
 {
 	if (!self)
 	{
@@ -861,9 +861,9 @@ mframe_t carrier_frames_attack_rail[] = {
 
 mmove_t carrier_move_attack_rail = {
 	FRAME_search01,
-   	FRAME_search09,
-   	carrier_frames_attack_rail,
-   	carrier_run
+	FRAME_search09,
+	carrier_frames_attack_rail,
+	carrier_run
 };
 
 mframe_t carrier_frames_spawn[] = {
@@ -889,9 +889,9 @@ mframe_t carrier_frames_spawn[] = {
 
 mmove_t carrier_move_spawn = {
 	FRAME_spawn01,
-   	FRAME_spawn18,
-   	carrier_frames_spawn,
-   	NULL
+	FRAME_spawn18,
+	carrier_frames_spawn,
+	NULL
 };
 
 mframe_t carrier_frames_pain_heavy[] = {
@@ -909,9 +909,9 @@ mframe_t carrier_frames_pain_heavy[] = {
 
 mmove_t carrier_move_pain_heavy = {
 	FRAME_death01,
-   	FRAME_death10,
-   	carrier_frames_pain_heavy,
-   	carrier_run
+	FRAME_death10,
+	carrier_frames_pain_heavy,
+	carrier_run
 };
 
 mframe_t carrier_frames_pain_light[] = {
@@ -923,9 +923,9 @@ mframe_t carrier_frames_pain_light[] = {
 
 mmove_t carrier_move_pain_light = {
 	FRAME_spawn01,
-   	FRAME_spawn04,
-   	carrier_frames_pain_light,
-   	carrier_run
+	FRAME_spawn04,
+	carrier_frames_pain_light,
+	carrier_run
 };
 
 mframe_t carrier_frames_death[] = {
@@ -949,13 +949,13 @@ mframe_t carrier_frames_death[] = {
 
 mmove_t carrier_move_death = {
 	FRAME_death01,
-   	FRAME_death16,
-   	carrier_frames_death,
-   	carrier_dead
+	FRAME_death16,
+	carrier_frames_death,
+	carrier_dead
 };
 
 void
-carrier_stand(edict_t *self)
+carrier_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -966,7 +966,7 @@ carrier_stand(edict_t *self)
 }
 
 void
-carrier_run(edict_t *self)
+carrier_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -986,7 +986,7 @@ carrier_run(edict_t *self)
 }
 
 void
-carrier_walk(edict_t *self)
+carrier_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -997,7 +997,7 @@ carrier_walk(edict_t *self)
 }
 
 void
-CarrierMachineGunHold(edict_t *self)
+CarrierMachineGunHold(edict_t* self)
 {
 	if (!self)
 	{
@@ -1008,9 +1008,9 @@ CarrierMachineGunHold(edict_t *self)
 }
 
 void
-carrier_attack(edict_t *self)
+carrier_attack(edict_t* self)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	float range, luck;
 	qboolean enemy_inback, enemy_infront, enemy_below;
 
@@ -1037,7 +1037,7 @@ carrier_attack(edict_t *self)
 			self->monsterinfo.currentmove = &carrier_move_attack_rocket;
 		}
 		else if ((random() < 0.1) ||
-				 (level.time < self->monsterinfo.attack_finished))
+			(level.time < self->monsterinfo.attack_finished))
 		{
 			self->monsterinfo.currentmove = &carrier_move_attack_pre_mg;
 		}
@@ -1106,7 +1106,7 @@ carrier_attack(edict_t *self)
 						&carrier_move_attack_pre_gren;
 				}
 				else if ((luck <= 0.7) &&
-						 !(level.time < self->monsterinfo.attack_finished))
+					!(level.time < self->monsterinfo.attack_finished))
 				{
 					gi.sound(self, CHAN_WEAPON, sound_rail, 1, ATTN_NORM, 0);
 					self->monsterinfo.currentmove = &carrier_move_attack_rail;
@@ -1182,7 +1182,7 @@ carrier_attack(edict_t *self)
 }
 
 void
-carrier_attack_mg(edict_t *self)
+carrier_attack_mg(edict_t* self)
 {
 	if (!self)
 	{
@@ -1194,7 +1194,7 @@ carrier_attack_mg(edict_t *self)
 }
 
 void
-carrier_reattack_mg(edict_t *self)
+carrier_reattack_mg(edict_t* self)
 {
 	if (!self)
 	{
@@ -1228,7 +1228,7 @@ carrier_reattack_mg(edict_t *self)
 }
 
 void
-carrier_attack_gren(edict_t *self)
+carrier_attack_gren(edict_t* self)
 {
 	if (!self)
 	{
@@ -1241,7 +1241,7 @@ carrier_attack_gren(edict_t *self)
 }
 
 void
-carrier_reattack_gren(edict_t *self)
+carrier_reattack_gren(edict_t* self)
 {
 	if (!self)
 	{
@@ -1263,7 +1263,7 @@ carrier_reattack_gren(edict_t *self)
 }
 
 void
-carrier_pain(edict_t *self, edict_t *other /* unused */, float kick /* unused */, int damage)
+carrier_pain(edict_t* self, edict_t* other /* unused */, float kick /* unused */, int damage)
 {
 	qboolean changed = false;
 
@@ -1319,7 +1319,7 @@ carrier_pain(edict_t *self, edict_t *other /* unused */, float kick /* unused */
 }
 
 void
-carrier_dead(edict_t *self)
+carrier_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -1335,8 +1335,8 @@ carrier_dead(edict_t *self)
 }
 
 void
-carrier_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+carrier_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -1351,10 +1351,10 @@ carrier_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /*
 }
 
 qboolean
-Carrier_CheckAttack(edict_t *self)
+Carrier_CheckAttack(edict_t* self)
 {
-	vec3_t spot1, spot2;
-	vec3_t temp;
+	vec3_t spot1 = { 0 }, spot2 = { 0 };
+	vec3_t temp = { 0 };
 	float chance = 0;
 	trace_t tr;
 	qboolean enemy_infront, enemy_inback, enemy_below;
@@ -1375,8 +1375,8 @@ Carrier_CheckAttack(edict_t *self)
 		spot2[2] += self->enemy->viewheight;
 
 		tr = gi.trace(spot1, NULL, NULL, spot2, self,
-				CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
-				CONTENTS_LAVA);
+			CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_SLIME |
+			CONTENTS_LAVA);
 
 		/* do we have a clear shot? */
 		if (tr.ent != self->enemy)
@@ -1510,7 +1510,7 @@ CarrierPrecache()
  * QUAKED monster_carrier (1 .5 0) (-56 -56 -44) (56 56 44) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_carrier(edict_t *self)
+SP_monster_carrier(edict_t* self)
 {
 	if (!self)
 	{
@@ -1580,18 +1580,18 @@ SP_monster_carrier(edict_t *self)
 
 	switch ((int)skill->value)
 	{
-		case 0:
-			self->monsterinfo.monster_slots = 3;
-			break;
-		case 1:
-		case 2:
-			self->monsterinfo.monster_slots = 6;
-			break;
-		case 3:
-			self->monsterinfo.monster_slots = 9;
-			break;
-		default:
-			self->monsterinfo.monster_slots = 6;
-			break;
+	case 0:
+		self->monsterinfo.monster_slots = 3;
+		break;
+	case 1:
+	case 2:
+		self->monsterinfo.monster_slots = 6;
+		break;
+	case 3:
+		self->monsterinfo.monster_slots = 9;
+		break;
+	default:
+		self->monsterinfo.monster_slots = 6;
+		break;
 	}
 }

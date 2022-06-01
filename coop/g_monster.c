@@ -1,14 +1,14 @@
 #include "g_local.h"
 
-void monster_start_go(edict_t *self);
+void monster_start_go(edict_t* self);
 
 //
 // monster weapons
 //
 
 void
-monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int kick, int hspread, int vspread, int flashtype)
+monster_fire_bullet(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int kick, int hspread, int vspread, int flashtype)
 {
 	if (!self)
 	{
@@ -29,8 +29,8 @@ monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
 }
 
 void
-monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int kick, int hspread, int vspread, int count, int flashtype)
+monster_fire_shotgun(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int kick, int hspread, int vspread, int count, int flashtype)
 {
 	if (!self)
 	{
@@ -43,7 +43,7 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	}
 
 	fire_shotgun(self, start, aimdir, damage, kick, hspread, vspread,
-			count, MOD_UNKNOWN);
+		count, MOD_UNKNOWN);
 
 	gi.WriteByte(svc_muzzleflash2);
 	gi.WriteShort(self - g_edicts);
@@ -52,19 +52,19 @@ monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 }
 
 void
-monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed,
-		int flashtype, int effect)
+monster_fire_blaster(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed,
+	int flashtype, int effect)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		if(EMPNukeCheck(self, start))
+		if (EMPNukeCheck(self, start))
 		{
-			gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+			gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 			return;
 		}
 		ANIM_AIM(self, dir);
@@ -79,8 +79,8 @@ monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage, int sp
 }
 
 void
-monster_fire_blaster2(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Rogue specific */
-		int speed, int flashtype, int effect)
+monster_fire_blaster2(edict_t* self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Rogue specific */
+	int speed, int flashtype, int effect)
 {
 	if (!self)
 	{
@@ -96,8 +96,8 @@ monster_fire_blaster2(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS
 }
 
 void
-monster_fire_tracker(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Rogue specific */
-		int speed, edict_t *enemy, int flashtype)
+monster_fire_tracker(edict_t* self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Rogue specific */
+	int speed, edict_t* enemy, int flashtype)
 {
 	if (!self || !enemy)
 	{
@@ -113,8 +113,8 @@ monster_fire_tracker(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS:
 }
 
 void
-monster_fire_heat_rogue(edict_t *self, vec3_t start, vec3_t dir, vec3_t offset,
-		int damage, int kick, int flashtype)
+monster_fire_heat_rogue(edict_t* self, vec3_t start, vec3_t dir, vec3_t offset,
+	int damage, int kick, int flashtype)
 {
 	if (!self)
 	{
@@ -132,8 +132,8 @@ monster_fire_heat_rogue(edict_t *self, vec3_t start, vec3_t dir, vec3_t offset,
 
 
 void
-monster_fire_blueblaster(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
-		int speed, int flashtype, int effect)
+monster_fire_blueblaster(edict_t* self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
+	int speed, int flashtype, int effect)
 {
 	if (!self)
 	{
@@ -149,10 +149,10 @@ monster_fire_blueblaster(edict_t *self, vec3_t start, vec3_t dir, int damage, /*
 }
 
 void
-monster_fire_ionripper(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
-		int speed, int flashtype, int effect)
+monster_fire_ionripper(edict_t* self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
+	int speed, int flashtype, int effect)
 {
- 	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -166,8 +166,8 @@ monster_fire_ionripper(edict_t *self, vec3_t start, vec3_t dir, int damage, /* F
 }
 
 void
-monster_fire_heat_xatrix(edict_t *self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
-		int speed, int flashtype)
+monster_fire_heat_xatrix(edict_t* self, vec3_t start, vec3_t dir, int damage, /* FS: Coop: Xatrix specific */
+	int speed, int flashtype)
 {
 	if (!self)
 	{
@@ -183,14 +183,14 @@ monster_fire_heat_xatrix(edict_t *self, vec3_t start, vec3_t dir, int damage, /*
 }
 
 void
-dabeam_hit(edict_t *self) /* FS: Coop: Xatrix specific */
+dabeam_hit(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-	edict_t *ignore;
-	vec3_t start;
+	edict_t* ignore;
+	vec3_t start = { 0 };
 	vec3_t end;
 	trace_t tr;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -202,7 +202,7 @@ dabeam_hit(edict_t *self) /* FS: Coop: Xatrix specific */
 	while (1)
 	{
 		tr = gi.trace(start, NULL, NULL, end, ignore,
-				CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_DEADMONSTER);
+			CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_DEADMONSTER);
 
 		if (!tr.ent)
 		{
@@ -214,8 +214,8 @@ dabeam_hit(edict_t *self) /* FS: Coop: Xatrix specific */
 			(tr.ent != self->owner))
 		{
 			T_Damage(tr.ent, self, self->owner, self->movedir, tr.endpos,
-					vec3_origin, self->dmg, skill->value, DAMAGE_ENERGY,
-					MOD_TARGET_LASER);
+				vec3_origin, self->dmg, skill->value, DAMAGE_ENERGY,
+				MOD_TARGET_LASER);
 		}
 
 		if (self->dmg < 0) /* healer ray */
@@ -257,12 +257,12 @@ dabeam_hit(edict_t *self) /* FS: Coop: Xatrix specific */
 }
 
 void
-monster_dabeam(edict_t *self) /* FS: Coop: Xatrix specific */
+monster_dabeam(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-	vec3_t last_movedir;
+	vec3_t last_movedir = { 0 };
 	vec3_t point;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -317,8 +317,8 @@ monster_dabeam(edict_t *self) /* FS: Coop: Xatrix specific */
 }
 
 void
-monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
-		int damage, int speed, int flashtype)
+monster_fire_grenade(edict_t* self, vec3_t start, vec3_t aimdir,
+	int damage, int speed, int flashtype)
 {
 	if (!self)
 	{
@@ -339,19 +339,19 @@ monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 }
 
 void
-monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
-		int damage, int speed, int flashtype)
+monster_fire_rocket(edict_t* self, vec3_t start, vec3_t dir,
+	int damage, int speed, int flashtype)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		if(EMPNukeCheck(self, start))
+		if (EMPNukeCheck(self, start))
 		{
-			gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+			gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 			return;
 		}
 		ANIM_AIM(self, dir);
@@ -366,25 +366,25 @@ monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 }
 
 void
-monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
-		int damage, int kick, int flashtype)
+monster_fire_railgun(edict_t* self, vec3_t start, vec3_t aimdir,
+	int damage, int kick, int flashtype)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		if(EMPNukeCheck(self, start))
+		if (EMPNukeCheck(self, start))
 		{
-			gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+			gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 			return;
 		}
 		ANIM_AIM(self, aimdir);
 	}
 
-	if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		if (!(gi.pointcontents(start) & MASK_SOLID))
 		{
@@ -403,20 +403,20 @@ monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 }
 
 void
-monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
-		int damage, int speed, int kick, float damage_radius,
-		int flashtype)
+monster_fire_bfg(edict_t* self, vec3_t start, vec3_t aimdir,
+	int damage, int speed, int kick, float damage_radius,
+	int flashtype)
 {
 	if (!self)
 	{
 		return;
 	}
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
-		if(EMPNukeCheck(self, start))
+		if (EMPNukeCheck(self, start))
 		{
-			gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+			gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 			return;
 		}
 		ANIM_AIM(self, aimdir);
@@ -431,7 +431,7 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir,
 }
 
 void
-M_FliesOff(edict_t *self)
+M_FliesOff(edict_t* self)
 {
 	if (!self)
 	{
@@ -443,7 +443,7 @@ M_FliesOff(edict_t *self)
 }
 
 void
-M_FliesOn(edict_t *self)
+M_FliesOn(edict_t* self)
 {
 	if (!self)
 	{
@@ -462,7 +462,7 @@ M_FliesOn(edict_t *self)
 }
 
 void
-M_FlyCheck(edict_t *self)
+M_FlyCheck(edict_t* self)
 {
 	if (!self)
 	{
@@ -484,7 +484,7 @@ M_FlyCheck(edict_t *self)
 }
 
 void
-AttackFinished(edict_t *self, float time)
+AttackFinished(edict_t* self, float time)
 {
 	if (!self)
 	{
@@ -495,9 +495,9 @@ AttackFinished(edict_t *self, float time)
 }
 
 void
-M_CheckGround(edict_t *ent)
+M_CheckGround(edict_t* ent)
 {
-	vec3_t point;
+	vec3_t point = { 0 };
 	trace_t trace;
 
 	if (!ent)
@@ -524,7 +524,7 @@ M_CheckGround(edict_t *ent)
 		point[2] = ent->s.origin[2] + (0.25 * ent->gravityVector[2]);
 
 		trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-				point, ent, MASK_MONSTERSOLID);
+			point, ent, MASK_MONSTERSOLID);
 
 		/* check steepness */
 		if (ent->gravityVector[2] < 0) /* normal gravity */
@@ -559,7 +559,7 @@ M_CheckGround(edict_t *ent)
 		point[2] = ent->s.origin[2] - 0.25;
 
 		trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-				point, ent, MASK_MONSTERSOLID);
+			point, ent, MASK_MONSTERSOLID);
 
 		/* check steepness */
 		if ((trace.plane.normal[2] < 0.7) && !trace.startsolid)
@@ -579,9 +579,9 @@ M_CheckGround(edict_t *ent)
 }
 
 void
-M_CatagorizePosition(edict_t *ent)
+M_CatagorizePosition(edict_t* ent)
 {
-	vec3_t point;
+	vec3_t point = { 0 };
 	int cont;
 
 	if (!ent)
@@ -590,8 +590,8 @@ M_CatagorizePosition(edict_t *ent)
 	}
 
 	/* get waterlevel */
-	point[0] = (ent->absmax[0] + ent->absmin[0])/2;
-	point[1] = (ent->absmax[1] + ent->absmin[1])/2;
+	point[0] = (ent->absmax[0] + ent->absmin[0]) / 2;
+	point[1] = (ent->absmax[1] + ent->absmin[1]) / 2;
 	point[2] = ent->absmin[2] + 2;
 	cont = gi.pointcontents(point);
 
@@ -623,7 +623,7 @@ M_CatagorizePosition(edict_t *ent)
 }
 
 void
-M_WorldEffects(edict_t *ent)
+M_WorldEffects(edict_t* ent)
 {
 	int dmg;
 
@@ -653,7 +653,7 @@ M_WorldEffects(edict_t *ent)
 					}
 
 					T_Damage(ent, world, world, vec3_origin, ent->s.origin,
-							vec3_origin, dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
+						vec3_origin, dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
 					ent->pain_debounce_time = level.time + 1;
 				}
 			}
@@ -677,7 +677,7 @@ M_WorldEffects(edict_t *ent)
 					}
 
 					T_Damage(ent, world, world, vec3_origin, ent->s.origin,
-							vec3_origin, dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
+						vec3_origin, dmg, 0, DAMAGE_NO_ARMOR, MOD_WATER);
 					ent->pain_debounce_time = level.time + 1;
 				}
 			}
@@ -701,7 +701,7 @@ M_WorldEffects(edict_t *ent)
 		{
 			ent->damage_debounce_time = level.time + 0.2;
 			T_Damage(ent, world, world, vec3_origin, ent->s.origin, vec3_origin,
-					10 * ent->waterlevel, 0, 0, MOD_LAVA);
+				10 * ent->waterlevel, 0, 0, MOD_LAVA);
 		}
 	}
 
@@ -711,7 +711,7 @@ M_WorldEffects(edict_t *ent)
 		{
 			ent->damage_debounce_time = level.time + 1;
 			T_Damage(ent, world, world, vec3_origin, ent->s.origin,
-					vec3_origin, 4 * ent->waterlevel, 0, 0, MOD_SLIME);
+				vec3_origin, 4 * ent->waterlevel, 0, 0, MOD_SLIME);
 		}
 	}
 
@@ -746,9 +746,9 @@ M_WorldEffects(edict_t *ent)
 }
 
 void
-M_droptofloor(edict_t *ent)
+M_droptofloor(edict_t* ent)
 {
-	vec3_t end;
+	vec3_t end = { 0 };
 	trace_t trace;
 
 	if (!ent)
@@ -779,7 +779,7 @@ M_droptofloor(edict_t *ent)
 	}
 
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs,
-			end, ent, MASK_MONSTERSOLID);
+		end, ent, MASK_MONSTERSOLID);
 
 	if ((trace.fraction == 1) || trace.allsolid)
 	{
@@ -794,7 +794,7 @@ M_droptofloor(edict_t *ent)
 }
 
 void
-M_SetEffects(edict_t *ent)
+M_SetEffects(edict_t* ent)
 {
 	int remaining;
 
@@ -877,9 +877,9 @@ M_SetEffects(edict_t *ent)
 }
 
 void
-M_MoveFrame(edict_t *self)
+M_MoveFrame(edict_t* self)
 {
-	mmove_t *move;
+	mmove_t* move;
 	int index;
 
 	if (!self)
@@ -957,7 +957,7 @@ M_MoveFrame(edict_t *self)
 }
 
 void
-monster_think(edict_t *self)
+monster_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -990,7 +990,7 @@ monster_think(edict_t *self)
  * Using a monster makes it angry at the current activator
  */
 void
-monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+monster_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self || !activator)
 	{
@@ -1029,7 +1029,7 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-monster_triggered_spawn(edict_t *self)
+monster_triggered_spawn(edict_t* self)
 {
 	if (!self)
 	{
@@ -1089,7 +1089,7 @@ monster_triggered_spawn(edict_t *self)
 }
 
 void
-monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+monster_triggered_spawn_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self || !activator)
 	{
@@ -1110,7 +1110,7 @@ monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t 
 }
 
 void
-monster_triggered_start(edict_t *self)
+monster_triggered_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1129,7 +1129,7 @@ monster_triggered_start(edict_t *self)
  * targets with the current enemy as activator.
  */
 void
-monster_death_use(edict_t *self)
+monster_death_use(edict_t* self)
 {
 	if (!self)
 	{
@@ -1161,7 +1161,7 @@ monster_death_use(edict_t *self)
 /* ============================================================================ */
 
 qboolean
-monster_start(edict_t *self)
+monster_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1180,11 +1180,11 @@ monster_start(edict_t *self)
 		self->spawnflags |= 1;
 	}
 
-	if(game.gametype == zaero_coop)
+	if (game.gametype == zaero_coop)
 	{
 		if (!(self->monsterinfo.aiflags & AI_GOOD_GUY))
 		{
-			if(!(self->spawnflags & 16)) /* FS: Zaero specific game dll changes */
+			if (!(self->spawnflags & 16)) /* FS: Zaero specific game dll changes */
 			{
 				level.total_monsters++;
 			}
@@ -1206,7 +1206,7 @@ monster_start(edict_t *self)
 	self->air_finished = level.time + 12;
 	self->use = monster_use;
 
-	if(!self->max_health)
+	if (!self->max_health)
 	{
 		self->max_health = self->health;
 	}
@@ -1231,7 +1231,7 @@ monster_start(edict_t *self)
 		if (!self->item)
 		{
 			gi.dprintf("%s at %s has bad item: %s\n", self->classname,
-					vtos(self->s.origin), st.item);
+				vtos(self->s.origin), st.item);
 		}
 	}
 
@@ -1239,8 +1239,8 @@ monster_start(edict_t *self)
 	if (self->monsterinfo.currentmove)
 	{
 		self->s.frame = self->monsterinfo.currentmove->firstframe +
-						(rand() % (self->monsterinfo.currentmove->lastframe -
-								   self->monsterinfo.currentmove->firstframe + 1));
+			(rand() % (self->monsterinfo.currentmove->lastframe -
+				self->monsterinfo.currentmove->firstframe + 1));
 	}
 
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
@@ -1255,9 +1255,9 @@ monster_start(edict_t *self)
 }
 
 void
-monster_start_go(edict_t *self)
+monster_start_go(edict_t* self)
 {
-	vec3_t v;
+	vec3_t v = { 0 };
 
 	if (!self)
 	{
@@ -1274,7 +1274,7 @@ monster_start_go(edict_t *self)
 	{
 		qboolean notcombat;
 		qboolean fixup;
-		edict_t *target;
+		edict_t* target;
 
 		target = NULL;
 		notcombat = false;
@@ -1296,7 +1296,7 @@ monster_start_go(edict_t *self)
 		if (notcombat && self->combattarget)
 		{
 			gi.dprintf("%s at %s has target with mixed types\n",
-					self->classname, vtos(self->s.origin));
+				self->classname, vtos(self->s.origin));
 		}
 
 		if (fixup)
@@ -1308,19 +1308,19 @@ monster_start_go(edict_t *self)
 	/* validate combattarget */
 	if (self->combattarget)
 	{
-		edict_t *target;
+		edict_t* target;
 
 		target = NULL;
 
 		while ((target = G_Find(target, FOFS(targetname),
-						self->combattarget)) != NULL)
+			self->combattarget)) != NULL)
 		{
 			if (target->classname && strcmp(target->classname, "point_combat") != 0)
 			{
 				gi.dprintf("%s at (%i %i %i) has a bad combattarget %s : %s at (%i %i %i)\n",
-						self->classname, (int)self->s.origin[0], (int)self->s.origin[1],
-						(int)self->s.origin[2], self->combattarget, target->classname,
-						(int)target->s.origin[0], (int)target->s.origin[1], (int)target->s.origin[2]);
+					self->classname, (int)self->s.origin[0], (int)self->s.origin[1],
+					(int)self->s.origin[2], self->combattarget, target->classname,
+					(int)target->s.origin[0], (int)target->s.origin[1], (int)target->s.origin[2]);
 			}
 		}
 	}
@@ -1332,7 +1332,7 @@ monster_start_go(edict_t *self)
 		if (!self->movetarget)
 		{
 			gi.dprintf("%s can't find target %s at %s\n", self->classname,
-					self->target, vtos(self->s.origin));
+				self->target, vtos(self->s.origin));
 			self->target = NULL;
 			self->monsterinfo.pausetime = 100000000;
 			self->monsterinfo.stand(self);
@@ -1362,7 +1362,7 @@ monster_start_go(edict_t *self)
 }
 
 void
-walkmonster_start_go(edict_t *self)
+walkmonster_start_go(edict_t* self)
 {
 	if (!self)
 	{
@@ -1378,7 +1378,7 @@ walkmonster_start_go(edict_t *self)
 			if (!M_walkmove(self, 0, 0))
 			{
 				gi.dprintf("%s in solid at %s\n", self->classname,
-						vtos(self->s.origin));
+					vtos(self->s.origin));
 			}
 		}
 	}
@@ -1406,7 +1406,7 @@ walkmonster_start_go(edict_t *self)
 }
 
 void
-walkmonster_start(edict_t *self)
+walkmonster_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1418,7 +1418,7 @@ walkmonster_start(edict_t *self)
 }
 
 void
-flymonster_start_go(edict_t *self)
+flymonster_start_go(edict_t* self)
 {
 	if (!self)
 	{
@@ -1446,7 +1446,7 @@ flymonster_start_go(edict_t *self)
 }
 
 void
-flymonster_start(edict_t *self)
+flymonster_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1459,7 +1459,7 @@ flymonster_start(edict_t *self)
 }
 
 void
-swimmonster_start_go(edict_t *self)
+swimmonster_start_go(edict_t* self)
 {
 	if (!self)
 	{
@@ -1482,7 +1482,7 @@ swimmonster_start_go(edict_t *self)
 }
 
 void
-swimmonster_start(edict_t *self)
+swimmonster_start(edict_t* self)
 {
 	if (!self)
 	{
@@ -1494,10 +1494,10 @@ swimmonster_start(edict_t *self)
 	monster_start(self);
 }
 
-void stationarymonster_start_go(edict_t *self); /* FS: Coop: Rogue specific */
+void stationarymonster_start_go(edict_t* self); /* FS: Coop: Rogue specific */
 
 void
-stationarymonster_triggered_spawn(edict_t *self) /* FS: Coop: Rogue specific */
+stationarymonster_triggered_spawn(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1534,7 +1534,7 @@ stationarymonster_triggered_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-stationarymonster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t *activator) /* FS: Coop: Rogue specific */
+stationarymonster_triggered_spawn_use(edict_t* self, edict_t* other /* unused */, edict_t* activator) /* FS: Coop: Rogue specific */
 {
 	if (!self || !activator)
 	{
@@ -1554,7 +1554,7 @@ stationarymonster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */
 }
 
 void
-stationarymonster_triggered_start(edict_t *self) /* FS: Coop: Rogue specific */
+stationarymonster_triggered_start(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1569,7 +1569,7 @@ stationarymonster_triggered_start(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-stationarymonster_start_go(edict_t *self) /* FS: Coop: Rogue specific */
+stationarymonster_start_go(edict_t* self) /* FS: Coop: Rogue specific */
 {
 
 	if (!self)
@@ -1591,7 +1591,7 @@ stationarymonster_start_go(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-stationarymonster_start(edict_t *self) /* FS: Coop: Rogue specific */
+stationarymonster_start(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1603,7 +1603,7 @@ stationarymonster_start(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-monster_done_dodge(edict_t *self) /* FS: Coop: Rogue specific */
+monster_done_dodge(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{

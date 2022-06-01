@@ -5,13 +5,13 @@
 int gibsthisframe;
 int lastgibframe;
 
-qboolean SV_movestep (edict_t *ent, vec3_t move, qboolean relink); /* FS: Zaero specific game dll changes */
-extern void M_WorldEffects(edict_t *ent); /* FS: Coop: Rogue specific */
+qboolean SV_movestep(edict_t* ent, vec3_t move, qboolean relink); /* FS: Zaero specific game dll changes */
+extern void M_WorldEffects(edict_t* ent); /* FS: Coop: Rogue specific */
 
 /* ===================================================== */
 
 void
-Use_Areaportal(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unused */)
+Use_Areaportal(edict_t* ent, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!ent)
 	{
@@ -30,7 +30,7 @@ Use_Areaportal(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* 
  * Usually enclosed in the middle of a door.
  */
 void
-SP_func_areaportal(edict_t *ent)
+SP_func_areaportal(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -61,7 +61,7 @@ VelocityForDamage(int damage, vec3_t v)
 }
 
 void
-ClipGibVelocity(edict_t *ent)
+ClipGibVelocity(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -97,7 +97,7 @@ ClipGibVelocity(edict_t *ent)
 }
 
 void
-gib_think(edict_t *self)
+gib_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -115,7 +115,7 @@ gib_think(edict_t *self)
 }
 
 void
-gib_touch(edict_t *self, edict_t *other /* unused */, cplane_t *plane, csurface_t *surf /* unused */)
+gib_touch(edict_t* self, edict_t* other /* unused */, cplane_t* plane, csurface_t* surf /* unused */)
 {
 	vec3_t normal_angles, right;
 
@@ -149,7 +149,7 @@ gib_touch(edict_t *self, edict_t *other /* unused */, cplane_t *plane, csurface_
 }
 
 void
-gib_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */, int damage /* unused */, vec3_t point /* unused */)
+gib_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */, int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -160,11 +160,11 @@ gib_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unu
 }
 
 void
-ThrowGib(edict_t *self, char *gibname, int damage, int type)
+ThrowGib(edict_t* self, char* gibname, int damage, int type)
 {
-	edict_t *gib;
+	edict_t* gib;
 	vec3_t vd;
-	vec3_t origin;
+	vec3_t origin = { 0 };
 	vec3_t size;
 	float vscale;
 
@@ -228,7 +228,7 @@ ThrowGib(edict_t *self, char *gibname, int damage, int type)
 }
 
 void
-ThrowHead(edict_t *self, char *gibname, int damage, int type)
+ThrowHead(edict_t* self, char* gibname, int damage, int type)
 {
 	vec3_t vd;
 	float vscale;
@@ -280,11 +280,11 @@ ThrowHead(edict_t *self, char *gibname, int damage, int type)
 }
 
 void
-ThrowGibACID(edict_t *self, char *gibname, int damage, int type) /* FS: Coop: Xatrix specific */
+ThrowGibACID(edict_t* self, char* gibname, int damage, int type) /* FS: Coop: Xatrix specific */
 {
-	edict_t *gib;
+	edict_t* gib;
 	vec3_t vd;
-	vec3_t origin;
+	vec3_t origin = { 0 };
 	vec3_t size;
 	float vscale;
 
@@ -353,16 +353,16 @@ ThrowGibACID(edict_t *self, char *gibname, int damage, int type) /* FS: Coop: Xa
 }
 
 void
-ThrowHeadACID(edict_t *self, char *gibname, int damage, int type) /* FS: Coop: Xatrix specific */
+ThrowHeadACID(edict_t* self, char* gibname, int damage, int type) /* FS: Coop: Xatrix specific */
 {
 	vec3_t vd;
 	float vscale;
 
-    if (!self || !gibname)
+	if (!self || !gibname)
 	{
 		return;
 	}
-	
+
 	self->s.skinnum = 0;
 	self->s.frame = 0;
 	VectorClear(self->mins);
@@ -408,10 +408,10 @@ ThrowHeadACID(edict_t *self, char *gibname, int damage, int type) /* FS: Coop: X
 }
 
 void
-ThrowClientHead(edict_t *self, int damage)
+ThrowClientHead(edict_t* self, int damage)
 {
 	vec3_t vd;
-	char *gibname;
+	char* gibname;
 
 	if (!self)
 	{
@@ -462,7 +462,7 @@ ThrowClientHead(edict_t *self, int damage)
 }
 
 void
-debris_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */, int damage /* unused */, vec3_t point /* unused */)
+debris_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */, int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -473,10 +473,10 @@ debris_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* 
 }
 
 void
-ThrowDebris(edict_t *self, char *modelname, float speed, vec3_t origin)
+ThrowDebris(edict_t* self, char* modelname, float speed, vec3_t origin)
 {
-	edict_t *chunk;
-	vec3_t v;
+	edict_t* chunk;
+	vec3_t v = { 0 };
 
 	if (!self || !modelname)
 	{
@@ -519,7 +519,7 @@ ThrowDebris(edict_t *self, char *modelname, float speed, vec3_t origin)
 }
 
 void
-BecomeExplosion1(edict_t *self)
+BecomeExplosion1(edict_t* self)
 {
 	if (!self)
 	{
@@ -535,7 +535,7 @@ BecomeExplosion1(edict_t *self)
 }
 
 void
-BecomeExplosion2(edict_t *self)
+BecomeExplosion2(edict_t* self)
 {
 	if (!self)
 	{
@@ -558,10 +558,10 @@ BecomeExplosion2(edict_t *self)
  *  this path_corner targeted touches it
  */
 void
-path_corner_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+path_corner_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
-	vec3_t v;
-	edict_t *next;
+	vec3_t v = { 0 };
+	edict_t* next;
 
 	if (!self || !other)
 	{
@@ -580,7 +580,7 @@ path_corner_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, c
 
 	if (self->pathtarget)
 	{
-		char *savetarget;
+		char* savetarget;
 
 		savetarget = self->target;
 		self->target = self->pathtarget;
@@ -611,10 +611,10 @@ path_corner_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, c
 
 	if (self->wait)
 	{
-		if((game.gametype == zaero_coop) && (other->goalentity)) /* FS: Zaero specific game dll changes */
+		if ((game.gametype == zaero_coop) && (other->goalentity)) /* FS: Zaero specific game dll changes */
 		{
-			VectorSubtract (other->goalentity->s.origin, other->s.origin, v);
-			other->ideal_yaw = vectoyaw (v);
+			VectorSubtract(other->goalentity->s.origin, other->s.origin, v);
+			other->ideal_yaw = vectoyaw(v);
 		}
 
 		other->monsterinfo.pausetime = level.time + self->wait;
@@ -638,7 +638,7 @@ path_corner_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, c
 }
 
 void
-SP_path_corner(edict_t *self)
+SP_path_corner(edict_t* self)
 {
 	if (!self)
 	{
@@ -648,7 +648,7 @@ SP_path_corner(edict_t *self)
 	if (!self->targetname)
 	{
 		gi.dprintf("path_corner with no targetname at %s\n", vtos(
-						self->s.origin));
+			self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -669,9 +669,9 @@ SP_path_corner(edict_t *self)
  * hold is selected, it will stay here.
  */
 void
-point_combat_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+point_combat_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
-	edict_t *activator;
+	edict_t* activator;
 
 	if (!self || !other)
 	{
@@ -691,7 +691,7 @@ point_combat_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 		if (!other->goalentity)
 		{
 			gi.dprintf("%s at %s target %s does not exist\n", self->classname,
-					vtos(self->s.origin), self->target);
+				vtos(self->s.origin), self->target);
 			other->movetarget = self;
 		}
 
@@ -714,7 +714,7 @@ point_combat_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 
 	if (self->pathtarget)
 	{
-		char *savetarget;
+		char* savetarget;
 
 		savetarget = self->target;
 		self->target = self->pathtarget;
@@ -742,7 +742,7 @@ point_combat_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 }
 
 void
-SP_point_combat(edict_t *self)
+SP_point_combat(edict_t* self)
 {
 	if (!self)
 	{
@@ -769,7 +769,7 @@ SP_point_combat(edict_t *self)
  * Just for the debugging level.  Don't use
  */
 void
-TH_viewthing(edict_t *ent)
+TH_viewthing(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -781,7 +781,7 @@ TH_viewthing(edict_t *ent)
 }
 
 void
-SP_viewthing(edict_t *ent)
+SP_viewthing(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -796,7 +796,7 @@ SP_viewthing(edict_t *ent)
 	VectorSet(ent->mins, -16, -16, -24);
 	VectorSet(ent->maxs, 16, 16, 32);
 
-	if(game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
+	if (game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
 	{
 		ent->s.modelindex = gi.modelindex("models/objects/banner2/tris.md2");
 	}
@@ -817,7 +817,7 @@ SP_viewthing(edict_t *ent)
  * Used as a positional target for spotlights, etc.
  */
 void
-SP_info_null(edict_t *self)
+SP_info_null(edict_t* self)
 {
 	if (!self)
 	{
@@ -833,7 +833,7 @@ SP_info_null(edict_t *self)
  * Used as a positional target for lightning.
  */
 void
-SP_info_notnull(edict_t *self)
+SP_info_notnull(edict_t* self)
 {
 	if (!self)
 	{
@@ -856,7 +856,7 @@ SP_info_notnull(edict_t *self)
  * Default _cone value is 10 (used to set size of light for spotlights)
  */
 void
-light_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+light_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -876,7 +876,7 @@ light_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unus
 }
 
 void
-SP_light(edict_t *self)
+SP_light(edict_t* self)
 {
 	if (!self)
 	{
@@ -921,7 +921,7 @@ SP_light(edict_t *self)
  */
 
 void
-func_wall_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+func_wall_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -949,7 +949,7 @@ func_wall_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* 
 }
 
 void
-SP_func_wall(edict_t *self)
+SP_func_wall(edict_t* self)
 {
 	if (!self)
 	{
@@ -1015,7 +1015,7 @@ SP_func_wall(edict_t *self)
  */
 
 void
-func_object_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf /* unused */)
+func_object_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1039,11 +1039,11 @@ func_object_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *su
 	}
 
 	T_Damage(other, self, self, vec3_origin, self->s.origin, vec3_origin,
-			self->dmg, 1, 0, MOD_CRUSH);
+		self->dmg, 1, 0, MOD_CRUSH);
 }
 
 void
-func_object_release(edict_t *self)
+func_object_release(edict_t* self)
 {
 	if (!self)
 	{
@@ -1055,7 +1055,7 @@ func_object_release(edict_t *self)
 }
 
 void
-func_object_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+func_object_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -1070,7 +1070,7 @@ func_object_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /
 }
 
 void
-SP_func_object(edict_t *self)
+SP_func_object(edict_t* self)
 {
 	if (!self)
 	{
@@ -1140,18 +1140,18 @@ SP_func_object(edict_t *self)
  * one small chunk per 25 of mass (up to 16).  So 800 gives the most.
  */
 void
-func_explosive_explode(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage /* unused */, vec3_t point /* unused */)
+func_explosive_explode(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage /* unused */, vec3_t point /* unused */)
 {
-	vec3_t origin;
-	vec3_t chunkorigin;
+	vec3_t origin = { 0 };
+	vec3_t chunkorigin = { 0 };
 	vec3_t size;
 	int count;
 	int mass;
-	edict_t *master; /* FS: Coop: Rogue specific */
+	edict_t* master; /* FS: Coop: Rogue specific */
 	qboolean done = false; /* FS: Coop: Rogue specific */
 
-    if (!self || !inflictor || !attacker)
+	if (!self || !inflictor || !attacker)
 	{
 		return;
 	}
@@ -1166,7 +1166,7 @@ func_explosive_explode(edict_t *self, edict_t *inflictor, edict_t *attacker,
 	if (self->dmg)
 	{
 		T_RadiusDamage(self, attacker, self->dmg, NULL,
-				self->dmg + 40, MOD_EXPLOSIVE);
+			self->dmg + 40, MOD_EXPLOSIVE);
 	}
 
 	VectorSubtract(self->s.origin, inflictor->s.origin, self->velocity);
@@ -1257,7 +1257,7 @@ func_explosive_explode(edict_t *self, edict_t *inflictor, edict_t *attacker,
 }
 
 void
-func_explosive_use(edict_t *self, edict_t *other, edict_t *activator /* unused */)
+func_explosive_use(edict_t* self, edict_t* other, edict_t* activator /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1268,7 +1268,7 @@ func_explosive_use(edict_t *self, edict_t *other, edict_t *activator /* unused *
 }
 
 void
-func_explosive_activate(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+func_explosive_activate(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1287,7 +1287,7 @@ func_explosive_activate(edict_t *self, edict_t *other /* unused */, edict_t *act
 }
 
 void
-func_explosive_spawn(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+func_explosive_spawn(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -1302,7 +1302,7 @@ func_explosive_spawn(edict_t *self, edict_t *other /* unused */, edict_t *activa
 }
 
 void
-SP_func_explosive_rogue (edict_t *self) /* FS: Coop: Rogue specific */
+SP_func_explosive_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1374,7 +1374,7 @@ SP_func_explosive_rogue (edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-SP_func_explosive(edict_t *self)
+SP_func_explosive(edict_t* self)
 {
 	if (!self)
 	{
@@ -1448,11 +1448,11 @@ SP_func_explosive(edict_t *self)
  */
 
 void
-barrel_touch_zaero(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /*unused */) /* FS: Zaero specific game dll changes */
+barrel_touch_zaero(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /*unused */) /* FS: Zaero specific game dll changes */
 {
 	float ratio;
-	vec3_t v;
-	vec3_t	move;
+	vec3_t v = { 0 };
+	vec3_t	move = { 0 };
 	float yaw, dist;
 
 	if (!self || !other)
@@ -1466,33 +1466,33 @@ barrel_touch_zaero(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
 	}
 
 	ratio = (float)other->mass / (float)self->mass;
-	VectorSubtract (self->s.origin, other->s.origin, v);
+	VectorSubtract(self->s.origin, other->s.origin, v);
 
 	yaw = vectoyaw(v);
 	dist = 20 * ratio * FRAMETIME;
 
-	yaw = yaw*M_PI*2 / 360;
-	
-	move[0] = cos(yaw)*dist;
-	move[1] = sin(yaw)*dist;
+	yaw = yaw * M_PI * 2 / 360;
+
+	move[0] = cos(yaw) * dist;
+	move[1] = sin(yaw) * dist;
 	move[2] = 0;
 
 	SV_movestep(self, move, true);
 }
 
 void
-barrel_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+barrel_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 
 {
 	float ratio;
-	vec3_t v;
+	vec3_t v = { 0 };
 
 	if (!self || !other)
 	{
 		return;
 	}
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
 		barrel_touch_zaero(self, other, plane, surf);
 		return;
@@ -1509,11 +1509,11 @@ barrel_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurfa
 }
 
 void
-barrel_explode(edict_t *self)
+barrel_explode(edict_t* self)
 {
-	vec3_t org;
+	vec3_t org = { 0 };
 	float spd;
-	vec3_t save;
+	vec3_t save = { 0 };
 
 	if (!self)
 	{
@@ -1521,7 +1521,7 @@ barrel_explode(edict_t *self)
 	}
 
 	T_RadiusDamage(self, self->activator, self->dmg,
-			NULL, self->dmg + 40, MOD_BARREL);
+		NULL, self->dmg + 40, MOD_BARREL);
 
 	VectorCopy(self->s.origin, save);
 	VectorMA(self->absmin, 0.5, self->size, self->s.origin);
@@ -1600,8 +1600,8 @@ barrel_explode(edict_t *self)
 }
 
 void
-barrel_delay(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
-		int damage /* unused */, vec3_t point /* unused */)
+barrel_delay(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -1615,7 +1615,7 @@ barrel_delay(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
 }
 
 void
-barrel_think(edict_t *self) /* FS: Coop: Rogue specific */
+barrel_think(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1633,7 +1633,7 @@ barrel_think(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-barrel_start(edict_t *self) /* FS: Coop: Rogue specific */
+barrel_start(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1646,7 +1646,7 @@ barrel_start(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-SP_misc_explobox(edict_t *self)
+SP_misc_explobox(edict_t* self)
 {
 	if (!self)
 	{
@@ -1666,7 +1666,7 @@ SP_misc_explobox(edict_t *self)
 
 	self->solid = SOLID_BBOX;
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 	{
 		self->movetype = MOVETYPE_FALLFLOAT;
 	}
@@ -1719,7 +1719,7 @@ SP_misc_explobox(edict_t *self)
  * QUAKED misc_blackhole (1 .5 0) (-8 -8 -8) (8 8 8)
  */
 void
-misc_blackhole_use(edict_t *ent, edict_t *other /* unused */, edict_t *activator /* unused */)
+misc_blackhole_use(edict_t* ent, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!ent)
 	{
@@ -1730,7 +1730,7 @@ misc_blackhole_use(edict_t *ent, edict_t *other /* unused */, edict_t *activator
 }
 
 void
-misc_blackhole_think(edict_t *self)
+misc_blackhole_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1748,7 +1748,7 @@ misc_blackhole_think(edict_t *self)
 	}
 }
 
-void misc_blackhole_transparent (edict_t *ent)
+void misc_blackhole_transparent(edict_t* ent)
 {
 	ent->s.renderfx = RF_TRANSLUCENT;
 	ent->prethink = NULL;
@@ -1756,7 +1756,7 @@ void misc_blackhole_transparent (edict_t *ent)
 }
 
 void
-SP_misc_blackhole(edict_t *ent)
+SP_misc_blackhole(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1773,7 +1773,7 @@ SP_misc_blackhole(edict_t *ent)
 	ent->think = misc_blackhole_think;
 	if (game.gametype != rogue_coop) /* FS: Coop: Rogue doesn't use this */
 	{
-	    ent->prethink = misc_blackhole_transparent;
+		ent->prethink = misc_blackhole_transparent;
 	}
 	ent->nextthink = level.time + 2 * FRAMETIME;
 	gi.linkentity(ent);
@@ -1783,7 +1783,7 @@ SP_misc_blackhole(edict_t *ent)
  * QUAKED misc_eastertank (1 .5 0) (-32 -32 -16) (32 32 32)
  */
 void
-misc_eastertank_think(edict_t *self)
+misc_eastertank_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1802,7 +1802,7 @@ misc_eastertank_think(edict_t *self)
 }
 
 void
-SP_misc_eastertank(edict_t *ent)
+SP_misc_eastertank(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1824,7 +1824,7 @@ SP_misc_eastertank(edict_t *ent)
  * QUAKED misc_easterchick (1 .5 0) (-32 -32 0) (32 32 32)
  */
 void
-misc_easterchick_think(edict_t *self)
+misc_easterchick_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1843,7 +1843,7 @@ misc_easterchick_think(edict_t *self)
 }
 
 void
-SP_misc_easterchick(edict_t *ent)
+SP_misc_easterchick(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1865,7 +1865,7 @@ SP_misc_easterchick(edict_t *ent)
  * QUAKED misc_easterchick2 (1 .5 0) (-32 -32 0) (32 32 32)
  */
 void
-misc_easterchick2_think(edict_t *self)
+misc_easterchick2_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1884,7 +1884,7 @@ misc_easterchick2_think(edict_t *self)
 }
 
 void
-SP_misc_easterchick2(edict_t *ent)
+SP_misc_easterchick2(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1909,7 +1909,7 @@ SP_misc_easterchick2(edict_t *ent)
  * There should be a item_commander_head that has this as it's target.
  */
 void
-commander_body_think(edict_t *self)
+commander_body_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -1932,7 +1932,7 @@ commander_body_think(edict_t *self)
 }
 
 void
-commander_body_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+commander_body_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -1945,7 +1945,7 @@ commander_body_use(edict_t *self, edict_t *other /* unused */, edict_t *activato
 }
 
 void
-commander_body_drop(edict_t *self)
+commander_body_drop(edict_t* self)
 {
 	if (!self)
 	{
@@ -1957,7 +1957,7 @@ commander_body_drop(edict_t *self)
 }
 
 void
-SP_monster_commander_body(edict_t *self)
+SP_monster_commander_body(edict_t* self)
 {
 	if (!self)
 	{
@@ -1990,7 +1990,7 @@ SP_monster_commander_body(edict_t *self)
  * The banner is 128 tall.
  */
 void
-misc_banner_think(edict_t *ent)
+misc_banner_think(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2002,7 +2002,7 @@ misc_banner_think(edict_t *ent)
 }
 
 void
-SP_misc_banner(edict_t *ent)
+SP_misc_banner(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2012,7 +2012,7 @@ SP_misc_banner(edict_t *ent)
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_NOT;
 
-	if(game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
+	if (game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
 	{
 		ent->s.modelindex = gi.modelindex("models/objects/banner2/tris.md2");
 	}
@@ -2034,8 +2034,8 @@ SP_misc_banner(edict_t *ent)
  * This is the dead player model. Comes in 6 exciting different poses!
  */
 void
-misc_deadsoldier_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point /* unused */)
+misc_deadsoldier_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage, vec3_t point /* unused */)
 {
 	int n;
 	int health = -80;
@@ -2056,7 +2056,7 @@ misc_deadsoldier_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *at
 	}
 
 	gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM,
-			0);
+		0);
 
 	for (n = 0; n < 4; n++)
 	{
@@ -2067,7 +2067,7 @@ misc_deadsoldier_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *at
 }
 
 void
-SP_misc_deadsoldier(edict_t *ent)
+SP_misc_deadsoldier(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2122,8 +2122,8 @@ SP_misc_deadsoldier(edict_t *ent)
 	gi.linkentity(ent);
 }
 
-extern void train_use(edict_t *self, edict_t *other, edict_t *activator);
-extern void func_train_find(edict_t *self);
+extern void train_use(edict_t* self, edict_t* other, edict_t* activator);
+extern void func_train_find(edict_t* self);
 
 /*
  * QUAKED misc_viper (1 .5 0) (-16 -16 0) (16 16 32)
@@ -2135,7 +2135,7 @@ extern void func_train_find(edict_t *self);
  * "speed"		How fast the Viper should fly
  */
 void
-misc_viper_use(edict_t *self, edict_t *other, edict_t *activator)
+misc_viper_use(edict_t* self, edict_t* other, edict_t* activator)
 {
 	if (!self || !other || !activator)
 	{
@@ -2148,7 +2148,7 @@ misc_viper_use(edict_t *self, edict_t *other, edict_t *activator)
 }
 
 void
-SP_misc_viper(edict_t *ent)
+SP_misc_viper(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2184,24 +2184,24 @@ SP_misc_viper(edict_t *ent)
 		ent->solid = SOLID_NOT;
 	}
 
-	if((game.gametype == zaero_coop)) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop)) /* FS: Zaero specific game dll changes */
 	{
-		if(ent->model)
+		if (ent->model)
 		{
-			ent->s.modelindex = gi.modelindex (ent->model);
+			ent->s.modelindex = gi.modelindex(ent->model);
 		}
-		if(ent->model2)
+		if (ent->model2)
 		{
-			ent->s.modelindex2 = gi.modelindex (ent->model2);
+			ent->s.modelindex2 = gi.modelindex(ent->model2);
 		}
-		if(ent->model3)
+		if (ent->model3)
 		{
-			ent->s.modelindex3 = gi.modelindex (ent->model3);
+			ent->s.modelindex3 = gi.modelindex(ent->model3);
 		}
 
-		if(ent->model4)
+		if (ent->model4)
 		{
-			ent->s.modelindex4 = gi.modelindex (ent->model4);
+			ent->s.modelindex4 = gi.modelindex(ent->model4);
 		}
 	}
 	else
@@ -2209,7 +2209,7 @@ SP_misc_viper(edict_t *ent)
 		ent->s.modelindex = gi.modelindex("models/ships/viper/tris.md2");
 	}
 
-	if ((game.gametype != zaero_coop) || ( (game.gametype == zaero_coop) && (!(ent->spawnflags & 4)))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype != zaero_coop) || ((game.gametype == zaero_coop) && (!(ent->spawnflags & 4)))) /* FS: Zaero specific game dll changes */
 	{
 		VectorSet(ent->mins, -16, -16, 0);
 		VectorSet(ent->maxs, 16, 16, 32);
@@ -2229,7 +2229,7 @@ SP_misc_viper(edict_t *ent)
  * This is a large viper about to crash
  */
 void
-SP_misc_crashviper(edict_t *ent) /* FS: Coop: Xatrix specific */
+SP_misc_crashviper(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	if (!ent)
 	{
@@ -2269,7 +2269,7 @@ SP_misc_crashviper(edict_t *ent) /* FS: Coop: Xatrix specific */
  * This is a large stationary viper as seen in Paul's intro
  */
 void
-SP_misc_bigviper(edict_t *ent)
+SP_misc_bigviper(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2290,7 +2290,7 @@ SP_misc_bigviper(edict_t *ent)
  * "dmg"	how much boom should the bomb make?
  */
 void
-misc_viper_bomb_touch(edict_t *self, edict_t *other /* unused */, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+misc_viper_bomb_touch(edict_t* self, edict_t* other /* unused */, cplane_t* plane /* unused */, csurface_t* surf /* unused */)
 {
 	if (!self)
 	{
@@ -2305,7 +2305,7 @@ misc_viper_bomb_touch(edict_t *self, edict_t *other /* unused */, cplane_t *plan
 }
 
 void
-misc_viper_bomb_prethink(edict_t *self)
+misc_viper_bomb_prethink(edict_t* self)
 {
 	vec3_t v;
 	float diff;
@@ -2333,9 +2333,9 @@ misc_viper_bomb_prethink(edict_t *self)
 }
 
 void
-misc_viper_bomb_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+misc_viper_bomb_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
-	edict_t *viper;
+	edict_t* viper;
 
 	if (!self || !activator)
 	{
@@ -2359,7 +2359,7 @@ misc_viper_bomb_use(edict_t *self, edict_t *other /* unused */, edict_t *activat
 }
 
 void
-SP_misc_viper_bomb(edict_t *self)
+SP_misc_viper_bomb(edict_t* self)
 {
 	if (!self)
 	{
@@ -2390,11 +2390,11 @@ SP_misc_viper_bomb(edict_t *self)
  */
 
 void
-misc_viper_missile_use(edict_t *self, edict_t *other, edict_t *activator) /* FS: Coop: Xatrix specific */
+misc_viper_missile_use(edict_t* self, edict_t* other, edict_t* activator) /* FS: Coop: Xatrix specific */
 {
 	vec3_t forward, right, up;
-	vec3_t start, dir;
-	vec3_t vec;
+	vec3_t start = { 0 }, dir = { 0 };
+	vec3_t vec = { 0 };
 
 	if (!self)
 	{
@@ -2418,7 +2418,7 @@ misc_viper_missile_use(edict_t *self, edict_t *other, edict_t *activator) /* FS:
 }
 
 void
-SP_misc_viper_missile(edict_t *self)
+SP_misc_viper_missile(edict_t* self)
 {
 	if (!self)
 	{
@@ -2443,8 +2443,8 @@ SP_misc_viper_missile(edict_t *self)
 	gi.linkentity(self);
 }
 
-extern void train_use(edict_t *self, edict_t *other, edict_t *activator);
-extern void func_train_find(edict_t *self);
+extern void train_use(edict_t* self, edict_t* other, edict_t* activator);
+extern void func_train_find(edict_t* self);
 
 /*
  * QUAKED misc_strogg_ship (1 .5 0) (-16 -16 0) (16 16 32)
@@ -2456,7 +2456,7 @@ extern void func_train_find(edict_t *self);
  * "speed"		How fast it should fly
  */
 void
-misc_strogg_ship_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+misc_strogg_ship_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self || !activator)
 	{
@@ -2469,7 +2469,7 @@ misc_strogg_ship_use(edict_t *self, edict_t *other /* unused */, edict_t *activa
 }
 
 void
-SP_misc_strogg_ship(edict_t *ent)
+SP_misc_strogg_ship(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2479,7 +2479,7 @@ SP_misc_strogg_ship(edict_t *ent)
 	if (!ent->target)
 	{
 		gi.dprintf("%s without a target at %s\n", ent->classname,
-				vtos(ent->absmin));
+			vtos(ent->absmin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -2509,7 +2509,7 @@ SP_misc_strogg_ship(edict_t *ent)
  * Maxx's transport at end of game
  */
 void
-SP_misc_transport(edict_t *ent) /* FS: Coop: Xatrix specific */
+SP_misc_transport(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	if (!ent)
 	{
@@ -2519,7 +2519,7 @@ SP_misc_transport(edict_t *ent) /* FS: Coop: Xatrix specific */
 	if (!ent->target)
 	{
 		gi.dprintf("%s without a target at %s\n", ent->classname,
-				vtos(ent->absmin));
+			vtos(ent->absmin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -2554,7 +2554,7 @@ SP_misc_transport(edict_t *ent) /* FS: Coop: Xatrix specific */
  * QUAKED misc_satellite_dish (1 .5 0) (-64 -64 0) (64 64 128)
  */
 void
-misc_satellite_dish_think(edict_t *self)
+misc_satellite_dish_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -2570,7 +2570,7 @@ misc_satellite_dish_think(edict_t *self)
 }
 
 void
-misc_satellite_dish_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+misc_satellite_dish_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -2583,7 +2583,7 @@ misc_satellite_dish_use(edict_t *self, edict_t *other /* unused */, edict_t *act
 }
 
 void
-SP_misc_satellite_dish(edict_t *ent)
+SP_misc_satellite_dish(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2603,7 +2603,7 @@ SP_misc_satellite_dish(edict_t *ent)
  * QUAKED light_mine1 (0 1 0) (-2 -2 -12) (2 2 12)
  */
 void
-SP_light_mine1(edict_t *ent)
+SP_light_mine1(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2621,7 +2621,7 @@ SP_light_mine1(edict_t *ent)
  * QUAKED light_mine2 (0 1 0) (-2 -2 -12) (2 2 12)
  */
 void
-SP_light_mine2(edict_t *ent)
+SP_light_mine2(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2641,7 +2641,7 @@ SP_light_mine2(edict_t *ent)
  * Intended for use with the target_spawner
  */
 void
-SP_misc_gib_arm(edict_t *ent)
+SP_misc_gib_arm(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2669,7 +2669,7 @@ SP_misc_gib_arm(edict_t *ent)
  * Intended for use with the target_spawner
  */
 void
-SP_misc_gib_leg(edict_t *ent)
+SP_misc_gib_leg(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2697,7 +2697,7 @@ SP_misc_gib_leg(edict_t *ent)
  * Intended for use with the target_spawner
  */
 void
-SP_misc_gib_head(edict_t *ent)
+SP_misc_gib_head(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2730,7 +2730,7 @@ SP_misc_gib_head(edict_t *ent)
  */
 
 void
-SP_target_character(edict_t *self)
+SP_target_character(edict_t* self)
 {
 	if (!self)
 	{
@@ -2749,9 +2749,9 @@ SP_target_character(edict_t *self)
  * QUAKED target_string (0 0 1) (-8 -8 -8) (8 8 8)
  */
 void
-target_string_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+target_string_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
-	edict_t *e;
+	edict_t* e;
 	int n, l;
 	char c;
 
@@ -2799,7 +2799,7 @@ target_string_use(edict_t *self, edict_t *other /* unused */, edict_t *activator
 }
 
 void
-SP_target_string(edict_t *self)
+SP_target_string(edict_t* self)
 {
 	if (!self)
 	{
@@ -2831,7 +2831,7 @@ SP_target_string(edict_t *self)
  *          2 "xx:xx:xx"
  */
 void
-func_clock_reset(edict_t *self)
+func_clock_reset(edict_t* self)
 {
 	if (!self)
 	{
@@ -2858,16 +2858,16 @@ func_clock_reset(edict_t *self)
  * biggun exit. */
 typedef struct zhead_s
 {
-   struct zhead_s *prev, *next;
-   short magic;
-   short tag;
-   int size;
+	struct zhead_s* prev, * next;
+	short magic;
+	short tag;
+	int size;
 } zhead_t;
 
 void
-func_clock_format_countdown(edict_t *self)
+func_clock_format_countdown(edict_t* self)
 {
-	zhead_t *z;
+	zhead_t* z;
 	int size;
 
 	if (!self)
@@ -2875,13 +2875,13 @@ func_clock_format_countdown(edict_t *self)
 		return;
 	}
 
-	z = ( zhead_t * )self->message - 1;
-	size = z->size - sizeof (zhead_t);
+	z = (zhead_t*)self->message - 1;
+	size = z->size - sizeof(zhead_t);
 
 	if (size < CLOCK_MESSAGE_SIZE)
 	{
-		gi.TagFree (self->message);
-		self->message = gi.TagMalloc (CLOCK_MESSAGE_SIZE, TAG_LEVEL);
+		gi.TagFree(self->message);
+		self->message = gi.TagMalloc(CLOCK_MESSAGE_SIZE, TAG_LEVEL);
 	}
 
 	if (self->style == 0)
@@ -2893,7 +2893,7 @@ func_clock_format_countdown(edict_t *self)
 	if (self->style == 1)
 	{
 		Com_sprintf(self->message, CLOCK_MESSAGE_SIZE, "%2i:%2i",
-				self->health / 60, self->health % 60);
+			self->health / 60, self->health % 60);
 
 		if (self->message[3] == ' ')
 		{
@@ -2906,9 +2906,9 @@ func_clock_format_countdown(edict_t *self)
 	if (self->style == 2)
 	{
 		Com_sprintf(self->message, CLOCK_MESSAGE_SIZE, "%2i:%2i:%2i",
-				self->health / 3600,
-				(self->health - (self->health / 3600) * 3600) / 60,
-				self->health % 60);
+			self->health / 3600,
+			(self->health - (self->health / 3600) * 3600) / 60,
+			self->health % 60);
 
 		if (self->message[3] == ' ')
 		{
@@ -2925,7 +2925,7 @@ func_clock_format_countdown(edict_t *self)
 }
 
 void
-func_clock_think(edict_t *self)
+func_clock_think(edict_t* self)
 {
 	if (!self)
 	{
@@ -2954,13 +2954,13 @@ func_clock_think(edict_t *self)
 	}
 	else
 	{
-		struct tm *ltime;
+		struct tm* ltime;
 		time_t gmtime;
 
 		time(&gmtime);
 		ltime = localtime(&gmtime);
 		Com_sprintf(self->message, CLOCK_MESSAGE_SIZE, "%2i:%2i:%2i",
-				ltime->tm_hour, ltime->tm_min, ltime->tm_sec);
+			ltime->tm_hour, ltime->tm_min, ltime->tm_sec);
 
 		if (self->message[3] == ' ')
 		{
@@ -2981,8 +2981,8 @@ func_clock_think(edict_t *self)
 	{
 		if (self->pathtarget)
 		{
-			char *savetarget;
-			char *savemessage;
+			char* savetarget;
+			char* savemessage;
 
 			savetarget = self->target;
 			savemessage = self->message;
@@ -3012,7 +3012,7 @@ func_clock_think(edict_t *self)
 }
 
 void
-func_clock_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+func_clock_use(edict_t* self, edict_t* other /* unused */, edict_t* activator)
 {
 	if (!self || !activator)
 	{
@@ -3034,7 +3034,7 @@ func_clock_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-SP_func_clock(edict_t *self)
+SP_func_clock(edict_t* self)
 {
 	if (!self)
 	{
@@ -3044,7 +3044,7 @@ SP_func_clock(edict_t *self)
 	if (!self->target)
 	{
 		gi.dprintf("%s with no target at %s\n", self->classname,
-				vtos(self->s.origin));
+			vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -3052,7 +3052,7 @@ SP_func_clock(edict_t *self)
 	if ((self->spawnflags & 2) && (!self->count))
 	{
 		gi.dprintf("%s with no count at %s\n", self->classname,
-				vtos(self->s.origin));
+			vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
@@ -3081,10 +3081,10 @@ SP_func_clock(edict_t *self)
 /* ================================================================================= */
 
 void
-teleporter_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+teleporter_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
-	edict_t *dest;
+	edict_t* dest;
 	int i;
 
 	if (!self || !other)
@@ -3125,7 +3125,7 @@ teleporter_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 	for (i = 0; i < 3; i++)
 	{
 		other->client->ps.pmove.delta_angles[i] = ANGLE2SHORT(
-				dest->s.angles[i] - other->client->resp.cmd_angles[i]);
+			dest->s.angles[i] - other->client->resp.cmd_angles[i]);
 	}
 
 	VectorClear(other->s.angles);
@@ -3144,9 +3144,9 @@ teleporter_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
  * Stepping onto this disc will teleport players to the targeted misc_teleporter_dest object.
  */
 void
-SP_misc_teleporter(edict_t *ent)
+SP_misc_teleporter(edict_t* ent)
 {
-	edict_t *trig;
+	edict_t* trig;
 
 	if (!ent)
 	{
@@ -3160,7 +3160,7 @@ SP_misc_teleporter(edict_t *ent)
 		return;
 	}
 
-	if(game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
+	if (game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
 	{
 		gi.setmodel(ent, "models/objects/dmspot2/tris.md2");
 	}
@@ -3195,14 +3195,14 @@ SP_misc_teleporter(edict_t *ent)
  * Point teleporters at these.
  */
 void
-SP_misc_teleporter_dest(edict_t *ent)
+SP_misc_teleporter_dest(edict_t* ent)
 {
 	if (!ent)
 	{
 		return;
 	}
 
-	if(game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
+	if (game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
 	{
 		gi.setmodel(ent, "models/objects/dmspot2/tris.md2");
 	}
@@ -3225,7 +3225,7 @@ SP_misc_teleporter_dest(edict_t *ent)
 static int amb4sound;
 
 void
-amb4_think(edict_t *ent) /* FS: Coop: Xatrix specific */
+amb4_think(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	if (!ent)
 	{
@@ -3237,7 +3237,7 @@ amb4_think(edict_t *ent) /* FS: Coop: Xatrix specific */
 }
 
 void
-SP_misc_amb4(edict_t *ent) /* FS: Coop: Xatrix specific */
+SP_misc_amb4(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	if (!ent)
 	{
@@ -3254,16 +3254,16 @@ SP_misc_amb4(edict_t *ent) /* FS: Coop: Xatrix specific */
  * QUAKED misc_nuke (1 0 0) (-16 -16 -16) (16 16 16)
  */
 void
-use_nuke(edict_t *self, edict_t *other, edict_t *activator) /* FS: Coop: Xatrix specific */
+use_nuke(edict_t* self, edict_t* other, edict_t* activator) /* FS: Coop: Xatrix specific */
 {
-	edict_t *from = g_edicts;
+	edict_t* from = g_edicts;
 
 	if (!self)
 	{
 		return;
 	}
 
-	for ( ; from < &g_edicts[globals.num_edicts]; from++)
+	for (; from < &g_edicts[globals.num_edicts]; from++)
 	{
 		if (from == self)
 		{
@@ -3273,7 +3273,7 @@ use_nuke(edict_t *self, edict_t *other, edict_t *activator) /* FS: Coop: Xatrix 
 		if (from->client)
 		{
 			T_Damage(from, self, self, vec3_origin, from->s.origin,
-					vec3_origin, 100000, 1, 0, MOD_TRAP);
+				vec3_origin, 100000, 1, 0, MOD_TRAP);
 		}
 		else if (from->svflags & SVF_MONSTER)
 		{
@@ -3285,7 +3285,7 @@ use_nuke(edict_t *self, edict_t *other, edict_t *activator) /* FS: Coop: Xatrix 
 }
 
 void
-SP_misc_nuke(edict_t *ent) /* FS: Coop: Xatrix specific */
+SP_misc_nuke(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	if (!ent)
 	{
@@ -3296,7 +3296,7 @@ SP_misc_nuke(edict_t *ent) /* FS: Coop: Xatrix specific */
 }
 
 void
-misc_nuke_core_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */) /* FS: Coop: Rogue specific */
+misc_nuke_core_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -3319,7 +3319,7 @@ misc_nuke_core_use(edict_t *self, edict_t *other /* unused */, edict_t *activato
  * toggles visible/not visible. starts visible.
  */
 void
-SP_misc_nuke_core(edict_t *ent) /* FS: Coop: Rogue specific */
+SP_misc_nuke_core(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	if (!ent)
 	{

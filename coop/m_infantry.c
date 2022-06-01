@@ -9,7 +9,7 @@ INFANTRY
 #include "g_local.h"
 #include "m_infantry.h"
 
-void InfantryMachineGun(edict_t *self);
+void InfantryMachineGun(edict_t* self);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -53,12 +53,12 @@ mmove_t infantry_move_stand =
 {
 	FRAME_stand50,
 	FRAME_stand71,
-   	infantry_frames_stand,
-   	NULL
+	infantry_frames_stand,
+	NULL
 };
 
 void
-infantry_stand(edict_t *self)
+infantry_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -129,7 +129,7 @@ mmove_t infantry_move_fidget =
 };
 
 void
-infantry_fidget(edict_t *self)
+infantry_fidget(edict_t* self)
 {
 	if (!self)
 	{
@@ -160,11 +160,11 @@ mmove_t infantry_move_walk =
 	FRAME_walk03,
 	FRAME_walk14,
 	infantry_frames_walk,
-   	NULL
+	NULL
 };
 
 void
-infantry_walk(edict_t *self)
+infantry_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -187,9 +187,9 @@ mframe_t infantry_frames_run_rogue[] = {
 
 mmove_t infantry_move_run_rogue = {
 	FRAME_run01,
-   	FRAME_run08,
-   	infantry_frames_run_rogue,
-   	NULL
+	FRAME_run08,
+	infantry_frames_run_rogue,
+	NULL
 };
 
 mframe_t infantry_frames_run[] = {
@@ -208,11 +208,11 @@ mmove_t infantry_move_run =
 	FRAME_run01,
 	FRAME_run08,
 	infantry_frames_run,
-   	NULL
+	NULL
 };
 
 void
-infantry_run(edict_t *self)
+infantry_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -257,9 +257,9 @@ mframe_t infantry_frames_pain1[] = {
 mmove_t infantry_move_pain1 =
 {
 	FRAME_pain101,
-   	FRAME_pain110,
-   	infantry_frames_pain1,
-   	infantry_run
+	FRAME_pain110,
+	infantry_frames_pain1,
+	infantry_run
 };
 
 mframe_t infantry_frames_pain2[] = {
@@ -284,8 +284,8 @@ mmove_t infantry_move_pain2 =
 };
 
 void
-infantry_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+infantry_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	int n;
 
@@ -360,11 +360,11 @@ vec3_t aimangles[] = {
 };
 
 void
-InfantryMachineGun(edict_t *self)
+InfantryMachineGun(edict_t* self)
 {
 	vec3_t start, target;
 	vec3_t forward, right;
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	int flash_number;
 	int frame_number = FRAME_attak111; /* FS: Coop */
 
@@ -387,7 +387,7 @@ InfantryMachineGun(edict_t *self)
 		flash_number = MZ2_INFANTRY_MACHINEGUN_1;
 		AngleVectors(self->s.angles, forward, right, NULL);
 		G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-				forward, right, start);
+			forward, right, start);
 
 		if (self->enemy)
 		{
@@ -404,29 +404,29 @@ InfantryMachineGun(edict_t *self)
 	else
 	{
 		flash_number = MZ2_INFANTRY_MACHINEGUN_2 +
-					   (self->s.frame - FRAME_death211);
+			(self->s.frame - FRAME_death211);
 
 		AngleVectors(self->s.angles, forward, right, NULL);
 		G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-				forward, right, start);
+			forward, right, start);
 
 		VectorSubtract(self->s.angles, aimangles[flash_number - MZ2_INFANTRY_MACHINEGUN_2], vec);
 		AngleVectors(vec, forward, NULL, NULL);
 	}
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 3, 4,
-			DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
-			flash_number);
+		DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
+		flash_number);
 }
 
 void
-infantry_sight(edict_t *self, edict_t *other /* unused */)
+infantry_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -437,7 +437,7 @@ infantry_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-infantry_dead(edict_t *self)
+infantry_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -517,8 +517,8 @@ mmove_t infantry_move_death2 =
 {
 	FRAME_death201,
 	FRAME_death225,
-   	infantry_frames_death2,
-   	infantry_dead
+	infantry_frames_death2,
+	infantry_dead
 };
 
 mframe_t infantry_frames_death3[] = {
@@ -536,15 +536,15 @@ mframe_t infantry_frames_death3[] = {
 mmove_t infantry_move_death3 =
 {
 	FRAME_death301,
-   	FRAME_death309,
-   	infantry_frames_death3,
-   	infantry_dead
+	FRAME_death309,
+	infantry_frames_death3,
+	infantry_dead
 };
 
 void
-infantry_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+infantry_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage,
+	vec3_t point /* unused */)
 {
 	int n;
 
@@ -556,22 +556,22 @@ infantry_die(edict_t *self, edict_t *inflictor /* unused */,
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
-		gi.sound(self, CHAN_VOICE, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/bone/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 4; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -605,7 +605,7 @@ infantry_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-infantry_duck_down(edict_t *self)
+infantry_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -625,7 +625,7 @@ infantry_duck_down(edict_t *self)
 }
 
 void
-infantry_duck_hold(edict_t *self)
+infantry_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -643,7 +643,7 @@ infantry_duck_hold(edict_t *self)
 }
 
 void
-infantry_duck_up(edict_t *self)
+infantry_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -689,7 +689,7 @@ mmove_t infantry_move_duck =
 };
 
 void
-infantry_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *fake /* unused */)
+infantry_dodge(edict_t* self, edict_t* attacker, float eta /* unused */, trace_t* fake /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -710,7 +710,7 @@ infantry_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t
 }
 
 void
-infantry_set_firetime(edict_t *self) /* FS: Coop: Xatrix specific */
+infantry_set_firetime(edict_t* self) /* FS: Coop: Xatrix specific */
 {
 	int n;
 
@@ -724,7 +724,7 @@ infantry_set_firetime(edict_t *self) /* FS: Coop: Xatrix specific */
 }
 
 void
-infantry_cock_gun(edict_t *self)
+infantry_cock_gun(edict_t* self)
 {
 	int n; /* FS: Coop: Vanilla specific */
 	if (!self)
@@ -742,7 +742,7 @@ infantry_cock_gun(edict_t *self)
 }
 
 void
-infantry_fire(edict_t *self)
+infantry_fire(edict_t* self)
 {
 	if (!self)
 	{
@@ -762,7 +762,7 @@ infantry_fire(edict_t *self)
 }
 
 void
-infantry_fire_prep(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_fire_prep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	int n;
 
@@ -795,9 +795,9 @@ mframe_t infantry_frames_attack1_rogue[] = {
 
 mmove_t infantry_move_attack1_rogue = {
 	FRAME_attak101,
-   	FRAME_attak115,
-   	infantry_frames_attack1_rogue,
-   	infantry_run
+	FRAME_attak115,
+	infantry_frames_attack1_rogue,
+	infantry_run
 };
 
 mframe_t infantry_frames_attack1_xatrix[] = {
@@ -821,9 +821,9 @@ mframe_t infantry_frames_attack1_xatrix[] = {
 mmove_t infantry_move_attack1_xatrix =
 {
 	FRAME_attak101,
-   	FRAME_attak115,
+	FRAME_attak115,
 	infantry_frames_attack1_xatrix,
-   	infantry_run
+	infantry_run
 };
 
 
@@ -848,13 +848,13 @@ mframe_t infantry_frames_attack1_vanilla[] = {
 mmove_t infantry_move_attack1_vanilla =
 {
 	FRAME_attak101,
-   	FRAME_attak115,
+	FRAME_attak115,
 	infantry_frames_attack1_vanilla,
-   	infantry_run
+	infantry_run
 };
 
 void
-infantry_swing(edict_t *self)
+infantry_swing(edict_t* self)
 {
 	if (!self)
 	{
@@ -865,9 +865,9 @@ infantry_swing(edict_t *self)
 }
 
 void
-infantry_smack(edict_t *self)
+infantry_smack(edict_t* self)
 {
-	vec3_t aim;
+	vec3_t aim = { 0 };
 
 	if (!self)
 	{
@@ -896,13 +896,13 @@ mframe_t infantry_frames_attack2[] = {
 mmove_t infantry_move_attack2 =
 {
 	FRAME_attak201,
-   	FRAME_attak208,
+	FRAME_attak208,
 	infantry_frames_attack2,
 	infantry_run
 };
 
 void
-infantry_attack(edict_t *self)
+infantry_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -920,24 +920,24 @@ infantry_attack(edict_t *self)
 	}
 	else
 	{
-		switch(game.gametype) /* FS: Coop: Different for every game! */
+		switch (game.gametype) /* FS: Coop: Different for every game! */
 		{
-			case rogue_coop:
-				self->monsterinfo.currentmove = &infantry_move_attack1_rogue;
-				break;
-			case xatrix_coop:
-				self->monsterinfo.currentmove = &infantry_move_attack1_xatrix;
-				break;
-			case vanilla_coop:
-			default:
-				self->monsterinfo.currentmove = &infantry_move_attack1_vanilla;
-				break;
+		case rogue_coop:
+			self->monsterinfo.currentmove = &infantry_move_attack1_rogue;
+			break;
+		case xatrix_coop:
+			self->monsterinfo.currentmove = &infantry_move_attack1_xatrix;
+			break;
+		case vanilla_coop:
+		default:
+			self->monsterinfo.currentmove = &infantry_move_attack1_vanilla;
+			break;
 		}
 	}
 }
 
 void
-infantry_jump_now(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_jump_now(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, up;
 
@@ -954,7 +954,7 @@ infantry_jump_now(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-infantry_jump2_now(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_jump2_now(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, up;
 
@@ -971,7 +971,7 @@ infantry_jump2_now(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-infantry_jump_wait_land(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_jump_wait_land(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1008,9 +1008,9 @@ mframe_t infantry_frames_jump[] = { /* FS: Coop: Rogue specific */
 
 mmove_t infantry_move_jump = { /* FS: Coop: Rogue specific */
 	FRAME_jump01,
-   	FRAME_jump10,
-   	infantry_frames_jump,
-   	infantry_run
+	FRAME_jump10,
+	infantry_frames_jump,
+	infantry_run
 };
 
 mframe_t infantry_frames_jump2[] = { /* FS: Coop: Rogue specific */
@@ -1028,13 +1028,13 @@ mframe_t infantry_frames_jump2[] = { /* FS: Coop: Rogue specific */
 
 mmove_t infantry_move_jump2 = { /* FS: Coop: Rogue specific */
 	FRAME_jump01,
-   	FRAME_jump10,
-   	infantry_frames_jump2,
-   	infantry_run
+	FRAME_jump10,
+	infantry_frames_jump2,
+	infantry_run
 };
 
 void
-infantry_jump(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_jump(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1059,7 +1059,7 @@ infantry_jump(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 qboolean
-infantry_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+infantry_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1086,7 +1086,7 @@ infantry_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
 }
 
 void
-infantry_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
+infantry_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1130,7 +1130,7 @@ infantry_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 }
 
 void
-infantry_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
+infantry_sidestep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1165,7 +1165,7 @@ infantry_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
  * QUAKED monster_infantry (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_infantry(edict_t *self)
+SP_monster_infantry(edict_t* self)
 {
 	if (!self)
 	{
@@ -1245,7 +1245,7 @@ SP_monster_infantry(edict_t *self)
 	walkmonster_start(self);
 }
 
-void handler_ConvertToInfantry(edict_t *self) /* FS: Zaero specific game dll changes */
+void handler_ConvertToInfantry(edict_t* self) /* FS: Zaero specific game dll changes */
 {
 	if (!self)
 	{
@@ -1253,8 +1253,8 @@ void handler_ConvertToInfantry(edict_t *self) /* FS: Zaero specific game dll cha
 	}
 
 	self->s.modelindex = gi.modelindex("models/monsters/infantry/tris.md2");
-	VectorSet (self->mins, -16, -16, -24);
-	VectorSet (self->maxs, 16, 16, 32);
+	VectorSet(self->mins, -16, -16, -24);
+	VectorSet(self->maxs, 16, 16, 32);
 	self->pain = infantry_pain;
 	self->die = infantry_die;
 
@@ -1272,5 +1272,5 @@ void handler_ConvertToInfantry(edict_t *self) /* FS: Zaero specific game dll cha
 
 	self->s.frame = FRAME_run01;
 
-	infantry_run (self);
+	infantry_run(self);
 }

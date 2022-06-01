@@ -2,14 +2,14 @@
 #include "p_hook.h"
 #include "m_player.h"
 
-edict_t *pm_passent;
+edict_t* pm_passent;
 
-void ClientUserinfoChanged(edict_t *ent, char *userinfo);
-void SP_misc_teleporter_dest(edict_t *ent);
-void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);
-void zCam_SetLocalCopy(struct edict_s *player, char *s);  /* FS: Zaero specific game dll changes */
-void stopCamera(edict_t *ent); /* FS: Zaero specific game dll changes */
-void spawn_aircraft(edict_t *ent);
+void ClientUserinfoChanged(edict_t* ent, char* userinfo);
+void SP_misc_teleporter_dest(edict_t* ent);
+void Touch_Item(edict_t* ent, edict_t* other, cplane_t* plane, csurface_t* surf);
+void zCam_SetLocalCopy(struct edict_s* player, char* s);  /* FS: Zaero specific game dll changes */
+void stopCamera(edict_t* ent); /* FS: Zaero specific game dll changes */
+void spawn_aircraft(edict_t* ent);
 
 /*
  * The ugly as hell coop spawnpoint fixup function.
@@ -22,9 +22,9 @@ void spawn_aircraft(edict_t *ent);
  * single player spot.
  */
 void
-SP_FixCoopSpots(edict_t *self)
+SP_FixCoopSpots(edict_t* self)
 {
-	edict_t *spot;
+	edict_t* spot;
 	vec3_t d = { 0 };
 
 	if (!self)
@@ -69,9 +69,9 @@ SP_FixCoopSpots(edict_t *self)
  * been
  */
 void
-SP_CreateCoopSpots(edict_t *self)
+SP_CreateCoopSpots(edict_t* self)
 {
-	edict_t *spot;
+	edict_t* spot;
 
 	if (!self)
 	{
@@ -118,9 +118,9 @@ SP_CreateCoopSpots(edict_t *self)
  * at the correct point.
  */
 void
-SP_CreateUnnamedSpawn(edict_t *self)
+SP_CreateUnnamedSpawn(edict_t* self)
 {
-	edict_t *spot = G_Spawn();
+	edict_t* spot = G_Spawn();
 
 	if (!self)
 	{
@@ -128,7 +128,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* mine1 */
-    if (Q_stricmp(level.mapname, "mine1") == 0)
+	if (Q_stricmp(level.mapname, "mine1") == 0)
 	{
 		if (Q_stricmp(self->targetname, "mintro") == 0)
 		{
@@ -144,7 +144,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* mine2 */
-    if (Q_stricmp(level.mapname, "mine2") == 0)
+	if (Q_stricmp(level.mapname, "mine2") == 0)
 	{
 		if (Q_stricmp(self->targetname, "mine1") == 0)
 		{
@@ -160,7 +160,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* mine3 */
-    if (Q_stricmp(level.mapname, "mine3") == 0)
+	if (Q_stricmp(level.mapname, "mine3") == 0)
 	{
 		if (Q_stricmp(self->targetname, "mine2a") == 0)
 		{
@@ -176,7 +176,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* mine4 */
-    if (Q_stricmp(level.mapname, "mine4") == 0)
+	if (Q_stricmp(level.mapname, "mine4") == 0)
 	{
 		if (Q_stricmp(self->targetname, "mine3") == 0)
 		{
@@ -191,8 +191,8 @@ SP_CreateUnnamedSpawn(edict_t *self)
 		}
 	}
 
- 	/* power2 */
-    if (Q_stricmp(level.mapname, "power2") == 0)
+	/* power2 */
+	if (Q_stricmp(level.mapname, "power2") == 0)
 	{
 		if (Q_stricmp(self->targetname, "power1") == 0)
 		{
@@ -208,7 +208,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* waste1 */
-    if (Q_stricmp(level.mapname, "waste1") == 0)
+	if (Q_stricmp(level.mapname, "waste1") == 0)
 	{
 		if (Q_stricmp(self->targetname, "power2") == 0)
 		{
@@ -224,7 +224,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* waste2 */
-    if (Q_stricmp(level.mapname, "waste2") == 0)
+	if (Q_stricmp(level.mapname, "waste2") == 0)
 	{
 		if (Q_stricmp(self->targetname, "waste1") == 0)
 		{
@@ -240,7 +240,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* waste3 */
-    if (Q_stricmp(level.mapname, "waste3") == 0)
+	if (Q_stricmp(level.mapname, "waste3") == 0)
 	{
 		if (Q_stricmp(self->targetname, "waste2") == 0)
 		{
@@ -256,7 +256,7 @@ SP_CreateUnnamedSpawn(edict_t *self)
 	}
 
 	/* city3 */
-    if (Q_stricmp(level.mapname, "city2") == 0)
+	if (Q_stricmp(level.mapname, "city2") == 0)
 	{
 		if (Q_stricmp(self->targetname, "city2NL") == 0)
 		{
@@ -278,14 +278,14 @@ SP_CreateUnnamedSpawn(edict_t *self)
  * The normal starting point for a level.
  */
 void
-SP_info_player_start(edict_t *self)
+SP_info_player_start(edict_t* self)
 {
 	if (!self)
 	{
 		return;
 	}
 
-    /* Call function to hack unnamed spawn points */
+	/* Call function to hack unnamed spawn points */
 	self->think = SP_CreateUnnamedSpawn;
 	self->nextthink = level.time + FRAMETIME;
 
@@ -308,7 +308,7 @@ SP_info_player_start(edict_t *self)
  * potential spawning position for deathmatch games
  */
 void
-SP_info_player_deathmatch(edict_t *self)
+SP_info_player_deathmatch(edict_t* self)
 {
 	if (!self)
 	{
@@ -329,7 +329,7 @@ SP_info_player_deathmatch(edict_t *self)
  * potential spawning position for coop games
  */
 void
-SP_info_player_coop(edict_t *self)
+SP_info_player_coop(edict_t* self)
 {
 	if (!self)
 	{
@@ -341,15 +341,15 @@ SP_info_player_coop(edict_t *self)
 		G_FreeEdict(self);
 		return;
 	}
-	
+
 	/* Entity number 292 is an unnamed info_player_start
 	   next to a named info_player_start. Delete it, if
 	   we're in coop since it screws up the spawnpoint
-	   selection heuristic in SelectCoopSpawnPoint(). 
+	   selection heuristic in SelectCoopSpawnPoint().
 	   This unnamed info_player_start is selected as
 	   spawnpoint for player 0, therefor none of the
 	   named info_coop_start() matches... */
-	if(Q_stricmp(level.mapname, "xware") == 0)
+	if (Q_stricmp(level.mapname, "xware") == 0)
 	{
 		if (self->s.number == 292)
 		{
@@ -391,7 +391,7 @@ SP_info_player_coop(edict_t *self)
  * needs to be checked
  */
 void
-SP_info_player_coop_lava(edict_t *self) /* FS: Coop: Rogue specific */
+SP_info_player_coop_lava(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -406,9 +406,9 @@ SP_info_player_coop_lava(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-SP_info_coop_checkpoint_touch ( edict_t * self , edict_t * other , cplane_t * plane , csurface_t * surf )
+SP_info_coop_checkpoint_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
-	if(!self || self->dmg || !other || !other->client || !other->client->pers.netname[0])
+	if (!self || self->dmg || !other || !other->client || !other->client->pers.netname[0])
 	{
 		return;
 	}
@@ -424,14 +424,14 @@ SP_info_coop_checkpoint_touch ( edict_t * self , edict_t * other , cplane_t * pl
 }
 
 void
-SP_info_coop_checkpoint (edict_t * self )
+SP_info_coop_checkpoint(edict_t* self)
 {
-	if(!self)
+	if (!self)
 	{
 		return;
 	}
 
-	if((!coop->value) || (coop->value && !coop_checkpoints->value))
+	if ((!coop->value) || (coop->value && !coop_checkpoints->value))
 	{
 		G_FreeEdict(self);
 		return;
@@ -472,8 +472,8 @@ SP_info_player_intermission(void)
 /* ======================================================================= */
 
 void
-player_pain(edict_t *self /* unsued */, edict_t *other /* unused */,
-		float kick /* unused */, int damage /* unused */)
+player_pain(edict_t* self /* unsued */, edict_t* other /* unused */,
+	float kick /* unused */, int damage /* unused */)
 {
 	/* Player pain is handled at the end
 	 * of the frame in P_DamageFeedback.
@@ -488,9 +488,9 @@ player_pain(edict_t *self /* unsued */, edict_t *other /* unused */,
 }
 
 qboolean
-IsFemale(edict_t *ent)
+IsFemale(edict_t* ent)
 {
-	char *info;
+	char* info;
 
 	if (!ent)
 	{
@@ -518,9 +518,9 @@ IsFemale(edict_t *ent)
 }
 
 qboolean
-IsNeutral(edict_t *ent)
+IsNeutral(edict_t* ent)
 {
-	char *info;
+	char* info;
 
 	if (!ent)
 	{
@@ -549,11 +549,11 @@ IsNeutral(edict_t *ent)
 }
 
 void
-ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker)
+ClientObituary(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker)
 {
 	int mod;
-	char *message;
-	char *message2;
+	char* message;
+	char* message2;
 	qboolean ff;
 
 	if (!self || !attacker)
@@ -575,135 +575,135 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 
 		switch (mod)
 		{
-			case MOD_SUICIDE:
-				message = "suicides";
-				break;
-			case MOD_FALLING:
-				message = "cratered";
-				break;
-			case MOD_CRUSH:
-				message = "was squished";
-				break;
-			case MOD_WATER:
-				message = "sank like a rock";
-				break;
-			case MOD_SLIME:
-				message = "melted";
-				break;
-			case MOD_LAVA:
-				message = "does a back flip into the lava";
-				break;
-			case MOD_EXPLOSIVE:
-			case MOD_BARREL:
-				message = "blew up";
-				break;
-			case MOD_EXIT:
-				message = "found a way out";
-				break;
-			case MOD_TARGET_LASER:
-				message = "saw the light";
-				break;
-			case MOD_TARGET_BLASTER:
-				message = "got blasted";
-				break;
-			case MOD_BOMB:
-			case MOD_SPLASH:
-			case MOD_TRIGGER_HURT:
-			case MOD_AUTOCANNON:  /* FS: Zaero specific game dll changes */
-				message = "was in the wrong place";
-				break;
-			case MOD_GEKK: /* FS: Coop: Xatrix specific */
-			case MOD_BRAINTENTACLE:
-				message = "that's gotta hurt";
-				break;
-			default:
-				break;
+		case MOD_SUICIDE:
+			message = "suicides";
+			break;
+		case MOD_FALLING:
+			message = "cratered";
+			break;
+		case MOD_CRUSH:
+			message = "was squished";
+			break;
+		case MOD_WATER:
+			message = "sank like a rock";
+			break;
+		case MOD_SLIME:
+			message = "melted";
+			break;
+		case MOD_LAVA:
+			message = "does a back flip into the lava";
+			break;
+		case MOD_EXPLOSIVE:
+		case MOD_BARREL:
+			message = "blew up";
+			break;
+		case MOD_EXIT:
+			message = "found a way out";
+			break;
+		case MOD_TARGET_LASER:
+			message = "saw the light";
+			break;
+		case MOD_TARGET_BLASTER:
+			message = "got blasted";
+			break;
+		case MOD_BOMB:
+		case MOD_SPLASH:
+		case MOD_TRIGGER_HURT:
+		case MOD_AUTOCANNON:  /* FS: Zaero specific game dll changes */
+			message = "was in the wrong place";
+			break;
+		case MOD_GEKK: /* FS: Coop: Xatrix specific */
+		case MOD_BRAINTENTACLE:
+			message = "that's gotta hurt";
+			break;
+		default:
+			break;
 		}
 
 		if (attacker == self)
 		{
 			switch (mod)
 			{
-				case MOD_HELD_GRENADE:
-					message = "tried to put the pin back in";
-					break;
-				case MOD_HG_SPLASH:
-				case MOD_G_SPLASH:
+			case MOD_HELD_GRENADE:
+				message = "tried to put the pin back in";
+				break;
+			case MOD_HG_SPLASH:
+			case MOD_G_SPLASH:
 
-					if (IsNeutral(self))
-					{
-						message = "tripped on its own grenade";
-					}
-					else if (IsFemale(self))
-					{
-						message = "tripped on her own grenade";
-					}
-					else
-					{
-						message = "tripped on his own grenade";
-					}
+				if (IsNeutral(self))
+				{
+					message = "tripped on its own grenade";
+				}
+				else if (IsFemale(self))
+				{
+					message = "tripped on her own grenade";
+				}
+				else
+				{
+					message = "tripped on his own grenade";
+				}
 
-					break;
-				case MOD_R_SPLASH:
+				break;
+			case MOD_R_SPLASH:
 
-					if (IsNeutral(self))
-					{
-						message = "blew itself up";
-					}
-					else if (IsFemale(self))
-					{
-						message = "blew herself up";
-					}
-					else
-					{
-						message = "blew himself up";
-					}
+				if (IsNeutral(self))
+				{
+					message = "blew itself up";
+				}
+				else if (IsFemale(self))
+				{
+					message = "blew herself up";
+				}
+				else
+				{
+					message = "blew himself up";
+				}
 
-					break;
-				case MOD_BFG_BLAST:
-					message = "should have used a smaller gun";
-					break;
-				case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
+				break;
+			case MOD_BFG_BLAST:
+				message = "should have used a smaller gun";
+				break;
+			case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
 
-					if (IsNeutral(self))
-					{
-						message = "got caught in it's own trap";
-					}
-					else if (IsFemale(self))
-					{
-						message = "got caught in her own trap";
-					}
-					else
-					{
-						message = "got caught in his own trap";
-					}
+				if (IsNeutral(self))
+				{
+					message = "got caught in it's own trap";
+				}
+				else if (IsFemale(self))
+				{
+					message = "got caught in her own trap";
+				}
+				else
+				{
+					message = "got caught in his own trap";
+				}
 
-					break;
-				case MOD_TRAP: /* FS: Coop: Xatrix specific */
-					message = "sucked into his own trap";
-					break;
-				case MOD_A2K:  /* FS: Zaero specific game dll changes */
-					message = "realized he was expendable";
-					break;
-				case MOD_SONICCANNON:  /* FS: Zaero specific game dll changes */
-					message = "got carried away";
-					break;
-				default:
+				break;
+			case MOD_TRAP: /* FS: Coop: Xatrix specific */
+				message = "sucked into his own trap";
+				break;
+			case MOD_A2K:  /* FS: Zaero specific game dll changes */
+				message = "realized he was expendable";
+				break;
+			case MOD_SONICCANNON:  /* FS: Zaero specific game dll changes */
+				message = "got carried away";
+				break;
+			default:
 
-					if (IsNeutral(self))
-					{
-						message = "killed itself";
-					}
-					else if (IsFemale(self))
-					{
-						message = "killed herself";
-					}
-					else
-					{
-						message = "killed himself";
-					}
+				if (IsNeutral(self))
+				{
+					message = "killed itself";
+				}
+				else if (IsFemale(self))
+				{
+					message = "killed herself";
+				}
+				else
+				{
+					message = "killed himself";
+				}
 
-					break;
+				break;
 			}
 		}
 
@@ -726,178 +726,178 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 		{
 			switch (mod)
 			{
-				case MOD_BLASTER:
-					message = "was blasted by";
-					break;
-				case MOD_SHOTGUN:
-					message = "was gunned down by";
-					break;
-				case MOD_SSHOTGUN:
-					message = "was blown away by";
-					message2 = "'s super shotgun";
-					break;
-				case MOD_MACHINEGUN:
-					message = "was machinegunned by";
-					break;
-				case MOD_CHAINGUN:
-					message = "was cut in half by";
-					message2 = "'s chaingun";
-					break;
-				case MOD_GRENADE:
-					message = "was popped by";
-					message2 = "'s grenade";
-					break;
-				case MOD_G_SPLASH:
-					message = "was shredded by";
-					message2 = "'s shrapnel";
-					break;
-				case MOD_ROCKET:
-					message = "ate";
-					message2 = "'s rocket";
-					break;
-				case MOD_R_SPLASH:
-					message = "almost dodged";
-					message2 = "'s rocket";
-					break;
-				case MOD_HYPERBLASTER:
-					message = "was melted by";
-					message2 = "'s hyperblaster";
-					break;
-				case MOD_PLASMA_RIFLE:
-					message = "was incinerated by";
-					message2 = "'s plasma rifle";
-				case MOD_RAILGUN:
-					message = "was railed by";
-					break;
-				case MOD_BFG_LASER:
-					message = "saw the pretty lights from";
-					message2 = "'s BFG";
-					break;
-				case MOD_BFG_BLAST:
-					message = "was disintegrated by";
-					message2 = "'s BFG blast";
-					break;
-				case MOD_BFG_EFFECT:
-					message = "couldn't hide from";
-					message2 = "'s BFG";
-					break;
-				case MOD_HANDGRENADE:
-					message = "caught";
-					message2 = "'s handgrenade";
-					break;
-				case MOD_HG_SPLASH:
-					message = "didn't see";
-					message2 = "'s handgrenade";
-					break;
-				case MOD_HELD_GRENADE:
-					message = "feels";
-					message2 = "'s pain";
-					break;
-				case MOD_TELEFRAG:
-					message = "tried to invade";
-					message2 = "'s personal space";
-					break;
-				case MOD_CHAINFIST: /* FS: Coop: Rogue specific */
-					message = "was shredded by";
-					message2 = "'s ripsaw";
-					break;
-				case MOD_DISINTEGRATOR: /* FS: Coop: Rogue specific */
-					message = "lost his grip courtesy of";
-					message2 = "'s disintegrator";
-					break;
-				case MOD_ETF_RIFLE: /* FS: Coop: Rogue specific */
-					message = "was perforated by";
-					break;
-				case MOD_HEATBEAM: /* FS: Coop: Rogue specific */
-					message = "was scorched by";
-					message2 = "'s plasma beam";
-					break;
-				case MOD_TESLA: /* FS: Coop: Rogue specific */
-					message = "was enlightened by";
-					message2 = "'s tesla mine";
-					break;
-				case MOD_PROX: /* FS: Coop: Rogue specific */
-					message = "got too close to";
-					message2 = "'s proximity mine";
-					break;
-				case MOD_NUKE: /* FS: Coop: Rogue specific */
-					message = "was nuked by";
-					message2 = "'s antimatter bomb";
-					break;
-				case MOD_VENGEANCE_SPHERE: /* FS: Coop: Rogue specific */
-					message = "was purged by";
-					message2 = "'s vengeance sphere";
-					break;
-				case MOD_DEFENDER_SPHERE: /* FS: Coop: Rogue specific */
-					message = "had a blast with";
-					message2 = "'s defender sphere";
-					break;
-				case MOD_HUNTER_SPHERE: /* FS: Coop: Rogue specific */
-					message = "was killed like a dog by";
-					message2 = "'s hunter sphere";
-					break;
-				case MOD_TRACKER: /* FS: Coop: Rogue specific */
-					message = "was annihilated by";
-					message2 = "'s disruptor";
-					break;
-				case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
-					message = "was blown up by";
-					message2 = "'s doppleganger";
-					break;
-				case MOD_DOPPLE_VENGEANCE: /* FS: Coop: Rogue specific */
-					message = "was purged by";
-					message2 = "'s doppleganger";
-					break;
-				case MOD_DOPPLE_HUNTER: /* FS: Coop: Rogue specific */
-					message = "was hunted down by";
-					message2 = "'s doppleganger";
-					break;
-				case MOD_RIPPER: /* FS: Coop: Xatrix specific */
-					message = "ripped to shreds by";
-					message2 = "'s ripper gun";
-					break;
-				case MOD_PHALANX: /* FS: Coop: Xatrix specific */
-					message = "was evaporated by";
-					break;
-				case MOD_TRAP: /* FS: Coop: Xatrix specific */
-					message = "caught in trap by";
-					break;
-				case MOD_SNIPERRIFLE:  /* FS: Zaero specific game dll changes */
-					message = "was ventilated by";
-					message2 = "'s bullet";
-					break;
-				case MOD_TRIPBOMB:  /* FS: Zaero specific game dll changes */
-					message = "tripped over";
-					message2 = "'s trip bomb";
-					break;
-				case MOD_FLARE:  /* FS: Zaero specific game dll changes */
-					message = "didn't see";
-					message2 = "'s flare";
-					break;
-				case MOD_GL_POLYBLEND:  /* FS: Zaero specific game dll changes */
-					message = "turned off gl_polyblend and was damaged by";
-					message2 = "'s flare";
-					break;
-				case MOD_A2K:  /* FS: Zaero specific game dll changes */
-					message = "got dissassembled by";
-					message2 = "";
-					break;
-				case MOD_SONICCANNON:  /* FS: Zaero specific game dll changes */
-					message = "got microwaved by";
-					message2 = "";
-					break;
-				case MOD_GRAPPLE:
-        			message = "was caught by";
-        			message2 = "'s grapple";
-        			break;
-				default:
-					break;
+			case MOD_BLASTER:
+				message = "was blasted by";
+				break;
+			case MOD_SHOTGUN:
+				message = "was gunned down by";
+				break;
+			case MOD_SSHOTGUN:
+				message = "was blown away by";
+				message2 = "'s super shotgun";
+				break;
+			case MOD_MACHINEGUN:
+				message = "was machinegunned by";
+				break;
+			case MOD_CHAINGUN:
+				message = "was cut in half by";
+				message2 = "'s chaingun";
+				break;
+			case MOD_GRENADE:
+				message = "was popped by";
+				message2 = "'s grenade";
+				break;
+			case MOD_G_SPLASH:
+				message = "was shredded by";
+				message2 = "'s shrapnel";
+				break;
+			case MOD_ROCKET:
+				message = "ate";
+				message2 = "'s rocket";
+				break;
+			case MOD_R_SPLASH:
+				message = "almost dodged";
+				message2 = "'s rocket";
+				break;
+			case MOD_HYPERBLASTER:
+				message = "was melted by";
+				message2 = "'s hyperblaster";
+				break;
+			case MOD_PLASMA_RIFLE:
+				message = "was incinerated by";
+				message2 = "'s plasma rifle";
+			case MOD_RAILGUN:
+				message = "was railed by";
+				break;
+			case MOD_BFG_LASER:
+				message = "saw the pretty lights from";
+				message2 = "'s BFG";
+				break;
+			case MOD_BFG_BLAST:
+				message = "was disintegrated by";
+				message2 = "'s BFG blast";
+				break;
+			case MOD_BFG_EFFECT:
+				message = "couldn't hide from";
+				message2 = "'s BFG";
+				break;
+			case MOD_HANDGRENADE:
+				message = "caught";
+				message2 = "'s handgrenade";
+				break;
+			case MOD_HG_SPLASH:
+				message = "didn't see";
+				message2 = "'s handgrenade";
+				break;
+			case MOD_HELD_GRENADE:
+				message = "feels";
+				message2 = "'s pain";
+				break;
+			case MOD_TELEFRAG:
+				message = "tried to invade";
+				message2 = "'s personal space";
+				break;
+			case MOD_CHAINFIST: /* FS: Coop: Rogue specific */
+				message = "was shredded by";
+				message2 = "'s ripsaw";
+				break;
+			case MOD_DISINTEGRATOR: /* FS: Coop: Rogue specific */
+				message = "lost his grip courtesy of";
+				message2 = "'s disintegrator";
+				break;
+			case MOD_ETF_RIFLE: /* FS: Coop: Rogue specific */
+				message = "was perforated by";
+				break;
+			case MOD_HEATBEAM: /* FS: Coop: Rogue specific */
+				message = "was scorched by";
+				message2 = "'s plasma beam";
+				break;
+			case MOD_TESLA: /* FS: Coop: Rogue specific */
+				message = "was enlightened by";
+				message2 = "'s tesla mine";
+				break;
+			case MOD_PROX: /* FS: Coop: Rogue specific */
+				message = "got too close to";
+				message2 = "'s proximity mine";
+				break;
+			case MOD_NUKE: /* FS: Coop: Rogue specific */
+				message = "was nuked by";
+				message2 = "'s antimatter bomb";
+				break;
+			case MOD_VENGEANCE_SPHERE: /* FS: Coop: Rogue specific */
+				message = "was purged by";
+				message2 = "'s vengeance sphere";
+				break;
+			case MOD_DEFENDER_SPHERE: /* FS: Coop: Rogue specific */
+				message = "had a blast with";
+				message2 = "'s defender sphere";
+				break;
+			case MOD_HUNTER_SPHERE: /* FS: Coop: Rogue specific */
+				message = "was killed like a dog by";
+				message2 = "'s hunter sphere";
+				break;
+			case MOD_TRACKER: /* FS: Coop: Rogue specific */
+				message = "was annihilated by";
+				message2 = "'s disruptor";
+				break;
+			case MOD_DOPPLE_EXPLODE: /* FS: Coop: Rogue specific */
+				message = "was blown up by";
+				message2 = "'s doppleganger";
+				break;
+			case MOD_DOPPLE_VENGEANCE: /* FS: Coop: Rogue specific */
+				message = "was purged by";
+				message2 = "'s doppleganger";
+				break;
+			case MOD_DOPPLE_HUNTER: /* FS: Coop: Rogue specific */
+				message = "was hunted down by";
+				message2 = "'s doppleganger";
+				break;
+			case MOD_RIPPER: /* FS: Coop: Xatrix specific */
+				message = "ripped to shreds by";
+				message2 = "'s ripper gun";
+				break;
+			case MOD_PHALANX: /* FS: Coop: Xatrix specific */
+				message = "was evaporated by";
+				break;
+			case MOD_TRAP: /* FS: Coop: Xatrix specific */
+				message = "caught in trap by";
+				break;
+			case MOD_SNIPERRIFLE:  /* FS: Zaero specific game dll changes */
+				message = "was ventilated by";
+				message2 = "'s bullet";
+				break;
+			case MOD_TRIPBOMB:  /* FS: Zaero specific game dll changes */
+				message = "tripped over";
+				message2 = "'s trip bomb";
+				break;
+			case MOD_FLARE:  /* FS: Zaero specific game dll changes */
+				message = "didn't see";
+				message2 = "'s flare";
+				break;
+			case MOD_GL_POLYBLEND:  /* FS: Zaero specific game dll changes */
+				message = "turned off gl_polyblend and was damaged by";
+				message2 = "'s flare";
+				break;
+			case MOD_A2K:  /* FS: Zaero specific game dll changes */
+				message = "got dissassembled by";
+				message2 = "";
+				break;
+			case MOD_SONICCANNON:  /* FS: Zaero specific game dll changes */
+				message = "got microwaved by";
+				message2 = "";
+				break;
+			case MOD_GRAPPLE:
+				message = "was caught by";
+				message2 = "'s grapple";
+				break;
+			default:
+				break;
 			}
 
 			if (message)
 			{
 				gi.bprintf(PRINT_MEDIUM, "%s %s %s%s\n", self->client->pers.netname,
-						message, attacker->client->pers.netname, message2);
+					message, attacker->client->pers.netname, message2);
 
 				if (gamerules && gamerules->value) /* FS: Coop: Rogue specific */
 				{
@@ -961,10 +961,10 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker
 }
 
 void
-TossClientWeapon(edict_t *self)
+TossClientWeapon(edict_t* self)
 {
-	gitem_t *item;
-	edict_t *drop;
+	gitem_t* item;
+	edict_t* drop;
 	qboolean quad;
 	qboolean quadfire; /* FS: Coop: Xatrix specific */
 	float spread;
@@ -1051,13 +1051,13 @@ TossClientWeapon(edict_t *self)
 
 		drop->touch = Touch_Item;
 		drop->nextthink = level.time + (self->client->quadfire_framenum -
-						   level.framenum) * FRAMETIME;
+			level.framenum) * FRAMETIME;
 		drop->think = G_FreeEdict;
 	}
 }
 
 void
-LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
+LookAtKiller(edict_t* self, edict_t* inflictor, edict_t* attacker)
 {
 	vec3_t dir = { 0 };
 
@@ -1080,7 +1080,7 @@ LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
 		return;
 	}
 
-	if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		if (dir[0])
 		{
@@ -1127,8 +1127,8 @@ LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
 }
 
 void
-player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point)
+player_die(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point)
 {
 	int n;
 
@@ -1189,7 +1189,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 					self->client->pers.inventory[n];
 			}
 
-			if(!coop->value) /* FS: Coop: Keep inventory on respawn. */
+			if (!coop->value) /* FS: Coop: Keep inventory on respawn. */
 			{
 				self->client->pers.inventory[n] = 0;
 			}
@@ -1223,7 +1223,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 
 	if (self->client->owned_sphere) /* FS: Coop: Rogue specific */
 	{
-		edict_t *sphere;
+		edict_t* sphere;
 
 		sphere = self->client->owned_sphere;
 		sphere->die(sphere, self, self, 0, vec3_origin);
@@ -1254,7 +1254,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		if ((!(self->flags & FL_NOGIB)) && (game.gametype == rogue_coop)) /* FS: Coop: Rogue specific */
 		{
 			/* gib */
-			gi.sound(self, CHAN_BODY, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+			gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 			/* more meaty gibs for your dollar! */
 			if ((deathmatch->value) && (self->health < -80))
@@ -1274,12 +1274,12 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		{
 			/* gib */
 			gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"),
-				   	1, ATTN_NORM, 0);
+				1, ATTN_NORM, 0);
 
 			for (n = 0; n < 4; n++)
 			{
 				ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-						damage, GIB_ORGANIC);
+					damage, GIB_ORGANIC);
 			}
 		}
 
@@ -1308,18 +1308,18 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 			{
 				switch (i)
 				{
-					case 0:
-						self->s.frame = FRAME_death101 - 1;
-						self->client->anim_end = FRAME_death106;
-						break;
-					case 1:
-						self->s.frame = FRAME_death201 - 1;
-						self->client->anim_end = FRAME_death206;
-						break;
-					case 2:
-						self->s.frame = FRAME_death301 - 1;
-						self->client->anim_end = FRAME_death308;
-						break;
+				case 0:
+					self->s.frame = FRAME_death101 - 1;
+					self->client->anim_end = FRAME_death106;
+					break;
+				case 1:
+					self->s.frame = FRAME_death201 - 1;
+					self->client->anim_end = FRAME_death206;
+					break;
+				case 2:
+					self->s.frame = FRAME_death301 - 1;
+					self->client->anim_end = FRAME_death308;
+					break;
 				}
 			}
 
@@ -1327,7 +1327,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		}
 	}
 
-	self->client->airstrike_called=false;
+	self->client->airstrike_called = false;
 	self->deadflag = DEAD_DEAD;
 	gi.linkentity(self);
 }
@@ -1339,9 +1339,9 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
  * but is called after each death and level change in deathmatch
  */
 void
-InitClientPersistant(gclient_t *client)
+InitClientPersistant(gclient_t* client)
 {
-	gitem_t *item;
+	gitem_t* item;
 
 	if (!client)
 	{
@@ -1390,22 +1390,22 @@ InitClientPersistant(gclient_t *client)
 	client->pers.max_trap = 5;
 
 	/* FS: Coop: Zaero specific */
-	client->pers.max_tbombs		    = 30;
-	client->pers.max_flares       = 30;
-	client->pers.max_a2k          = 1;
-	client->pers.max_empnuke      = 50;
+	client->pers.max_tbombs = 30;
+	client->pers.max_flares = 30;
+	client->pers.max_a2k = 1;
+	client->pers.max_empnuke = 50;
 	client->pers.max_plasmashield = 20;
 
 	client->pers.connected = true;
 }
 
 void
-InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on respawn. */
+InitClientCoopPersistant(edict_t* ent) /* FS: Coop: Give back some goodies on respawn. */
 {
-	gclient_t *client;
-	gitem_t *item;
-	gitem_t *ammo_item;
-	edict_t *it_ent;
+	gclient_t* client;
+	gitem_t* item;
+	gitem_t* ammo_item;
+	edict_t* it_ent;
 	int ammo_index = 0;
 	int i = 0;
 	qboolean firstSpawn = false;
@@ -1428,7 +1428,7 @@ InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on re
 		item = FindItem("Flare Gun");
 		ammo_item = FindItem(item->ammo);
 		ammo_index = ITEM_INDEX(ammo_item);
-		if(client->pers.inventory[ammo_index] < 3)
+		if (client->pers.inventory[ammo_index] < 3)
 		{
 			client->pers.inventory[ammo_index] = client->resp.coop_respawn.inventory[ammo_index] = 3;
 		}
@@ -1437,7 +1437,7 @@ InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on re
 	/* FS: Make sure they always have a shotgun */
 	item = FindItem("Shotgun");
 
-	if(client->pers.inventory[ITEM_INDEX(item)] == 0) /* FS: If we don't have one yet, this is the first time we're joining in (or a DLL reload) so force the switch to it */
+	if (client->pers.inventory[ITEM_INDEX(item)] == 0) /* FS: If we don't have one yet, this is the first time we're joining in (or a DLL reload) so force the switch to it */
 	{
 		firstSpawn = true;
 	}
@@ -1448,27 +1448,27 @@ InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on re
 	ammo_item = FindItem(item->ammo);
 	ammo_index = ITEM_INDEX(ammo_item);
 
-	if(client->pers.inventory[ammo_index] < 100) /* FS: If we already have more than this don't reset it */
+	if (client->pers.inventory[ammo_index] < 100) /* FS: If we already have more than this don't reset it */
 	{
 		client->pers.inventory[ammo_index] = client->resp.coop_respawn.inventory[ammo_index] = 100;
 	}
 
-	if(firstSpawn)
+	if (firstSpawn)
 	{
 		client->pers.weapon = client->newweapon = item;
 	}
 
-	switch(client->resp.coop_respawn.ammoUpgrade)
+	switch (client->resp.coop_respawn.ammoUpgrade)
 	{
-		case COOP_BANDOLIER:
-			item = FindItem("Bandolier");
-			break;
-		case COOP_BACKPACK:
-			item = FindItem("Ammo Pack");
-			break;
-		default:
-			item = NULL;
-			break;
+	case COOP_BANDOLIER:
+		item = FindItem("Bandolier");
+		break;
+	case COOP_BACKPACK:
+		item = FindItem("Ammo Pack");
+		break;
+	default:
+		item = NULL;
+		break;
 	}
 
 	if (item)
@@ -1488,23 +1488,23 @@ InitClientCoopPersistant(edict_t *ent) /* FS: Coop: Give back some goodies on re
 
 	for (i = 1; i < MAX_ITEMS; i++)
 	{
-		if(!game.inventory[i])
+		if (!game.inventory[i])
 			continue;
 
-		if(ent->client->pers.inventory[i] < game.inventory[i])
+		if (ent->client->pers.inventory[i] < game.inventory[i])
 		{
 			ent->client->pers.inventory[i] = game.inventory[i];
 		}
 	}
 
-	if(ent->client->resp.coop_respawn.savedFlags & FL_POWER_ARMOR) /* FS: Restore power armor if we had it enabled. */
+	if (ent->client->resp.coop_respawn.savedFlags & FL_POWER_ARMOR) /* FS: Restore power armor if we had it enabled. */
 	{
 		ent->flags |= FL_POWER_ARMOR;
 	}
 }
 
 void
-InitClientResp(gclient_t *client)
+InitClientResp(gclient_t* client)
 {
 	if (!client)
 	{
@@ -1526,7 +1526,7 @@ void
 SaveClientData(void)
 {
 	int i;
-	edict_t *ent;
+	edict_t* ent;
 
 	for (i = 0; i < game.maxclients; i++)
 	{
@@ -1549,7 +1549,7 @@ SaveClientData(void)
 }
 
 void
-FetchClientEntData(edict_t *ent)
+FetchClientEntData(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1570,9 +1570,9 @@ FetchClientEntData(edict_t *ent)
  * Returns the distance to the nearest player from the given spot
  */
 float
-PlayersRangeFromSpot(edict_t *spot)
+PlayersRangeFromSpot(edict_t* spot)
 {
-	edict_t *player;
+	edict_t* player;
 	float bestplayerdistance;
 	vec3_t v = { 0 };
 	int n;
@@ -1615,10 +1615,10 @@ PlayersRangeFromSpot(edict_t *spot)
  * go to a random point, but NOT the two points closest
  * to other players
  */
-edict_t *
+edict_t*
 SelectRandomDeathmatchSpawnPoint(void)
 {
-	edict_t *spot, *spot1, *spot2;
+	edict_t* spot, * spot1, * spot2;
 	int count = 0;
 	int selection;
 	float range, range1, range2;
@@ -1670,18 +1670,17 @@ SelectRandomDeathmatchSpawnPoint(void)
 		{
 			selection++;
 		}
-	}
-	while (selection--);
+	} while (selection--);
 
 	return spot;
 }
 
-edict_t *
+edict_t*
 SelectFarthestDeathmatchSpawnPoint(void)
 {
-	edict_t *bestspot;
+	edict_t* bestspot;
 	float bestdistance, bestplayerdistance;
-	edict_t *spot;
+	edict_t* spot;
 
 	spot = NULL;
 	bestspot = NULL;
@@ -1710,7 +1709,7 @@ SelectFarthestDeathmatchSpawnPoint(void)
 	return spot;
 }
 
-edict_t *
+edict_t*
 SelectDeathmatchSpawnPoint(void)
 {
 	if ((int)(dmflags->value) & DF_SPAWN_FARTHEST)
@@ -1723,19 +1722,19 @@ SelectDeathmatchSpawnPoint(void)
 	}
 }
 
-edict_t *
-SelectLavaCoopSpawnPoint(edict_t *ent) /* FS: Coop: Rogue specific */
+edict_t*
+SelectLavaCoopSpawnPoint(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	int index;
-	edict_t *spot = NULL;
+	edict_t* spot = NULL;
 	float lavatop;
-	edict_t *lava;
-	edict_t *pointWithLeastLava;
+	edict_t* lava;
+	edict_t* pointWithLeastLava;
 	float lowest;
-	edict_t *spawnPoints[64] = { 0 };
+	edict_t* spawnPoints[64] = { 0 };
 	vec3_t center = { 0 };
 	int numPoints;
-	edict_t *highestlava;
+	edict_t* highestlava;
 
 	if (!ent)
 	{
@@ -1829,12 +1828,12 @@ SelectLavaCoopSpawnPoint(edict_t *ent) /* FS: Coop: Rogue specific */
 	return NULL;
 }
 
-edict_t *
-SelectCoopSpawnPoint(edict_t *ent)
+edict_t*
+SelectCoopSpawnPoint(edict_t* ent)
 {
 	int index;
-	edict_t *spot = NULL;
-	char *target;
+	edict_t* spot = NULL;
+	char* target;
 
 	if (!ent)
 	{
@@ -1846,7 +1845,7 @@ SelectCoopSpawnPoint(edict_t *ent)
 		return SelectLavaCoopSpawnPoint(ent);
 	}
 
-	if(level.current_coop_checkpoint) /* FS: Coop: Added checkpoints */
+	if (level.current_coop_checkpoint) /* FS: Coop: Added checkpoints */
 	{
 		return level.current_coop_checkpoint;
 	}
@@ -1897,10 +1896,10 @@ SelectCoopSpawnPoint(edict_t *ent)
  * Chooses a player start, deathmatch start, coop start, etc
  */
 void
-SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
+SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 {
-	edict_t *spot = NULL;
-	edict_t *coopspot = NULL;
+	edict_t* spot = NULL;
+	edict_t* coopspot = NULL;
 	int dist;
 	int index;
 	int counter = 0;
@@ -1968,7 +1967,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 
 		if (spot && spot->classname && Q_stricmp(spot->classname, "info_player_start") == 0 && index != 0)
 		{
-			while(counter < 3)
+			while (counter < 3)
 			{
 				coopspot = G_Find(coopspot, FOFS(classname), "info_player_coop");
 
@@ -1982,7 +1981,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 				/* In xship the coop spawnpoints are farther
 				   away than in other maps. Quirk around this.
 				   Oh well... */
-				/* FS: Coop: Xatrix specific */
+				   /* FS: Coop: Xatrix specific */
 				if (Q_stricmp(level.mapname, "xship") == 0)
 				{
 					dist = 2500;
@@ -2019,7 +2018,7 @@ void
 InitBodyQue(void)
 {
 	int i;
-	edict_t *ent;
+	edict_t* ent;
 
 	level.body_que = 0;
 
@@ -2031,8 +2030,8 @@ InitBodyQue(void)
 }
 
 void
-body_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point)
+body_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage, vec3_t point)
 {
 	int n;
 
@@ -2043,7 +2042,7 @@ body_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* un
 
 	if (self->health < -40)
 	{
-		gi.sound(self, CHAN_BODY, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 4; n++)
 		{
@@ -2057,9 +2056,9 @@ body_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* un
 }
 
 void
-CopyToBodyQue(edict_t *ent)
+CopyToBodyQue(edict_t* ent)
 {
-	edict_t *body;
+	edict_t* body;
 
 	if (!ent)
 	{
@@ -2094,7 +2093,7 @@ CopyToBodyQue(edict_t *ent)
 }
 
 void
-respawn(edict_t *self)
+respawn(edict_t* self)
 {
 	if (!self)
 	{
@@ -2109,7 +2108,7 @@ respawn(edict_t *self)
 			CopyToBodyQue(self);
 		}
 
-		if(coop->value) /* FS: Coop: Respawn with the shotgun selected as the current weapon */
+		if (coop->value) /* FS: Coop: Respawn with the shotgun selected as the current weapon */
 		{
 			self->client->newweapon = self->client->pers.weapon = self->client->resp.coop_respawn.weapon = FindItem("shotgun");
 		}
@@ -2139,7 +2138,7 @@ respawn(edict_t *self)
  * opposite of pers.spectator here
  */
 void
-spectator_respawn(edict_t *ent)
+spectator_respawn(edict_t* ent)
 {
 	int i, numspec;
 
@@ -2152,7 +2151,7 @@ spectator_respawn(edict_t *ent)
 	   make sure he doesn't exceed max_spectators */
 	if (ent->client->pers.spectator)
 	{
-		char *value = Info_ValueForKey(ent->client->pers.userinfo, "spectator");
+		char* value = Info_ValueForKey(ent->client->pers.userinfo, "spectator");
 
 		if (*spectator_password->string &&
 			strcmp(spectator_password->string, "none") != 0 &&
@@ -2196,7 +2195,7 @@ spectator_respawn(edict_t *ent)
 	{
 		/* he was a spectator and wants to join the
 		   game he must have the right password */
-		char *value = Info_ValueForKey(ent->client->pers.userinfo, "password");
+		char* value = Info_ValueForKey(ent->client->pers.userinfo, "password");
 
 		if (*password->string && strcmp(password->string, "none") != 0 &&
 			strcmp(password->string, value) != 0)
@@ -2254,14 +2253,14 @@ spectator_respawn(edict_t *ent)
  * server or respawns in a deathmatch.
  */
 void
-PutClientInServer(edict_t *ent)
+PutClientInServer(edict_t* ent)
 {
 	char userinfo[MAX_INFO_STRING];
-	vec3_t mins = {-16, -16, -24};
-	vec3_t maxs = {16, 16, 32};
+	vec3_t mins = { -16, -16, -24 };
+	vec3_t maxs = { 16, 16, 32 };
 	int index;
 	vec3_t spawn_origin, spawn_angles;
-	gclient_t *client;
+	gclient_t* client;
 	int i;
 	client_persistant_t saved;
 	client_respawn_t resp;
@@ -2339,10 +2338,10 @@ PutClientInServer(edict_t *ent)
 		char		userinfo[MAX_INFO_STRING];
 
 		int health = client->pers.health;
-		
-		memcpy (userinfo, client->pers.userinfo, sizeof(userinfo));
+
+		memcpy(userinfo, client->pers.userinfo, sizeof(userinfo));
 		InitClientPersistant(client);
-		ClientUserinfoChanged (ent, userinfo);
+		ClientUserinfoChanged(ent, userinfo);
 		client->pers.health = health;
 	}
 
@@ -2465,7 +2464,7 @@ PutClientInServer(edict_t *ent)
 
 	if (!KillBox(ent))
 	{
-	 	/* could't spawn in? */
+		/* could't spawn in? */
 	}
 
 	if ((maxclients->value > 1) && (sv_spawn_protection->value)) /* FS: Coop: Spawn protection */
@@ -2480,14 +2479,14 @@ PutClientInServer(edict_t *ent)
 
 	/* my tribute to cash's level-specific hacks. I hope
 	 *   live up to his trailblazing cheese. */
-	/* FS: Coop: Rogue specific */
+	 /* FS: Coop: Rogue specific */
 	if (Q_stricmp(level.mapname, "rboss") == 0)
 	{
 		/* if you get on to rboss in single player or coop, ensure
 		   the player has the nuke key. (not in DM) */
 		if (!(deathmatch->value))
 		{
-			gitem_t *item;
+			gitem_t* item;
 
 			item = FindItem("Antimatter Bomb");
 			client->pers.selected_item = ITEM_INDEX(item);
@@ -2508,7 +2507,7 @@ PutClientInServer(edict_t *ent)
  * starting them.
  */
 void
-ClientBeginDeathmatch(edict_t *ent)
+ClientBeginDeathmatch(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -2578,7 +2577,7 @@ void ClientShowMOTD(edict_t* ent)
  * to be placed into the game.  This will happen every level load.
  */
 void
-ClientBegin(edict_t *ent)
+ClientBegin(edict_t* ent)
 {
 	int i;
 	char force_motd[MAX_INFO_STRING] = { 0 };
@@ -2593,7 +2592,7 @@ ClientBegin(edict_t *ent)
 	if (deathmatch->value)
 	{
 		ClientBeginDeathmatch(ent);
-		if(!ent->client->pers.didMotd)
+		if (!ent->client->pers.didMotd)
 		{
 			CoopOpenJoinMenu(ent); /* FS: Added */
 		}
@@ -2623,9 +2622,9 @@ ClientBegin(edict_t *ent)
 		ent->classname = "player";
 		InitClientResp(ent->client);
 		PutClientInServer(ent);
-		if(!ent->client->pers.didMotd) /* FS: Added */
+		if (!ent->client->pers.didMotd) /* FS: Added */
 		{
-			if(maxclients->value <= 1)
+			if (maxclients->value <= 1)
 			{
 				ent->client->pers.didMotd = ent->client->resp.didMotd = true;
 			}
@@ -2655,13 +2654,13 @@ ClientBegin(edict_t *ent)
 		}
 	}
 
-	gi.WriteByte (svc_stufftext);
-    gi.WriteString ("alias +hook \"cmd hook\"\n");
-    gi.unicast(ent, true);
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("alias +hook \"cmd hook\"\n");
+	gi.unicast(ent, true);
 
-    gi.WriteByte (svc_stufftext);
-    gi.WriteString ("alias -hook \"cmd unhook\"\n");
-    gi.unicast(ent, true);
+	gi.WriteByte(svc_stufftext);
+	gi.WriteString("alias -hook \"cmd unhook\"\n");
+	gi.unicast(ent, true);
 
 	//QW// Added this to force client centertime delay for long MotD
 	Com_sprintf(force_motd, sizeof force_motd, "set scr_centertime %.1f\n", motd_time->value);
@@ -2681,9 +2680,9 @@ ClientBegin(edict_t *ent)
  * (forcing skins or names, etc) before copying it off.
  */
 void
-ClientUserinfoChanged(edict_t *ent, char *userinfo)
+ClientUserinfoChanged(edict_t* ent, char* userinfo)
 {
-	char *s;
+	char* s;
 	qboolean bAllowNameChange = true;
 	int playernum;
 
@@ -2700,19 +2699,19 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 
 	/* set name */
 	s = Info_ValueForKey(userinfo, "name");
-	if(!s[0] || s[0] == ' ') /* FS: Catch trouble makers */
+	if (!s[0] || s[0] == ' ') /* FS: Catch trouble makers */
 	{
 		Info_SetValueForKey(userinfo, "name", "unnamed");
-		strncpy(ent->client->pers.netname, "unnamed", sizeof(ent->client->pers.netname)-1);
+		strncpy(ent->client->pers.netname, "unnamed", sizeof(ent->client->pers.netname) - 1);
 		ent->client->pers.name_timeout = level.time + sv_coop_name_timeout->value;
 	}
 	else
 	{
-		if(sv_coop_announce_name_change->value && ent->client && ent->client->pers.netname[0] && s[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: Catch trouble makers */
+		if (sv_coop_announce_name_change->value && ent->client && ent->client->pers.netname[0] && s[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: Catch trouble makers */
 		{
-			if(ent->client && ent->client->pers.name_timeout > level.time)
+			if (ent->client && ent->client->pers.name_timeout > level.time)
 			{
-				gi.cprintf(ent, PRINT_HIGH, "You are changing names too quickly!  Please wait another %d second(s).\n", (int)ent->client->pers.name_timeout-(int)level.time);
+				gi.cprintf(ent, PRINT_HIGH, "You are changing names too quickly!  Please wait another %d second(s).\n", (int)ent->client->pers.name_timeout - (int)level.time);
 				Info_SetValueForKey(userinfo, "name", ent->client->pers.netname);
 				bAllowNameChange = false;
 			}
@@ -2722,13 +2721,13 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 			}
 		}
 
-		if(bAllowNameChange)
+		if (bAllowNameChange)
 		{
-			if(ent->client->pers.netname[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: If the netname has been set, and it doesn't match what we got then set the timeout.  On initial connect sequence the username is blank so we can't count that one. */
+			if (ent->client->pers.netname[0] && Q_stricmp(ent->client->pers.netname, s)) /* FS: If the netname has been set, and it doesn't match what we got then set the timeout.  On initial connect sequence the username is blank so we can't count that one. */
 			{
 				ent->client->pers.name_timeout = level.time + sv_coop_name_timeout->value;
 			}
-			strncpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname)-1);
+			strncpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname) - 1);
 		}
 	}
 
@@ -2790,7 +2789,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 
 	if ((maxclients->value > 1) && (strlen(s)))
 	{
-		if(adminpass->string[0] && !Q_stricmp(s, adminpass->string))
+		if (adminpass->string[0] && !Q_stricmp(s, adminpass->string))
 		{
 			ent->client->pers.isAdmin = ent->client->resp.isAdmin = true;
 		}
@@ -2809,7 +2808,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 
 	if ((maxclients->value > 1) && (strlen(s)))
 	{
-		if(vippass->string[0] && !Q_stricmp(s, vippass->string))
+		if (vippass->string[0] && !Q_stricmp(s, vippass->string))
 		{
 			ent->client->pers.isVIP = ent->client->resp.isVIP = true;
 		}
@@ -2827,7 +2826,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	s = Info_ValueForKey(userinfo, "nosummon");
 	if (strlen(s))
 	{
-		if(atoi(s))
+		if (atoi(s))
 		{
 			ent->client->pers.noSummon = ent->client->resp.noSummon = ent->client->resp.coop_respawn.noSummon = true;
 		}
@@ -2849,9 +2848,9 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
  * loadgames will.
  */
 qboolean
-ClientConnect(edict_t *ent, char *userinfo)
+ClientConnect(edict_t* ent, char* userinfo)
 {
-	char *value;
+	char* value;
 
 	if (!ent || !userinfo)
 	{
@@ -2943,7 +2942,7 @@ ClientConnect(edict_t *ent, char *userinfo)
  * Will not be called between levels.
  */
 void
-ClientDisconnect(edict_t *ent)
+ClientDisconnect(edict_t* ent)
 {
 	int playernum;
 
@@ -2964,12 +2963,12 @@ ClientDisconnect(edict_t *ent)
 		Spawn_CoopBackpack(ent);
 	}
 
-	if(ent->voteInitiator == true) /* FS: Coop: Voting stuff */
+	if (ent->voteInitiator == true) /* FS: Coop: Voting stuff */
 	{
 		vote_stop(ent);
 	}
 
-	if(ent->hasVoted) /* FS: Coop: Voting stuff */
+	if (ent->hasVoted) /* FS: Coop: Voting stuff */
 	{
 		vote_disconnect_recalc(ent);
 	}
@@ -2978,7 +2977,7 @@ ClientDisconnect(edict_t *ent)
 
 	gi.bprintf(PRINT_HIGH, "%s disconnected\n", ent->client->pers.netname);
 
- 	/* FS: Coop: Rogue specific.  Probably OK to leave as-is. */
+	/* FS: Coop: Rogue specific.  Probably OK to leave as-is. */
 	/* make sure no trackers are still hurting us. */
 	if (ent->client->tracker_pain_framenum)
 	{
@@ -3036,7 +3035,7 @@ PM_trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 }
 
 unsigned
-CheckBlock(void *b, int c)
+CheckBlock(void* b, int c)
 {
 	int v, i;
 
@@ -3049,14 +3048,14 @@ CheckBlock(void *b, int c)
 
 	for (i = 0; i < c; i++)
 	{
-		v += ((byte *)b)[i];
+		v += ((byte*)b)[i];
 	}
 
 	return v;
 }
 
 void
-PrintPmove(pmove_t *pm)
+PrintPmove(pmove_t* pm)
 {
 	unsigned c1, c2;
 
@@ -3075,10 +3074,10 @@ PrintPmove(pmove_t *pm)
  * usually be a couple times for each server frame.
  */
 void
-ClientThink(edict_t *ent, usercmd_t *ucmd)
+ClientThink(edict_t* ent, usercmd_t* ucmd)
 {
-	gclient_t *client;
-	edict_t *other;
+	gclient_t* client;
+	edict_t* other;
 	int i, j;
 	pmove_t pm;
 
@@ -3091,7 +3090,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 	client = ent->client;
 
 	if ((client->hook_state == HOOK_ON) && client->hook)
-        hook_service(client->hook);
+		hook_service(client->hook);
 
 	Blinky_RunRun(ent, ucmd);
 
@@ -3109,7 +3108,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		return;
 	}
 
-	if((game.gametype == zaero_coop) && (ent->movetype == MOVETYPE_FREEZE))  /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (ent->movetype == MOVETYPE_FREEZE))  /* FS: Zaero specific game dll changes */
 	{
 		client->ps.pmove.pm_type = PM_FREEZE;
 		return;
@@ -3145,19 +3144,19 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 			client->ps.pmove.pm_type = PM_NORMAL;
 		}
 
-		if (client -> hook_state == HOOK_ON) {
-    		client -> ps.pmove.gravity = 0;
-		} 
+		if (client->hook_state == HOOK_ON) {
+			client->ps.pmove.gravity = 0;
+		}
 		else
 		{
-    		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+			if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 			{
-        		client -> ps.pmove.gravity = sv_gravity -> value * ent -> gravity;
-    		} 
+				client->ps.pmove.gravity = sv_gravity->value * ent->gravity;
+			}
 			else
 			{
-        		client -> ps.pmove.gravity = sv_gravity -> value;
-    		}
+				client->ps.pmove.gravity = sv_gravity->value;
+			}
 		}
 
 		pm.s = client->ps.pmove;
@@ -3205,7 +3204,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		if (ent->groundentity && !pm.groundentity && (pm.cmd.upmove >= 10) && (pm.waterlevel == 0))
 		{
 			gi.sound(ent, CHAN_VOICE, gi.soundindex(
-							"*jump1.wav"), 1, ATTN_NORM, 0);
+				"*jump1.wav"), 1, ATTN_NORM, 0);
 			PlayerNoise(ent, ent->s.origin, PNOISE_SELF);
 		}
 
@@ -3241,7 +3240,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 
 		gi.linkentity(ent);
 
-		if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 		{
 			ent->gravity = 1.0;
 		}
@@ -3348,7 +3347,7 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		{
 			UpdateChaseCam(other);
 		}
-		else if(other->inuse && (other->client->blinky_client.cam_target == ent))
+		else if (other->inuse && (other->client->blinky_client.cam_target == ent))
 		{
 			Blinky_UpdateCameraThink(other); /* FS: Blinky's Coop Camera */
 		}
@@ -3356,12 +3355,12 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 
 	if ((client->hook_state == HOOK_ON) && (VectorLength(ent->velocity) < 10))
 	{
-        client->ps.pmove.pm_flags |= PMF_NO_PREDICTION;
+		client->ps.pmove.pm_flags |= PMF_NO_PREDICTION;
 	}
 	else
 	{
-        client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
-    }
+		client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
+	}
 
 	if (ENT_CALLED_AIRSTRIKE && (PRESENT_TIME > ENTS_TIME_TO_AIRSTRIKE))
 		spawn_aircraft(ent);
@@ -3383,9 +3382,9 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
  * before running any other entities in the world.
  */
 void
-ClientBeginServerFrame(edict_t *ent)
+ClientBeginServerFrame(edict_t* ent)
 {
-	gclient_t *client;
+	gclient_t* client;
 	int buttonMask;
 
 	if (!ent)
@@ -3461,9 +3460,9 @@ ClientBeginServerFrame(edict_t *ent)
  * the disruptor attaches to clients to damage them.
  */
 void
-RemoveAttackingPainDaemons(edict_t *self) /* FS: Coop: Rogue specific */
+RemoveAttackingPainDaemons(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	edict_t *tracker;
+	edict_t* tracker;
 
 	if (!self)
 	{
@@ -3488,19 +3487,19 @@ RemoveAttackingPainDaemons(edict_t *self) /* FS: Coop: Rogue specific */
 	}
 }
 
-int P_Clients_Connected (qboolean spectators) /* FS: Coop: Find out how many players are in the game */
+int P_Clients_Connected(qboolean spectators) /* FS: Coop: Find out how many players are in the game */
 {
-	edict_t	*ent;
+	edict_t* ent;
 	int i, clientsInGame;
 
 	i = clientsInGame = 0;
 
-	for (i=0 ; i<maxclients->value ; i++)
+	for (i = 0; i < maxclients->value; i++)
 	{
-		ent = &g_edicts [i + 1];
+		ent = &g_edicts[i + 1];
 		if (ent->inuse && ent->client)
 		{
-			if(ent->client->pers.netname[0] && !Q_stricmp(ent->client->pers.netname, "WallFly[BZZZ]")) /* FS: TODO FIXME: Waiting on tastyspleen for additional details to reliably detect WallFly */
+			if (ent->client->pers.netname[0] && !Q_stricmp(ent->client->pers.netname, "WallFly[BZZZ]")) /* FS: TODO FIXME: Waiting on tastyspleen for additional details to reliably detect WallFly */
 			{
 				continue;
 			}

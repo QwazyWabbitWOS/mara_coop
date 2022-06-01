@@ -21,14 +21,14 @@ qboolean	is_quadfire; /* FS: Coop: Xatrix specific */
 byte		damage_multiplier; /* FS: Coop: Rogue specific */
 byte		is_silenced;
 
-void weapon_grenade_fire(edict_t *ent, qboolean held);
-void weapon_trap_fire (edict_t *ent, qboolean held); /* FS: Coop: Xatrix specific */
-void drop_clusterbomb(edict_t *shooter, vec3_t start, vec3_t aimdir);
-void drop_rocket_bomb(edict_t *shooter, vec3_t start, vec3_t dir, int damage,int speed);
+void weapon_grenade_fire(edict_t* ent, qboolean held);
+void weapon_trap_fire(edict_t* ent, qboolean held); /* FS: Coop: Xatrix specific */
+void drop_clusterbomb(edict_t* shooter, vec3_t start, vec3_t aimdir);
+void drop_rocket_bomb(edict_t* shooter, vec3_t start, vec3_t dir, int damage, int speed);
 
 
 byte
-P_DamageModifier(edict_t *ent) /* FS: Coop: Rogue addition.  Set damage_multiplier. */
+P_DamageModifier(edict_t* ent) /* FS: Coop: Rogue addition.  Set damage_multiplier. */
 {
 	is_quad = 0;
 	damage_multiplier = 1;
@@ -62,15 +62,15 @@ P_DamageModifier(edict_t *ent) /* FS: Coop: Rogue addition.  Set damage_multipli
 	return damage_multiplier;
 }
 
-void playQuadSound(edict_t *ent) /* FS: Zaero specific */
+void playQuadSound(edict_t* ent) /* FS: Zaero specific */
 {
 	if (ent->client->quad_framenum > level.framenum)
 		gi.sound(ent, CHAN_ITEM, gi.soundindex("items/damage3.wav"), 1, ATTN_NORM, 0);
 }
 
-void P_ProjectSource (gclient_t *client, vec3_t point, vec3_t distance, vec3_t forward, vec3_t right, vec3_t result)
+void P_ProjectSource(gclient_t* client, vec3_t point, vec3_t distance, vec3_t forward, vec3_t right, vec3_t result)
 {
-	vec3_t _distance;
+	vec3_t _distance = { 0 };
 
 	if (!client)
 	{
@@ -92,10 +92,10 @@ void P_ProjectSource (gclient_t *client, vec3_t point, vec3_t distance, vec3_t f
 }
 
 void
-P_ProjectSource2(gclient_t *client, vec3_t point, vec3_t distance, vec3_t forward, /* FS: Coop: Rogue specific */
-		vec3_t right, vec3_t up, vec3_t result)
+P_ProjectSource2(gclient_t* client, vec3_t point, vec3_t distance, vec3_t forward, /* FS: Coop: Rogue specific */
+	vec3_t right, vec3_t up, vec3_t result)
 {
-	vec3_t _distance;
+	vec3_t _distance = { 0 };
 
 	if (!client)
 	{
@@ -125,9 +125,9 @@ P_ProjectSource2(gclient_t *client, vec3_t point, vec3_t distance, vec3_t forwar
  * to a noise in hopes of seeing the player from there.
  */
 void
-PlayerNoise(edict_t *who, vec3_t where, int type)
+PlayerNoise(edict_t* who, vec3_t where, int type)
 {
-	edict_t *noise;
+	edict_t* noise;
 
 	if (!who)
 	{
@@ -209,10 +209,10 @@ PlayerNoise(edict_t *who, vec3_t where, int type)
 }
 
 qboolean
-Pickup_Weapon(edict_t *ent, edict_t *other)
+Pickup_Weapon(edict_t* ent, edict_t* other)
 {
 	int index;
-	gitem_t *ammo;
+	gitem_t* ammo;
 
 	if (!ent || !other)
 	{
@@ -242,11 +242,11 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 		{
 			ammo = FindItem(ent->item->ammo);
 			/* Don't get infinite ammo with trap */
-			if ( ((int)dmflags->value & DF_INFINITE_AMMO) && Q_stricmp(ent->item->pickup_name, "ammo_trap") ) /* FS: Coop: Xatrix specific -- Added ammo_trap*/
+			if (((int)dmflags->value & DF_INFINITE_AMMO) && Q_stricmp(ent->item->pickup_name, "ammo_trap")) /* FS: Coop: Xatrix specific -- Added ammo_trap*/
 			{
 				Add_Ammo(other, ammo, 1000);
 
-				if(coop->value) /* FS: Coop: Global inventory for newcomers to server */
+				if (coop->value) /* FS: Coop: Global inventory for newcomers to server */
 				{
 					game.inventory[ITEM_INDEX(ammo)] = 1000;
 				}
@@ -255,7 +255,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 			{
 				Add_Ammo(other, ammo, ammo->quantity);
 
-				if(coop->value) /* FS: Coop: Global inventory for newcomers to server */
+				if (coop->value) /* FS: Coop: Global inventory for newcomers to server */
 				{
 					game.inventory[ITEM_INDEX(ammo)] = ammo->quantity;
 				}
@@ -299,7 +299,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
  * way, so make the new one current
  */
 void
-ChangeWeapon(edict_t *ent)
+ChangeWeapon(edict_t* ent)
 {
 	int i;
 
@@ -335,7 +335,7 @@ ChangeWeapon(edict_t *ent)
 	ent->client->machinegun_shots = 0;
 
 	/* set visible model */
-	if (ent->s.modelindex == MAX_MODELS-1)
+	if (ent->s.modelindex == MAX_MODELS - 1)
 	{
 		if (ent->client->pers.weapon)
 		{
@@ -360,7 +360,7 @@ ChangeWeapon(edict_t *ent)
 
 	if (!ent->client->pers.weapon)
 	{
-	 	/* dead */
+		/* dead */
 		ent->client->ps.gunindex = 0;
 		return;
 	}
@@ -384,7 +384,7 @@ ChangeWeapon(edict_t *ent)
 }
 
 void
-NoAmmoWeaponChange(edict_t *ent)
+NoAmmoWeaponChange(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -415,18 +415,18 @@ NoAmmoWeaponChange(edict_t *ent)
 	}
 
 	/* FS: Coop: Xatrix specific */
-	if (ent->client->pers.inventory[ITEM_INDEX (FindItem ("mag slug"))] &&
-		ent->client->pers.inventory[ITEM_INDEX (FindItem ("phalanx"))])
+	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("mag slug"))] &&
+		ent->client->pers.inventory[ITEM_INDEX(FindItem("phalanx"))])
 	{
-		ent->client->newweapon = FindItem ("phalanx");	
+		ent->client->newweapon = FindItem("phalanx");
 	}
 	/* FS: Coop: Xatrix specific */
-	if (ent->client->pers.inventory[ITEM_INDEX (FindItem ("cells"))] &&
-		ent->client->pers.inventory[ITEM_INDEX (FindItem ("ionripper"))])
+	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("cells"))] &&
+		ent->client->pers.inventory[ITEM_INDEX(FindItem("ionripper"))])
 	{
-		ent->client->newweapon = FindItem ("ionrippergun");
+		ent->client->newweapon = FindItem("ionrippergun");
 	}
-	
+
 	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("cells"))] &&
 		ent->client->pers.inventory[ITEM_INDEX(FindItem("hyperblaster"))])
 	{
@@ -469,7 +469,7 @@ NoAmmoWeaponChange(edict_t *ent)
  * Called by ClientBeginServerFrame and ClientThink
  */
 void
-Think_Weapon(edict_t *ent)
+Think_Weapon(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -509,10 +509,10 @@ Think_Weapon(edict_t *ent)
  * Make the weapon ready if there is ammo
  */
 void
-Use_Weapon(edict_t *ent, gitem_t *item)
+Use_Weapon(edict_t* ent, gitem_t* item)
 {
 	int ammo_index;
-	gitem_t *ammo_item;
+	gitem_t* ammo_item;
 
 	if (!ent || !item)
 	{
@@ -541,7 +541,7 @@ Use_Weapon(edict_t *ent, gitem_t *item)
 			if (ent->client->pers.inventory[ammo_index] < item->quantity)
 			{
 				gi.cprintf(ent, PRINT_HIGH, "Not enough %s for %s.\n",
-						ammo_item->pickup_name, item->pickup_name);
+					ammo_item->pickup_name, item->pickup_name);
 				return;
 			}
 		}
@@ -556,10 +556,10 @@ Use_Weapon(edict_t *ent, gitem_t *item)
 }
 
 /* FS: Adapated from Xatrix Code */
-void Use_Weapon2_Rogue (edict_t *ent, gitem_t *item)
+void Use_Weapon2_Rogue(edict_t* ent, gitem_t* item)
 {
 	int			ammo_index;
-	gitem_t		*ammo_item;
+	gitem_t* ammo_item;
 	int			index;
 
 	if (!ent || !item)
@@ -567,51 +567,51 @@ void Use_Weapon2_Rogue (edict_t *ent, gitem_t *item)
 		return;
 	}
 
-	if (strcmp (item->pickup_name, "Blaster") == 0)
+	if (strcmp(item->pickup_name, "Blaster") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Chainfist");
-			index = ITEM_INDEX (item);
+			item = FindItem("Chainfist");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Blaster");
+				item = FindItem("Blaster");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "Chaingun") == 0)
+	else if (strcmp(item->pickup_name, "Chaingun") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("ETF Rifle");
-			index = ITEM_INDEX (item);
+			item = FindItem("ETF Rifle");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Chaingun");
+				item = FindItem("Chaingun");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "Grenade Launcher") == 0)
+	else if (strcmp(item->pickup_name, "Grenade Launcher") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Prox Launcher");
-			index = ITEM_INDEX (item);
+			item = FindItem("Prox Launcher");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Grenade Launcher");
+				item = FindItem("Grenade Launcher");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "HyperBlaster") == 0)
+	else if (strcmp(item->pickup_name, "HyperBlaster") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Plasma Beam");
-			index = ITEM_INDEX (item);
+			item = FindItem("Plasma Beam");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("HyperBlaster");
+				item = FindItem("HyperBlaster");
 			}
 		}
 	}
@@ -626,7 +626,7 @@ void Use_Weapon2_Rogue (edict_t *ent, gitem_t *item)
 		ammo_index = ITEM_INDEX(ammo_item);
 		if (!ent->client->pers.inventory[ammo_index] && !g_select_empty->value)
 		{
-			gi.cprintf (ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
+			gi.cprintf(ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
 			return;
 		}
 	}
@@ -635,11 +635,11 @@ void Use_Weapon2_Rogue (edict_t *ent, gitem_t *item)
 	ent->client->newweapon = item;
 }
 
-void Use_Weapon2_Xatrix (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specific */
+void Use_Weapon2_Xatrix(edict_t* ent, gitem_t* item) /* FS: Coop: Xatrix specific */
 {
 	int			ammo_index;
-	gitem_t		*ammo_item;
-	gitem_t		*nextitem;
+	gitem_t* ammo_item;
+	gitem_t* nextitem;
 	int			index;
 
 	if (!ent || !item)
@@ -647,44 +647,44 @@ void Use_Weapon2_Xatrix (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specif
 		return;
 	}
 
-	if (strcmp (item->pickup_name, "HyperBlaster") == 0)
+	if (strcmp(item->pickup_name, "HyperBlaster") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Ionripper");
-			index = ITEM_INDEX (item);
+			item = FindItem("Ionripper");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("HyperBlaster");
+				item = FindItem("HyperBlaster");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "Railgun") == 0)
+	else if (strcmp(item->pickup_name, "Railgun") == 0)
 	{
 		ammo_item = FindItem(item->ammo);
 		ammo_index = ITEM_INDEX(ammo_item);
 		if (!ent->client->pers.inventory[ammo_index])
 		{
-			nextitem = FindItem ("Phalanx");
+			nextitem = FindItem("Phalanx");
 			ammo_item = FindItem(nextitem->ammo);
 			ammo_index = ITEM_INDEX(ammo_item);
 			if (ent->client->pers.inventory[ammo_index])
 			{
-				item = FindItem ("Phalanx");
-				index = ITEM_INDEX (item);
+				item = FindItem("Phalanx");
+				index = ITEM_INDEX(item);
 				if (!ent->client->pers.inventory[index])
 				{
-					item = FindItem ("Railgun");
+					item = FindItem("Railgun");
 				}
 			}
 		}
 		else if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Phalanx");
-			index = ITEM_INDEX (item);
+			item = FindItem("Phalanx");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Railgun");
+				item = FindItem("Railgun");
 			}
 		}
 	}
@@ -699,7 +699,7 @@ void Use_Weapon2_Xatrix (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specif
 		ammo_index = ITEM_INDEX(ammo_item);
 		if (!ent->client->pers.inventory[ammo_index] && !g_select_empty->value)
 		{
-			gi.cprintf (ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
+			gi.cprintf(ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
 			return;
 		}
 	}
@@ -708,10 +708,10 @@ void Use_Weapon2_Xatrix (edict_t *ent, gitem_t *item) /* FS: Coop: Xatrix specif
 	ent->client->newweapon = item;
 }
 
-void Use_Weapon2_Zaero (edict_t *ent, gitem_t *item) /* FS: Coop: Zaero specific */
+void Use_Weapon2_Zaero(edict_t* ent, gitem_t* item) /* FS: Coop: Zaero specific */
 {
 	int			ammo_index;
-	gitem_t		*ammo_item;
+	gitem_t* ammo_item;
 	int			index;
 
 	if (!ent || !item)
@@ -719,39 +719,39 @@ void Use_Weapon2_Zaero (edict_t *ent, gitem_t *item) /* FS: Coop: Zaero specific
 		return;
 	}
 
-	if (strcmp (item->pickup_name, "Blaster") == 0)
+	if (strcmp(item->pickup_name, "Blaster") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Flare Gun");
-			index = ITEM_INDEX (item);
+			item = FindItem("Flare Gun");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Blaster");
+				item = FindItem("Blaster");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "Railgun") == 0)
+	else if (strcmp(item->pickup_name, "Railgun") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Sniper Rifle");
-			index = ITEM_INDEX (item);
+			item = FindItem("Sniper Rifle");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("Railgun");
+				item = FindItem("Railgun");
 			}
 		}
 	}
-	else if (strcmp (item->pickup_name, "HyperBlaster") == 0)
+	else if (strcmp(item->pickup_name, "HyperBlaster") == 0)
 	{
 		if (item == ent->client->pers.weapon)
 		{
-			item = FindItem ("Sonic Cannon");
-			index = ITEM_INDEX (item);
+			item = FindItem("Sonic Cannon");
+			index = ITEM_INDEX(item);
 			if (!ent->client->pers.inventory[index])
 			{
-				item = FindItem ("HyperBlaster");
+				item = FindItem("HyperBlaster");
 			}
 		}
 	}
@@ -766,7 +766,7 @@ void Use_Weapon2_Zaero (edict_t *ent, gitem_t *item) /* FS: Coop: Zaero specific
 		ammo_index = ITEM_INDEX(ammo_item);
 		if (!ent->client->pers.inventory[ammo_index] && !g_select_empty->value)
 		{
-			gi.cprintf (ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
+			gi.cprintf(ent, PRINT_HIGH, "No %s for %s.\n", ammo_item->pickup_name, item->pickup_name);
 			return;
 		}
 	}
@@ -775,7 +775,7 @@ void Use_Weapon2_Zaero (edict_t *ent, gitem_t *item) /* FS: Coop: Zaero specific
 	ent->client->newweapon = item;
 }
 
-void Use_Weapon2 (edict_t *ent, gitem_t *item) /* FS */
+void Use_Weapon2(edict_t* ent, gitem_t* item) /* FS */
 {
 	if (game.gametype == rogue_coop)
 	{
@@ -800,7 +800,7 @@ void Use_Weapon2 (edict_t *ent, gitem_t *item) /* FS */
 }
 
 void
-Drop_Weapon(edict_t *ent, gitem_t *item)
+Drop_Weapon(edict_t* ent, gitem_t* item)
 {
 	int index;
 
@@ -818,7 +818,7 @@ Drop_Weapon(edict_t *ent, gitem_t *item)
 
 	/* see if we're already using it */
 	if (((item == ent->client->pers.weapon) ||
-		 (item == ent->client->newweapon)) &&
+		(item == ent->client->newweapon)) &&
 		(ent->client->pers.inventory[index] == 1))
 	{
 		gi.cprintf(ent, PRINT_HIGH, "Can't drop current weapon\n");
@@ -834,8 +834,8 @@ Drop_Weapon(edict_t *ent, gitem_t *item)
  */
 
 void
-Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST,
-		int FRAME_DEACTIVATE_LAST, int *pause_frames, int *fire_frames, void (*fire)(edict_t *ent))
+Weapon_Generic(edict_t* ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST,
+	int FRAME_DEACTIVATE_LAST, int* pause_frames, int* fire_frames, void (*fire)(edict_t* ent))
 {
 	int n;
 
@@ -916,13 +916,13 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int F
 	if (ent->client->weaponstate == WEAPON_READY)
 	{
 		if (((ent->client->latched_buttons |
-			  ent->client->buttons) & BUTTON_ATTACK))
+			ent->client->buttons) & BUTTON_ATTACK))
 		{
 			ent->client->latched_buttons &= ~BUTTON_ATTACK;
 
 			if ((!ent->client->ammo_index) ||
 				(ent->client->pers.inventory[ent->client->ammo_index] >=
-				 ent->client->pers.weapon->quantity))
+					ent->client->pers.weapon->quantity))
 			{
 				ent->client->ps.gunframe = FRAME_FIRE_FIRST;
 				ent->client->weaponstate = WEAPON_FIRING;
@@ -1020,9 +1020,9 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int F
  */
 
 void
-weapon_grenade_fire_rogue (edict_t *ent, qboolean held) /* FS: Coop: Rogue specific */
+weapon_grenade_fire_rogue(edict_t* ent, qboolean held) /* FS: Coop: Rogue specific */
 {
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	vec3_t forward, right, up;
 	vec3_t start;
 	int damage = 125;
@@ -1054,7 +1054,7 @@ weapon_grenade_fire_rogue (edict_t *ent, qboolean held) /* FS: Coop: Rogue speci
 	}
 
 	P_ProjectSource2(ent->client, ent->s.origin, offset,
-			forward, right, up, start);
+		forward, right, up, start);
 
 	timer = ent->client->grenade_time - level.time;
 	speed = GRENADE_MINSPEED + (GRENADE_TIMER - timer) * ((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
@@ -1066,16 +1066,16 @@ weapon_grenade_fire_rogue (edict_t *ent, qboolean held) /* FS: Coop: Rogue speci
 
 	switch (ent->client->pers.weapon->tag)
 	{
-		case AMMO_GRENADES:
-			fire_grenade2(ent, start, forward, damage, speed,
-				timer, radius, held);
-			break;
-		case AMMO_TESLA:
-			fire_tesla(ent, start, forward, damage_multiplier, speed);
-			break;
-		default:
-			fire_prox(ent, start, forward, damage_multiplier, speed);
-			break;
+	case AMMO_GRENADES:
+		fire_grenade2(ent, start, forward, damage, speed,
+			timer, radius, held);
+		break;
+	case AMMO_TESLA:
+		fire_tesla(ent, start, forward, damage_multiplier, speed);
+		break;
+	default:
+		fire_prox(ent, start, forward, damage_multiplier, speed);
+		break;
 	}
 
 	if (!((int)dmflags->value & DF_INFINITE_AMMO))
@@ -1110,9 +1110,9 @@ weapon_grenade_fire_rogue (edict_t *ent, qboolean held) /* FS: Coop: Rogue speci
 }
 
 void
-weapon_grenade_fire(edict_t *ent, qboolean held)
+weapon_grenade_fire(edict_t* ent, qboolean held)
 {
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	vec3_t forward, right;
 	vec3_t start;
 	int damage = 125;
@@ -1180,9 +1180,9 @@ weapon_grenade_fire(edict_t *ent, qboolean held)
 
 
 void
-Throw_Generic(edict_t *ent, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_THROW_SOUND,
-		int FRAME_THROW_HOLD, int FRAME_THROW_FIRE, int *pause_frames, int EXPLODE,
-		void (*fire)(edict_t *ent, qboolean held))
+Throw_Generic(edict_t* ent, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_THROW_SOUND,
+	int FRAME_THROW_HOLD, int FRAME_THROW_FIRE, int* pause_frames, int EXPLODE,
+	void (*fire)(edict_t* ent, qboolean held))
 {
 	int n;
 
@@ -1269,9 +1269,9 @@ Throw_Generic(edict_t *ent, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_
 
 				switch (ent->client->pers.weapon->tag)
 				{
-					case AMMO_GRENADES:
-						ent->client->weapon_sound = gi.soundindex("weapons/hgrenc1b.wav");
-						break;
+				case AMMO_GRENADES:
+					ent->client->weapon_sound = gi.soundindex("weapons/hgrenc1b.wav");
+					break;
 				}
 			}
 
@@ -1326,9 +1326,9 @@ Throw_Generic(edict_t *ent, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_
 }
 
 void
-Weapon_Grenade(edict_t *ent)
+Weapon_Grenade(edict_t* ent)
 {
-	static int pause_frames[] = {29, 34, 39, 48, 0}; /* FS: Coop: Rogue specific */
+	static int pause_frames[] = { 29, 34, 39, 48, 0 }; /* FS: Coop: Rogue specific */
 
 	if (!ent)
 	{
@@ -1338,7 +1338,7 @@ Weapon_Grenade(edict_t *ent)
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		Throw_Generic(ent, 15, 48, 5, 11, 12, pause_frames,
-				GRENADE_TIMER, weapon_grenade_fire);
+			GRENADE_TIMER, weapon_grenade_fire);
 		return;
 	}
 
@@ -1358,7 +1358,7 @@ Weapon_Grenade(edict_t *ent)
 	if (ent->client->weaponstate == WEAPON_READY)
 	{
 		if (((ent->client->latched_buttons |
-			  ent->client->buttons) & BUTTON_ATTACK))
+			ent->client->buttons) & BUTTON_ATTACK))
 		{
 			ent->client->latched_buttons &= ~BUTTON_ATTACK;
 
@@ -1373,7 +1373,7 @@ Weapon_Grenade(edict_t *ent)
 				if (level.time >= ent->pain_debounce_time)
 				{
 					gi.sound(ent, CHAN_VOICE, gi.soundindex(
-								"weapons/noammo.wav"), 1, ATTN_NORM, 0);
+						"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
 
@@ -1407,7 +1407,7 @@ Weapon_Grenade(edict_t *ent)
 		if (ent->client->ps.gunframe == 5)
 		{
 			gi.sound(ent, CHAN_WEAPON, gi.soundindex(
-							"weapons/hgrena1b.wav"), 1, ATTN_NORM, 0);
+				"weapons/hgrena1b.wav"), 1, ATTN_NORM, 0);
 		}
 
 		if (ent->client->ps.gunframe == 11)
@@ -1416,7 +1416,7 @@ Weapon_Grenade(edict_t *ent)
 			{
 				ent->client->grenade_time = level.time + GRENADE_TIMER + 0.2;
 				ent->client->weapon_sound = gi.soundindex(
-						"weapons/hgrenc1b.wav");
+					"weapons/hgrenc1b.wav");
 			}
 
 			/* they waited too long, detonate it in their hand */
@@ -1470,9 +1470,9 @@ Weapon_Grenade(edict_t *ent)
 }
 
 void
-Weapon_Prox(edict_t *ent)
+Weapon_Prox(edict_t* ent)
 {
-	static int pause_frames[] = {22, 29, 0};
+	static int pause_frames[] = { 22, 29, 0 };
 
 	if (!ent)
 	{
@@ -1483,9 +1483,9 @@ Weapon_Prox(edict_t *ent)
 }
 
 void
-Weapon_Tesla(edict_t *ent)
+Weapon_Tesla(edict_t* ent)
 {
-	static int pause_frames[] = {21, 0};
+	static int pause_frames[] = { 21, 0 };
 
 	if (!ent)
 	{
@@ -1513,9 +1513,9 @@ Weapon_Tesla(edict_t *ent)
  */
 
 void
-weapon_grenadelauncher_fire(edict_t *ent)
+weapon_grenadelauncher_fire(edict_t* ent)
 {
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	vec3_t forward, right;
 	vec3_t start;
 	int damage;
@@ -1528,12 +1528,12 @@ weapon_grenadelauncher_fire(edict_t *ent)
 
 	switch (ent->client->pers.weapon->tag) /* FS: Coop: Rogue specific */
 	{
-		case AMMO_PROX:
-			damage = 90;
-			break;
-		default:
-			damage = 120;
-			break;
+	case AMMO_PROX:
+		damage = 90;
+		break;
+	default:
+		damage = 120;
+		break;
 	}
 
 	radius = damage + 40;
@@ -1552,16 +1552,16 @@ weapon_grenadelauncher_fire(edict_t *ent)
 
 	switch (ent->client->pers.weapon->tag) /* FS: Coop: Rogue specific */
 	{
-		case AMMO_PROX:
-			fire_prox(ent, start, forward, damage_multiplier, 600);
-			break;
-		default:
-			fire_grenade(ent, start, forward, damage, 600, 2.5, radius);
-			break;
+	case AMMO_PROX:
+		fire_prox(ent, start, forward, damage_multiplier, 600);
+		break;
+	default:
+		fire_grenade(ent, start, forward, damage, 600, 2.5, radius);
+		break;
 	}
 
-	gi.WriteByte (svc_muzzleflash);
-	gi.WriteShort (ent-g_edicts);
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
 	gi.WriteByte(MZ_GRENADE | is_silenced);
 	gi.multicast(ent->s.origin, MULTICAST_PVS);
 
@@ -1576,10 +1576,10 @@ weapon_grenadelauncher_fire(edict_t *ent)
 }
 
 void
-Weapon_GrenadeLauncher(edict_t *ent)
+Weapon_GrenadeLauncher(edict_t* ent)
 {
-	static int pause_frames[] = {34, 51, 59, 0};
-	static int fire_frames[] = {6, 0};
+	static int pause_frames[] = { 34, 51, 59, 0 };
+	static int fire_frames[] = { 6, 0 };
 
 	if (!ent)
 	{
@@ -1587,19 +1587,19 @@ Weapon_GrenadeLauncher(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 5, 16, 59, 64, pause_frames,
-			fire_frames, weapon_grenadelauncher_fire);
+		fire_frames, weapon_grenadelauncher_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
+		Weapon_Generic(ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
 
 }
 
 void
-Weapon_ProxLauncher(edict_t *ent) /* FS: Coop: Rogue specific */
+Weapon_ProxLauncher(edict_t* ent) /* FS: Coop: Rogue specific */
 {
-	static int pause_frames[] = {34, 51, 59, 0};
-	static int fire_frames[] = {6, 0};
+	static int pause_frames[] = { 34, 51, 59, 0 };
+	static int fire_frames[] = { 6, 0 };
 
 	if (!ent)
 	{
@@ -1607,7 +1607,7 @@ Weapon_ProxLauncher(edict_t *ent) /* FS: Coop: Rogue specific */
 	}
 
 	Weapon_Generic(ent, 5, 16, 59, 64, pause_frames,
-			fire_frames, weapon_grenadelauncher_fire);
+		fire_frames, weapon_grenadelauncher_fire);
 }
 
 /*
@@ -1619,9 +1619,9 @@ Weapon_ProxLauncher(edict_t *ent) /* FS: Coop: Rogue specific */
  */
 
 void
-Weapon_RocketLauncher_Fire(edict_t *ent)
+Weapon_RocketLauncher_Fire(edict_t* ent)
 {
-	vec3_t offset, start;
+	vec3_t offset = { 0 }, start;
 	vec3_t forward, right;
 	int damage;
 	float damage_radius;
@@ -1652,9 +1652,9 @@ Weapon_RocketLauncher_Fire(edict_t *ent)
 	VectorSet(offset, 8, 8, ent->viewheight - 8);
 	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
 	{
-		gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 	}
 	else
 	{
@@ -1676,10 +1676,10 @@ Weapon_RocketLauncher_Fire(edict_t *ent)
 }
 
 void
-Weapon_RocketLauncher(edict_t *ent)
+Weapon_RocketLauncher(edict_t* ent)
 {
-	static int pause_frames[] = {25, 33, 42, 50, 0};
-	static int fire_frames[] = {5, 0};
+	static int pause_frames[] = { 25, 33, 42, 50, 0 };
+	static int fire_frames[] = { 5, 0 };
 
 	if (!ent)
 	{
@@ -1687,11 +1687,11 @@ Weapon_RocketLauncher(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 4, 12, 50, 54, pause_frames,
-			fire_frames, Weapon_RocketLauncher_Fire);
+		fire_frames, Weapon_RocketLauncher_Fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 4, 12, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
+		Weapon_Generic(ent, 4, 12, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
 }
 
 /*
@@ -1703,12 +1703,12 @@ Weapon_RocketLauncher(edict_t *ent)
  */
 
 int
-Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage, /* FS: Zaero specific changed from void to int */
-		qboolean hyper, int effect)
+Blaster_Fire(edict_t* ent, vec3_t g_offset, int damage, /* FS: Zaero specific changed from void to int */
+	qboolean hyper, int effect)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int ret = 1; /* FS: Zaero specific */
 
 	if (!ent)
@@ -1729,9 +1729,9 @@ Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage, /* FS: Zaero specific ch
 	VectorScale(forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
 	{
-		gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		ret = 0;
 	}
 	else
@@ -1760,7 +1760,7 @@ Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage, /* FS: Zaero specific ch
 }
 
 void
-Weapon_Blaster_Fire(edict_t *ent)
+Weapon_Blaster_Fire(edict_t* ent)
 {
 	int damage;
 
@@ -1783,10 +1783,10 @@ Weapon_Blaster_Fire(edict_t *ent)
 }
 
 void
-Weapon_Blaster(edict_t *ent)
+Weapon_Blaster(edict_t* ent)
 {
-	static int pause_frames[] = {19, 32, 0};
-	static int fire_frames[] = {5, 0};
+	static int pause_frames[] = { 19, 32, 0 };
+	static int fire_frames[] = { 5, 0 };
 
 	if (!ent)
 	{
@@ -1794,18 +1794,18 @@ Weapon_Blaster(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 4, 6, 52, 55, pause_frames,
-			fire_frames, Weapon_Blaster_Fire);
+		fire_frames, Weapon_Blaster_Fire);
 
 	// RAFAEL
 	if (is_quadfire) /* FS: Coop: Xatrix specific */
-		Weapon_Generic (ent, 4, 6, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+		Weapon_Generic(ent, 4, 6, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
 
 void
-Weapon_HyperBlaster_Fire(edict_t *ent)
+Weapon_HyperBlaster_Fire(edict_t* ent)
 {
 	float rotation;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int effect;
 	int damage;
 
@@ -1858,7 +1858,7 @@ Weapon_HyperBlaster_Fire(edict_t *ent)
 				damage = 20;
 			}
 
-			if(Blaster_Fire(ent, offset, damage, true, effect)) /* FS: Zaero specific */
+			if (Blaster_Fire(ent, offset, damage, true, effect)) /* FS: Zaero specific */
 			{
 				if (!((int)dmflags->value & DF_INFINITE_AMMO))
 				{
@@ -1897,10 +1897,10 @@ Weapon_HyperBlaster_Fire(edict_t *ent)
 }
 
 void
-Weapon_HyperBlaster(edict_t *ent)
+Weapon_HyperBlaster(edict_t* ent)
 {
-	static int pause_frames[] = {0};
-	static int fire_frames[] = {6, 7, 8, 9, 10, 11, 0};
+	static int pause_frames[] = { 0 };
+	static int fire_frames[] = { 6, 7, 8, 9, 10, 11, 0 };
 
 	if (!ent)
 	{
@@ -1908,11 +1908,11 @@ Weapon_HyperBlaster(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 5, 20, 49, 53, pause_frames,
-			fire_frames, Weapon_HyperBlaster_Fire);
+		fire_frames, Weapon_HyperBlaster_Fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 5, 20, 49, 53, pause_frames, fire_frames, Weapon_HyperBlaster_Fire);
+		Weapon_Generic(ent, 5, 20, 49, 53, pause_frames, fire_frames, Weapon_HyperBlaster_Fire);
 }
 
 /*
@@ -1924,15 +1924,15 @@ Weapon_HyperBlaster(edict_t *ent)
  */
 
 void
-Machinegun_Fire(edict_t *ent)
+Machinegun_Fire(edict_t* ent)
 {
 	int i;
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t angles;
+	vec3_t angles = { 0 };
 	int damage = 8;
 	int kick = 2;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 
 	if (!ent)
 	{
@@ -2001,7 +2001,7 @@ Machinegun_Fire(edict_t *ent)
 	VectorSet(offset, 0, 8, ent->viewheight - 8);
 	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 	fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+		DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
 
 	gi.WriteByte(svc_muzzleflash);
 	gi.WriteShort(ent - g_edicts);
@@ -2030,10 +2030,10 @@ Machinegun_Fire(edict_t *ent)
 }
 
 void
-Weapon_Machinegun(edict_t *ent)
+Weapon_Machinegun(edict_t* ent)
 {
-	static int pause_frames[] = {23, 45, 0};
-	static int fire_frames[] = {4, 5, 0};
+	static int pause_frames[] = { 23, 45, 0 };
+	static int fire_frames[] = { 4, 5, 0 };
 
 	if (!ent)
 	{
@@ -2041,22 +2041,22 @@ Weapon_Machinegun(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 3, 5, 45, 49, pause_frames,
-			fire_frames, Machinegun_Fire);
+		fire_frames, Machinegun_Fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 3, 5, 45, 49, pause_frames, fire_frames, Machinegun_Fire);
+		Weapon_Generic(ent, 3, 5, 45, 49, pause_frames, fire_frames, Machinegun_Fire);
 }
 
 void
-Chaingun_Fire(edict_t *ent)
+Chaingun_Fire(edict_t* ent)
 {
 	int i;
 	int shots;
 	vec3_t start;
 	vec3_t forward, right, up;
 	float r, u;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int damage;
 	int kick = 2;
 
@@ -2087,8 +2087,8 @@ Chaingun_Fire(edict_t *ent)
 		return;
 	}
 	else if ((ent->client->ps.gunframe == 21) &&
-			 (ent->client->buttons & BUTTON_ATTACK) &&
-			 ent->client->pers.inventory[ent->client->ammo_index])
+		(ent->client->buttons & BUTTON_ATTACK) &&
+		ent->client->pers.inventory[ent->client->ammo_index])
 	{
 		ent->client->ps.gunframe = 15;
 	}
@@ -2169,9 +2169,9 @@ Chaingun_Fire(edict_t *ent)
 		ent->client->kick_angles[i] = crandom() * 0.7;
 	}
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(ent, ent->s.origin))) /* FS: Zaero specific */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(ent, ent->s.origin))) /* FS: Zaero specific */
 	{
-		gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
@@ -2185,7 +2185,7 @@ Chaingun_Fire(edict_t *ent)
 		P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 		fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD,
-				DEFAULT_BULLET_VSPREAD, MOD_CHAINGUN);
+			DEFAULT_BULLET_VSPREAD, MOD_CHAINGUN);
 	}
 
 	/* send muzzle flash */
@@ -2203,10 +2203,10 @@ Chaingun_Fire(edict_t *ent)
 }
 
 void
-Weapon_Chaingun(edict_t *ent)
+Weapon_Chaingun(edict_t* ent)
 {
-	static int pause_frames[] = {38, 43, 51, 61, 0};
-	static int fire_frames[] = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0};
+	static int pause_frames[] = { 38, 43, 51, 61, 0 };
+	static int fire_frames[] = { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0 };
 
 	if (!ent)
 	{
@@ -2217,7 +2217,7 @@ Weapon_Chaingun(edict_t *ent)
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 4, 31, 61, 64, pause_frames, fire_frames, Chaingun_Fire);
+		Weapon_Generic(ent, 4, 31, 61, 64, pause_frames, fire_frames, Chaingun_Fire);
 }
 
 /*
@@ -2229,11 +2229,11 @@ Weapon_Chaingun(edict_t *ent)
  */
 
 void
-weapon_shotgun_fire(edict_t *ent)
+weapon_shotgun_fire(edict_t* ent)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int damage = 4;
 	int kick = 8;
 
@@ -2263,7 +2263,7 @@ weapon_shotgun_fire(edict_t *ent)
 	}
 
 	fire_shotgun(ent, start, forward, damage, kick, 500, 500,
-			DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 
 	/* send muzzle flash */
 	gi.WriteByte(svc_muzzleflash);
@@ -2281,10 +2281,10 @@ weapon_shotgun_fire(edict_t *ent)
 }
 
 void
-Weapon_Shotgun(edict_t *ent)
+Weapon_Shotgun(edict_t* ent)
 {
-	static int pause_frames[] = {22, 28, 34, 0};
-	static int fire_frames[] = {8, 9, 0};
+	static int pause_frames[] = { 22, 28, 34, 0 };
+	static int fire_frames[] = { 8, 9, 0 };
 
 	if (!ent)
 	{
@@ -2292,20 +2292,20 @@ Weapon_Shotgun(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 7, 13, 36, 39, pause_frames,
-			fire_frames, weapon_shotgun_fire);
+		fire_frames, weapon_shotgun_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 7, 13, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
+		Weapon_Generic(ent, 7, 13, 36, 39, pause_frames, fire_frames, weapon_shotgun_fire);
 }
 
 void
-weapon_supershotgun_fire(edict_t *ent)
+weapon_supershotgun_fire(edict_t* ent)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t offset;
-	vec3_t v;
+	vec3_t offset = { 0 };
+	vec3_t v = { 0 };
 	int damage = 6;
 	int kick = 12;
 
@@ -2333,11 +2333,11 @@ weapon_supershotgun_fire(edict_t *ent)
 	v[ROLL] = ent->client->v_angle[ROLL];
 	AngleVectors(v, forward, NULL, NULL);
 	fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD,
-			DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+		DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 	v[YAW] = ent->client->v_angle[YAW] + 5;
 	AngleVectors(v, forward, NULL, NULL);
 	fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD,
-			DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+		DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 
 	/* send muzzle flash */
 	gi.WriteByte(svc_muzzleflash);
@@ -2355,10 +2355,10 @@ weapon_supershotgun_fire(edict_t *ent)
 }
 
 void
-Weapon_SuperShotgun(edict_t *ent)
+Weapon_SuperShotgun(edict_t* ent)
 {
-	static int pause_frames[] = {29, 42, 57, 0};
-	static int fire_frames[] = {7, 0};
+	static int pause_frames[] = { 29, 42, 57, 0 };
+	static int fire_frames[] = { 7, 0 };
 
 	if (!ent)
 	{
@@ -2366,11 +2366,11 @@ Weapon_SuperShotgun(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 6, 17, 57, 61, pause_frames,
-			fire_frames, weapon_supershotgun_fire);
+		fire_frames, weapon_supershotgun_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 6, 17, 57, 61, pause_frames, fire_frames, weapon_supershotgun_fire);
+		Weapon_Generic(ent, 6, 17, 57, 61, pause_frames, fire_frames, weapon_supershotgun_fire);
 }
 
 /*
@@ -2382,11 +2382,11 @@ Weapon_SuperShotgun(edict_t *ent)
  */
 
 void
-weapon_railgun_fire(edict_t *ent)
+weapon_railgun_fire(edict_t* ent)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int damage;
 	int kick;
 
@@ -2423,9 +2423,9 @@ weapon_railgun_fire(edict_t *ent)
 
 	ent->client->ps.gunframe++;
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(ent, start))) /* FS: Zaero specific */
 	{
-		gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
@@ -2446,10 +2446,10 @@ weapon_railgun_fire(edict_t *ent)
 }
 
 void
-Weapon_Railgun(edict_t *ent)
+Weapon_Railgun(edict_t* ent)
 {
-	static int pause_frames[] = {56, 0};
-	static int fire_frames[] = {4, 0};
+	static int pause_frames[] = { 56, 0 };
+	static int fire_frames[] = { 4, 0 };
 
 	if (!ent)
 	{
@@ -2457,11 +2457,11 @@ Weapon_Railgun(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 3, 18, 56, 61, pause_frames,
-			fire_frames, weapon_railgun_fire);
+		fire_frames, weapon_railgun_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 3, 18, 56, 61, pause_frames, fire_frames, weapon_railgun_fire);
+		Weapon_Generic(ent, 3, 18, 56, 61, pause_frames, fire_frames, weapon_railgun_fire);
 }
 
 /*
@@ -2473,9 +2473,9 @@ Weapon_Railgun(edict_t *ent)
  */
 
 void
-weapon_bfg_fire(edict_t *ent)
+weapon_bfg_fire(edict_t* ent)
 {
-	vec3_t offset, start;
+	vec3_t offset = { 0 }, start;
 	vec3_t forward, right;
 	int damage;
 	float damage_radius = 1000;
@@ -2486,26 +2486,26 @@ weapon_bfg_fire(edict_t *ent)
 	}
 
 	/* FS: Zaero specific, moved earlier for EMP */
-	AngleVectors (ent->client->v_angle, forward, right, NULL);
-	VectorScale (forward, -2, ent->client->kick_origin);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
+	VectorScale(forward, -2, ent->client->kick_origin);
 
-	VectorSet(offset, 8, 8, ent->viewheight-8);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 8, 8, ent->viewheight - 8);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
-	if(game.gametype == zaero_coop) /* FS: Zaero specific EMP stuff */
+	if (game.gametype == zaero_coop) /* FS: Zaero specific EMP stuff */
 	{
-		if(ent->client->ps.gunframe == 9)
+		if (ent->client->ps.gunframe == 9)
 		{
 			ent->flags &= ~FL_BFGMISSFIRE;
 		}
 
-		if(!(ent->flags & FL_BFGMISSFIRE) && EMPNukeCheck(ent, start))
+		if (!(ent->flags & FL_BFGMISSFIRE) && EMPNukeCheck(ent, start))
 		{
 			ent->flags |= FL_BFGMISSFIRE;
-			gi.sound (ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		}
 
-		if(ent->flags & FL_BFGMISSFIRE)
+		if (ent->flags & FL_BFGMISSFIRE)
 		{
 			ent->client->ps.gunframe++;
 			return;
@@ -2567,10 +2567,10 @@ weapon_bfg_fire(edict_t *ent)
 }
 
 void
-Weapon_BFG(edict_t *ent)
+Weapon_BFG(edict_t* ent)
 {
-	static int pause_frames[] = {39, 45, 50, 55, 0};
-	static int fire_frames[] = {9, 17, 0};
+	static int pause_frames[] = { 39, 45, 50, 55, 0 };
+	static int fire_frames[] = { 9, 17, 0 };
 
 	if (!ent)
 	{
@@ -2578,19 +2578,19 @@ Weapon_BFG(edict_t *ent)
 	}
 
 	Weapon_Generic(ent, 8, 32, 55, 58, pause_frames,
-			fire_frames, weapon_bfg_fire);
+		fire_frames, weapon_bfg_fire);
 
 	/* FS: Coop: Xatrix specific */
 	if (is_quadfire)
-		Weapon_Generic (ent, 8, 32, 55, 58, pause_frames, fire_frames, weapon_bfg_fire);
+		Weapon_Generic(ent, 8, 32, 55, 58, pause_frames, fire_frames, weapon_bfg_fire);
 }
 
 /* CHAINFIST */
 
 void
-weapon_chainfist_fire(edict_t *ent) /* FS: Coop: Rogue specific */
+weapon_chainfist_fire(edict_t* ent) /* FS: Coop: Rogue specific */
 {
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	vec3_t forward, right, up;
 	vec3_t start;
 	int damage;
@@ -2623,7 +2623,7 @@ weapon_chainfist_fire(edict_t *ent) /* FS: Coop: Rogue specific */
 	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	fire_player_melee(ent, start, forward, CHAINFIST_REACH, damage,
-			100, 1, MOD_CHAINFIST);
+		100, 1, MOD_CHAINFIST);
 
 	PlayerNoise(ent, start, PNOISE_WEAPON);
 
@@ -2635,10 +2635,10 @@ weapon_chainfist_fire(edict_t *ent) /* FS: Coop: Rogue specific */
  * this spits out some smoke from the motor. it's a two-stroke, you know.
  */
 void
-chainfist_smoke(edict_t *ent) /* FS: Coop: Rogue specific */
+chainfist_smoke(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	vec3_t tempVec, forward, right, up;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 
 	if (!ent)
 	{
@@ -2656,10 +2656,10 @@ chainfist_smoke(edict_t *ent) /* FS: Coop: Rogue specific */
 }
 
 void
-Weapon_ChainFist(edict_t *ent) /* FS: Coop: Rogue specific */
+Weapon_ChainFist(edict_t* ent) /* FS: Coop: Rogue specific */
 {
-	static int pause_frames[] = {0};
-	static int fire_frames[] = {8, 9, 16, 17, 18, 30, 31, 0};
+	static int pause_frames[] = { 0 };
+	static int fire_frames[] = { 8, 9, 16, 17, 18, 30, 31, 0 };
 
 	/* these are caches for the sound index. there's probably a better way to do this. */
 	float chance;
@@ -2704,7 +2704,7 @@ Weapon_ChainFist(edict_t *ent) /* FS: Coop: Rogue specific */
 	}
 
 	Weapon_Generic(ent, 4, 32, 57, 60, pause_frames,
-			fire_frames, weapon_chainfist_fire);
+		fire_frames, weapon_chainfist_fire);
 
 	if ((ent->client->buttons) & BUTTON_ATTACK)
 	{
@@ -2751,16 +2751,16 @@ Weapon_ChainFist(edict_t *ent) /* FS: Coop: Rogue specific */
 /* Disintegrator */
 
 void
-weapon_tracker_fire(edict_t *self) /* FS: Coop: Rogue specific */
+weapon_tracker_fire(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, right;
 	vec3_t start;
 	vec3_t end;
-	vec3_t offset;
-	edict_t *enemy;
+	vec3_t offset = { 0 };
+	edict_t* enemy;
 	trace_t tr;
 	int damage;
-	vec3_t mins, maxs;
+	vec3_t mins = { 0 }, maxs = { 0 };
 
 	if (!self)
 	{
@@ -2836,13 +2836,13 @@ weapon_tracker_fire(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-Weapon_Disintegrator(edict_t *ent) /* FS: Coop: Rogue specific */
+Weapon_Disintegrator(edict_t* ent) /* FS: Coop: Rogue specific */
 {
-	static int pause_frames[] = {14, 19, 23, 0};
-	static int fire_frames[] = {5, 0};
+	static int pause_frames[] = { 14, 19, 23, 0 };
+	static int fire_frames[] = { 5, 0 };
 
 	Weapon_Generic(ent, 4, 9, 29, 34, pause_frames,
-			fire_frames, weapon_tracker_fire);
+		fire_frames, weapon_tracker_fire);
 }
 
 /*
@@ -2853,14 +2853,14 @@ Weapon_Disintegrator(edict_t *ent) /* FS: Coop: Rogue specific */
  * ======================================================================
  */
 void
-weapon_etf_rifle_fire(edict_t *ent) /* FS: Coop: Rogue specific */
+weapon_etf_rifle_fire(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	vec3_t forward, right, up;
-	vec3_t start, tempPt;
+	vec3_t start, tempPt = { 0 };
 	int damage;
 	int kick = 3;
 	int i;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 
 	if (!ent)
 	{
@@ -2947,10 +2947,10 @@ weapon_etf_rifle_fire(edict_t *ent) /* FS: Coop: Rogue specific */
 }
 
 void
-Weapon_ETF_Rifle(edict_t *ent) /* FS: Coop: Rogue specific */
+Weapon_ETF_Rifle(edict_t* ent) /* FS: Coop: Rogue specific */
 {
-	static int pause_frames[] = {18, 28, 0};
-	static int fire_frames[] = {6, 7, 0};
+	static int pause_frames[] = { 18, 28, 0 };
+	static int fire_frames[] = { 6, 7, 0 };
 
 	if (!ent)
 	{
@@ -2966,7 +2966,7 @@ Weapon_ETF_Rifle(edict_t *ent) /* FS: Coop: Rogue specific */
 	}
 
 	Weapon_Generic(ent, 4, 7, 37, 41, pause_frames,
-			fire_frames, weapon_etf_rifle_fire);
+		fire_frames, weapon_etf_rifle_fire);
 
 	if ((ent->client->ps.gunframe == 8) &&
 		(ent->client->buttons & BUTTON_ATTACK))
@@ -2976,11 +2976,11 @@ Weapon_ETF_Rifle(edict_t *ent) /* FS: Coop: Rogue specific */
 }
 
 void
-Heatbeam_Fire(edict_t *ent) /* FS: Coop: Rogue specific */
+Heatbeam_Fire(edict_t* ent) /* FS: Coop: Rogue specific */
 {
 	vec3_t start;
 	vec3_t forward, right, up;
-	vec3_t offset;
+	vec3_t offset = { 0 };
 	int damage;
 	int kick;
 
@@ -3059,10 +3059,10 @@ Heatbeam_Fire(edict_t *ent) /* FS: Coop: Rogue specific */
 }
 
 void
-Weapon_Heatbeam(edict_t *ent)
+Weapon_Heatbeam(edict_t* ent)
 {
-	static int pause_frames[] = {35, 0};
-	static int fire_frames[] = {9, 10, 11, 12, 0};
+	static int pause_frames[] = { 35, 0 };
+	static int fire_frames[] = { 9, 10, 11, 12, 0 };
 
 	if (!ent)
 	{
@@ -3109,16 +3109,16 @@ Weapon_Heatbeam(edict_t *ent)
 	RipperGun
 */
 
-void weapon_ionripper_fire (edict_t *ent) /* FS: Coop: Xatrix specific */
+void weapon_ionripper_fire(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	vec3_t	start;
 	vec3_t	forward, right;
-	vec3_t	offset;
-	vec3_t	tempang;
+	vec3_t	offset = { 0 };
+	vec3_t	tempang = { 0 };
 	int		damage;
 	int		kick;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -3134,57 +3134,57 @@ void weapon_ionripper_fire (edict_t *ent) /* FS: Coop: Xatrix specific */
 		damage = 50;
 		kick = 60;
 	}
-	
+
 	if (is_quad)
 	{
 		damage *= 4;
 		kick *= 4;
 	}
 
-	VectorCopy (ent->client->v_angle, tempang);
+	VectorCopy(ent->client->v_angle, tempang);
 	tempang[YAW] += crandom();
 
-	AngleVectors (tempang, forward, right, NULL);
-	
-	VectorScale (forward, -3, ent->client->kick_origin);
+	AngleVectors(tempang, forward, right, NULL);
+
+	VectorScale(forward, -3, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -3;
 
 	// VectorSet (offset, 0, 7, ent->viewheight - 8);
-	VectorSet (offset, 16, 7, ent->viewheight - 8);
+	VectorSet(offset, 16, 7, ent->viewheight - 8);
 
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
-	fire_ionripper (ent, start, forward, damage, 500, EF_IONRIPPER);
+	fire_ionripper(ent, start, forward, damage, 500, EF_IONRIPPER);
 
 	// send muzzle flash
-	gi.WriteByte (svc_muzzleflash);
-	gi.WriteShort (ent - g_edicts);
-	gi.WriteByte (MZ_IONRIPPER | is_silenced);
-	gi.multicast (ent->s.origin, MULTICAST_PVS);
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
+	gi.WriteByte(MZ_IONRIPPER | is_silenced);
+	gi.multicast(ent->s.origin, MULTICAST_PVS);
 
 	ent->client->ps.gunframe++;
-	PlayerNoise (ent, start, PNOISE_WEAPON);
+	PlayerNoise(ent, start, PNOISE_WEAPON);
 
-	if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
+	if (!((int)dmflags->value & DF_INFINITE_AMMO))
 		ent->client->pers.inventory[ent->client->ammo_index] -= ent->client->pers.weapon->quantity;
-	
+
 	if (ent->client->pers.inventory[ent->client->ammo_index] < 0)
 		ent->client->pers.inventory[ent->client->ammo_index] = 0;
 }
 
 
-void Weapon_Ionripper (edict_t *ent) /* FS: Coop: Xatrix specific */
+void Weapon_Ionripper(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	static int pause_frames[] = {36, 0};
-	static int fire_frames[] = {5, 0};
+	static int pause_frames[] = { 36, 0 };
+	static int fire_frames[] = { 5, 0 };
 
-  	if (!ent)
+	if (!ent)
 		return;
 
-	Weapon_Generic (ent, 4, 6, 36, 39, pause_frames, fire_frames, weapon_ionripper_fire);
+	Weapon_Generic(ent, 4, 6, 36, 39, pause_frames, fire_frames, weapon_ionripper_fire);
 
 	if (is_quadfire)
-		Weapon_Generic (ent, 4, 6, 36, 39, pause_frames, fire_frames, weapon_ionripper_fire);
+		Weapon_Generic(ent, 4, 6, 36, 39, pause_frames, fire_frames, weapon_ionripper_fire);
 }
 
 
@@ -3192,17 +3192,17 @@ void Weapon_Ionripper (edict_t *ent) /* FS: Coop: Xatrix specific */
 //	Phalanx
 //
 
-void weapon_phalanx_fire (edict_t *ent) /* FS: Coop: Xatrix specific */
+void weapon_phalanx_fire(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
 	vec3_t		start;
 	vec3_t		forward, right, up;
-	vec3_t		offset;
-	vec3_t		v;
+	vec3_t		offset = { 0 };
+	vec3_t		v = { 0 };
 	int			damage;
 	float		damage_radius;
 	int			radius_damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -3210,69 +3210,69 @@ void weapon_phalanx_fire (edict_t *ent) /* FS: Coop: Xatrix specific */
 	damage = 70 + (int)(random() * 10.0);
 	radius_damage = 120;
 	damage_radius = 120;
-	
+
 	if (is_quad)
 	{
 		damage *= 4;
 		radius_damage *= 4;
 	}
 
-	AngleVectors (ent->client->v_angle, forward, right, NULL);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
 
-	VectorScale (forward, -2, ent->client->kick_origin);
+	VectorScale(forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -2;
 
-	VectorSet(offset, 0, 8,  ent->viewheight-8);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 0, 8, ent->viewheight - 8);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	if (ent->client->ps.gunframe == 8)
 	{
 		v[PITCH] = ent->client->v_angle[PITCH];
-		v[YAW]   = ent->client->v_angle[YAW] - 1.5;
-		v[ROLL]  = ent->client->v_angle[ROLL];
-		AngleVectors (v, forward, right, up);
-		
+		v[YAW] = ent->client->v_angle[YAW] - 1.5;
+		v[ROLL] = ent->client->v_angle[ROLL];
+		AngleVectors(v, forward, right, up);
+
 		radius_damage = 30;
 		damage_radius = 120;
-	
-		fire_plasma (ent, start, forward, damage, 725, damage_radius, radius_damage);
 
-		if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
+		fire_plasma(ent, start, forward, damage, 725, damage_radius, radius_damage);
+
+		if (!((int)dmflags->value & DF_INFINITE_AMMO))
 			ent->client->pers.inventory[ent->client->ammo_index]--;
 	}
 	else
 	{
 		v[PITCH] = ent->client->v_angle[PITCH];
-		v[YAW]   = ent->client->v_angle[YAW] + 1.5;
-		v[ROLL]  = ent->client->v_angle[ROLL];
-		AngleVectors (v, forward, right, up);
-		fire_plasma (ent, start, forward, damage, 725, damage_radius, radius_damage);
+		v[YAW] = ent->client->v_angle[YAW] + 1.5;
+		v[ROLL] = ent->client->v_angle[ROLL];
+		AngleVectors(v, forward, right, up);
+		fire_plasma(ent, start, forward, damage, 725, damage_radius, radius_damage);
 
 		// send muzzle flash
-		gi.WriteByte (svc_muzzleflash);
-		gi.WriteShort (ent-g_edicts);
-		gi.WriteByte (MZ_PHALANX | is_silenced);
-		gi.multicast (ent->s.origin, MULTICAST_PVS);
-		
+		gi.WriteByte(svc_muzzleflash);
+		gi.WriteShort(ent - g_edicts);
+		gi.WriteByte(MZ_PHALANX | is_silenced);
+		gi.multicast(ent->s.origin, MULTICAST_PVS);
+
 		PlayerNoise(ent, start, PNOISE_WEAPON);
 	}
-	
+
 	ent->client->ps.gunframe++;
-	
+
 }
 
-void Weapon_Phalanx (edict_t *ent) /* FS: Coop: Xatrix specific */
+void Weapon_Phalanx(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	static int	pause_frames[]	= {29, 42, 55, 0};
-	static int	fire_frames[]	= {7, 8, 0};
+	static int	pause_frames[] = { 29, 42, 55, 0 };
+	static int	fire_frames[] = { 7, 8, 0 };
 
-  	if (!ent)
+	if (!ent)
 		return;
 
-	Weapon_Generic (ent, 5, 20, 58, 63, pause_frames, fire_frames, weapon_phalanx_fire);
+	Weapon_Generic(ent, 5, 20, 58, 63, pause_frames, fire_frames, weapon_phalanx_fire);
 
 	if (is_quadfire)
-		Weapon_Generic (ent, 5, 20, 58, 63, pause_frames, fire_frames, weapon_phalanx_fire);
+		Weapon_Generic(ent, 5, 20, 58, 63, pause_frames, fire_frames, weapon_phalanx_fire);
 }
 
 /*
@@ -3287,9 +3287,9 @@ TRAP
 #define TRAP_MINSPEED		300
 #define TRAP_MAXSPEED		700
 
-void weapon_trap_fire (edict_t *ent, qboolean held) /* FS: Coop: Xatrix specific */
+void weapon_trap_fire(edict_t* ent, qboolean held) /* FS: Coop: Xatrix specific */
 {
-	vec3_t	offset;
+	vec3_t	offset = { 0 };
 	vec3_t	forward, right;
 	vec3_t	start;
 	int		damage = 125;
@@ -3297,40 +3297,40 @@ void weapon_trap_fire (edict_t *ent, qboolean held) /* FS: Coop: Xatrix specific
 	int		speed;
 	float	radius;
 
-  	if (!ent)
+	if (!ent)
 		return;
 
-	radius = damage+40;
+	radius = damage + 40;
 	if (is_quad)
 		damage *= 4;
 
-	VectorSet(offset, 8, 8, ent->viewheight-8);
-	AngleVectors (ent->client->v_angle, forward, right, NULL);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 8, 8, ent->viewheight - 8);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	timer = ent->client->grenade_time - level.time;
 	speed = GRENADE_MINSPEED + (GRENADE_TIMER - timer) * ((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
 	// fire_grenade2 (ent, start, forward, damage, speed, timer, radius, held);
-	fire_trap (ent, start, forward, damage, speed, timer, radius, held);
-	
-// you don't get infinite traps!  ZOID
-//	if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
+	fire_trap(ent, start, forward, damage, speed, timer, radius, held);
+
+	// you don't get infinite traps!  ZOID
+	//	if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
 
 	ent->client->pers.inventory[ent->client->ammo_index]--;
 
 	ent->client->grenade_time = level.time + 1.0;
 }
 
-void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
+void Weapon_Trap(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
 
 	if ((ent->client->newweapon) && (ent->client->weaponstate == WEAPON_READY))
 	{
-		ChangeWeapon (ent);
+		ChangeWeapon(ent);
 		return;
 	}
 
@@ -3343,7 +3343,7 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 
 	if (ent->client->weaponstate == WEAPON_READY)
 	{
-		if ( ((ent->client->latched_buttons|ent->client->buttons) & BUTTON_ATTACK) )
+		if (((ent->client->latched_buttons | ent->client->buttons) & BUTTON_ATTACK))
 		{
 			ent->client->latched_buttons &= ~BUTTON_ATTACK;
 			if (ent->client->pers.inventory[ent->client->ammo_index])
@@ -3359,14 +3359,14 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 					gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"), 1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
-				NoAmmoWeaponChange (ent);
+				NoAmmoWeaponChange(ent);
 			}
 			return;
 		}
 
 		if ((ent->client->ps.gunframe == 29) || (ent->client->ps.gunframe == 34) || (ent->client->ps.gunframe == 39) || (ent->client->ps.gunframe == 48))
 		{
-			if (rand()&15)
+			if (rand() & 15)
 				return;
 		}
 
@@ -3381,7 +3381,7 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 			// RAFAEL 16-APR-98
 			// gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/hgrena1b.wav"), 1, ATTN_NORM, 0);
 			gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/trapcock.wav"), 1, ATTN_NORM, 0);
-			// END 16-APR-98
+		// END 16-APR-98
 
 		if (ent->client->ps.gunframe == 11)
 		{
@@ -3397,7 +3397,7 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 			if (!ent->client->grenade_blew_up && level.time >= ent->client->grenade_time)
 			{
 				ent->client->weapon_sound = 0;
-				weapon_trap_fire (ent, true);
+				weapon_trap_fire(ent, true);
 				ent->client->grenade_blew_up = true;
 			}
 
@@ -3421,9 +3421,9 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 		if (ent->client->ps.gunframe == 12)
 		{
 			ent->client->weapon_sound = 0;
-			weapon_trap_fire (ent, false);
+			weapon_trap_fire(ent, false);
 			if (ent->client->pers.inventory[ent->client->ammo_index] == 0)
-				NoAmmoWeaponChange (ent);
+				NoAmmoWeaponChange(ent);
 		}
 
 		if ((ent->client->ps.gunframe == 15) && (level.time < ent->client->grenade_time))
@@ -3444,11 +3444,11 @@ void Weapon_Trap (edict_t *ent) /* FS: Coop: Xatrix specific */
 // Marsilainen's Plasma Rifle mod
 
 
-void Plasma_Fire(edict_t *ent, vec3_t g_offset, int damage)
+void Plasma_Fire(edict_t* ent, vec3_t g_offset, int damage)
 {
 	vec3_t	forward, right;
 	vec3_t	start;
-	vec3_t	offset;
+	vec3_t	offset = { 0 };
 	int consume = 1;
 
 	int sr;
@@ -3464,7 +3464,7 @@ void Plasma_Fire(edict_t *ent, vec3_t g_offset, int damage)
 	//Z, X, Y //
 	VectorSet(offset, 50, 12, ent->viewheight - (9 + sr));
 	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
-	
+
 	VectorScale(forward, -2, ent->client->kick_origin);
 
 	ent->client->kick_angles[0] = -1;
@@ -3492,7 +3492,7 @@ void Plasma_Fire(edict_t *ent, vec3_t g_offset, int damage)
 
 }
 
-void Weapon_PlasmaRifle_Fire(edict_t *ent)
+void Weapon_PlasmaRifle_Fire(edict_t* ent)
 {
 	int		damage;
 
@@ -3525,7 +3525,7 @@ void Weapon_PlasmaRifle_Fire(edict_t *ent)
 			Plasma_Fire(ent, vec3_origin, damage);
 
 			ent->client->anim_priority = ANIM_ATTACK;
-			
+
 			if (ent->client->ps.pmove.pm_flags & PMF_DUCKED)
 			{
 				ent->s.frame = FRAME_crattak1 - 1;
@@ -3542,8 +3542,8 @@ void Weapon_PlasmaRifle_Fire(edict_t *ent)
 		ent->client->ps.gunframe++;
 
 		//loop
-		if (ent->client->ps.gunframe == 11 && ent->client->pers.inventory[ent->client->ammo_index]) {			
-			ent->client->ps.gunframe = 9;						
+		if (ent->client->ps.gunframe == 11 && ent->client->pers.inventory[ent->client->ammo_index]) {
+			ent->client->ps.gunframe = 9;
 		}
 
 
@@ -3562,16 +3562,16 @@ void Weapon_PlasmaRifle_Fire(edict_t *ent)
 }
 
 
-void Weapon_PlasmaRifle(edict_t *ent)
+void Weapon_PlasmaRifle(edict_t* ent)
 {
 
 	//pause idle animations
 	static int	pause_frames[] = { 25, 29, 39 };
 
 	//weapon fire frames
-	static int	fire_frames[] = {9, 10 };
+	static int	fire_frames[] = { 9, 10 };
 
-	Weapon_Generic(ent, 8, 18, 43, 50,  pause_frames, fire_frames, Weapon_PlasmaRifle_Fire);
+	Weapon_Generic(ent, 8, 18, 43, 50, pause_frames, fire_frames, Weapon_PlasmaRifle_Fire);
 
 }
 
@@ -3579,53 +3579,53 @@ void Weapon_PlasmaRifle(edict_t *ent)
 // Cluster Grenade Launcher mod
 //======================================================================
 
-void weapon_clusterlauncher_fire (edict_t *ent)
+void weapon_clusterlauncher_fire(edict_t* ent)
 {
-    vec3_t    offset;
-    vec3_t    forward, right;
-    vec3_t    start;
-    int        damage = 120;
-    float    radius;
+	vec3_t    offset = { 0 };
+	vec3_t    forward, right;
+	vec3_t    start;
+	int        damage = 120;
+	float    radius;
 
-    radius = damage+40;
-    if (is_quad)
-        damage *= 4;
+	radius = damage + 40;
+	if (is_quad)
+		damage *= 4;
 
-    VectorSet(offset, 8, 8, ent->viewheight-8);
-    AngleVectors (ent->client->v_angle, forward, right, NULL);
-    P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 8, 8, ent->viewheight - 8);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
-    VectorScale (forward, -2, ent->client->kick_origin);
-    ent->client->kick_angles[0] = -1;
+	VectorScale(forward, -2, ent->client->kick_origin);
+	ent->client->kick_angles[0] = -1;
 
-    fire_cluster (ent, start, forward, damage, 600, 2.5, radius);
+	fire_cluster(ent, start, forward, damage, 600, 2.5, radius);
 
-    gi.WriteByte (svc_muzzleflash);
-    gi.WriteShort (ent-g_edicts);
-    gi.WriteByte (MZ_GRENADE | is_silenced);
-    gi.multicast (ent->s.origin, MULTICAST_PVS);
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
+	gi.WriteByte(MZ_GRENADE | is_silenced);
+	gi.multicast(ent->s.origin, MULTICAST_PVS);
 
-    ent->client->ps.gunframe++;
+	ent->client->ps.gunframe++;
 
-    PlayerNoise(ent, start, PNOISE_WEAPON);
+	PlayerNoise(ent, start, PNOISE_WEAPON);
 
-    if (! ( (int)dmflags->value & DF_INFINITE_AMMO ) )
-        ent->client->pers.inventory[ent->client->ammo_index] -= 5;
+	if (!((int)dmflags->value & DF_INFINITE_AMMO))
+		ent->client->pers.inventory[ent->client->ammo_index] -= 5;
 }
 
-void Weapon_ClusterLauncher (edict_t *ent)
+void Weapon_ClusterLauncher(edict_t* ent)
 {
-    static int    pause_frames[]    = {34, 51, 59, 0};
-    static int    fire_frames[]    = {6, 0};
+	static int    pause_frames[] = { 34, 51, 59, 0 };
+	static int    fire_frames[] = { 6, 0 };
 
-    Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_clusterlauncher_fire);
+	Weapon_Generic(ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_clusterlauncher_fire);
 }
 
 //=====================================================
 //=========== Airstrike 'Rocket Salvo' Routine ========
 //=====================================================
-void launch_airstrike_salvo(edict_t *ent, int strike_type) {
-	vec3_t start={0,0,0},targetdir={0,0,0},zvec={0,0,0};
+void launch_airstrike_salvo(edict_t* ent, int strike_type) {
+	vec3_t start = { 0,0,0 }, targetdir = { 0,0,0 }, zvec = { 0,0,0 };
 	int i;
 
 	VectorCopy(ENTS_AIRSTRIKE_START, start);
@@ -3633,65 +3633,65 @@ void launch_airstrike_salvo(edict_t *ent, int strike_type) {
 
 	switch (strike_type) {
 	case CLUSTER_BOMBS:
-	for (i=1;i<=10;i++)
-	drop_clusterbomb(ent, start, targetdir);
-	break;
+		for (i = 1; i <= 10; i++)
+			drop_clusterbomb(ent, start, targetdir);
+		break;
 	case ROCKET_BOMBS:
-	drop_rocket_bomb(ent, start, targetdir, 400, 250);
-	drop_rocket_bomb(ent, start, targetdir, 500, 450);
-	drop_rocket_bomb(ent, start, targetdir, 600, 150);
-	drop_rocket_bomb(ent, start, targetdir, 700, 210);
-	drop_rocket_bomb(ent, start, targetdir, 800, 430);
-	drop_rocket_bomb(ent, start, targetdir, 800, 330);
-	break;
+		drop_rocket_bomb(ent, start, targetdir, 400, 250);
+		drop_rocket_bomb(ent, start, targetdir, 500, 450);
+		drop_rocket_bomb(ent, start, targetdir, 600, 150);
+		drop_rocket_bomb(ent, start, targetdir, 700, 210);
+		drop_rocket_bomb(ent, start, targetdir, 800, 430);
+		drop_rocket_bomb(ent, start, targetdir, 800, 330);
+		break;
 	case BFG_NUKE:
-	fire_bfg(ent, start, targetdir, 200, 400, 1000);
-	break;
+		fire_bfg(ent, start, targetdir, 200, 400, 1000);
+		break;
 	} // switch
 
 	// Clear out the airstrike positioning vectors.
 	VectorCopy(zvec, ENTS_AIRSTRIKE_START);
 	VectorCopy(zvec, ENTS_AIRSTRIKE_TARGETDIR);
 
-	ENT_CALLED_AIRSTRIKE=false;
+	ENT_CALLED_AIRSTRIKE = false;
 }
 
 //=====================================================
-void craft_touch(edict_t *craft, edict_t *other, cplane_t *plane, csurface_t *surf){
+void craft_touch(edict_t* craft, edict_t* other, cplane_t* plane, csurface_t* surf) {
 	G_FreeEdict(craft);
 }
 
 //======================================================
 //============ Airstrike 'AirCraft' Routine ============
 //======================================================
-void spawn_aircraft(edict_t *ent) {
-	vec3_t start={0,0,0}, dir={0,1,0};
-	edict_t *craft=NULL;
+void spawn_aircraft(edict_t* ent) {
+	vec3_t start = { 0,0,0 }, dir = { 0,1,0 };
+	edict_t* craft = NULL;
 
 	VectorCopy(ENTS_AIRSTRIKE_START, start);
 
-	craft=G_Spawn(); // Spawn Craft Entity
-	craft->classname="aircraft";
+	craft = G_Spawn(); // Spawn Craft Entity
+	craft->classname = "aircraft";
 	VectorCopy(start, craft->s.origin);
 	VectorCopy(dir, craft->movedir); // Craft Move direction
 	vectoangles(dir, craft->s.angles); // Vector angle of direction
-	craft->velocity[0]=0;
-	craft->velocity[1]=120; // pretty slow velocity...
-	craft->velocity[2]=0;
-	craft->clipmask=MASK_SHOT;
-	craft->movetype=MOVETYPE_FLYMISSILE;// Movetype = FLY
-	craft->solid=SOLID_BBOX; // Craft Body Box
+	craft->velocity[0] = 0;
+	craft->velocity[1] = 120; // pretty slow velocity...
+	craft->velocity[2] = 0;
+	craft->clipmask = MASK_SHOT;
+	craft->movetype = MOVETYPE_FLYMISSILE;// Movetype = FLY
+	craft->solid = SOLID_BBOX; // Craft Body Box
 	VectorClear(craft->mins); // Must Clear these out
 	VectorClear(craft->maxs); // Must Clear these out.
-	craft->s.modelindex=gi.modelindex(STROGG_SHIP_MODEL);
-	craft->owner=ent;
-	craft->takedamage=DAMAGE_YES;
-	craft->touch=craft_touch;
-	craft->nextthink=PRESENT_TIME+30;
-	craft->think=G_FreeEdict;
+	craft->s.modelindex = gi.modelindex(STROGG_SHIP_MODEL);
+	craft->owner = ent;
+	craft->takedamage = DAMAGE_YES;
+	craft->touch = craft_touch;
+	craft->nextthink = PRESENT_TIME + 30;
+	craft->think = G_FreeEdict;
 	gi.linkentity(craft);
 
-	launch_airstrike_salvo(ent,ENTS_AIRSTRIKE_TYPE);
+	launch_airstrike_salvo(ent, ENTS_AIRSTRIKE_TYPE);
 
 	gi.sound(craft, CHAN_AUTO, FLYBY1_SOUND, 0.7f, ATTN_NORM, 0);
 }
@@ -3699,9 +3699,9 @@ void spawn_aircraft(edict_t *ent) {
 //======================================================
 //============ Airstrike Targeting Routine =============
 //======================================================
-void Get_Target_Position(edict_t *ent, vec3_t endpos) {
+void Get_Target_Position(edict_t* ent, vec3_t endpos) {
 	vec3_t start = { 0,0,0 }, forward = { 0,0,0 },
-	endpt={0,0,0}, targetdir={0,0,0};
+		endpt = { 0,0,0 }, targetdir = { 0,0,0 };
 	trace_t tr, tr_2;
 
 	// find the target's end point
@@ -3709,23 +3709,24 @@ void Get_Target_Position(edict_t *ent, vec3_t endpos) {
 	start[2] += ENTS_VIEW_HEIGHT;
 	AngleVectors(ent->client->v_angle, forward, NULL, NULL);
 	VectorMA(start, MAX_WORLD_HEIGHT, forward, endpt);
-	tr=gi.trace(start, NULL, NULL, endpt, ent, MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+	tr = gi.trace(start, NULL, NULL, endpt, ent, MASK_SHOT | CONTENTS_SLIME | CONTENTS_LAVA);
 
 	// find the direction from the entry point to the target
 	VectorSubtract(tr.endpos, endpos, targetdir);
 	VectorNormalize(targetdir);
 	VectorAdd(endpos, targetdir, start);
 
-	tr_2=gi.trace(start, NULL, NULL, tr.endpos, ent,
-	MASK_SHOT|CONTENTS_SLIME|CONTENTS_LAVA);
+	tr_2 = gi.trace(start, NULL, NULL, tr.endpos, ent,
+		MASK_SHOT | CONTENTS_SLIME | CONTENTS_LAVA);
 
 	// Do we have a clear line of fire?
 	if (gi.pointcontents(start) == CONTENTS_SOLID || tr_2.fraction < 1.0) {
-	// Clear out the airstrike positioning vectors.
-	ENT_CALLED_AIRSTRIKE=false; // Call off airstrike..
-	gi.cprintf(ent, PRINT_HIGH, "No Line-Of-Fire to Target!!\n");
-	gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.8f, ATTN_NORM, 0);
-	return; }
+		// Clear out the airstrike positioning vectors.
+		ENT_CALLED_AIRSTRIKE = false; // Call off airstrike..
+		gi.cprintf(ent, PRINT_HIGH, "No Line-Of-Fire to Target!!\n");
+		gi.sound(ent, CHAN_ITEM, PILOT1_SOUND, 0.8f, ATTN_NORM, 0);
+		return;
+	}
 
 	// Clear path to target - prepare for Airstrike.
 	VectorCopy(start, ENTS_AIRSTRIKE_START);

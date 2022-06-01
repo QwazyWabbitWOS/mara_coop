@@ -13,17 +13,17 @@ MEDIC
 #define MEDIC_MAX_HEAL_DISTANCE 400 /* FS: Coop: Rogue specific */
 #define MEDIC_TRY_TIME 10.0 /* FS: Coop: Rogue specific */
 
-qboolean visible(edict_t *self, edict_t *other);
-void M_SetEffects(edict_t *ent);
-qboolean FindTarget(edict_t *self); /* FS: Coop: Rogue specific */
-void HuntTarget(edict_t *self); /* FS: Coop: Rogue specific */
-void FoundTarget(edict_t *self); /* FS: Coop: Rogue specific */
-char *ED_NewString(char *string);
-void spawngrow_think(edict_t *self); /* FS: Coop: Rogue specific */
+qboolean visible(edict_t* self, edict_t* other);
+void M_SetEffects(edict_t* ent);
+qboolean FindTarget(edict_t* self); /* FS: Coop: Rogue specific */
+void HuntTarget(edict_t* self); /* FS: Coop: Rogue specific */
+void FoundTarget(edict_t* self); /* FS: Coop: Rogue specific */
+char* ED_NewString(char* string);
+void spawngrow_think(edict_t* self); /* FS: Coop: Rogue specific */
 void SpawnGrow_Spawn(vec3_t startpos, int size); /* FS: Coop: Rogue specific */
-void ED_CallSpawn(edict_t *ent);
-void M_FliesOff(edict_t *self); /* FS: Coop: Rogue specific */
-void M_FliesOn(edict_t *self); /* FS: Coop: Rogue specific */
+void ED_CallSpawn(edict_t* ent);
+void M_FliesOff(edict_t* self); /* FS: Coop: Rogue specific */
+void M_FliesOn(edict_t* self); /* FS: Coop: Rogue specific */
 
 static int sound_idle1;
 static int sound_pain1;
@@ -49,7 +49,7 @@ static int commander_sound_hook_heal;
 static int commander_sound_hook_retract;
 static int commander_sound_spawn;
 
-char *reinforcements[] = { /* FS: Coop: Rogue specific */
+char* reinforcements[] = { /* FS: Coop: Rogue specific */
 	"monster_soldier_light",  /* 0 */
 	"monster_soldier",        /* 1 */
 	"monster_soldier_ss",     /* 2 */
@@ -88,7 +88,7 @@ vec3_t reinforcement_position[] = { /* FS: Coop: Rogue specific */
 };
 
 void
-cleanupHeal(edict_t *self, qboolean change_frame) /* FS: Coop: Rogue specific */
+cleanupHeal(edict_t* self, qboolean change_frame) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -111,10 +111,10 @@ cleanupHeal(edict_t *self, qboolean change_frame) /* FS: Coop: Rogue specific */
 }
 
 void
-abortHeal(edict_t *self, qboolean change_frame, qboolean gib, qboolean mark) /* FS: Coop: Rogue specific */
+abortHeal(edict_t* self, qboolean change_frame, qboolean gib, qboolean mark) /* FS: Coop: Rogue specific */
 {
 	int hurt;
-	static vec3_t pain_normal = {0, 0, 1};
+	static vec3_t pain_normal = { 0, 0, 1 };
 
 	if (!self)
 	{
@@ -152,7 +152,7 @@ abortHeal(edict_t *self, qboolean change_frame, qboolean gib, qboolean mark) /* 
 		}
 
 		T_Damage(self->enemy, self, self, vec3_origin, self->enemy->s.origin,
-				pain_normal, hurt, 0, 0, MOD_UNKNOWN);
+			pain_normal, hurt, 0, 0, MOD_UNKNOWN);
 	}
 
 	/* clean up self */
@@ -171,10 +171,10 @@ abortHeal(edict_t *self, qboolean change_frame, qboolean gib, qboolean mark) /* 
 }
 
 qboolean
-canReach(edict_t *self, edict_t *other) /* FS: Coop: Rogue specific */
+canReach(edict_t* self, edict_t* other) /* FS: Coop: Rogue specific */
 {
-	vec3_t spot1;
-	vec3_t spot2;
+	vec3_t spot1 = { 0 };
+	vec3_t spot2 = { 0 };
 	trace_t trace;
 
 	if (!self || !other)
@@ -187,7 +187,7 @@ canReach(edict_t *self, edict_t *other) /* FS: Coop: Rogue specific */
 	VectorCopy(other->s.origin, spot2);
 	spot2[2] += other->viewheight;
 	trace = gi.trace(spot1, vec3_origin, vec3_origin, spot2,
-			self, MASK_SHOT | MASK_WATER);
+		self, MASK_SHOT | MASK_WATER);
 
 	if ((trace.fraction == 1.0) || (trace.ent == other))
 	{
@@ -197,12 +197,12 @@ canReach(edict_t *self, edict_t *other) /* FS: Coop: Rogue specific */
 	return false;
 }
 
-edict_t *
-medic_FindDeadMonster_rogue(edict_t *self) /* FS: Coop: Rogue specific */
+edict_t*
+medic_FindDeadMonster_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	float radius;
-	edict_t *ent = NULL;
-	edict_t *best = NULL;
+	edict_t* ent = NULL;
+	edict_t* best = NULL;
 
 	if (!self)
 	{
@@ -302,11 +302,11 @@ medic_FindDeadMonster_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 	return best;
 }
 
-edict_t *
-medic_FindDeadMonster(edict_t *self)
+edict_t*
+medic_FindDeadMonster(edict_t* self)
 {
-	edict_t *ent = NULL;
-	edict_t *best = NULL;
+	edict_t* ent = NULL;
+	edict_t* best = NULL;
 
 	if (!self)
 	{
@@ -373,9 +373,9 @@ medic_FindDeadMonster(edict_t *self)
 }
 
 void
-medic_idle_rogue(edict_t *self) /* FS: Coop: Rogue specific */
+medic_idle_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -408,9 +408,9 @@ medic_idle_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_idle(edict_t *self)
+medic_idle(edict_t* self)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -437,9 +437,9 @@ medic_idle(edict_t *self)
 }
 
 void
-medic_search_rogue(edict_t *self)
+medic_search_rogue(edict_t* self)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	/* commander sounds */
 	if (self->mass == 400)
@@ -467,9 +467,9 @@ medic_search_rogue(edict_t *self)
 }
 
 void
-medic_search(edict_t *self)
+medic_search(edict_t* self)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!self)
 	{
@@ -500,7 +500,7 @@ medic_search(edict_t *self)
 }
 
 void
-medic_sight(edict_t *self, edict_t *other /* unused */)
+medic_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -614,13 +614,13 @@ mframe_t medic_frames_stand[] = {
 mmove_t medic_move_stand =
 {
 	FRAME_wait1,
-   	FRAME_wait90,
-   	medic_frames_stand,
-   	NULL
+	FRAME_wait90,
+	medic_frames_stand,
+	NULL
 };
 
 void
-medic_stand(edict_t *self)
+medic_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -648,13 +648,13 @@ mframe_t medic_frames_walk[] = {
 mmove_t medic_move_walk =
 {
 	FRAME_walk1,
-   	FRAME_walk12,
-   	medic_frames_walk,
-   	NULL
+	FRAME_walk12,
+	medic_frames_walk,
+	NULL
 };
 
 void
-medic_walk(edict_t *self)
+medic_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -678,7 +678,7 @@ mmove_t medic_move_run_rogue =
 	FRAME_run1,
 	FRAME_run6,
 	medic_frames_run_rogue,
-   	NULL
+	NULL
 };
 
 mframe_t medic_frames_run[] = {
@@ -695,11 +695,11 @@ mmove_t medic_move_run =
 	FRAME_run1,
 	FRAME_run6,
 	medic_frames_run,
-   	NULL
+	NULL
 };
 
 void
-medic_run(edict_t *self)
+medic_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -713,9 +713,9 @@ medic_run(edict_t *self)
 
 	if (!(self->monsterinfo.aiflags & AI_MEDIC))
 	{
-		edict_t *ent;
+		edict_t* ent;
 
-		if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+		if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 		{
 			ent = medic_FindDeadMonster_rogue(self);
 		}
@@ -774,8 +774,8 @@ mmove_t medic_move_pain1 =
 {
 	FRAME_paina1,
 	FRAME_paina8,
-   	medic_frames_pain1,
-   	medic_run
+	medic_frames_pain1,
+	medic_run
 };
 
 mframe_t medic_frames_pain2[] = {
@@ -799,14 +799,14 @@ mframe_t medic_frames_pain2[] = {
 mmove_t medic_move_pain2 =
 {
 	FRAME_painb1,
-   	FRAME_painb15,
-   	medic_frames_pain2,
-   	medic_run
+	FRAME_painb15,
+	medic_frames_pain2,
+	medic_run
 };
 
 void
-medic_pain(edict_t *self, edict_t *other /* unused */,
-		float kick, int damage /* unused */)
+medic_pain(edict_t* self, edict_t* other /* unused */,
+	float kick, int damage /* unused */)
 {
 	if (!self)
 	{
@@ -905,12 +905,12 @@ medic_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-medic_fire_blaster(edict_t *self)
+medic_fire_blaster(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t end;
-	vec3_t dir;
+	vec3_t end = { 0 };
+	vec3_t dir = { 0 };
 	int effect;
 	int damage = 2; /* FS: Coop: Rogue specific */
 
@@ -930,9 +930,9 @@ medic_fire_blaster(edict_t *self)
 		effect = EF_BLASTER;
 	}
 	else if ((self->s.frame == FRAME_attack19) ||
-			 (self->s.frame == FRAME_attack22) ||
-			 (self->s.frame == FRAME_attack25) ||
-			 (self->s.frame == FRAME_attack28))
+		(self->s.frame == FRAME_attack22) ||
+		(self->s.frame == FRAME_attack25) ||
+		(self->s.frame == FRAME_attack28))
 	{
 		effect = EF_HYPERBLASTER;
 	}
@@ -943,7 +943,7 @@ medic_fire_blaster(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_MEDIC_BLASTER_1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, end);
 	end[2] += self->enemy->viewheight;
@@ -958,7 +958,7 @@ medic_fire_blaster(edict_t *self)
 	if ((game.gametype == rogue_coop) && (self->mass > 400)) /* FS: Coop: Rogue specific */
 	{
 		monster_fire_blaster2(self, start, dir, damage,
-				1000, MZ2_MEDIC_BLASTER_2, effect);
+			1000, MZ2_MEDIC_BLASTER_2, effect);
 	}
 	else
 	{
@@ -967,7 +967,7 @@ medic_fire_blaster(edict_t *self)
 }
 
 void
-medic_dead(edict_t *self)
+medic_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -1018,15 +1018,15 @@ mframe_t medic_frames_death[] = {
 mmove_t medic_move_death =
 {
 	FRAME_death1,
-   	FRAME_death30,
-   	medic_frames_death,
-   	medic_dead
+	FRAME_death30,
+	medic_frames_death,
+	medic_dead
 };
 
 void
-medic_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+medic_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage,
+	vec3_t point /* unused */)
 {
 	int n;
 
@@ -1044,22 +1044,22 @@ medic_die(edict_t *self, edict_t *inflictor /* unused */,
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
-		gi.sound(self, CHAN_VOICE, gi.soundindex( "misc/udeath.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/bone/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 4; n++)
 		{
 			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2",
-					damage, GIB_ORGANIC);
+				damage, GIB_ORGANIC);
 		}
 
 		ThrowHead(self, "models/objects/gibs/head2/tris.md2",
-				damage, GIB_ORGANIC);
+			damage, GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -1086,7 +1086,7 @@ medic_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-medic_duck_down(edict_t *self)
+medic_duck_down(edict_t* self)
 {
 	if (!self)
 	{
@@ -1106,7 +1106,7 @@ medic_duck_down(edict_t *self)
 }
 
 void
-medic_duck_hold(edict_t *self)
+medic_duck_hold(edict_t* self)
 {
 	if (!self)
 	{
@@ -1124,7 +1124,7 @@ medic_duck_hold(edict_t *self)
 }
 
 void
-medic_duck_up(edict_t *self)
+medic_duck_up(edict_t* self)
 {
 	if (!self)
 	{
@@ -1159,9 +1159,9 @@ mframe_t medic_frames_duck_rogue[] = {
 mmove_t medic_move_duck_rogue =
 {
 	FRAME_duck1,
-   	FRAME_duck16,
-   	medic_frames_duck_rogue,
-   	medic_run
+	FRAME_duck16,
+	medic_frames_duck_rogue,
+	medic_run
 };
 
 mframe_t medic_frames_duck[] = {
@@ -1186,15 +1186,15 @@ mframe_t medic_frames_duck[] = {
 mmove_t medic_move_duck =
 {
 	FRAME_duck1,
-   	FRAME_duck16,
-   	medic_frames_duck,
-   	medic_run
+	FRAME_duck16,
+	medic_frames_duck,
+	medic_run
 };
 
 void
-medic_dodge(edict_t *self, edict_t *attacker, float eta /* unused */, trace_t *fake /* unused */)
+medic_dodge(edict_t* self, edict_t* attacker, float eta /* unused */, trace_t* fake /* unused */)
 {
-  	if (!self || !attacker)
+	if (!self || !attacker)
 	{
 		return;
 	}
@@ -1234,13 +1234,13 @@ mframe_t medic_frames_attackHyperBlaster[] = {
 mmove_t medic_move_attackHyperBlaster =
 {
 	FRAME_attack15,
-   	FRAME_attack30,
-   	medic_frames_attackHyperBlaster,
-   	medic_run
+	FRAME_attack30,
+	medic_frames_attackHyperBlaster,
+	medic_run
 };
 
 void
-medic_continue(edict_t *self)
+medic_continue(edict_t* self)
 {
 	if (!self)
 	{
@@ -1281,7 +1281,7 @@ mmove_t medic_move_attackBlaster = {
 };
 
 void
-medic_hook_launch(edict_t *self)
+medic_hook_launch(edict_t* self)
 {
 	if (!self)
 	{
@@ -1313,11 +1313,11 @@ static vec3_t medic_cable_offsets[] = {
 };
 
 void
-medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
+medic_cable_attack_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t offset, start, end, f, r;
+	vec3_t offset = { 0 }, start, end = { 0 }, f, r;
 	trace_t tr;
-	vec3_t dir;
+	vec3_t dir = { 0 };
 	float distance;
 
 	if (!self)
@@ -1386,7 +1386,7 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 		else
 		{
 			gi.sound(self->enemy, CHAN_AUTO, commander_sound_hook_hit,
-					1, ATTN_NORM, 0);
+				1, ATTN_NORM, 0);
 		}
 
 		self->enemy->monsterinfo.aiflags |= AI_RESURRECTING;
@@ -1395,7 +1395,7 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 	}
 	else if (self->s.frame == FRAME_attack50)
 	{
-		vec3_t maxs;
+		vec3_t maxs = { 0 };
 		self->enemy->spawnflags = 0;
 		self->enemy->monsterinfo.aiflags = 0;
 		self->enemy->target = NULL;
@@ -1408,8 +1408,8 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 		maxs[2] += 48;
 
 		tr = gi.trace(self->enemy->s.origin, self->enemy->mins,
-				maxs, self->enemy->s.origin, self->enemy,
-				MASK_MONSTERSOLID);
+			maxs, self->enemy->s.origin, self->enemy,
+			MASK_MONSTERSOLID);
 
 		if (tr.startsolid || tr.allsolid)
 		{
@@ -1434,7 +1434,7 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 
 			self->enemy->monsterinfo.aiflags &= ~AI_RESURRECTING;
 			self->enemy->monsterinfo.aiflags |= AI_IGNORE_SHOTS |
-												AI_DO_NOT_COUNT;
+				AI_DO_NOT_COUNT;
 			/* turn off flies */
 			self->enemy->s.effects &= ~EF_FLIES;
 			self->enemy->monsterinfo.healer = NULL;
@@ -1453,7 +1453,7 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 				{
 					/* no valid enemy, so stop acting */
 					self->enemy->monsterinfo.pausetime = level.time + 100000000;
-					if(self->enemy->monsterinfo.stand) /* FS: player_noise fudging this up */
+					if (self->enemy->monsterinfo.stand) /* FS: player_noise fudging this up */
 					{
 						self->enemy->monsterinfo.stand(self->enemy);
 					}
@@ -1484,7 +1484,7 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 			else
 			{
 				gi.sound(self, CHAN_WEAPON, commander_sound_hook_heal,
-						1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 			}
 		}
 	}
@@ -1505,11 +1505,11 @@ medic_cable_attack_rogue(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_cable_attack(edict_t *self)
+medic_cable_attack(edict_t* self)
 {
-	vec3_t offset, start, end, f, r;
+	vec3_t offset = { 0 }, start, end = { 0 }, f, r;
 	trace_t tr;
-	vec3_t dir, angles;
+	vec3_t dir = { 0 }, angles;
 	float distance;
 
 	if (!self)
@@ -1549,7 +1549,7 @@ medic_cable_attack(edict_t *self)
 		angles[0] += 360;
 	}
 
-	if (fabs(angles[0]) > 45)
+	if (fabsf(angles[0]) > 45)
 	{
 		return;
 	}
@@ -1616,7 +1616,7 @@ medic_cable_attack(edict_t *self)
 }
 
 void
-medic_hook_retract(edict_t *self)
+medic_hook_retract(edict_t* self)
 {
 	if (!self)
 	{
@@ -1688,9 +1688,9 @@ mframe_t medic_frames_attackCable_rogue[] = {
 mmove_t medic_move_attackCable_rogue =
 {
 	FRAME_attack33,
-   	FRAME_attack60,
-   	medic_frames_attackCable_rogue,
-   	medic_run
+	FRAME_attack60,
+	medic_frames_attackCable_rogue,
+	medic_run
 };
 
 
@@ -1728,13 +1728,13 @@ mframe_t medic_frames_attackCable[] = {
 mmove_t medic_move_attackCable =
 {
 	FRAME_attack33,
-   	FRAME_attack60,
-   	medic_frames_attackCable,
-   	medic_run
+	FRAME_attack60,
+	medic_frames_attackCable,
+	medic_run
 };
 
 void
-medic_start_spawn(edict_t *self) /* FS: Coop: Rogue specific */
+medic_start_spawn(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1746,9 +1746,9 @@ medic_start_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_determine_spawn(edict_t *self) /* FS: Coop: Rogue specific */
+medic_determine_spawn(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t f, r, offset, startpoint, spawnpoint;
+	vec3_t f, r, offset = { 0 }, startpoint, spawnpoint;
 	float lucky;
 	int summonStr;
 	int count;
@@ -1816,10 +1816,10 @@ medic_determine_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 		startpoint[2] += 10;
 
 		if (FindSpawnPoint(startpoint, reinforcement_mins[summonStr - inc],
-					reinforcement_maxs[summonStr - inc], spawnpoint, 32))
+			reinforcement_maxs[summonStr - inc], spawnpoint, 32))
 		{
 			if (CheckGroundSpawnPoint(spawnpoint, reinforcement_mins[summonStr - inc],
-						reinforcement_maxs[summonStr - inc], 256, -1))
+				reinforcement_maxs[summonStr - inc], 256, -1))
 			{
 				num_success++;
 				/* we found a spot, we're done here */
@@ -1843,10 +1843,10 @@ medic_determine_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 			startpoint[2] += 10;
 
 			if (FindSpawnPoint(startpoint, reinforcement_mins[summonStr - inc],
-						reinforcement_maxs[summonStr - inc], spawnpoint, 32))
+				reinforcement_maxs[summonStr - inc], spawnpoint, 32))
 			{
 				if (CheckGroundSpawnPoint(spawnpoint, reinforcement_mins[summonStr - inc],
-							reinforcement_maxs[summonStr - inc], 256, -1))
+					reinforcement_maxs[summonStr - inc], 256, -1))
 				{
 					num_success++;
 					/* we found a spot, we're done here */
@@ -1874,9 +1874,9 @@ medic_determine_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_spawngrows(edict_t *self) /* FS: Coop: Rogue specific */
+medic_spawngrows(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	vec3_t f, r, offset, startpoint, spawnpoint;
+	vec3_t f, r, offset = { 0 }, startpoint, spawnpoint;
 	int summonStr;
 	int count;
 	int inc;
@@ -1927,10 +1927,10 @@ medic_spawngrows(edict_t *self) /* FS: Coop: Rogue specific */
 		startpoint[2] += 10;
 
 		if (FindSpawnPoint(startpoint, reinforcement_mins[summonStr - inc],
-					reinforcement_maxs[summonStr - inc], spawnpoint, 32))
+			reinforcement_maxs[summonStr - inc], spawnpoint, 32))
 		{
 			if (CheckGroundSpawnPoint(spawnpoint, reinforcement_mins[summonStr - inc],
-						reinforcement_maxs[summonStr - inc], 256, -1))
+				reinforcement_maxs[summonStr - inc], 256, -1))
 			{
 				num_success++;
 
@@ -1953,15 +1953,15 @@ medic_spawngrows(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_finish_spawn(edict_t *self) /* FS: Coop: Rogue specific */
+medic_finish_spawn(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	edict_t *ent;
-	vec3_t f, r, offset, startpoint, spawnpoint;
+	edict_t* ent;
+	vec3_t f, r, offset = { 0 }, startpoint, spawnpoint;
 	int summonStr;
 	int count;
 	int inc;
 	int num_summoned; /* should be 1, 3, or 5 */
-	edict_t *designated_enemy;
+	edict_t* designated_enemy;
 
 	if (!self)
 	{
@@ -1999,15 +1999,15 @@ medic_finish_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 		ent = NULL;
 
 		if (FindSpawnPoint(startpoint, reinforcement_mins[summonStr - inc],
-					reinforcement_maxs[summonStr - inc], spawnpoint, 32))
+			reinforcement_maxs[summonStr - inc], spawnpoint, 32))
 		{
 			if (CheckSpawnPoint(spawnpoint, reinforcement_mins[summonStr - inc],
-						reinforcement_maxs[summonStr - inc]))
+				reinforcement_maxs[summonStr - inc]))
 			{
 				ent = CreateGroundMonster(spawnpoint, self->s.angles,
-						reinforcement_mins[summonStr - inc],
-						reinforcement_maxs[summonStr - inc],
-						reinforcements[summonStr - inc], 256);
+					reinforcement_mins[summonStr - inc],
+					reinforcement_maxs[summonStr - inc],
+					reinforcements[summonStr - inc], 256);
 			}
 		}
 
@@ -2024,7 +2024,7 @@ medic_finish_spawn(edict_t *self) /* FS: Coop: Rogue specific */
 		}
 
 		ent->monsterinfo.aiflags |= AI_IGNORE_SHOTS | AI_DO_NOT_COUNT |
-									AI_SPAWNED_MEDIC_C;
+			AI_SPAWNED_MEDIC_C;
 		ent->monsterinfo.commander = self;
 		self->monsterinfo.monster_slots--;
 
@@ -2107,13 +2107,13 @@ mframe_t medic_frames_callReinforcements[] = { /* FS: Coop: Rogue specific */
 
 mmove_t medic_move_callReinforcements = { /* FS: Coop: Rogue specific */
 	FRAME_attack33,
-   	FRAME_attack60,
-   	medic_frames_callReinforcements,
-   	medic_run
+	FRAME_attack60,
+	medic_frames_callReinforcements,
+	medic_run
 };
 
 void
-medic_attack(edict_t *self)
+medic_attack(edict_t* self)
 {
 	int enemy_range; /* FS: Coop: Rogue specific */
 	float r; /* FS: Coop: Rogue specific */
@@ -2183,7 +2183,7 @@ medic_attack(edict_t *self)
 }
 
 qboolean
-medic_checkattack(edict_t *self)
+medic_checkattack(edict_t* self)
 {
 	if (!self)
 	{
@@ -2259,7 +2259,7 @@ medic_checkattack(edict_t *self)
 void
 MedicCommanderCache(void) /* FS: Coop: Rogue specific */
 {
-	edict_t *newEnt;
+	edict_t* newEnt;
 	int i;
 
 	/* better way to do this?  this is quick and dirty */
@@ -2282,7 +2282,7 @@ MedicCommanderCache(void) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
+medic_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2324,7 +2324,7 @@ medic_duck(edict_t *self, float eta) /* FS: Coop: Rogue specific */
 }
 
 void
-medic_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
+medic_sidestep(edict_t* self) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2351,7 +2351,7 @@ medic_sidestep(edict_t *self) /* FS: Coop: Rogue specific */
 }
 
 qboolean
-medic_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+medic_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -2377,7 +2377,7 @@ medic_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
  * QUAKED monster_medic (1 .5 0) (-16 -16 -24) (16 16 32) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_medic_rogue(edict_t *self)
+SP_monster_medic_rogue(edict_t* self)
 {
 	if (!self)
 	{
@@ -2492,7 +2492,7 @@ SP_monster_medic_rogue(edict_t *self)
 }
 
 void
-SP_monster_medic(edict_t *self)
+SP_monster_medic(edict_t* self)
 {
 	if (!self)
 	{

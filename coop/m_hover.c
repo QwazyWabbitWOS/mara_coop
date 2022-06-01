@@ -9,7 +9,7 @@ hover
 #include "g_local.h"
 #include "m_hover.h"
 
-qboolean visible(edict_t *self, edict_t *other);
+qboolean visible(edict_t* self, edict_t* other);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -28,17 +28,17 @@ static int daed_sound_sight; /* FS: Coop: Rogue specific */
 static int daed_sound_search1; /* FS: Coop: Rogue specific */
 static int daed_sound_search2; /* FS: Coop: Rogue specific */
 
-void hover_run(edict_t *self);
-void hover_stand(edict_t *self);
-void hover_dead(edict_t *self);
-void hover_attack(edict_t *self);
-void hover_reattack(edict_t *self);
-void hover_fire_blaster(edict_t *self);
-void hover_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point);
+void hover_run(edict_t* self);
+void hover_stand(edict_t* self);
+void hover_dead(edict_t* self);
+void hover_attack(edict_t* self);
+void hover_reattack(edict_t* self);
+void hover_fire_blaster(edict_t* self);
+void hover_die(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point);
 
 void
-hover_sight(edict_t *self, edict_t *other /* unused */)
+hover_sight(edict_t* self, edict_t* other /* unused */)
 {
 	if (!self)
 	{
@@ -56,7 +56,7 @@ hover_sight(edict_t *self, edict_t *other /* unused */)
 }
 
 void
-hover_search(edict_t *self)
+hover_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -163,8 +163,8 @@ mmove_t hover_move_stop2 =
 {
 	FRAME_stop201,
 	FRAME_stop208,
-   	hover_frames_stop2,
-   	NULL
+	hover_frames_stop2,
+	NULL
 };
 
 mframe_t hover_frames_takeoff[] = {
@@ -203,9 +203,9 @@ mframe_t hover_frames_takeoff[] = {
 mmove_t hover_move_takeoff =
 {
 	FRAME_takeof01,
-   	FRAME_takeof30,
-   	hover_frames_takeoff,
-   	NULL
+	FRAME_takeof30,
+	hover_frames_takeoff,
+	NULL
 };
 
 mframe_t hover_frames_pain3[] = {
@@ -223,9 +223,9 @@ mframe_t hover_frames_pain3[] = {
 mmove_t hover_move_pain3 =
 {
 	FRAME_pain301,
-   	FRAME_pain309,
+	FRAME_pain309,
 	hover_frames_pain3,
-   	hover_run
+	hover_run
 };
 
 mframe_t hover_frames_pain2[] = {
@@ -247,8 +247,8 @@ mmove_t hover_move_pain2 =
 {
 	FRAME_pain201,
 	FRAME_pain212,
-   	hover_frames_pain2,
-   	hover_run
+	hover_frames_pain2,
+	hover_run
 };
 
 mframe_t hover_frames_pain1[] = {
@@ -285,9 +285,9 @@ mframe_t hover_frames_pain1[] = {
 mmove_t hover_move_pain1 =
 {
 	FRAME_pain101,
-   	FRAME_pain128,
-   	hover_frames_pain1,
-   	hover_run
+	FRAME_pain128,
+	hover_frames_pain1,
+	hover_run
 };
 
 mframe_t hover_frames_land[] = {
@@ -437,7 +437,7 @@ mmove_t hover_move_run =
 	FRAME_forwrd01,
 	FRAME_forwrd35,
 	hover_frames_run,
-   	NULL
+	NULL
 };
 
 mframe_t hover_frames_death1[] = {
@@ -457,9 +457,9 @@ mframe_t hover_frames_death1[] = {
 mmove_t hover_move_death1 =
 {
 	FRAME_death101,
-   	FRAME_death111,
-   	hover_frames_death1,
-   	hover_dead
+	FRAME_death111,
+	hover_frames_death1,
+	hover_dead
 };
 
 mframe_t hover_frames_backward[] = {
@@ -492,9 +492,9 @@ mframe_t hover_frames_backward[] = {
 mmove_t hover_move_backward =
 {
 	FRAME_backwd01,
-   	FRAME_backwd24,
+	FRAME_backwd24,
 	hover_frames_backward,
-   	NULL
+	NULL
 };
 
 mframe_t hover_frames_start_attack[] = {
@@ -546,9 +546,9 @@ mframe_t hover_frames_start_attack2[] = { /* FS: Coop: Rogue specific */
 
 mmove_t hover_move_start_attack2 = { /* FS: Coop: Rogue specific */
 	FRAME_attak101,
-   	FRAME_attak103,
-   	hover_frames_start_attack2,
-   	hover_attack
+	FRAME_attak103,
+	hover_frames_start_attack2,
+	hover_attack
 };
 
 mframe_t hover_frames_attack2[] = { /* FS: Coop: Rogue specific */
@@ -559,9 +559,9 @@ mframe_t hover_frames_attack2[] = { /* FS: Coop: Rogue specific */
 
 mmove_t hover_move_attack2 = { /* FS: Coop: Rogue specific */
 	FRAME_attak104,
-   	FRAME_attak106,
-   	hover_frames_attack2,
-   	NULL
+	FRAME_attak106,
+	hover_frames_attack2,
+	NULL
 };
 
 mframe_t hover_frames_end_attack2[] = { /* FS: Coop: Rogue specific */
@@ -571,13 +571,13 @@ mframe_t hover_frames_end_attack2[] = { /* FS: Coop: Rogue specific */
 
 mmove_t hover_move_end_attack2 = { /* FS: Coop: Rogue specific */
 	FRAME_attak107,
-   	FRAME_attak108,
-   	hover_frames_end_attack2,
-   	hover_run
+	FRAME_attak108,
+	hover_frames_end_attack2,
+	hover_run
 };
 
 void
-hover_reattack(edict_t *self)
+hover_reattack(edict_t* self)
 {
 	if (!self)
 	{
@@ -612,12 +612,12 @@ hover_reattack(edict_t *self)
 }
 
 void
-hover_fire_blaster(edict_t *self)
+hover_fire_blaster(edict_t* self)
 {
 	vec3_t start;
 	vec3_t forward, right;
-	vec3_t end;
-	vec3_t dir;
+	vec3_t end = { 0 };
+	vec3_t dir = { 0 };
 	int effect;
 
 	if (!self || !self->enemy || !self->enemy->inuse)
@@ -636,7 +636,7 @@ hover_fire_blaster(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_HOVER_BLASTER_1],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, end);
 	end[2] += self->enemy->viewheight;
@@ -649,12 +649,12 @@ hover_fire_blaster(edict_t *self)
 	else
 	{
 		monster_fire_blaster2(self, start, dir, 1, 1000,
-				MZ2_DAEDALUS_BLASTER, EF_BLASTER);
+			MZ2_DAEDALUS_BLASTER, EF_BLASTER);
 	}
 }
 
 void
-hover_stand(edict_t *self)
+hover_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -665,7 +665,7 @@ hover_stand(edict_t *self)
 }
 
 void
-hover_run(edict_t *self)
+hover_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -683,7 +683,7 @@ hover_run(edict_t *self)
 }
 
 void
-hover_walk(edict_t *self)
+hover_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -694,7 +694,7 @@ hover_walk(edict_t *self)
 }
 
 void
-hover_start_attack(edict_t *self)
+hover_start_attack(edict_t* self)
 {
 	if (!self)
 	{
@@ -705,7 +705,7 @@ hover_start_attack(edict_t *self)
 }
 
 void
-hover_attack(edict_t *self)
+hover_attack(edict_t* self)
 {
 	float chance; /* FS: Coop: Rogue specific */
 
@@ -753,8 +753,8 @@ hover_attack(edict_t *self)
 }
 
 void
-hover_pain(edict_t *self, edict_t *other /* unused */,
-		float kick /* unused */, int damage)
+hover_pain(edict_t* self, edict_t* other /* unused */,
+	float kick /* unused */, int damage)
 {
 	if (!self)
 	{
@@ -858,7 +858,7 @@ hover_pain(edict_t *self, edict_t *other /* unused */,
 }
 
 void
-hover_deadthink(edict_t *self)
+hover_deadthink(edict_t* self)
 {
 	if (!self)
 	{
@@ -875,7 +875,7 @@ hover_deadthink(edict_t *self)
 }
 
 void
-hover_dead(edict_t *self)
+hover_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -892,9 +892,9 @@ hover_dead(edict_t *self)
 }
 
 void
-hover_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+hover_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker /* unused */, int damage,
+	vec3_t point /* unused */)
 {
 	int n;
 
@@ -913,28 +913,28 @@ hover_die(edict_t *self, edict_t *inflictor /* unused */,
 	if (self->health <= self->gib_health)
 	{
 		gi.sound(self, CHAN_VOICE, gi.soundindex(
-						"misc/udeath.wav"), 1, ATTN_NORM, 0);
+			"misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self,
-					"models/objects/gibs/bone/tris.md2",
-					damage,
-					GIB_ORGANIC);
+				"models/objects/gibs/bone/tris.md2",
+				damage,
+				GIB_ORGANIC);
 		}
 
 		for (n = 0; n < 2; n++)
 		{
 			ThrowGib(self,
-					"models/objects/gibs/sm_meat/tris.md2",
-					damage,
-					GIB_ORGANIC);
-		}
-
-		ThrowHead(self,
 				"models/objects/gibs/sm_meat/tris.md2",
 				damage,
 				GIB_ORGANIC);
+		}
+
+		ThrowHead(self,
+			"models/objects/gibs/sm_meat/tris.md2",
+			damage,
+			GIB_ORGANIC);
 		self->deadflag = DEAD_DEAD;
 		return;
 	}
@@ -973,12 +973,12 @@ hover_die(edict_t *self, edict_t *inflictor /* unused */,
 	self->monsterinfo.currentmove = &hover_move_death1;
 }
 
-void hover_dodge (edict_t *self, edict_t *attacker /* unused */, float eta /* unused */, trace_t *fake /* unused */) /* FS: Zaero specific game dll changes */
+void hover_dodge(edict_t* self, edict_t* attacker /* unused */, float eta /* unused */, trace_t* fake /* unused */) /* FS: Zaero specific game dll changes */
 {
 	int delta = 0;
 	vec3_t forward, right;
 	vec3_t dir;
-	int count  = 0;
+	int count = 0;
 
 	if (!self)
 	{
@@ -990,11 +990,11 @@ void hover_dodge (edict_t *self, edict_t *attacker /* unused */, float eta /* un
 			return;
 
 	self->monsterinfo.attack_state = AS_FLY_STRAFE;
-	 // TODO choose an angle to move based on what's around me
+	// TODO choose an angle to move based on what's around me
 
-	// start at a random value
+   // start at a random value
 	self->monsterinfo.flyStrafePitch = crandom() * 180;
-	
+
 	// choose a random delta dir
 	delta = (random() < 0.5 ? 10 : -10);
 	AngleVectors(self->s.angles, forward, right, NULL);
@@ -1002,7 +1002,7 @@ void hover_dodge (edict_t *self, edict_t *attacker /* unused */, float eta /* un
 	// now try to find a direction that'll give us sufficient room to move
 	// (ie. away from walls)
 	count = 36;
-	while(1)
+	while (1)
 	{
 		trace_t tr;
 		vec3_t end;
@@ -1024,7 +1024,7 @@ void hover_dodge (edict_t *self, edict_t *attacker /* unused */, float eta /* un
 }
 
 qboolean
-hover_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+hover_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -1047,7 +1047,7 @@ hover_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
  * This is the improved icarus monster.
  */
 void
-SP_monster_hover(edict_t *self)
+SP_monster_hover(edict_t* self)
 {
 	if (!self)
 	{
@@ -1100,7 +1100,7 @@ SP_monster_hover(edict_t *self)
 	self->monsterinfo.stand = hover_stand;
 	self->monsterinfo.walk = hover_walk;
 	self->monsterinfo.run = hover_run;
-	if(game.gametype == zaero_coop)
+	if (game.gametype == zaero_coop)
 	{
 		self->monsterinfo.dodge = hover_dodge; /* FS: Zaero specific game dll changes */
 	}

@@ -18,106 +18,106 @@ int sm_meat_index;
 int snd_fry;
 int meansOfDeath;
 
-edict_t *g_edicts;
+edict_t* g_edicts;
 
-cvar_t *deathmatch;
-cvar_t *coop;
-cvar_t *coop_item_respawn; /* FS: Coop: Added */
-cvar_t *coop_checkpoints; /* FS: Coop: Added */
-cvar_t *sv_coop_gamemode; /* FS: Coop: Added */
-cvar_t *sv_coop_gamemode_vote; /* FS: Coop: Added */
-cvar_t *sv_vote_enabled; /* FS: Coop: Voting */
-cvar_t *sv_vote_disallow_flags; /* FS: Coop: Voting */
-cvar_t *sv_vote_assume_yes; /* FS: Coop: Voting */
-cvar_t *sv_vote_timer; /* FS: Coop: Voting */
-cvar_t *sv_vote_private; /* FS: Coop: Voting */
-cvar_t *sv_vote_chat_commands; /* FS: Coop: Voting */
-cvar_t *sv_coop_reset_hack; /* FS: Coop: Long uptime reset hack :( */
-cvar_t *sv_coop_check_player_exit; /* FS: Added */
-cvar_t *sv_coop_maplist; /* FS: Added */
-cvar_t *sv_coop_summon_time; /* FS: Added */
-cvar_t *sv_coop_announce_name_change; /* FS: Added */
-cvar_t *sv_coop_name_timeout; /* FS: Added */
-cvar_t *sv_coop_blinky_cam_disallowflags; /* FS: Added */
-cvar_t *sv_drop_timeout; /* FS: Added */
-cvar_t *sv_spawn_protection; /* FS: Coop: Spawn protection */
-cvar_t *sv_spawn_protection_time; /* FS: Coop: Spawn protection */
-cvar_t *motd; /* FS: Coop: Added */
-cvar_t *adminpass; /* FS: Coop: Admin goodies */
-cvar_t *vippass; /* FS: Coop: VIP goodies */
-cvar_t *gamedir; /* FS: Coop: Added */
-cvar_t *nextserver; /* FS: Coop: Added */
-cvar_t *coop_cameraoffset; /* FS: Blinyk's Coop Camera */
-cvar_t *dmflags;
-cvar_t *zdmflags; /* FS: Zaero specific game dll changes */
-cvar_t *skill;
-cvar_t *fraglimit;
-cvar_t *timelimit;
-cvar_t *password;
-cvar_t *spectator_password;
-cvar_t *needpass;
-cvar_t *maxclients;
-cvar_t *maxspectators;
-cvar_t *maxentities;
-cvar_t *g_select_empty;
-cvar_t *dedicated;
-cvar_t *motd_time;
+cvar_t* deathmatch;
+cvar_t* coop;
+cvar_t* coop_item_respawn; /* FS: Coop: Added */
+cvar_t* coop_checkpoints; /* FS: Coop: Added */
+cvar_t* sv_coop_gamemode; /* FS: Coop: Added */
+cvar_t* sv_coop_gamemode_vote; /* FS: Coop: Added */
+cvar_t* sv_vote_enabled; /* FS: Coop: Voting */
+cvar_t* sv_vote_disallow_flags; /* FS: Coop: Voting */
+cvar_t* sv_vote_assume_yes; /* FS: Coop: Voting */
+cvar_t* sv_vote_timer; /* FS: Coop: Voting */
+cvar_t* sv_vote_private; /* FS: Coop: Voting */
+cvar_t* sv_vote_chat_commands; /* FS: Coop: Voting */
+cvar_t* sv_coop_reset_hack; /* FS: Coop: Long uptime reset hack :( */
+cvar_t* sv_coop_check_player_exit; /* FS: Added */
+cvar_t* sv_coop_maplist; /* FS: Added */
+cvar_t* sv_coop_summon_time; /* FS: Added */
+cvar_t* sv_coop_announce_name_change; /* FS: Added */
+cvar_t* sv_coop_name_timeout; /* FS: Added */
+cvar_t* sv_coop_blinky_cam_disallowflags; /* FS: Added */
+cvar_t* sv_drop_timeout; /* FS: Added */
+cvar_t* sv_spawn_protection; /* FS: Coop: Spawn protection */
+cvar_t* sv_spawn_protection_time; /* FS: Coop: Spawn protection */
+cvar_t* motd; /* FS: Coop: Added */
+cvar_t* adminpass; /* FS: Coop: Admin goodies */
+cvar_t* vippass; /* FS: Coop: VIP goodies */
+cvar_t* gamedir; /* FS: Coop: Added */
+cvar_t* nextserver; /* FS: Coop: Added */
+cvar_t* coop_cameraoffset; /* FS: Blinyk's Coop Camera */
+cvar_t* dmflags;
+cvar_t* zdmflags; /* FS: Zaero specific game dll changes */
+cvar_t* skill;
+cvar_t* fraglimit;
+cvar_t* timelimit;
+cvar_t* password;
+cvar_t* spectator_password;
+cvar_t* needpass;
+cvar_t* maxclients;
+cvar_t* maxspectators;
+cvar_t* maxentities;
+cvar_t* g_select_empty;
+cvar_t* dedicated;
+cvar_t* motd_time;
 cvar_t* flashlightmode;
 
-cvar_t *filterban;
+cvar_t* filterban;
 
-cvar_t *sv_maxvelocity;
-cvar_t *sv_gravity;
+cvar_t* sv_maxvelocity;
+cvar_t* sv_gravity;
 
-cvar_t *sv_rollspeed;
-cvar_t *sv_rollangle;
-cvar_t *gun_x;
-cvar_t *gun_y;
-cvar_t *gun_z;
+cvar_t* sv_rollspeed;
+cvar_t* sv_rollangle;
+cvar_t* gun_x;
+cvar_t* gun_y;
+cvar_t* gun_z;
 
-cvar_t *run_pitch;
-cvar_t *run_roll;
-cvar_t *bob_up;
-cvar_t *bob_pitch;
-cvar_t *bob_roll;
+cvar_t* run_pitch;
+cvar_t* run_roll;
+cvar_t* bob_up;
+cvar_t* bob_pitch;
+cvar_t* bob_roll;
 
-cvar_t *sv_cheats;
+cvar_t* sv_cheats;
 
-cvar_t *flood_msgs;
-cvar_t *flood_persecond;
-cvar_t *flood_waitdelay;
+cvar_t* flood_msgs;
+cvar_t* flood_persecond;
+cvar_t* flood_waitdelay;
 
-cvar_t *sv_maplist;
-cvar_t *sv_stopspeed; /* FS: Coop: Rogue specific */
+cvar_t* sv_maplist;
+cvar_t* sv_stopspeed; /* FS: Coop: Rogue specific */
 
-cvar_t *plasma_alpha;
+cvar_t* plasma_alpha;
 cvar_t* g_allow_give;
 
-cvar_t *gamerules; /* FS: Coop: Rogue specific */
-cvar_t *huntercam; /* FS: Coop: Rogue specific */
-cvar_t *strong_mines; /* FS: Coop: Rogue specific */
-cvar_t *randomrespawn; /* FS: Coop: Rogue specific */
+cvar_t* gamerules; /* FS: Coop: Rogue specific */
+cvar_t* huntercam; /* FS: Coop: Rogue specific */
+cvar_t* strong_mines; /* FS: Coop: Rogue specific */
+cvar_t* randomrespawn; /* FS: Coop: Rogue specific */
 
-void SpawnEntities(char *mapname, char *entities, char *spawnpoint);
-void ClientThink(edict_t *ent, usercmd_t *cmd);
-qboolean ClientConnect(edict_t *ent, char *userinfo);
-void ClientUserinfoChanged(edict_t *ent, char *userinfo);
-void ClientDisconnect(edict_t *ent);
-void ClientBegin(edict_t *ent);
-void ClientCommand(edict_t *ent);
-void RunEntity(edict_t *ent);
-void WriteGame(char *filename, qboolean autosave);
-void ReadGame(char *filename);
-void WriteLevel(char *filename);
-void ReadLevel(char *filename);
+void SpawnEntities(char* mapname, char* entities, char* spawnpoint);
+void ClientThink(edict_t* ent, usercmd_t* cmd);
+qboolean ClientConnect(edict_t* ent, char* userinfo);
+void ClientUserinfoChanged(edict_t* ent, char* userinfo);
+void ClientDisconnect(edict_t* ent);
+void ClientBegin(edict_t* ent);
+void ClientCommand(edict_t* ent);
+void RunEntity(edict_t* ent);
+void WriteGame(char* filename, qboolean autosave);
+void ReadGame(char* filename);
+void WriteLevel(char* filename);
+void ReadLevel(char* filename);
 void InitGame(void);
 void G_RunFrame(void);
-void G_ResetTimer_Hack (void); /* FS: Some of the grossest shit of all time.  Reset everything to avoid the integer to float overflow timer bullshit */
+void G_ResetTimer_Hack(void); /* FS: Some of the grossest shit of all time.  Reset everything to avoid the integer to float overflow timer bullshit */
 
 //#define FRAMENUM_TIMER_TEST
 #ifdef FRAMENUM_TIMER_TEST /* FS: Force framenum overflow and reset testing */
 #ifdef _DEBUG
-cvar_t *sv_force_framenum_hack;
+cvar_t* sv_force_framenum_hack;
 static qboolean firstStart = true;
 #endif // _DEBUG
 #endif // FRAMENUM_TIMER_TEST
@@ -129,8 +129,8 @@ ShutdownGame(void)
 {
 	gi.dprintf("==== ShutdownGame ====\n");
 
-	gi.FreeTags (TAG_LEVEL);
-	gi.FreeTags (TAG_GAME);
+	gi.FreeTags(TAG_LEVEL);
+	gi.FreeTags(TAG_GAME);
 }
 
 
@@ -142,7 +142,7 @@ Returns a pointer to the structure with all entry points
 and global variables
 =================
 */
-game_export_t *GetGameAPI (game_import_t *import)
+game_export_t* GetGameAPI(game_import_t* import)
 {
 	gi = *import;
 
@@ -181,28 +181,29 @@ game_export_t *GetGameAPI (game_import_t *import)
 
 #ifndef GAME_HARD_LINKED
 // this is only here so the functions in q_shared.c and q_shwin.c can link
-void Sys_Error (char *error, ...)
+void Sys_Error(char* error, ...)
 {
 	va_list		argptr;
 	char		text[1024];
 
-	va_start (argptr, error);
-	Q_vsnprintf (text, sizeof(text), error, argptr);
-	va_end (argptr);
-	text[sizeof(text)-1] = 0;
+	va_start(argptr, error);
+	Q_vsnprintf(text, sizeof(text), error, argptr);
+	va_end(argptr);
+	text[sizeof(text) - 1] = 0;
 
-	gi.error ("%s", text);
+	gi.error("%s", text);
+	abort();
 }
 
-void Com_Printf (char *msg, ...)
+void Com_Printf(char* msg, ...)
 {
 	va_list		argptr;
 	char		text[1024];
 
-	va_start (argptr, msg);
-	Q_vsnprintf (text, sizeof(text), msg, argptr);
-	va_end (argptr);
-	text[sizeof(text)-1] = 0;
+	va_start(argptr, msg);
+	Q_vsnprintf(text, sizeof(text), msg, argptr);
+	va_end(argptr);
+	text[sizeof(text) - 1] = 0;
 
 	gi.dprintf("%s", text);
 }
@@ -213,14 +214,16 @@ However, it's trivial to add.  So what-do?
 */
 void Sys_Mkdir(char* path)
 {
-	int stat;
+	int status;
 #ifdef _WIN32
-	stat = _mkdir(path);
+	status = _mkdir(path);
 #else
-	stat = mkdir(path, 0777);
+	status = mkdir(path, 0777);
 #endif
-	if (stat)
-		gi.dprintf("%s error creating path %s\n", __func__, strerror(errno));
+	if (status) {
+		if (errno != EEXIST) //QW// if it already exists, ignore the error.
+			gi.dprintf("%s: Error creating path %s. %s.\n", __func__, path, strerror(errno));
+	}
 }
 
 #endif
@@ -233,14 +236,14 @@ void Sys_Mkdir(char* path)
 ClientEndServerFrames
 =================
 */
-void ClientEndServerFrames (void)
+void ClientEndServerFrames(void)
 {
 	int		i;
-	edict_t	*ent;
+	edict_t* ent;
 
 	// calc the player views now that all pushing
 	// and damage has been added
-	for (i=0 ; i<maxclients->value ; i++)
+	for (i = 0; i < maxclients->value; i++)
 	{
 		ent = g_edicts + 1 + i;
 
@@ -249,7 +252,7 @@ void ClientEndServerFrames (void)
 			continue;
 		}
 
-		ClientEndServerFrame (ent);
+		ClientEndServerFrame(ent);
 	}
 }
 
@@ -260,16 +263,16 @@ CreateTargetChangeLevel
 Returns the created target changelevel
 =================
 */
-edict_t *CreateTargetChangeLevel(char *map)
+edict_t* CreateTargetChangeLevel(char* map)
 {
-	edict_t *ent;
+	edict_t* ent;
 
 	if (!map)
 	{
 		return NULL;
 	}
 
-	ent = G_Spawn ();
+	ent = G_Spawn();
 	ent->classname = "target_changelevel";
 	Com_sprintf(level.nextmap, sizeof(level.nextmap), "%s", map);
 	ent->map = level.nextmap;
@@ -283,11 +286,11 @@ EndDMLevel
 The timelimit or fraglimit has been exceeded
 =================
 */
-void EndDMLevel (void)
+void EndDMLevel(void)
 {
-	edict_t *ent;
-	char *s, *t, *tPtr, *f;
-	static const char *seps = " ,\n\r";
+	edict_t* ent;
+	char* s, * t, * tPtr, * f;
+	static const char* seps = " ,\n\r";
 
 	/* stay on same level flag */
 	if ((int)dmflags->value & DF_SAME_LEVEL)
@@ -299,7 +302,7 @@ void EndDMLevel (void)
 	/* see if it's in the map list */
 	if (*sv_maplist->string)
 	{
-		s = strdup(sv_maplist->string);
+		s = G_CopyString(sv_maplist->string);
 		f = NULL;
 		t = strtok_r(s, seps, &tPtr);
 
@@ -326,7 +329,7 @@ void EndDMLevel (void)
 					BeginIntermission(CreateTargetChangeLevel(t));
 				}
 
-				free(s);
+				gi.TagFree(s);
 				return;
 			}
 
@@ -338,7 +341,7 @@ void EndDMLevel (void)
 			t = strtok_r(NULL, seps, &tPtr);
 		}
 
-		free(s);
+		gi.TagFree(s);
 	}
 
 	if (level.nextmap[0]) /* go to a specific map */
@@ -363,7 +366,7 @@ void EndDMLevel (void)
 }
 
 
-void CheckNeedPass (void)
+void CheckNeedPass(void)
 {
 	int need;
 
@@ -394,7 +397,7 @@ void
 CheckDMRules(void)
 {
 	int i;
-	gclient_t *cl;
+	gclient_t* cl;
 
 	if (level.intermissiontime)
 	{
@@ -449,7 +452,7 @@ void
 ExitLevel(void)
 {
 	int i;
-	edict_t *ent;
+	edict_t* ent;
 	char command[256];
 
 	Com_sprintf(command, sizeof(command), "gamemap \"%s\"\n", level.changemap);
@@ -490,22 +493,22 @@ void
 G_RunFrame(void)
 {
 	int i;
-	edict_t *ent;
+	edict_t* ent;
 
 	Blinky_BeginRunFrame(); /* FS: Blinky's Coop Camera */
 
 #ifdef FRAMENUM_TIMER_TEST /* FS: Force framenum overflow and reset testing */
 #ifdef _DEBUG
-	if(firstStart && level.framenum > 15) /* FS: Need a few frames for physics to settle down and activate before you can fudge it forward */
+	if (firstStart && level.framenum > 15) /* FS: Need a few frames for physics to settle down and activate before you can fudge it forward */
 	{
-		level.framenum = 10790*10*8;
+		level.framenum = 10790 * 10 * 8;
 		firstStart = false;
-//		gi.cprintf(NULL, PRINT_CHAT, "framenum: %i\n", level.framenum);
+		//		gi.cprintf(NULL, PRINT_CHAT, "framenum: %i\n", level.framenum);
 	}
 
-	if(sv_force_framenum_hack->modified)
+	if (sv_force_framenum_hack->modified)
 	{
-		level.framenum = 10790*10*8;
+		level.framenum = 10790 * 10 * 8;
 		gi.cvar_forceset("sv_force_framenum_hack", "0");
 		sv_force_framenum_hack->modified = false;
 	}
@@ -547,9 +550,9 @@ G_RunFrame(void)
 
 		if (game.gametype == zaero_coop) /* FS: Zaero specific game dll changes */
 		{
-		    if(!(ent->flags & FL_DONTSETOLDORIGIN))
+			if (!(ent->flags & FL_DONTSETOLDORIGIN))
 			{
-				VectorCopy (ent->s.origin, ent->s.old_origin);
+				VectorCopy(ent->s.origin, ent->s.old_origin);
 			}
 		}
 		else
@@ -590,12 +593,12 @@ G_RunFrame(void)
 
 }
 
-void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Reset everything to avoid the integer to float overflow timer bullshit */
+void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Reset everything to avoid the integer to float overflow timer bullshit */
 {
 	int i;
-	edict_t *ent;
+	edict_t* ent;
 
-	if(sv_coop_reset_hack->value && (level.time > 10800.0f) && !P_Clients_Connected(true)) /* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
+	if (sv_coop_reset_hack->value && (level.time > 10800.0f) && !P_Clients_Connected(true)) /* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
 	{
 		gi.cprintf(NULL, PRINT_HIGH, "Resetting timers...\n");
 
@@ -610,11 +613,11 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			qboolean setStand = false;
 			qboolean setSearch = false;
 			qboolean setIdle = false;
-			char *className = "Unknown Entity";
+			char* className = "Unknown Entity";
 
 			if (!ent->inuse)
 			{
-				if(ent->freetime)
+				if (ent->freetime)
 				{
 					gi.dprintf("Set freetime for freed entity: %f\n", ent->freetime);
 					ent->freetime = level.time;
@@ -622,86 +625,86 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 				continue;
 			}
 
-			if(ent->classname)
+			if (ent->classname)
 			{
 				className = ent->classname;
 			}
 
-			if(ent->monsterinfo.search_time)
+			if (ent->monsterinfo.search_time)
 			{
 				gi.dprintf("Set search_time for %s: %f\n", className, ent->monsterinfo.search_time);
 				ent->monsterinfo.search_time = level.time + 0.1f;
 				setSearch = true;
 			}
 
-			if(ent->monsterinfo.trail_time)
+			if (ent->monsterinfo.trail_time)
 			{
 				gi.dprintf("Set trail_time for %s: %f\n", className, ent->monsterinfo.trail_time);
 				ent->monsterinfo.trail_time = level.time + 0.1f;
 			}
-			if(ent->monsterinfo.idle_time)
+			if (ent->monsterinfo.idle_time)
 			{
 				gi.dprintf("Set idle_time for %s: %f\n", className, ent->monsterinfo.idle_time);
 				ent->monsterinfo.idle_time = level.time + 0.1f;
 				setIdle = true;
 			}
 
-			if(ent->monsterinfo.pausetime)
+			if (ent->monsterinfo.pausetime)
 			{
 				gi.dprintf("Set pausetime for %s: %f\n", className, ent->monsterinfo.pausetime);
 				ent->monsterinfo.pausetime = level.time + 100000000;
 				setStand = true;
 			}
 
-			if(ent->monsterinfo.last_hint_time)
+			if (ent->monsterinfo.last_hint_time)
 			{
 				gi.dprintf("Set last_hint_time for %s: %f\n", className, ent->monsterinfo.last_hint_time);
 				ent->monsterinfo.last_hint_time = level.time + 0.1f;
 			}
 
-			if(ent->monsterinfo.next_duck_time)
+			if (ent->monsterinfo.next_duck_time)
 			{
 				gi.dprintf("Set next_duck_time for %s: %f\n", className, ent->monsterinfo.next_duck_time);
 				ent->monsterinfo.next_duck_time = level.time + 0.1f;
 			}
 
-			if(ent->monsterinfo.duck_wait_time)
+			if (ent->monsterinfo.duck_wait_time)
 			{
 				gi.dprintf("Set duck_wait_time for %s: %f\n", className, ent->monsterinfo.duck_wait_time);
 				ent->monsterinfo.duck_wait_time = level.time + 0.1f;
 			}
 
-			if(ent->monsterinfo.blind_fire_delay)
+			if (ent->monsterinfo.blind_fire_delay)
 			{
 				gi.dprintf("Set blind_fire_delay for %s: %f\n", className, ent->monsterinfo.blind_fire_delay);
 				ent->monsterinfo.blind_fire_delay = level.time + 0.1f;
 			}
 
-			if(ent->monsterinfo.quad_framenum)
+			if (ent->monsterinfo.quad_framenum)
 			{
 				gi.dprintf("Set quad_framenum for %s: %f\n", className, ent->monsterinfo.quad_framenum);
 				ent->monsterinfo.quad_framenum = 0.0f;
 			}
 
-			if(ent->monsterinfo.invincible_framenum)
+			if (ent->monsterinfo.invincible_framenum)
 			{
 				gi.dprintf("Set invincible_framenum for %s: %f\n", className, ent->monsterinfo.invincible_framenum);
 				ent->monsterinfo.invincible_framenum = 0.0f;
 			}
 
-			if(ent->monsterinfo.double_framenum)
+			if (ent->monsterinfo.double_framenum)
 			{
 				gi.dprintf("Set double_framenum for %s: %f\n", className, ent->monsterinfo.double_framenum);
 				ent->monsterinfo.double_framenum = 0.0f;
 			}
 
-			if(ent->air_finished)
+			if (ent->air_finished)
 			{
 				gi.dprintf("Set air_finished for %s: %f\n", className, ent->air_finished);
 				ent->air_finished = level.time + 1.0f;
 			}
 
-			if(ent->powerarmor_time)
+			if (ent->powerarmor_time)
 			{
 				gi.dprintf("Set powerarmor_time for %s: %f\n", className, ent->powerarmor_time);
 				ent->powerarmor_time = level.time + 0.2f;
@@ -709,76 +712,76 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 
 			/* FS: TODO: Check ent->wait and ent->delay and re-apply per situation since a few rely on level.time */
 
-			if(ent->last_sound_time)
+			if (ent->last_sound_time)
 			{
 				gi.dprintf("Set last_sound_time for %s: %f\n", className, ent->last_sound_time);
 				ent->last_sound_time = level.time;
 			}
 
-			if(ent->touch_debounce_time)
+			if (ent->touch_debounce_time)
 			{
 				gi.dprintf("Set touch_debounce_time for %s: %f\n", className, ent->touch_debounce_time);
 				ent->touch_debounce_time = level.time + 0.1f;
 			}
 
-			if(ent->pain_debounce_time)
+			if (ent->pain_debounce_time)
 			{
 				gi.dprintf("Set pain_debounce_time for %s: %f\n", className, ent->pain_debounce_time);
 				ent->pain_debounce_time = level.time + 0.1f;
 			}
 
-			if(ent->damage_debounce_time)
+			if (ent->damage_debounce_time)
 			{
 				gi.dprintf("Set damage_debounce_time for %s: %f\n", className, ent->damage_debounce_time);
 				ent->damage_debounce_time = level.time + 0.1f;
 			}
 
-			if(ent->fly_sound_debounce_time)
+			if (ent->fly_sound_debounce_time)
 			{
 				gi.dprintf("Set fly_sound_debounce_time for %s: %f\n", className, ent->fly_sound_debounce_time);
 				ent->fly_sound_debounce_time = level.time + 0.1f;
 			}
 
-			if(ent->last_move_time)
+			if (ent->last_move_time)
 			{
 				gi.dprintf("Set last_move_time for %s: %f\n", className, ent->last_move_time);
 				ent->last_move_time = 0.1f;
 			}
 
-			if(ent->timestamp)
+			if (ent->timestamp)
 			{
 				gi.dprintf("Set timestamp for %s: %f\n", className, ent->timestamp);
 				ent->timestamp = level.time + 0.1f;
 			}
 
-			if(ent->think)
+			if (ent->think)
 			{
-				if(ent->nextthink)
+				if (ent->nextthink)
 				{
 					gi.dprintf("Set nextthink for %s: %f\n", className, ent->nextthink);
 					ent->nextthink = level.time + 0.1f;
 				}
 			}
 
-			if(setStand)
+			if (setStand)
 			{
-				if(ent->monsterinfo.stand)
+				if (ent->monsterinfo.stand)
 				{
 					gi.dprintf("Set Stand AI for %s\n", className);
 					ent->monsterinfo.stand(ent);
 				}
 			}
-			else if(setSearch)
+			else if (setSearch)
 			{
-				if(ent->monsterinfo.search)
+				if (ent->monsterinfo.search)
 				{
 					gi.dprintf("Set Search AI for %s\n", className);
 					ent->monsterinfo.search(ent);
 				}
 			}
-			else if(setIdle)
+			else if (setIdle)
 			{
-				if(ent->monsterinfo.idle)
+				if (ent->monsterinfo.idle)
 				{
 					gi.dprintf("Set Idle AI for %s\n", className);
 					ent->monsterinfo.idle(ent);
@@ -786,7 +789,7 @@ void G_ResetTimer_Hack (void) /* FS: Some of the grossest shit of all time.  Res
 			}
 			else /* FS: Not sure what we're supposed to be doing with ourselves, so just stand there for now */
 			{
-				if(ent->monsterinfo.stand)
+				if (ent->monsterinfo.stand)
 				{
 					gi.dprintf("WARNING: Unknown what monster is doing.  Seting stand AI by default for %s\n", className);
 					ent->monsterinfo.stand(ent);

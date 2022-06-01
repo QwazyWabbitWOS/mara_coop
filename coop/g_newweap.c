@@ -26,17 +26,17 @@
 #define TRACKER_IMPACT_FLAGS (DAMAGE_NO_POWER_ARMOR | DAMAGE_ENERGY)
 #define TRACKER_DAMAGE_TIME 0.5f
 
-extern byte P_DamageModifier(edict_t *ent);
-extern void check_dodge(edict_t *self, vec3_t start, vec3_t dir, int speed);
-extern void hurt_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf);
-extern void droptofloor(edict_t *ent);
-extern void Grenade_Explode(edict_t *ent);
-extern void drawbbox(edict_t *ent);
+extern byte P_DamageModifier(edict_t* ent);
+extern void check_dodge(edict_t* self, vec3_t start, vec3_t dir, int speed);
+extern void hurt_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf);
+extern void droptofloor(edict_t* ent);
+extern void Grenade_Explode(edict_t* ent);
+extern void drawbbox(edict_t* ent);
 
 void
-flechette_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+flechette_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self || !other || !surf)
 	{
@@ -62,8 +62,8 @@ flechette_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf
 	if (other->takedamage)
 	{
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, self->dmg, self->dmg_radius, DAMAGE_NO_REG_ARMOR,
-				MOD_ETF_RIFLE);
+			plane->normal, self->dmg, self->dmg_radius, DAMAGE_NO_REG_ARMOR,
+			MOD_ETF_RIFLE);
 	}
 	else
 	{
@@ -87,10 +87,10 @@ flechette_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf
 }
 
 void
-fire_flechette(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int kick)
+fire_flechette(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int kick)
 {
-	edict_t *flechette;
+	edict_t* flechette;
 
 	if (!self)
 	{
@@ -130,10 +130,10 @@ fire_flechette(edict_t *self, vec3_t start, vec3_t dir, int damage,
 }
 
 void
-Prox_Explode(edict_t *ent)
+Prox_Explode(edict_t* ent)
 {
 	vec3_t origin;
-	edict_t *owner;
+	edict_t* owner;
 
 	if (!ent)
 	{
@@ -182,8 +182,8 @@ Prox_Explode(edict_t *ent)
 }
 
 void
-prox_die(edict_t *self, edict_t *inflictor, edict_t *attacker /* unused */,
-		int damage, vec3_t point)
+prox_die(edict_t* self, edict_t* inflictor, edict_t* attacker /* unused */,
+	int damage, vec3_t point)
 {
 	if (!self || !inflictor)
 	{
@@ -204,10 +204,10 @@ prox_die(edict_t *self, edict_t *inflictor, edict_t *attacker /* unused */,
 }
 
 void
-Prox_Field_Touch(edict_t *ent, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+Prox_Field_Touch(edict_t* ent, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
-	edict_t *prox;
+	edict_t* prox;
 
 	if (!ent || !other)
 	{
@@ -245,7 +245,7 @@ Prox_Field_Touch(edict_t *ent, edict_t *other, cplane_t *plane /* unused */,
 }
 
 void
-prox_seek(edict_t *ent)
+prox_seek(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -271,9 +271,9 @@ prox_seek(edict_t *ent)
 }
 
 void
-prox_open(edict_t *ent)
+prox_open(edict_t* ent)
 {
-	edict_t *search;
+	edict_t* search;
 
 	if (!ent)
 	{
@@ -306,12 +306,12 @@ prox_open(edict_t *ent)
 			   or it's a player start point and we can see it
 			   blow up */
 			if (((((search->svflags & SVF_MONSTER) ||
-				   (search->client)) && (search->health > 0)) ||
-				   ((deathmatch->value) &&(((search->classname) && (!strcmp(search->classname, "info_player_deathmatch"))) ||
-				   ((search->classname) && (!strcmp(search->classname, "info_player_start"))) ||
-				   ((search->classname) && (!strcmp(search->classname, "info_player_coop"))) ||
-				   ((search->classname) && (!strcmp(search->classname, "misc_teleporter_dest")))))) &&
-				   (visible(search, ent)))
+				(search->client)) && (search->health > 0)) ||
+				((deathmatch->value) && (((search->classname) && (!strcmp(search->classname, "info_player_deathmatch"))) ||
+					((search->classname) && (!strcmp(search->classname, "info_player_start"))) ||
+					((search->classname) && (!strcmp(search->classname, "info_player_coop"))) ||
+					((search->classname) && (!strcmp(search->classname, "misc_teleporter_dest")))))) &&
+				(visible(search, ent)))
 			{
 				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/proxwarn.wav"), 1, ATTN_NORM, 0);
 				Prox_Explode(ent);
@@ -327,21 +327,21 @@ prox_open(edict_t *ent)
 		{
 			switch (ent->dmg / PROX_DAMAGE)
 			{
-				case 1:
-					ent->wait = level.time + PROX_TIME_TO_LIVE;
-					break;
-				case 2:
-					ent->wait = level.time + 30;
-					break;
-				case 4:
-					ent->wait = level.time + 15;
-					break;
-				case 8:
-					ent->wait = level.time + 10;
-					break;
-				default:
-					ent->wait = level.time + PROX_TIME_TO_LIVE;
-					break;
+			case 1:
+				ent->wait = level.time + PROX_TIME_TO_LIVE;
+				break;
+			case 2:
+				ent->wait = level.time + 30;
+				break;
+			case 4:
+				ent->wait = level.time + 15;
+				break;
+			case 8:
+				ent->wait = level.time + 10;
+				break;
+			default:
+				ent->wait = level.time + PROX_TIME_TO_LIVE;
+				break;
 			}
 		}
 
@@ -362,9 +362,9 @@ prox_open(edict_t *ent)
 }
 
 void
-prox_land(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+prox_land(edict_t* ent, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
-	edict_t *field;
+	edict_t* field;
 	vec3_t dir;
 	vec3_t forward, right, up;
 	int movetype = MOVETYPE_NONE;
@@ -409,7 +409,7 @@ prox_land(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 	else if (other != world)
 	{
 		/* Here we need to check to see if we can stop on this entity. */
-		vec3_t out;
+		vec3_t out = { 0 };
 		vec3_t zeroVec = { 0 };
 
 		float backoff, change;
@@ -517,9 +517,9 @@ prox_land(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 }
 
 void
-fire_prox(edict_t *self, vec3_t start, vec3_t aimdir, int damage_multiplier, int speed)
+fire_prox(edict_t* self, vec3_t start, vec3_t aimdir, int damage_multiplier, int speed)
 {
-	edict_t *prox;
+	edict_t* prox;
 	vec3_t dir;
 	vec3_t forward, right, up;
 
@@ -557,29 +557,29 @@ fire_prox(edict_t *self, vec3_t start, vec3_t aimdir, int damage_multiplier, int
 
 	switch (damage_multiplier)
 	{
-		case 1:
-			prox->nextthink = level.time + PROX_TIME_TO_LIVE;
-			break;
-		case 2:
-			prox->nextthink = level.time + 30;
-			break;
-		case 4:
-			prox->nextthink = level.time + 15;
-			break;
-		case 8:
-			prox->nextthink = level.time + 10;
-			break;
-		default:
-			prox->nextthink = level.time + PROX_TIME_TO_LIVE;
-			break;
+	case 1:
+		prox->nextthink = level.time + PROX_TIME_TO_LIVE;
+		break;
+	case 2:
+		prox->nextthink = level.time + 30;
+		break;
+	case 4:
+		prox->nextthink = level.time + 15;
+		break;
+	case 8:
+		prox->nextthink = level.time + 10;
+		break;
+	default:
+		prox->nextthink = level.time + PROX_TIME_TO_LIVE;
+		break;
 	}
 
 	gi.linkentity(prox);
 }
 
 void
-fire_player_melee(edict_t *self, vec3_t start, vec3_t aim, int reach,
-		int damage, int kick, int quiet, int mod)
+fire_player_melee(edict_t* self, vec3_t start, vec3_t aim, int reach,
+	int damage, int kick, int quiet, int mod)
 {
 	vec3_t forward, right, up;
 	vec3_t v;
@@ -620,12 +620,12 @@ fire_player_melee(edict_t *self, vec3_t start, vec3_t aim, int reach,
 		if (mod == MOD_CHAINFIST)
 		{
 			T_Damage(tr.ent, self, self, vec3_origin, tr.ent->s.origin, vec3_origin,
-					damage, kick / 2, DAMAGE_DESTROY_ARMOR | DAMAGE_NO_KNOCKBACK, mod);
+				damage, kick / 2, DAMAGE_DESTROY_ARMOR | DAMAGE_NO_KNOCKBACK, mod);
 		}
 		else
 		{
 			T_Damage(tr.ent, self, self, vec3_origin, tr.ent->s.origin, vec3_origin,
-					damage, kick / 2, DAMAGE_NO_KNOCKBACK, mod);
+				damage, kick / 2, DAMAGE_NO_KNOCKBACK, mod);
 		}
 
 		if (!quiet)
@@ -650,10 +650,10 @@ fire_player_melee(edict_t *self, vec3_t start, vec3_t aim, int reach,
 }
 
 void
-Nuke_Quake(edict_t *self)
+Nuke_Quake(edict_t* self)
 {
 	int i;
-	edict_t *e;
+	edict_t* e;
 
 	if (!self)
 	{
@@ -663,7 +663,7 @@ Nuke_Quake(edict_t *self)
 	if (self->last_move_time < level.time)
 	{
 		gi.positioned_sound(self->s.origin, self, CHAN_AUTO, self->noise_index,
-				0.75, ATTN_NONE, 0);
+			0.75, ATTN_NONE, 0);
 		self->last_move_time = level.time + 0.5;
 	}
 
@@ -701,7 +701,7 @@ Nuke_Quake(edict_t *self)
 }
 
 void
-Nuke_Explode(edict_t *ent)
+Nuke_Explode(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -714,7 +714,7 @@ Nuke_Explode(edict_t *ent)
 	}
 
 	T_RadiusNukeDamage(ent, ent->teammaster, ent->dmg,
-			ent, ent->dmg_radius, MOD_NUKE);
+		ent, ent->dmg_radius, MOD_NUKE);
 
 	if (ent->dmg > NUKE_DAMAGE)
 	{
@@ -744,8 +744,8 @@ Nuke_Explode(edict_t *ent)
 }
 
 void
-nuke_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker, int damage, vec3_t point)
+nuke_die(edict_t* self, edict_t* inflictor /* unused */,
+	edict_t* attacker, int damage, vec3_t point)
 {
 	if (!self)
 	{
@@ -764,7 +764,7 @@ nuke_die(edict_t *self, edict_t *inflictor /* unused */,
 }
 
 void
-Nuke_Think(edict_t *ent)
+Nuke_Think(edict_t* ent)
 {
 	float attenuation, default_atten = 1.8f;
 	int damage_multiplier, muzzleflash;
@@ -778,26 +778,26 @@ Nuke_Think(edict_t *ent)
 
 	switch (damage_multiplier)
 	{
-		case 1:
-			attenuation = default_atten / 1.4;
-			muzzleflash = MZ_NUKE1;
-			break;
-		case 2:
-			attenuation = default_atten / 2.0;
-			muzzleflash = MZ_NUKE2;
-			break;
-		case 4:
-			attenuation = default_atten / 3.0;
-			muzzleflash = MZ_NUKE4;
-			break;
-		case 8:
-			attenuation = default_atten / 5.0;
-			muzzleflash = MZ_NUKE8;
-			break;
-		default:
-			attenuation = default_atten;
-			muzzleflash = MZ_NUKE1;
-			break;
+	case 1:
+		attenuation = default_atten / 1.4;
+		muzzleflash = MZ_NUKE1;
+		break;
+	case 2:
+		attenuation = default_atten / 2.0;
+		muzzleflash = MZ_NUKE2;
+		break;
+	case 4:
+		attenuation = default_atten / 3.0;
+		muzzleflash = MZ_NUKE4;
+		break;
+	case 8:
+		attenuation = default_atten / 5.0;
+		muzzleflash = MZ_NUKE8;
+		break;
+	default:
+		attenuation = default_atten;
+		muzzleflash = MZ_NUKE1;
+		break;
 	}
 
 	if (ent->wait < level.time)
@@ -856,8 +856,8 @@ Nuke_Think(edict_t *ent)
 }
 
 void
-nuke_bounce(edict_t *ent, edict_t *other /* unused */, cplane_t *plane /* unused */,
-	   	csurface_t *surf /* unused */)
+nuke_bounce(edict_t* ent, edict_t* other /* unused */, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
 	if (!ent)
 	{
@@ -875,9 +875,9 @@ nuke_bounce(edict_t *ent, edict_t *other /* unused */, cplane_t *plane /* unused
 }
 
 void
-fire_nuke(edict_t *self, vec3_t start, vec3_t aimdir, int speed)
+fire_nuke(edict_t* self, vec3_t start, vec3_t aimdir, int speed)
 {
-	edict_t *nuke;
+	edict_t* nuke;
 	vec3_t dir;
 	vec3_t forward, right, up;
 	int damage_modifier;
@@ -935,9 +935,9 @@ fire_nuke(edict_t *self, vec3_t start, vec3_t aimdir, int speed)
 	gi.linkentity(nuke);
 }
 void
-tesla_remove(edict_t *self)
+tesla_remove(edict_t* self)
 {
-	edict_t *cur, *next;
+	edict_t* cur, * next;
 
 	if (!self)
 	{
@@ -975,8 +975,8 @@ tesla_remove(edict_t *self)
 }
 
 void
-tesla_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+tesla_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -987,7 +987,7 @@ tesla_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* u
 }
 
 void
-tesla_blow(edict_t *self)
+tesla_blow(edict_t* self)
 {
 	if (!self)
 	{
@@ -1000,16 +1000,16 @@ tesla_blow(edict_t *self)
 }
 
 void
-tesla_zap(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+tesla_zap(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 }
 
 void
-tesla_think_active(edict_t *self)
+tesla_think_active(edict_t* self)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
-	vec3_t dir, start;
+	edict_t* touch[MAX_EDICTS], * hit;
+	vec3_t dir = { 0 }, start = { 0 };
 	trace_t tr;
 
 	if (!self)
@@ -1027,7 +1027,7 @@ tesla_think_active(edict_t *self)
 	start[2] += 16;
 
 	num = gi.BoxEdicts(self->teamchain->absmin, self->teamchain->absmax,
-			touch, MAX_EDICTS, AREA_SOLID);
+		touch, MAX_EDICTS, AREA_SOLID);
 
 	for (i = 0; i < num; i++)
 	{
@@ -1069,7 +1069,7 @@ tesla_think_active(edict_t *self)
 		}
 
 		tr = gi.trace(start, vec3_origin, vec3_origin, hit->s.origin,
-				self, MASK_SHOT);
+			self, MASK_SHOT);
 
 		if ((tr.fraction == 1) || (tr.ent == hit))
 		{
@@ -1086,12 +1086,12 @@ tesla_think_active(edict_t *self)
 				!(hit->flags & (FL_FLY | FL_SWIM)))
 			{
 				T_Damage(hit, self, self->teammaster, dir, tr.endpos,
-						tr.plane.normal, self->dmg, 0, 0, MOD_TESLA);
+					tr.plane.normal, self->dmg, 0, 0, MOD_TESLA);
 			}
 			else
 			{
 				T_Damage(hit, self, self->teammaster, dir, tr.endpos, tr.plane.normal,
-						self->dmg, TESLA_KNOCKBACK, 0, MOD_TESLA);
+					self->dmg, TESLA_KNOCKBACK, 0, MOD_TESLA);
 			}
 
 			gi.WriteByte(svc_temp_entity);
@@ -1112,10 +1112,10 @@ tesla_think_active(edict_t *self)
 }
 
 void
-tesla_activate(edict_t *self)
+tesla_activate(edict_t* self)
 {
-	edict_t *trigger;
-	edict_t *search;
+	edict_t* trigger;
+	edict_t* search;
 
 	if (!self)
 	{
@@ -1138,10 +1138,10 @@ tesla_activate(edict_t *self)
 			if (search->classname)
 			{
 				if (((!strcmp(search->classname, "info_player_deathmatch")) ||
-					 (!strcmp(search->classname, "info_player_start")) ||
-					 (!strcmp(search->classname, "info_player_coop")) ||
-					 (!strcmp(search->classname, "misc_teleporter_dest"))) &&
-						(visible(search, self)))
+					(!strcmp(search->classname, "info_player_start")) ||
+					(!strcmp(search->classname, "info_player_coop")) ||
+					(!strcmp(search->classname, "misc_teleporter_dest"))) &&
+					(visible(search, self)))
 				{
 					tesla_remove(self);
 					return;
@@ -1178,7 +1178,7 @@ tesla_activate(edict_t *self)
 }
 
 void
-tesla_think(edict_t *ent)
+tesla_think(edict_t* ent)
 {
 	if (!ent)
 	{
@@ -1235,7 +1235,7 @@ tesla_think(edict_t *ent)
 }
 
 void
-tesla_lava(edict_t *ent, edict_t *other /* unused */, cplane_t *plane, csurface_t *surf /* unused */)
+tesla_lava(edict_t* ent, edict_t* other /* unused */, cplane_t* plane, csurface_t* surf /* unused */)
 {
 	vec3_t land_point;
 
@@ -1263,10 +1263,10 @@ tesla_lava(edict_t *ent, edict_t *other /* unused */, cplane_t *plane, csurface_
 }
 
 void
-fire_tesla(edict_t *self, vec3_t start, vec3_t aimdir,
-		int damage_multiplier, int speed)
+fire_tesla(edict_t* self, vec3_t start, vec3_t aimdir,
+	int damage_multiplier, int speed)
 {
-	edict_t *tesla;
+	edict_t* tesla;
 	vec3_t dir;
 	vec3_t forward, right, up;
 
@@ -1323,17 +1323,17 @@ fire_tesla(edict_t *self, vec3_t start, vec3_t aimdir,
 }
 
 void
-fire_beams(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
-		int damage, int kick, int te_beam, int te_impact, int mod)
+fire_beams(edict_t* self, vec3_t start, vec3_t aimdir, vec3_t offset,
+	int damage, int kick, int te_beam, int te_impact, int mod)
 {
 	trace_t tr;
 	vec3_t dir;
 	vec3_t forward, right, up;
 	vec3_t end;
-	vec3_t water_start, endpoint;
+	vec3_t water_start = { 0 }, endpoint = { 0 };
 	qboolean water = false, underwater = false;
 	int content_mask = MASK_SHOT | MASK_WATER;
-	vec3_t beam_endpt;
+	vec3_t beam_endpt = { 0 };
 
 	if (!self)
 	{
@@ -1389,7 +1389,7 @@ fire_beams(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
 			if (tr.ent->takedamage)
 			{
 				T_Damage(tr.ent, self, self, aimdir, tr.endpos, tr.plane.normal,
-						damage, kick, DAMAGE_ENERGY, mod);
+					damage, kick, DAMAGE_ENERGY, mod);
 			}
 			else
 			{
@@ -1457,8 +1457,8 @@ fire_beams(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
 }
 
 void
-fire_heat_rogue(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
-		int damage, int kick, qboolean monster)
+fire_heat_rogue(edict_t* self, vec3_t start, vec3_t aimdir, vec3_t offset,
+	int damage, int kick, qboolean monster)
 {
 	if (!self)
 	{
@@ -1468,12 +1468,12 @@ fire_heat_rogue(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
 	if (monster)
 	{
 		fire_beams(self, start, aimdir, offset, damage, kick,
-				TE_MONSTER_HEATBEAM, TE_HEATBEAM_SPARKS, MOD_HEATBEAM);
+			TE_MONSTER_HEATBEAM, TE_HEATBEAM_SPARKS, MOD_HEATBEAM);
 	}
 	else
 	{
 		fire_beams(self, start, aimdir, offset, damage,
-				kick, TE_HEATBEAM, TE_HEATBEAM_SPARKS, MOD_HEATBEAM);
+			kick, TE_HEATBEAM, TE_HEATBEAM_SPARKS, MOD_HEATBEAM);
 	}
 }
 
@@ -1481,7 +1481,7 @@ fire_heat_rogue(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
  * Fires a single green blaster bolt.  Used by monsters, generally.
  */
 void
-blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+blaster2_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 	int mod;
 	int damagestat;
@@ -1528,11 +1528,11 @@ blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if (self->dmg >= 5)
 			{
 				T_RadiusDamage(self, self->owner, self->dmg * 3, other,
-						self->dmg_radius, 0);
+					self->dmg_radius, 0);
 			}
 
 			T_Damage(other, self, self->owner, self->velocity, self->s.origin, plane->normal,
-					self->dmg, 1, DAMAGE_ENERGY, mod);
+				self->dmg, 1, DAMAGE_ENERGY, mod);
 			self->owner->takedamage = damagestat;
 		}
 		else
@@ -1540,11 +1540,11 @@ blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if (self->dmg >= 5)
 			{
 				T_RadiusDamage(self, self->owner, self->dmg * 3, other,
-						self->dmg_radius, 0);
+					self->dmg_radius, 0);
 			}
 
 			T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-					plane->normal, self->dmg, 1, DAMAGE_ENERGY, mod);
+				plane->normal, self->dmg, 1, DAMAGE_ENERGY, mod);
 		}
 	}
 	else
@@ -1553,7 +1553,7 @@ blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 		if (self->dmg >= 5)
 		{
 			T_RadiusDamage(self, self->owner, self->dmg * 3, self->owner,
-					self->dmg_radius, 0);
+				self->dmg_radius, 0);
 		}
 
 		gi.WriteByte(svc_temp_entity);
@@ -1576,10 +1576,10 @@ blaster2_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 }
 
 void
-fire_blaster2(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int effect, qboolean hyper)
+fire_blaster2(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int effect, qboolean hyper)
 {
-	edict_t *bolt;
+	edict_t* bolt;
 	trace_t tr;
 
 	if (!self)
@@ -1632,9 +1632,9 @@ fire_blaster2(edict_t *self, vec3_t start, vec3_t dir, int damage,
 }
 
 void
-tracker_pain_daemon_think(edict_t *self)
+tracker_pain_daemon_think(edict_t* self)
 {
-	static vec3_t pain_normal = {0, 0, 1};
+	static vec3_t pain_normal = { 0, 0, 1 };
 	int hurt;
 
 	if (!self)
@@ -1661,7 +1661,7 @@ tracker_pain_daemon_think(edict_t *self)
 		if (self->enemy->health > 0)
 		{
 			T_Damage(self->enemy, self, self->owner, vec3_origin, self->enemy->s.origin,
-					pain_normal, self->dmg, 0, TRACKER_DAMAGE_FLAGS, MOD_TRACKER);
+				pain_normal, self->dmg, 0, TRACKER_DAMAGE_FLAGS, MOD_TRACKER);
 
 			/* if we kill the player, we'll be removed. */
 			if (self->inuse)
@@ -1679,7 +1679,7 @@ tracker_pain_daemon_think(edict_t *self)
 					}
 
 					T_Damage(self->enemy, self, self->owner, vec3_origin, self->enemy->s.origin,
-							pain_normal, hurt, 0, TRACKER_DAMAGE_FLAGS, MOD_TRACKER);
+						pain_normal, hurt, 0, TRACKER_DAMAGE_FLAGS, MOD_TRACKER);
 				}
 
 				if (self->enemy->client)
@@ -1707,9 +1707,9 @@ tracker_pain_daemon_think(edict_t *self)
 }
 
 void
-tracker_pain_daemon_spawn(edict_t *owner, edict_t *enemy, int damage)
+tracker_pain_daemon_spawn(edict_t* owner, edict_t* enemy, int damage)
 {
-	edict_t *daemon;
+	edict_t* daemon;
 
 	if (!owner || !enemy)
 	{
@@ -1727,9 +1727,9 @@ tracker_pain_daemon_spawn(edict_t *owner, edict_t *enemy, int damage)
 }
 
 void
-tracker_explode(edict_t *self, cplane_t *plane)
+tracker_explode(edict_t* self, cplane_t* plane)
 {
-	vec3_t dir;
+	vec3_t dir = { 0 };
 
 	if (!self)
 	{
@@ -1754,7 +1754,7 @@ tracker_explode(edict_t *self, cplane_t *plane)
 }
 
 void
-tracker_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+tracker_touch(edict_t* self, edict_t* other, cplane_t* plane, csurface_t* surf)
 {
 	float damagetime;
 
@@ -1786,8 +1786,8 @@ tracker_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if (other->health > 0) /* knockback only for living creatures */
 			{
 				T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-						plane->normal, 0, (self->dmg * 3), TRACKER_IMPACT_FLAGS,
-						MOD_TRACKER);
+					plane->normal, 0, (self->dmg * 3), TRACKER_IMPACT_FLAGS,
+					MOD_TRACKER);
 
 				if (!(other->flags & (FL_FLY | FL_SWIM)))
 				{
@@ -1802,13 +1802,13 @@ tracker_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 			else /* lots of damage (almost autogib) for dead bodies */
 			{
 				T_Damage(other, self, self->owner, self->velocity, self->s.origin, plane->normal,
-						self->dmg * 4, (self->dmg * 3), TRACKER_IMPACT_FLAGS, MOD_TRACKER);
+					self->dmg * 4, (self->dmg * 3), TRACKER_IMPACT_FLAGS, MOD_TRACKER);
 			}
 		}
 		else /* full damage in one shot for inanimate objects */
 		{
 			T_Damage(other, self, self->owner, self->velocity, self->s.origin, plane->normal,
-					self->dmg, (self->dmg * 3), TRACKER_IMPACT_FLAGS, MOD_TRACKER);
+				self->dmg, (self->dmg * 3), TRACKER_IMPACT_FLAGS, MOD_TRACKER);
 		}
 	}
 
@@ -1817,10 +1817,10 @@ tracker_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 }
 
 void
-tracker_fly(edict_t *self)
+tracker_fly(edict_t* self)
 {
-	vec3_t dest;
-	vec3_t dir;
+	vec3_t dest = { 0 };
+	vec3_t dir = { 0 };
 	vec3_t center;
 
 	if (!self)
@@ -1841,7 +1841,7 @@ tracker_fly(edict_t *self)
 		dest[2] += self->enemy->viewheight;
 	}
 	else if (VectorCompare(self->enemy->absmin, vec3_origin) ||
-			 VectorCompare(self->enemy->absmax, vec3_origin))
+		VectorCompare(self->enemy->absmax, vec3_origin))
 	{
 		VectorCopy(self->enemy->s.origin, dest);
 	}
@@ -1862,10 +1862,10 @@ tracker_fly(edict_t *self)
 }
 
 void
-fire_tracker(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, edict_t *enemy)
+fire_tracker(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, edict_t* enemy)
 {
-	edict_t *bolt;
+	edict_t* bolt;
 	trace_t tr;
 
 	if (!self || !enemy)

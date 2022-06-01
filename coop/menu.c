@@ -26,18 +26,18 @@
 
 #include "g_local.h"
 
-void PMenu_Do_Scrolling_Update(edict_t *ent);
+void PMenu_Do_Scrolling_Update(edict_t* ent);
 
-/* Note that the pmenu entries are duplicated 
-   this is so that a static set of pmenu entries can be used 
-   for multiple clients and changed without interference 
+/* Note that the pmenu entries are duplicated
+   this is so that a static set of pmenu entries can be used
+   for multiple clients and changed without interference
    note that arg will be freed when the menu is closed, it
-    must be allocated memory */
-pmenuhnd_t *
-PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, int numheader, void *arg, int menutype)
+	must be allocated memory */
+pmenuhnd_t*
+PMenu_Open(edict_t* ent, pmenu_t* entries, pmenu_t* header, int cur, int num, int numheader, void* arg, int menutype)
 {
-	pmenuhnd_t *hnd;
-	pmenu_t *p;
+	pmenuhnd_t* hnd;
+	pmenu_t* p;
 	int i;
 
 	if (!ent->client)
@@ -51,7 +51,7 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 		PMenu_Close(ent);
 	}
 
-	hnd = malloc(sizeof(*hnd));
+	hnd = gi.TagMalloc(sizeof(*hnd), TAG_LEVEL);
 	if (!hnd)
 	{
 		gi.error("PMenu_Open:  Failed allocating memory.\n");
@@ -59,11 +59,11 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 	}
 
 	hnd->arg = arg;
-	hnd->entries = malloc(sizeof(pmenu_t) * num);
+	hnd->entries = gi.TagMalloc(sizeof(pmenu_t) * num, TAG_LEVEL);
 	if (!hnd->entries)
 	{
 		gi.error("PMenu_Open:  Failed allocating memory.\n");
-		free(hnd);
+		gi.TagFree(hnd);
 		return NULL;
 	}
 	hnd->menutype = menutype;
@@ -71,12 +71,12 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 
 	if (header && numheader) /* FS */
 	{
-		hnd->header = malloc(sizeof(pmenu_t) * numheader);
+		hnd->header = gi.TagMalloc(sizeof(pmenu_t) * numheader, TAG_LEVEL);
 		if (!hnd->header)
 		{
 			gi.error("PMenu_Open:  Failed allocating memory.\n");
-			free(hnd->entries);
-			free(hnd);
+			gi.TagFree(hnd->entries);
+			gi.TagFree(hnd);
 			return NULL;
 		}
 		memcpy(hnd->header, header, sizeof(pmenu_t) * numheader);
@@ -85,7 +85,7 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 		{
 			if (header[i].text)
 			{
-				hnd->header[i].text = strdup(header[i].text);
+				hnd->header[i].text = G_CopyString(header[i].text);
 			}
 		}
 	}
@@ -99,7 +99,7 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 	{
 		if (entries[i].text)
 		{
-			hnd->entries[i].text = strdup(entries[i].text);
+			hnd->entries[i].text = G_CopyString(entries[i].text);
 		}
 	}
 
@@ -142,10 +142,10 @@ PMenu_Open(edict_t *ent, pmenu_t *entries, pmenu_t *header, int cur, int num, in
 }
 
 void
-PMenu_Close(edict_t *ent)
+PMenu_Close(edict_t* ent)
 {
 	int i;
-	pmenuhnd_t *hnd;
+	pmenuhnd_t* hnd;
 
 	if (!ent->client->menu)
 	{
@@ -158,11 +158,11 @@ PMenu_Close(edict_t *ent)
 	{
 		if (hnd->entries[i].text)
 		{
-			free(hnd->entries[i].text);
+			gi.TagFree(hnd->entries[i].text);
 		}
 	}
 
-	free(hnd->entries);
+	gi.TagFree(hnd->entries);
 
 	if (hnd->header) /* FS */
 	{
@@ -170,50 +170,50 @@ PMenu_Close(edict_t *ent)
 		{
 			if (hnd->header[i].text)
 			{
-				free(hnd->header[i].text);
+				gi.TagFree(hnd->header[i].text);
 			}
 		}
 
-		free(hnd->header);
+		gi.TagFree(hnd->header);
 	}
 
 	if (hnd->arg)
 	{
-		free(hnd->arg);
+		gi.TagFree(hnd->arg);
 	}
 
-	free(hnd);
+	//gi.TagFree(hnd);
 	ent->client->menu = NULL;
 	ent->client->menu_update = NULL; /* FS: Added */
 	ent->client->showscores = false;
 }
 
-/* 
- * Only use on pmenu's that have been called with PMenu_Open 
+/*
+ * Only use on pmenu's that have been called with PMenu_Open
  */
 void
-PMenu_UpdateEntry(pmenu_t *entry, const char *text, int align,
-		SelectFunc_t SelectFunc)
+PMenu_UpdateEntry(pmenu_t* entry, const char* text, int align,
+	SelectFunc_t SelectFunc)
 {
 	if (entry->text)
 	{
-		free(entry->text);
+		gi.TagFree(entry->text);
 	}
 
-	entry->text = strdup(text);
+	entry->text = G_CopyString(text);
 	entry->align = align;
 	entry->SelectFunc = SelectFunc;
 }
 
 void
-PMenu_Do_Update(edict_t *ent)
+PMenu_Do_Update(edict_t* ent)
 {
 	char string[1400];
 	int i;
-	pmenu_t *p;
+	pmenu_t* p;
 	int x;
-	pmenuhnd_t *hnd;
-	char *t;
+	pmenuhnd_t* hnd;
+	char* t;
 	qboolean alt = false;
 
 	if (!ent->client->menu)
@@ -222,17 +222,17 @@ PMenu_Do_Update(edict_t *ent)
 		return;
 	}
 
-	if(ent->client->menu_update) /* FS: Added for dynamically updating menus */
+	if (ent->client->menu_update) /* FS: Added for dynamically updating menus */
 	{
 		ent->client->menu_update(ent);
-		if(!ent->client->menu) /* FS: Forced close in the update function.  Done here. */
+		if (!ent->client->menu) /* FS: Forced close in the update function.  Done here. */
 		{
 			return;
 		}
 	}
 
 	hnd = ent->client->menu;
-	if(hnd->menutype == PMENU_SCROLLING) /* FS: Special stuff for scrolling menu */
+	if (hnd->menutype == PMENU_SCROLLING) /* FS: Special stuff for scrolling menu */
 	{
 		PMenu_Do_Scrolling_Update(ent);
 		return;
@@ -259,11 +259,11 @@ PMenu_Do_Update(edict_t *ent)
 
 		if (p->align == PMENU_ALIGN_CENTER)
 		{
-			x = 196 / 2 - strlen(t) * 4 + 64;
+			x = 196 / 2 - (int)strlen(t) * 4 + 64;
 		}
 		else if (p->align == PMENU_ALIGN_RIGHT)
 		{
-			x = 64 + (196 - strlen(t) * 8);
+			x = 64 + (196 - (int)strlen(t) * 8);
 		}
 		else
 		{
@@ -293,7 +293,7 @@ PMenu_Do_Update(edict_t *ent)
 }
 
 void
-PMenu_Update(edict_t *ent)
+PMenu_Update(edict_t* ent)
 {
 	if (!ent->client->menu)
 	{
@@ -301,7 +301,7 @@ PMenu_Update(edict_t *ent)
 		return;
 	}
 
-	if (level.time - ent->client->menutime >= 1.0)
+	if (level.time - ent->client->menutime >= 1.0f)
 	{
 		/* been a second or more since last update, update now */
 		PMenu_Do_Update(ent);
@@ -315,11 +315,11 @@ PMenu_Update(edict_t *ent)
 }
 
 void
-PMenu_Next(edict_t *ent)
+PMenu_Next(edict_t* ent)
 {
-	pmenuhnd_t *hnd;
+	pmenuhnd_t* hnd;
 	int i;
-	pmenu_t *p;
+	pmenu_t* p;
 
 	if (!ent->client->menu)
 	{
@@ -350,8 +350,7 @@ PMenu_Next(edict_t *ent)
 		{
 			break;
 		}
-	}
-	while (i != hnd->cur);
+	} while (i != hnd->cur);
 
 	hnd->cur = i;
 
@@ -359,11 +358,11 @@ PMenu_Next(edict_t *ent)
 }
 
 void
-PMenu_Prev(edict_t *ent)
+PMenu_Prev(edict_t* ent)
 {
-	pmenuhnd_t *hnd;
+	pmenuhnd_t* hnd;
 	int i;
-	pmenu_t *p;
+	pmenu_t* p;
 
 	if (!ent->client->menu)
 	{
@@ -397,8 +396,7 @@ PMenu_Prev(edict_t *ent)
 		{
 			break;
 		}
-	}
-	while (i != hnd->cur);
+	} while (i != hnd->cur);
 
 	hnd->cur = i;
 
@@ -406,10 +404,10 @@ PMenu_Prev(edict_t *ent)
 }
 
 void
-PMenu_Select(edict_t *ent)
+PMenu_Select(edict_t* ent)
 {
-	pmenuhnd_t *hnd;
-	pmenu_t *p;
+	pmenuhnd_t* hnd;
+	pmenu_t* p;
 
 	if (!ent->client->menu)
 	{
@@ -433,14 +431,14 @@ PMenu_Select(edict_t *ent)
 }
 
 void
-PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
+PMenu_Do_Scrolling_Update(edict_t* ent) /* FS */
 {
 	char string[1400];
-	int i, z, pos, scroll_lines, fixed_lines = 0;
-	pmenu_t *p;
+	int i, z, pos, scroll_lines;
+	pmenu_t* p;
 	int x;
-	pmenuhnd_t *hnd;
-	char *t;
+	pmenuhnd_t* hnd;
+	char* t;
 	qboolean alt = false;
 
 	if (!ent->client->menu)
@@ -474,11 +472,11 @@ PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
 
 			if (p->align == PMENU_ALIGN_CENTER)
 			{
-				x = 196 / 2 - strlen(t) * 4 + 64;
+				x = 196 / 2 - (int)strlen(t) * 4 + 64;
 			}
 			else if (p->align == PMENU_ALIGN_RIGHT)
 			{
-				x = 64 + (196 - strlen(t) * 8);
+				x = 64 + (196 - (int)strlen(t) * 8);
 			}
 			else
 			{
@@ -503,7 +501,7 @@ PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
 	scroll_lines = 18;
 	if (hnd->numheader)
 	{
-		scroll_lines = 18-hnd->numheader;
+		scroll_lines = 18 - hnd->numheader;
 	}
 	pos = hnd->cur % scroll_lines;
 
@@ -519,12 +517,12 @@ PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
 			break;
 		}
 
-		if(hnd->cur >= hnd->num)
+		if (hnd->cur >= hnd->num)
 		{
 			break;
 		}
 
-		if(i + (hnd->cur-pos) >= hnd->num)
+		if (i + (hnd->cur - pos) >= hnd->num)
 		{
 			break;
 		}
@@ -542,15 +540,15 @@ PMenu_Do_Scrolling_Update(edict_t *ent) /* FS */
 			t++;
 		}
 
-		sprintf(string + strlen(string), "yv %d ", 32 + (i+hnd->numheader) * 8);
+		sprintf(string + strlen(string), "yv %d ", 32 + (i + hnd->numheader) * 8);
 
 		if (p->align == PMENU_ALIGN_CENTER)
 		{
-			x = 196 / 2 - strlen(t) * 4 + 64;
+			x = 196 / 2 - (int)strlen(t) * 4 + 64;
 		}
 		else if (p->align == PMENU_ALIGN_RIGHT)
 		{
-			x = 64 + (196 - strlen(t) * 8);
+			x = 64 + (196 - (int)strlen(t) * 8);
 		}
 		else
 		{

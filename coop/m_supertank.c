@@ -9,7 +9,7 @@ SUPERTANK
 #include "g_local.h"
 #include "m_supertank.h"
 
-qboolean visible(edict_t *self, edict_t *other);
+qboolean visible(edict_t* self, edict_t* other);
 
 static int sound_pain1;
 static int sound_pain2;
@@ -20,14 +20,14 @@ static int sound_search2;
 
 static int tread_sound;
 
-void BossExplode(edict_t *self);
-void supertank_dead(edict_t *self);
-void supertankRocket(edict_t *self);
-void supertankMachineGun(edict_t *self);
-void supertank_reattack1(edict_t *self);
+void BossExplode(edict_t* self);
+void supertank_dead(edict_t* self);
+void supertankRocket(edict_t* self);
+void supertankMachineGun(edict_t* self);
+void supertank_reattack1(edict_t* self);
 
 void
-TreadSound(edict_t *self)
+TreadSound(edict_t* self)
 {
 	if (!self)
 	{
@@ -38,7 +38,7 @@ TreadSound(edict_t *self)
 }
 
 void
-supertank_search(edict_t *self)
+supertank_search(edict_t* self)
 {
 	if (!self)
 	{
@@ -120,13 +120,13 @@ mframe_t supertank_frames_stand[] = {
 
 mmove_t supertank_move_stand = {
 	FRAME_stand_1,
-   	FRAME_stand_60,
-   	supertank_frames_stand,
-   	NULL
+	FRAME_stand_60,
+	supertank_frames_stand,
+	NULL
 };
 
 void
-supertank_stand(edict_t *self)
+supertank_stand(edict_t* self)
 {
 	if (!self)
 	{
@@ -159,9 +159,9 @@ mframe_t supertank_frames_run[] = {
 
 mmove_t supertank_move_run = {
 	FRAME_forwrd_1,
-   	FRAME_forwrd_18,
-   	supertank_frames_run,
-   	NULL
+	FRAME_forwrd_18,
+	supertank_frames_run,
+	NULL
 };
 
 mframe_t supertank_frames_forward[] = {
@@ -187,13 +187,13 @@ mframe_t supertank_frames_forward[] = {
 
 mmove_t supertank_move_forward = {
 	FRAME_forwrd_1,
-   	FRAME_forwrd_18,
-   	supertank_frames_forward,
-   	NULL
+	FRAME_forwrd_18,
+	supertank_frames_forward,
+	NULL
 };
 
 void
-supertank_forward(edict_t *self)
+supertank_forward(edict_t* self)
 {
 	if (!self)
 	{
@@ -204,7 +204,7 @@ supertank_forward(edict_t *self)
 }
 
 void
-supertank_walk(edict_t *self)
+supertank_walk(edict_t* self)
 {
 	if (!self)
 	{
@@ -215,7 +215,7 @@ supertank_walk(edict_t *self)
 }
 
 void
-supertank_run(edict_t *self)
+supertank_run(edict_t* self)
 {
 	if (!self)
 	{
@@ -255,9 +255,9 @@ mframe_t supertank_frames_turn_right[] = {
 
 mmove_t supertank_move_turn_right = {
 	FRAME_right_1,
-   	FRAME_right_18,
-   	supertank_frames_turn_right,
-   	supertank_run
+	FRAME_right_18,
+	supertank_frames_turn_right,
+	supertank_run
 };
 
 mframe_t supertank_frames_turn_left[] = {
@@ -283,9 +283,9 @@ mframe_t supertank_frames_turn_left[] = {
 
 mmove_t supertank_move_turn_left = {
 	FRAME_left_1,
-   	FRAME_left_18,
-   	supertank_frames_turn_left,
-   	supertank_run
+	FRAME_left_18,
+	supertank_frames_turn_left,
+	supertank_run
 };
 
 mframe_t supertank_frames_pain3[] = {
@@ -297,9 +297,9 @@ mframe_t supertank_frames_pain3[] = {
 
 mmove_t supertank_move_pain3 = {
 	FRAME_pain3_9,
-   	FRAME_pain3_12,
-   	supertank_frames_pain3,
-   	supertank_run
+	FRAME_pain3_12,
+	supertank_frames_pain3,
+	supertank_run
 };
 
 mframe_t supertank_frames_pain2[] = {
@@ -311,9 +311,9 @@ mframe_t supertank_frames_pain2[] = {
 
 mmove_t supertank_move_pain2 = {
 	FRAME_pain2_5,
-   	FRAME_pain2_8,
-   	supertank_frames_pain2,
-   	supertank_run
+	FRAME_pain2_8,
+	supertank_frames_pain2,
+	supertank_run
 };
 
 mframe_t supertank_frames_pain1[] = {
@@ -325,9 +325,9 @@ mframe_t supertank_frames_pain1[] = {
 
 mmove_t supertank_move_pain1 = {
 	FRAME_pain1_1,
-   	FRAME_pain1_4,
-   	supertank_frames_pain1,
-   	supertank_run
+	FRAME_pain1_4,
+	supertank_frames_pain1,
+	supertank_run
 };
 
 mframe_t supertank_frames_death1[] = {
@@ -359,9 +359,9 @@ mframe_t supertank_frames_death1[] = {
 
 mmove_t supertank_move_death = {
 	FRAME_death_1,
-   	FRAME_death_24,
-   	supertank_frames_death1,
-   	supertank_dead
+	FRAME_death_24,
+	supertank_frames_death1,
+	supertank_dead
 };
 
 mframe_t supertank_frames_backward[] = {
@@ -387,9 +387,9 @@ mframe_t supertank_frames_backward[] = {
 
 mmove_t supertank_move_backward = {
 	FRAME_backwd_1,
-   	FRAME_backwd_18,
-   	supertank_frames_backward,
-   	NULL
+	FRAME_backwd_18,
+	supertank_frames_backward,
+	NULL
 };
 
 mframe_t supertank_frames_attack4[] = {
@@ -403,9 +403,9 @@ mframe_t supertank_frames_attack4[] = {
 
 mmove_t supertank_move_attack4 = {
 	FRAME_attak4_1,
-   	FRAME_attak4_6,
-   	supertank_frames_attack4,
-   	supertank_run
+	FRAME_attak4_6,
+	supertank_frames_attack4,
+	supertank_run
 };
 
 mframe_t supertank_frames_attack3[] = {
@@ -440,9 +440,9 @@ mframe_t supertank_frames_attack3[] = {
 
 mmove_t supertank_move_attack3 = {
 	FRAME_attak3_1,
-   	FRAME_attak3_27,
-   	supertank_frames_attack3,
-   	supertank_run
+	FRAME_attak3_27,
+	supertank_frames_attack3,
+	supertank_run
 };
 
 mframe_t supertank_frames_attack2[] = {
@@ -477,9 +477,9 @@ mframe_t supertank_frames_attack2[] = {
 
 mmove_t supertank_move_attack2 = {
 	FRAME_attak2_1,
-   	FRAME_attak2_27,
-   	supertank_frames_attack2,
-   	supertank_run
+	FRAME_attak2_27,
+	supertank_frames_attack2,
+	supertank_run
 };
 
 mframe_t supertank_frames_attack1[] = {
@@ -493,9 +493,9 @@ mframe_t supertank_frames_attack1[] = {
 
 mmove_t supertank_move_attack1 = {
 	FRAME_attak1_1,
-   	FRAME_attak1_6,
-   	supertank_frames_attack1,
-   	supertank_reattack1
+	FRAME_attak1_6,
+	supertank_frames_attack1,
+	supertank_reattack1
 };
 
 mframe_t supertank_frames_end_attack1[] = {
@@ -517,13 +517,13 @@ mframe_t supertank_frames_end_attack1[] = {
 
 mmove_t supertank_move_end_attack1 = {
 	FRAME_attak1_7,
-   	FRAME_attak1_20,
-   	supertank_frames_end_attack1,
-   	supertank_run
+	FRAME_attak1_20,
+	supertank_frames_end_attack1,
+	supertank_run
 };
 
 void
-supertank_reattack1(edict_t *self)
+supertank_reattack1(edict_t* self)
 {
 	if (!self)
 	{
@@ -548,7 +548,7 @@ supertank_reattack1(edict_t *self)
 }
 
 void
-supertank_pain(edict_t *self, edict_t *other /* unused */, float kick, int damage)
+supertank_pain(edict_t* self, edict_t* other /* unused */, float kick, int damage)
 {
 	if (!self)
 	{
@@ -609,12 +609,12 @@ supertank_pain(edict_t *self, edict_t *other /* unused */, float kick, int damag
 }
 
 void
-supertankRocket(edict_t *self)
+supertankRocket(edict_t* self)
 {
 	vec3_t forward, right;
 	vec3_t start;
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 	int flash_number;
 
 	if (!self || !self->enemy || !self->enemy->inuse)
@@ -637,7 +637,7 @@ supertankRocket(edict_t *self)
 
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	VectorCopy(self->enemy->s.origin, vec);
 	vec[2] += self->enemy->viewheight;
@@ -648,10 +648,10 @@ supertankRocket(edict_t *self)
 }
 
 void
-supertankMachineGun(edict_t *self)
+supertankMachineGun(edict_t* self)
 {
-	vec3_t dir;
-	vec3_t vec;
+	vec3_t dir = { 0 };
+	vec3_t vec = { 0 };
 	vec3_t start;
 	vec3_t forward, right;
 	int flash_number;
@@ -669,7 +669,7 @@ supertankMachineGun(edict_t *self)
 
 	AngleVectors(dir, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[flash_number],
-			forward, right, start);
+		forward, right, start);
 
 	if (self->enemy)
 	{
@@ -680,20 +680,20 @@ supertankMachineGun(edict_t *self)
 		VectorNormalize(forward);
 	}
 
-	if((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
+	if ((game.gametype == zaero_coop) && (EMPNukeCheck(self, start))) /* FS: Zaero specific game dll changes */
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	monster_fire_bullet(self, start, forward, 6, 4, DEFAULT_BULLET_HSPREAD,
-			DEFAULT_BULLET_VSPREAD, flash_number);
+		DEFAULT_BULLET_VSPREAD, flash_number);
 }
 
 void
-supertank_attack(edict_t *self)
+supertank_attack(edict_t* self)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	float range;
 
 	if (!self)
@@ -723,7 +723,7 @@ supertank_attack(edict_t *self)
 }
 
 void
-supertank_dead(edict_t *self)
+supertank_dead(edict_t* self)
 {
 	if (!self)
 	{
@@ -739,9 +739,9 @@ supertank_dead(edict_t *self)
 }
 
 void
-BossExplode(edict_t *self)
+BossExplode(edict_t* self)
 {
-	vec3_t org;
+	vec3_t org = { 0 };
 	int n;
 
 	if (!self)
@@ -755,55 +755,55 @@ BossExplode(edict_t *self)
 
 	switch (self->count++)
 	{
-		case 0:
-			org[0] -= 24;
-			org[1] -= 24;
-			break;
-		case 1:
-			org[0] += 24;
-			org[1] += 24;
-			break;
-		case 2:
-			org[0] += 24;
-			org[1] -= 24;
-			break;
-		case 3:
-			org[0] -= 24;
-			org[1] += 24;
-			break;
-		case 4:
-			org[0] -= 48;
-			org[1] -= 48;
-			break;
-		case 5:
-			org[0] += 48;
-			org[1] += 48;
-			break;
-		case 6:
-			org[0] -= 48;
-			org[1] += 48;
-			break;
-		case 7:
-			org[0] += 48;
-			org[1] -= 48;
-			break;
-		case 8:
-			self->s.sound = 0;
+	case 0:
+		org[0] -= 24;
+		org[1] -= 24;
+		break;
+	case 1:
+		org[0] += 24;
+		org[1] += 24;
+		break;
+	case 2:
+		org[0] += 24;
+		org[1] -= 24;
+		break;
+	case 3:
+		org[0] -= 24;
+		org[1] += 24;
+		break;
+	case 4:
+		org[0] -= 48;
+		org[1] -= 48;
+		break;
+	case 5:
+		org[0] += 48;
+		org[1] += 48;
+		break;
+	case 6:
+		org[0] -= 48;
+		org[1] += 48;
+		break;
+	case 7:
+		org[0] += 48;
+		org[1] -= 48;
+		break;
+	case 8:
+		self->s.sound = 0;
 
-			for (n = 0; n < 4; n++)
-			{
-				ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2", 500, GIB_ORGANIC);
-			}
+		for (n = 0; n < 4; n++)
+		{
+			ThrowGib(self, "models/objects/gibs/sm_meat/tris.md2", 500, GIB_ORGANIC);
+		}
 
-			for (n = 0; n < 8; n++)
-			{
-				ThrowGib(self, "models/objects/gibs/sm_metal/tris.md2", 500, GIB_METALLIC);
-			}
+		for (n = 0; n < 8; n++)
+		{
+			ThrowGib(self, "models/objects/gibs/sm_metal/tris.md2", 500, GIB_METALLIC);
+		}
 
-			ThrowGib(self, "models/objects/gibs/chest/tris.md2", 500, GIB_ORGANIC);
-			ThrowHead(self, "models/objects/gibs/gear/tris.md2", 500, GIB_METALLIC);
-			self->deadflag = DEAD_DEAD;
-			return;
+		ThrowGib(self, "models/objects/gibs/chest/tris.md2", 500, GIB_ORGANIC);
+		ThrowHead(self, "models/objects/gibs/gear/tris.md2", 500, GIB_METALLIC);
+		self->deadflag = DEAD_DEAD;
+		return;
 	}
 
 	gi.WriteByte(svc_temp_entity);
@@ -815,8 +815,8 @@ BossExplode(edict_t *self)
 }
 
 void
-supertank_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+supertank_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* unused */,
+	int damage /* unused */, vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -831,7 +831,7 @@ supertank_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker 
 }
 
 qboolean
-supertank_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
+supertank_blocked(edict_t* self, float dist) /* FS: Coop: Rogue specific */
 {
 	if (!self)
 	{
@@ -855,7 +855,7 @@ supertank_blocked(edict_t *self, float dist) /* FS: Coop: Rogue specific */
  * QUAKED monster_supertank (1 .5 0) (-64 -64 0) (64 64 72) Ambush Trigger_Spawn Sight
  */
 void
-SP_monster_supertank(edict_t *self)
+SP_monster_supertank(edict_t* self)
 {
 	if (!self)
 	{
@@ -898,7 +898,7 @@ SP_monster_supertank(edict_t *self)
 	self->monsterinfo.melee = NULL;
 	self->monsterinfo.sight = NULL;
 
-	if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		self->monsterinfo.blocked = supertank_blocked;
 	}
@@ -908,7 +908,7 @@ SP_monster_supertank(edict_t *self)
 	self->monsterinfo.currentmove = &supertank_move_stand;
 	self->monsterinfo.scale = MODEL_SCALE;
 
-	if(game.gametype == xatrix_coop) /* FS: Coop: Xatrix specific */
+	if (game.gametype == xatrix_coop) /* FS: Coop: Xatrix specific */
 	{
 		if (self->spawnflags & 8)
 		{
@@ -919,7 +919,7 @@ SP_monster_supertank(edict_t *self)
 
 	walkmonster_start(self);
 
-	if(game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
+	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		self->monsterinfo.aiflags |= AI_IGNORE_SHOTS;
 	}

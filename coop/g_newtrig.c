@@ -17,7 +17,7 @@ extern void TeleportEffect(vec3_t origin);
  * Destination marker for a teleporter.
  */
 void
-SP_info_teleport_destination(edict_t *self)
+SP_info_teleport_destination(edict_t* self)
 {
 }
 
@@ -37,10 +37,10 @@ SP_info_teleport_destination(edict_t *self)
  *  start_on: when trigger has targetname, start active, deactivate when used.
  */
 void
-trigger_teleport_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+trigger_teleport_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
-	edict_t *dest;
+	edict_t* dest;
 	int i;
 
 	if (!self || !other)
@@ -93,7 +93,7 @@ trigger_teleport_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused 
 		for (i = 0; i < 3; i++)
 		{
 			other->client->ps.pmove.delta_angles[i] = ANGLE2SHORT(
-					dest->s.angles[i] - other->client->resp.cmd_angles[i]);
+				dest->s.angles[i] - other->client->resp.cmd_angles[i]);
 		}
 
 		VectorClear(other->client->ps.viewangles);
@@ -109,7 +109,7 @@ trigger_teleport_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused 
 }
 
 void
-trigger_teleport_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+trigger_teleport_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -127,7 +127,7 @@ trigger_teleport_use(edict_t *self, edict_t *other /* unused */, edict_t *activa
 }
 
 void
-SP_trigger_teleport(edict_t *self)
+SP_trigger_teleport(edict_t* self)
 {
 	if (!self)
 	{
@@ -177,8 +177,8 @@ SP_trigger_teleport(edict_t *self)
  */
 
 void
-trigger_disguise_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+trigger_disguise_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
+	csurface_t* surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -199,7 +199,7 @@ trigger_disguise_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused 
 }
 
 void
-trigger_disguise_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
+trigger_disguise_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unused */)
 {
 	if (!self)
 	{
@@ -219,7 +219,7 @@ trigger_disguise_use(edict_t *self, edict_t *other /* unused */, edict_t *activa
 }
 
 void
-SP_trigger_disguise(edict_t *self)
+SP_trigger_disguise(edict_t* self)
 {
 	if (!self)
 	{

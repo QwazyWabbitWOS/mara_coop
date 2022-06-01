@@ -1,6 +1,6 @@
 #include "g_local.h"
 
-void angleToward(edict_t *self, vec3_t point, float speed);
+void angleToward(edict_t* self, vec3_t point, float speed);
 
 // spawnflags
 #define AC_SF_START_OFF			1
@@ -20,21 +20,21 @@ void angleToward(edict_t *self, vec3_t point, float speed);
 #define AC_S_ACTIVE	2
 #define AC_S_DEACTIVATING 3
 // models
-char* models[] = {	NULL, 
+char* models[] = { NULL,
 					"models/objects/acannon/chain/tris.md2",
 					"models/objects/acannon/rocket/tris.md2",
 					"models/objects/acannon/laser/tris.md2",
 					"models/objects/acannon/laser/tris.md2" };
-char* floorModels[] = {	NULL, 
+char* floorModels[] = { NULL,
 					"",
 					"models/objects/acannon/rocket2/tris.md2",
 					"models/objects/acannon/laser2/tris.md2",
 					"models/objects/acannon/laser2/tris.md2" };
 
 // pitch extents
-const int acPitchExtents[2][2] = {	{0,60}, // max, min
-									{-60,0} 
-								};
+const int acPitchExtents[2][2] = { {0,60}, // max, min
+									{-60,0}
+};
 
 // frames filler/chain/rocket/laser
 const int acIdleStart[] = { 0, 0, 0, 0, 0 };
@@ -57,7 +57,7 @@ typedef struct ac_anim_s
 	ac_anim_frame_t frames[32];
 } ac_anim_t;
 
-ac_anim_t acFiringFrames[5] = 
+ac_anim_t acFiringFrames[5] =
 {
 	// dummy
 	{
@@ -164,7 +164,7 @@ ac_anim_t acFiringFrames[5] =
 	}
 };
 
-vec3_t fireOffset[5] = {	{0,0,0},
+vec3_t fireOffset[5] = { {0,0,0},
 							{24,-4,0},
 							{0,-4,0},
 							{24,-5,0},
@@ -195,7 +195,7 @@ const int turretDeactEnd = 31;
 #define AC_BLASTER_DMG		20
 #define AC_BLASTER_SPEED	1000
 
-void monster_autocannon_fire(edict_t *self)
+void monster_autocannon_fire(edict_t* self)
 {
 	vec3_t forward, right, start;
 
@@ -205,59 +205,59 @@ void monster_autocannon_fire(edict_t *self)
 	}
 
 	// fire straight ahead
-	AngleVectors (self->s.angles, forward, right, NULL);
+	AngleVectors(self->s.angles, forward, right, NULL);
 	if (self->onFloor)
 		VectorNegate(right, right);
 	VectorMA(self->s.origin, 24, forward, start);
-	G_ProjectSource (self->s.origin, fireOffset[self->style], forward, right, start);
+	G_ProjectSource(self->s.origin, fireOffset[self->style], forward, right, start);
 
-	if(EMPNukeCheck(self, start))
+	if (EMPNukeCheck(self, start))
 	{
-		gi.sound (self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_AUTO, gi.soundindex("items/empnuke/emp_missfire.wav"), 1, ATTN_NORM, 0);
 		return;
 	}
 
 	// what to fire?
-	switch(self->style)
+	switch (self->style)
 	{
-		case 1:
-		default:
-			fire_bullet(self, start, forward, AC_BULLET_DMG, AC_BULLET_KICK, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_AUTOCANNON);
-			gi.WriteByte (svc_muzzleflash);
-			gi.WriteShort (self - g_edicts);
-			gi.WriteByte (MZ_CHAINGUN2);
-			gi.multicast (self->s.origin, MULTICAST_PVS);
-			break;
-		case 2:
-			fire_rocket(self, start, forward, AC_ROCKET_DMG, AC_ROCKET_SPEED, AC_ROCKET_RADIUS_DMG, AC_ROCKET_DMG_RADIUS);
-			gi.WriteByte (svc_muzzleflash);
-			gi.WriteShort (self - g_edicts);
-			gi.WriteByte (MZ_ROCKET);
-			gi.multicast (self->s.origin, MULTICAST_PVS);
-			break;
-		case 3:
-		case 4:
-			fire_blaster (self, start, forward, AC_BLASTER_DMG, AC_BLASTER_SPEED, EF_HYPERBLASTER, true);
-			gi.WriteByte (svc_muzzleflash);
-			gi.WriteShort (self - g_edicts);
-			gi.WriteByte (MZ_HYPERBLASTER);
-			gi.multicast (self->s.origin, MULTICAST_PVS);
-			break;
+	case 1:
+	default:
+		fire_bullet(self, start, forward, AC_BULLET_DMG, AC_BULLET_KICK, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_AUTOCANNON);
+		gi.WriteByte(svc_muzzleflash);
+		gi.WriteShort(self - g_edicts);
+		gi.WriteByte(MZ_CHAINGUN2);
+		gi.multicast(self->s.origin, MULTICAST_PVS);
+		break;
+	case 2:
+		fire_rocket(self, start, forward, AC_ROCKET_DMG, AC_ROCKET_SPEED, AC_ROCKET_RADIUS_DMG, AC_ROCKET_DMG_RADIUS);
+		gi.WriteByte(svc_muzzleflash);
+		gi.WriteShort(self - g_edicts);
+		gi.WriteByte(MZ_ROCKET);
+		gi.multicast(self->s.origin, MULTICAST_PVS);
+		break;
+	case 3:
+	case 4:
+		fire_blaster(self, start, forward, AC_BLASTER_DMG, AC_BLASTER_SPEED, EF_HYPERBLASTER, true);
+		gi.WriteByte(svc_muzzleflash);
+		gi.WriteShort(self - g_edicts);
+		gi.WriteByte(MZ_HYPERBLASTER);
+		gi.multicast(self->s.origin, MULTICAST_PVS);
+		break;
 	}
 }
 
-qboolean angleBetween(float *ang, float *min, float *max)
+qboolean angleBetween(float* ang, float* min, float* max)
 {
 	// directly between?
 	if (*ang > *min && *ang < *max)
 		return true;
 
 	// make positive
-	while(*min < 0)
+	while (*min < 0)
 		*min += 360.0;
-	while(*ang < *min)
+	while (*ang < *min)
 		*ang += 360.0;
-	while(*max < *min)
+	while (*max < *min)
 		*max += 360.0;
 
 	if (*ang > *min && *ang < *max)
@@ -268,16 +268,16 @@ qboolean angleBetween(float *ang, float *min, float *max)
 
 float mod180(float val)
 {
-	while(val > 180)
+	while (val > 180)
 		val -= 360.0;
-	while(val < -180)
+	while (val < -180)
 		val += 360.0;
 	return val;
 }
 
-qboolean canShoot(edict_t *self, edict_t *e)
+qboolean canShoot(edict_t* self, edict_t* e)
 {
-	vec3_t delta;
+	vec3_t delta = { 0 };
 	vec3_t dangles;
 
 	if (!self || !e)
@@ -288,7 +288,7 @@ qboolean canShoot(edict_t *self, edict_t *e)
 	VectorSubtract(e->s.origin, self->s.origin, delta);
 	vectoangles(delta, dangles);
 	dangles[PITCH] = mod180(dangles[PITCH]);
-	
+
 	if ((!self->onFloor && dangles[PITCH] < 0) ||
 		(self->onFloor && dangles[PITCH] > 0)) // facing up or down
 		return false;
@@ -299,35 +299,35 @@ qboolean canShoot(edict_t *self, edict_t *e)
 		float ideal_yaw = self->monsterinfo.attack_state;
 		float max_yaw = anglemod(ideal_yaw + self->monsterinfo.linkcount);
 		float min_yaw = anglemod(ideal_yaw - self->monsterinfo.linkcount);
-		
+
 		if (!angleBetween(&dangles[YAW], &min_yaw, &max_yaw))
 			return false;
 	}
-	
+
 	return true;
 }
 
-qboolean autocannonInfront (edict_t *self, edict_t *other)
+qboolean autocannonInfront(edict_t* self, edict_t* other)
 {
-	vec3_t vec;
+	vec3_t vec = { 0 };
 	vec3_t angle;
 	float dot;
 	float min = -30.0;
 	float max = 30.0;
-	
+
 	// what's the yaw distance between the 2?
-	VectorSubtract (other->s.origin, self->s.origin, vec);
+	VectorSubtract(other->s.origin, self->s.origin, vec);
 	vectoangles(vec, angle);
 	dot = angle[YAW] - self->s.angles[YAW];
-	
+
 	if (angleBetween(&dot, &min, &max))
 		return true;
 	return false;
 }
 
-void monster_autocannon_findenemy(edict_t *self)
+void monster_autocannon_findenemy(edict_t* self)
 {
-	edict_t *e = NULL;
+	edict_t* e = NULL;
 
 	if (!self)
 	{
@@ -359,7 +359,7 @@ void monster_autocannon_findenemy(edict_t *self)
 		}
 	}
 
-	while(self->enemy == NULL)
+	while (self->enemy == NULL)
 	{
 		e = findradius(e, self->s.origin, AC_RANGE);
 		if (e == NULL)
@@ -401,11 +401,11 @@ void monster_autocannon_findenemy(edict_t *self)
 		// don't target other autocannons
 		if (e->classname && Q_stricmp(e->classname, "monster_autocannon") == 0)
 			continue;
-		
+
 		// don't target self
 		if (e == self)
 			continue;
-		
+
 		// can it be seen?
 		if (!visible(self, e))
 			continue;
@@ -418,9 +418,9 @@ void monster_autocannon_findenemy(edict_t *self)
 	}
 }
 
-void monster_autocannon_turn(edict_t *self)
+void monster_autocannon_turn(edict_t* self)
 {
-	vec3_t old_angles;
+	vec3_t old_angles = { 0 };
 
 	if (!self)
 	{
@@ -438,9 +438,9 @@ void monster_autocannon_turn(edict_t *self)
 
 			while (max_yaw < min_yaw)
 				max_yaw += 360.0;
-		
+
 			self->s.angles[YAW] += (self->monsterinfo.lefty ? -AC_TURN_SPEED : AC_TURN_SPEED);
-			
+
 			// back and forth
 			if (self->s.angles[YAW] > max_yaw)
 			{
@@ -479,7 +479,7 @@ void monster_autocannon_turn(edict_t *self)
 		// look toward enemy mid point
 		if (visible(self, self->enemy))
 		{
-			vec3_t offset, dest;
+			vec3_t offset = { 0 }, dest = { 0 };
 			VectorCopy(self->enemy->mins, offset);
 			VectorAdd(offset, self->enemy->maxs, offset);
 			VectorScale(offset, 0.65f, offset);
@@ -508,11 +508,11 @@ void monster_autocannon_turn(edict_t *self)
 		else // not visible now, so head toward last known spot
 			angleToward(self, self->monsterinfo.last_sighting, AC_TURN_SPEED);
 	}
-	
+
 	// get our angles between 180 and -180
-	while(self->s.angles[PITCH] > 180)
+	while (self->s.angles[PITCH] > 180)
 		self->s.angles[PITCH] -= 360.0;
-	while(self->s.angles[PITCH] < -180)
+	while (self->s.angles[PITCH] < -180)
 		self->s.angles[PITCH] += 360;
 
 	// outside of the pitch extents?
@@ -520,7 +520,7 @@ void monster_autocannon_turn(edict_t *self)
 		self->s.angles[PITCH] = acPitchExtents[self->onFloor][1];
 	else if (self->s.angles[PITCH] < acPitchExtents[self->onFloor][0])
 		self->s.angles[PITCH] = acPitchExtents[self->onFloor][0];
-	
+
 	// make sure the turret's angles match the gun's
 	self->chain->s.angles[YAW] = self->s.angles[YAW];
 	self->chain->s.angles[PITCH] = 0;
@@ -532,12 +532,12 @@ void monster_autocannon_turn(edict_t *self)
 		self->chain->s.sound = gi.soundindex("objects/acannon/ac_idle.wav");
 }
 
-void monster_autocannon_think(edict_t *self)
+void monster_autocannon_think(edict_t* self)
 {
 	ac_anim_frame_t frame;
 	ac_anim_t anim;
 	int lefty = 0;
-	edict_t *old_enemy;
+	edict_t* old_enemy;
 
 	if (!self)
 	{
@@ -563,7 +563,7 @@ void monster_autocannon_think(edict_t *self)
 
 	anim = acFiringFrames[self->style];
 	frame = anim.frames[self->seq];
-		
+
 	// ok, we don't have an enemy
 	if (self->enemy == NULL)
 	{
@@ -583,7 +583,7 @@ void monster_autocannon_think(edict_t *self)
 		// fire
 		if (frame.fire)
 			monster_autocannon_fire(self);
-	
+
 		// if we're not done with the firing sequence, we need to finish it off
 		if (frame.last) // end of the loop or firing frame?
 			self->seq = 0;
@@ -614,14 +614,14 @@ void monster_autocannon_think(edict_t *self)
 	self->s.frame = frame.frame;
 	if (frame.fire)
 		monster_autocannon_fire(self);
-	
+
 	if (frame.last) // end of the loop?
 		self->seq = anim.firstNonPause;
 	else
 		self->seq++;
 }
 
-void monster_autocannon_explode (edict_t *ent)
+void monster_autocannon_explode(edict_t* ent)
 {
 	vec3_t origin;
 
@@ -632,24 +632,24 @@ void monster_autocannon_explode (edict_t *ent)
 
 	T_RadiusDamage(ent, ent, AC_EXPLODE_DMG, ent->enemy, AC_EXPLODE_RADIUS, MOD_TRIPBOMB);
 
-	VectorMA (ent->s.origin, -0.02f, ent->velocity, origin);
-	gi.WriteByte (svc_temp_entity);
+	VectorMA(ent->s.origin, -0.02f, ent->velocity, origin);
+	gi.WriteByte(svc_temp_entity);
 	if (ent->waterlevel)
 	{
 		if (ent->groundentity)
-			gi.WriteByte (TE_GRENADE_EXPLOSION_WATER);
+			gi.WriteByte(TE_GRENADE_EXPLOSION_WATER);
 		else
-			gi.WriteByte (TE_ROCKET_EXPLOSION_WATER);
+			gi.WriteByte(TE_ROCKET_EXPLOSION_WATER);
 	}
 	else
 	{
 		if (ent->groundentity)
-			gi.WriteByte (TE_GRENADE_EXPLOSION);
+			gi.WriteByte(TE_GRENADE_EXPLOSION);
 		else
-			gi.WriteByte (TE_ROCKET_EXPLOSION);
+			gi.WriteByte(TE_ROCKET_EXPLOSION);
 	}
-	gi.WritePosition (origin);
-	gi.multicast (ent->s.origin, MULTICAST_PHS);
+	gi.WritePosition(origin);
+	gi.multicast(ent->s.origin, MULTICAST_PHS);
 
 	// set the pain skin
 	ent->chain->chain->s.skinnum = 1; // pain
@@ -660,7 +660,7 @@ void monster_autocannon_explode (edict_t *ent)
 }
 
 
-void monster_autocannon_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
+void monster_autocannon_die(edict_t* self, edict_t* inflictor, edict_t* attacker, int damage, vec3_t point)
 {
 	if (!self)
 	{
@@ -673,7 +673,7 @@ void monster_autocannon_die (edict_t *self, edict_t *inflictor, edict_t *attacke
 	self->nextthink = level.time + FRAMETIME;
 }
 
-void monster_autocannon_pain (edict_t *self, edict_t *other, float kick, int damage)
+void monster_autocannon_pain(edict_t* self, edict_t* other, float kick, int damage)
 {
 	if (!self || !other)
 	{
@@ -685,7 +685,7 @@ void monster_autocannon_pain (edict_t *self, edict_t *other, float kick, int dam
 		self->enemy = other;
 }
 
-void monster_autocannon_activate(edict_t *self)
+void monster_autocannon_activate(edict_t* self)
 {
 	if (!self)
 	{
@@ -721,7 +721,7 @@ void monster_autocannon_activate(edict_t *self)
 	}
 }
 
-void monster_autocannon_deactivate(edict_t *self)
+void monster_autocannon_deactivate(edict_t* self)
 {
 	if (!self)
 	{
@@ -730,7 +730,7 @@ void monster_autocannon_deactivate(edict_t *self)
 
 	self->active = AC_S_DEACTIVATING;
 	self->nextthink = level.time + FRAMETIME;
-	
+
 	// go thru the deactivation frames
 	if (self->s.angles[PITCH] != 0)
 	{
@@ -771,7 +771,7 @@ void monster_autocannon_deactivate(edict_t *self)
 	}
 }
 
-void monster_autocannon_act(edict_t *self)
+void monster_autocannon_act(edict_t* self)
 {
 	if (self->active == AC_S_IDLE)
 	{
@@ -807,7 +807,7 @@ void monster_autocannon_act(edict_t *self)
 	}
 }
 
-void monster_autocannon_use(edict_t *self, edict_t *other, edict_t *activator)
+void monster_autocannon_use(edict_t* self, edict_t* other, edict_t* activator)
 {
 	if (!self)
 	{
@@ -826,16 +826,16 @@ void monster_autocannon_use(edict_t *self, edict_t *other, edict_t *activator)
 		monster_autocannon_act(self);
 }
 
-void monster_autocannon_usestub(edict_t *self)
+void monster_autocannon_usestub(edict_t* self)
 {
 	// stub
 	monster_autocannon_act(self);
 }
 
-void SP_monster_autocannon(edict_t *self)
+void SP_monster_autocannon(edict_t* self)
 {
-	edict_t *base, *turret;
-	vec3_t offset;
+	edict_t* base, * turret;
+	vec3_t offset = { 0 };
 
 	if (!self)
 	{
@@ -847,7 +847,7 @@ void SP_monster_autocannon(edict_t *self)
 		G_FreeEdict(self);
 		return;
 	}
-	
+
 	if (self->style > 4 || self->style < 1)
 		self->style = 1;
 
@@ -897,7 +897,7 @@ void SP_monster_autocannon(edict_t *self)
 	turret->s.angles[YAW] = self->s.angles[YAW];
 	turret->s.angles[PITCH] = 0;
 	gi.linkentity(turret);
-	
+
 	// fill in the details about ourself
 	self->solid = SOLID_BBOX;
 	self->movetype = MOVETYPE_NONE;
@@ -939,7 +939,7 @@ void SP_monster_autocannon(edict_t *self)
 	// enable/disable? ... berserk/not
 	if (self->targetname)
 		self->use = monster_autocannon_use;
-	
+
 	if (self->spawnflags & AC_SF_BERSERK_TOGGLE || !(self->spawnflags & AC_SF_START_OFF))
 	{
 		self->think = monster_autocannon_usestub;
@@ -959,7 +959,7 @@ void SP_monster_autocannon(edict_t *self)
 	gi.linkentity(self);
 }
 
-void SP_monster_autocannon_floor(edict_t *self)
+void SP_monster_autocannon_floor(edict_t* self)
 {
 	if (!self)
 	{
