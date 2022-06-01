@@ -28,7 +28,7 @@
 #define Z_FREE(block)	gi.TagFree(block)
 
 // the "gameversion" client command will print this plus compile date
-#define GAMEVERSION "maracoop"
+#define GAMEVERSION "Maracoop v2.0"
 
 // protocol bytes that can be directly added to messages
 #define	svc_muzzleflash		1
