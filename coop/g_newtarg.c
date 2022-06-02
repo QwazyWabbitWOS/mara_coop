@@ -189,7 +189,7 @@ target_anger_use(edict_t* self, edict_t* other /* unused */, edict_t* activator 
 
 		t = NULL;
 
-		while ((t = G_Find(t, FOFS(targetname), self->target)))
+		while ((t = G_Find(t, FOFS(targetname), self->target)) != NULL)
 		{
 			if (t == self)
 			{

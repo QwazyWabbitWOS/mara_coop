@@ -40,8 +40,7 @@ G_ProjectSource2(vec3_t point, vec3_t distance, vec3_t forward, /* FS: Coop: Rog
  * the beginning. If NULL, NULL will be returned
  * if the end of the list is reached.
  */
-edict_t*
-G_Find(edict_t* from, int fieldofs, char* match)
+edict_t* G_Find(edict_t* from, int fieldofs, char* match)
 {
 	char* s;
 
@@ -321,7 +320,7 @@ G_UseTargets(edict_t* ent, edict_t* activator)
 	{
 		t = NULL;
 
-		while ((t = G_Find(t, FOFS(targetname), ent->killtarget)))
+		while ((t = G_Find(t, FOFS(targetname), ent->killtarget)) != NULL)
 		{
 			if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 			{
@@ -380,7 +379,7 @@ G_UseTargets(edict_t* ent, edict_t* activator)
 	{
 		t = NULL;
 
-		while ((t = G_Find(t, FOFS(targetname), ent->target)))
+		while ((t = G_Find(t, FOFS(targetname), ent->target)) != NULL)
 		{
 			/* doors fire area portals in a specific way */
 			if ((t->classname && !Q_stricmp(t->classname, "func_areaportal")) &&

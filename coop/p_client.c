@@ -1781,7 +1781,7 @@ SelectLavaCoopSpawnPoint(edict_t* ent) /* FS: Coop: Rogue specific */
 	spot = NULL;
 	numPoints = 0;
 
-	while ((spot = (G_Find(spot, FOFS(classname), "info_player_coop_lava"))))
+	while ((spot = (G_Find(spot, FOFS(classname), "info_player_coop_lava"))) != NULL)
 	{
 		if (numPoints == 64)
 		{
@@ -2335,10 +2335,7 @@ PutClientInServer(edict_t* ent)
 	}
 	else if ((game.gametype == zaero_coop) && (Q_stricmp(level.mapname, "zboss") == 0)) /* FS: Zaero specific game dll changes */
 	{
-		char		userinfo[MAX_INFO_STRING];
-
 		int health = client->pers.health;
-
 		memcpy(userinfo, client->pers.userinfo, sizeof(userinfo));
 		InitClientPersistant(client);
 		ClientUserinfoChanged(ent, userinfo);
@@ -2555,7 +2552,7 @@ void ClientShowMOTD(edict_t* ent)
 	Com_sprintf(motdPath, sizeof motdPath,
 		"%s/%s", gamedir->string, "motd.txt");
 
-	if ((motd_file = fopen(motdPath, "r")))
+	if ((motd_file = fopen(motdPath, "r")) != NULL)
 	{
 		if (motd_file)
 		{

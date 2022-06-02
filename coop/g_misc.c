@@ -2760,7 +2760,7 @@ target_string_use(edict_t* self, edict_t* other /* unused */, edict_t* activator
 		return;
 	}
 
-	l = strlen(self->message);
+	l = (int)strlen(self->message);
 
 	for (e = self->teammaster; e; e = e->teamchain)
 	{
