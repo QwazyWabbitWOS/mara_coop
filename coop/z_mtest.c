@@ -1,6 +1,6 @@
-#if defined(_DEBUG) && defined(_Z_TESTMODE)
-
 #include "g_local.h"
+
+#if defined(_DEBUG) && defined(_Z_TESTMODE)
 
 void Weapon_Generic(edict_t* ent,
 	int FRAME_ACTIVATE_LAST,
