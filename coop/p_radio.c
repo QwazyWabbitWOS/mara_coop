@@ -58,7 +58,7 @@ void Radio_f(edict_t* self, char* channel, char* msg)
 
 	// Okay gotta make sure people can't stuff extra commands down to kill someone.
 	// This is also why i send everything to the guy that sent it originally also
-	if ((pos = strstr(msg, ";")))
+	if ((pos = strstr(msg, ";")) != 0)
 		pos[0] = 0;
 
 
@@ -66,9 +66,10 @@ void Radio_f(edict_t* self, char* channel, char* msg)
 	// .WAVs are stored in sound/world/*.wav
 	if (Q_stricmp(channel, "ALL") == 0)
 	{
-		for_each_player(player, i)
+		for (i = 1; i <= maxclients->value; i++)
 		{
-			if (player->client->resp.radio_power)
+			player = &g_edicts[i];
+			if (player->inuse && player->client->resp.radio_power)
 			{
 				//gi.dprintf("RADIO DEBUG : %s\n", msg);
 				sprintf(cmd, "play world/%s\n", msg);

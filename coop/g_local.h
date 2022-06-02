@@ -24,8 +24,9 @@
 #endif // Z_MIN
 #define Z_MIN(a,b)	((a) < (b) ? (a) : (b))
 
-#define Z_MALLOC(size)	gi.TagMalloc(size, TAG_GAME)
-#define Z_FREE(block)	gi.TagFree(block)
+//QW// Delete pointless macros
+//#define Z_MALLOC(size)	gi.TagMalloc(size, TAG_GAME)
+//#define Z_FREE(block)	gi.TagFree(block)
 
 // the "gameversion" client command will print this plus compile date
 #define GAMEVERSION "maracoop v2.0"
