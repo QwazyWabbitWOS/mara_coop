@@ -92,7 +92,7 @@ game$(ARCH).real.$(SHLIBEXT) : $(GAME_OBJS)
 #############################################################################
 
 clean:
-	/bin/rm -f $(GAME_OBJS) game$(ARCH).real.$(SHLIBEXT)
+	/bin/rm -f $(GAME_OBJS)
 
 depend:
 	$(CC) -MM $(GAME_OBJS:.o=.c)
