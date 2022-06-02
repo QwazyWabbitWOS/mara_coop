@@ -413,5 +413,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="GNUmakefile" />
+    <None Include="makeheaders.bat" />
   </ItemGroup>
 </Project>
