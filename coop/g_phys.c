@@ -552,7 +552,8 @@ retry:
 	}
 
 	VectorCopy(trace.endpos, ent->s.origin);
-	gi.linkentity(ent);
+	if(ent->inuse)
+		gi.linkentity(ent);
 
 	if (trace.fraction != 1.0)
 	{
@@ -927,11 +928,6 @@ SV_Physics_Toss(edict_t* ent)
 	vec3_t old_origin = { 0 };
 	float speed = 0.0f; /* FS: Zaero specific */
 
-	if (!ent)
-	{
-		return;
-	}
-
 	/* regular thinking */
 	SV_RunThink(ent);
 
@@ -989,11 +985,8 @@ SV_Physics_Toss(edict_t* ent)
 	/* move origin */
 	VectorScale(ent->velocity, FRAMETIME, move);
 	trace = SV_PushEntity(ent, move);
-
 	if (!ent->inuse)
-	{
 		return;
-	}
 
 	if (trace.fraction < 1)
 	{
@@ -1455,11 +1448,6 @@ G_RunEntity(edict_t* ent)
 {
 	trace_t trace; /* FS: Coop: Rogue specific */
 	vec3_t previous_origin = { 0 }; /* FS: Coop: Rogue specific */
-
-	if (!ent)
-	{
-		return;
-	}
 
 	if ((game.gametype == rogue_coop) && (ent->movetype == MOVETYPE_STEP)) /* FS: Coop: Rogue specific */
 	{

@@ -142,7 +142,7 @@ z_handler.o: z_handler.c g_local.h q_shared.h z_anim.h game.h menu.h \
 z_hound.o: z_hound.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h \
  z_hound.h
 z_item.o: z_item.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
-z_mtest.o: z_mtest.c
+z_mtest.o: z_mtest.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
 z_sentien.o: z_sentien.c g_local.h q_shared.h z_anim.h game.h menu.h \
  b_cam.h z_sentien.h
 z_spawn.o: z_spawn.c g_local.h q_shared.h z_anim.h game.h menu.h b_cam.h
