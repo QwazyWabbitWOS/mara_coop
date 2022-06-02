@@ -1627,7 +1627,8 @@ ai_checkattack(edict_t* self, float dist)
 
 		return self->monsterinfo.checkattack(self);
 	}
-	return self->monsterinfo.checkattack(self); /* FS: Compiler warning */
+	//QW// Unreachable code.
+	//return self->monsterinfo.checkattack(self); /* FS: Compiler warning */
 }
 
 /*
