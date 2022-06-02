@@ -1768,7 +1768,7 @@ void Trap_Think(edict_t* ent) /* FS: Coop: Xatrix specific */
 	/* pull the enemy in */
 	if (best)
 	{
-		vec3_t forward;
+		//vec3_t forward; //QW// OK to reuse at function scope
 
 		if (best->groundentity)
 		{
