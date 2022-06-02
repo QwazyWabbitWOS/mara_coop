@@ -1093,7 +1093,7 @@ SP_monster_flyer(edict_t* self)
 	self->monsterinfo.idle = flyer_idle;
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
-		self->monsterinfo.blocked = (void*)flyer_blocked;
+		self->monsterinfo.blocked = (qboolean(*)(edict_t*, float))flyer_blocked;
 	}
 
 	gi.linkentity(self);
@@ -1153,7 +1153,7 @@ SP_monster_kamikaze(edict_t* self) /* FS: Coop: Rogue specific */
 	self->monsterinfo.sight = flyer_sight;
 	self->monsterinfo.idle = flyer_idle;
 
-	self->monsterinfo.blocked = (void*)flyer_blocked;
+	self->monsterinfo.blocked = (qboolean(*)(edict_t*, float))flyer_blocked;
 
 	gi.linkentity(self);
 
