@@ -169,7 +169,7 @@ int zSchoolMonsters(edict_t* self, float dist, int runStyle, float* currentSpeed
 	{
 		float totalSpeed;
 		float totalBearing;
-		float distanceToNearest, distanceToLeader, dist;
+		float distanceToNearest, distanceToLeader, distance;
 		edict_t* nearestEntity = 0, * list;
 		vec3_t vec = { 0 };
 
@@ -186,17 +186,17 @@ int zSchoolMonsters(edict_t* self, float dist, int runStyle, float* currentSpeed
 			totalBearing += anglemod(list->s.angles[YAW]);
 
 			VectorSubtract(self->s.origin, list->s.origin, vec);
-			dist = VectorLength(vec);
+			distance = VectorLength(vec);
 
-			if (dist < distanceToNearest)
+			if (distance < distanceToNearest)
 			{
-				distanceToNearest = dist;
+				distanceToNearest = distance;
 				nearestEntity = list;
 			}
 
-			if (dist > distanceToLeader)
+			if (distance > distanceToLeader)
 			{
-				distanceToLeader = dist;
+				distanceToLeader = distance;
 			}
 
 			list = list->zSchoolChain;
@@ -212,7 +212,7 @@ int zSchoolMonsters(edict_t* self, float dist, int runStyle, float* currentSpeed
 		if (!zFindRoamYaw(self, 10))
 		{
 			// Rule 3) Maintain a minimum distance from those around you
-			if (distanceToNearest <= self->monsterinfo.zSchoolMinimumDistance)
+			if (distanceToNearest <= self->monsterinfo.zSchoolMinimumDistance && nearestEntity != NULL)
 			{
 				self->ideal_yaw = nearestEntity->s.angles[YAW];
 				self->speed = nearestEntity->speed;
