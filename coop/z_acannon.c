@@ -171,7 +171,9 @@ vec3_t fireOffset[5] = { {0,0,0},
 							{24,-5,0} };
 const int acDeactStart[] = { 0, 23, 23, 23, 23 };
 const int acDeactEnd[] = { 0, 31, 31, 31, 31 };
-const qboolean turretIdle[] = { false, false, true, true }; // collapse when idle?
+
+//QW// Style constants above are 1 through 4.
+const qboolean turretIdle[] = { 0, false, false, true, true }; // collapse when idle?
 
 // turret animations
 const int turretIdleStart = 0;
@@ -890,6 +892,9 @@ void SP_monster_autocannon(edict_t* self)
 		turret->s.modelindex = gi.modelindex("models/objects/acannon/turret/tris.md2");
 	else
 		turret->s.modelindex = gi.modelindex("models/objects/acannon/turret2/tris.md2");
+
+	//QW// Style constants above are 1 through 4.
+	// Added element 0 to turretIdle array to prevent index past end.
 	if (turretIdle[self->style])
 		turret->s.frame = turretIdleStart;
 	else
