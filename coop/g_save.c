@@ -142,6 +142,7 @@ typedef struct
 
 /* ========================================================= */
 
+struct altsel_s; //QW// declared here for tables/gamefunc_decs.h
 /*
  * Prototypes for forward
  * declaration for all game
