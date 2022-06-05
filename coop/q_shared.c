@@ -1381,7 +1381,7 @@ char* Q_strupr(char* string)
 	return string;
 }
 
-#if defined(__DJGPP__) || defined(_WIN32) || defined (LINUX)
+#if defined(__DJGPP__) || defined(_WIN32)
 char* /* from OpenBSD */
 strtok_r(char* s, const char* delim, char** last)
 {
