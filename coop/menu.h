@@ -27,16 +27,12 @@
 #ifndef CTF_MENU_H
 #define CTF_MENU_H
 
-enum
+enum pmenu_e
 {
+	PMENU_NORMAL,
 	PMENU_ALIGN_LEFT,
 	PMENU_ALIGN_CENTER,
 	PMENU_ALIGN_RIGHT,
-};
-
-enum
-{
-	PMENU_NORMAL = 0,
 	PMENU_SCROLLING,
 	PMENU_VOTE
 };
