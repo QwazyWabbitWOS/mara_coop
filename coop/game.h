@@ -16,7 +16,7 @@
 
 // edict->solid values
 
-typedef enum {
+typedef enum solid_e {
     SOLID_NOT,          // no interaction with other objects
     SOLID_TRIGGER,      // only touch when inside, after moving
     SOLID_BBOX,         // touch on edge
@@ -84,7 +84,7 @@ struct edict_s {
 //
 // functions provided by the main engine
 //
-typedef struct {
+typedef struct game_import_s {
     // special messages
     void (*bprintf)(int printlevel, char *fmt, ...);
     void (*dprintf)(char *fmt, ...);
@@ -162,7 +162,7 @@ typedef struct {
 //
 // functions exported by the game subsystem
 //
-typedef struct {
+typedef struct game_export_s {
     int         apiversion;
 
     // the init function will only be called when a game starts,

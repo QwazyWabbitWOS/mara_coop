@@ -38,7 +38,7 @@ int	(*actual_soundindex) (char* name);
 list_t* soundList;
 unsigned int soundNumRejected;
 
-typedef struct
+typedef struct modelsound_s
 {
 	char* name;
 

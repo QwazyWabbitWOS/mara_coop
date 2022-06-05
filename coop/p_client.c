@@ -1905,19 +1905,10 @@ SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 	int counter = 0;
 	vec3_t d = { 0 };
 
-	if (!ent)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
-	{
 		spot = SelectDeathmatchSpawnPoint();
-	}
 	else if (coop->value)
-	{
 		spot = SelectCoopSpawnPoint(ent);
-	}
 
 	/* find a single player start spot */
 	if (!spot)
@@ -1925,19 +1916,13 @@ SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 		while ((spot = G_Find(spot, FOFS(classname), "info_player_start")) != NULL)
 		{
 			if (!game.spawnpoint[0] && !spot->targetname)
-			{
 				break;
-			}
 
 			if (!game.spawnpoint[0] || !spot->targetname)
-			{
 				continue;
-			}
 
 			if (Q_stricmp(game.spawnpoint, spot->targetname) == 0)
-			{
 				break;
-			}
 		}
 
 		if (!spot)
@@ -1972,9 +1957,7 @@ SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 				coopspot = G_Find(coopspot, FOFS(classname), "info_player_coop");
 
 				if (!coopspot)
-				{
 					break;
-				}
 
 				VectorSubtract(coopspot->s.origin, spot->s.origin, d);
 

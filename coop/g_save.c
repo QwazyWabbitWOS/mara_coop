@@ -123,7 +123,7 @@
 	 * function signature with
 	 * the corresponding pointer
 	 */
-typedef struct
+typedef struct functionList_s
 {
 	char* funcStr;
 	byte* funcPtr;
@@ -134,7 +134,7 @@ typedef struct
  * mmove_t string with the
  * correspondig pointer
  * */
-typedef struct
+typedef struct mmoveList_s
 {
 	char* mmoveStr;
 	mmove_t* mmovePtr;

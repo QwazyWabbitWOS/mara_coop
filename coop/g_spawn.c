@@ -9,7 +9,7 @@
 
 void Z_SpawnDMItems(); /* FS: Zaero specific game dll changes */
 
-typedef struct
+typedef struct spawn_s
 {
 	char* name;
 	void (*spawn)(edict_t* ent);

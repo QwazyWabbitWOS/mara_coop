@@ -6,7 +6,7 @@
 /*=========================================================================
    Animation player types.
   =========================================================================*/
-typedef enum
+typedef enumanim_dir_e
 {
    DIR_FIXED,
    DIR_AT_CLIENT,
@@ -14,7 +14,7 @@ typedef enum
 } anim_dir_t;
 
 
-typedef struct
+typedef struct anim_data_s
 {
    edict_t *monster; //monster being animated
    mframe_t monster_frames[1]; //current frame buffer

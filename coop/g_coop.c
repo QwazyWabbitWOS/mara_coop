@@ -578,9 +578,7 @@ CoopCredits(edict_t* ent, pmenuhnd_t* p /* unused */)
 	}
 
 	PMenu_Close(ent);
-	PMenu_Open(ent, creditsmenu, NULL, -1,
-		sizeof(creditsmenu) / sizeof(pmenu_t), 0,
-		NULL, PMENU_NORMAL);
+	PMenu_Open(ent, creditsmenu, NULL, -1, sizeof(creditsmenu) / sizeof(pmenu_t), 0, NULL, PMENU_NORMAL);
 }
 
 void CoopChaseCam(edict_t* ent, pmenuhnd_t* p /* unused */)

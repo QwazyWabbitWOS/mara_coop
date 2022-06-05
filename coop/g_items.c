@@ -4832,7 +4832,7 @@ void Spawn_CoopBackpack(edict_t* ent)
 	}
 
 	backpack->coopBackpackMaxHealth = ent->max_health;
-	backpack->coopBackpackNetname = gi.TagMalloc(strlen(ent->client->pers.netname) + 1, TAG_GAME);
+	backpack->coopBackpackNetname = gi.TagMalloc((int)strlen(ent->client->pers.netname) + 1, TAG_GAME);
 	if (!backpack) {
 		gi.error("TagMalloc failed in %s\n", __func__);
 		return;

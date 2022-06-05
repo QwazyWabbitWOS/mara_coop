@@ -10,7 +10,7 @@
 void SV_Physics_NewToss(edict_t* ent);
 void adjustRiders(edict_t* ent); /* FS: Zaero specific game dll changes */
 
-typedef struct
+typedef struct pushed_s
 {
 	edict_t* ent;
 	vec3_t origin;

@@ -38,7 +38,7 @@ If 0, then only addresses matching the list will be allowed.  This lets you easi
 ==============================================================================
 */
 
-typedef struct
+typedef struct ipfilter_s
 {
 	unsigned	mask;
 	unsigned	compare;

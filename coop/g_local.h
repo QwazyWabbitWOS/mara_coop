@@ -99,7 +99,7 @@
 
 #define BODY_QUEUE_SIZE		8
 
-typedef enum
+typedef enum damage_e
 {
 	DAMAGE_NO,
 	DAMAGE_YES,			// will take damage if hit
@@ -107,7 +107,7 @@ typedef enum
 	DAMAGE_IMMORTAL		// similar to DAMAGE_YES, but health is not deducted /* FS: Zaero specific game dll changes */
 } damage_t;
 
-typedef enum 
+typedef enum weaponstate_e
 {
 	WEAPON_READY, 
 	WEAPON_ACTIVATING,
@@ -115,7 +115,7 @@ typedef enum
 	WEAPON_FIRING
 } weaponstate_t;
 
-typedef enum
+typedef enum ammo_e
 {
 	AMMO_BULLETS,
 	AMMO_SHELLS,
@@ -141,7 +141,7 @@ typedef enum
 	AMMO_PLASMASHIELD /* FS: Zaero specific game dll changes */
 } ammo_t;
 
-typedef enum /* FS: Coop: Voting */
+typedef enum vote_e	/* FS: Coop: Voting */
 {
 	NOT_VOTED,
 	VOTE_YES,
@@ -251,7 +251,7 @@ typedef enum /* FS: Coop: Voting */
 
 
 // edict->movetype values
-typedef enum
+typedef enum movetype_e
 {
 MOVETYPE_NONE,			// never moves
 MOVETYPE_NOCLIP,		// origin and angles change with no interaction
@@ -278,7 +278,7 @@ MOVETYPE_RIDE			// basically won't move unless it rides on a MOVETYPE_PUSH entit
 
 
 
-typedef struct
+typedef struct gitem_armor_s
 {
 	int		base_count;
 	int		max_count;
@@ -371,7 +371,7 @@ typedef struct gitem_s
 } gitem_t;
 
 /* FS: Coop: Hint for which rule sets we apply */
-typedef enum
+typedef enum gametype_e
 {
 	vanilla_coop,
 	xatrix_coop,
@@ -396,7 +396,7 @@ typedef struct gamemode_s
 // it should be initialized at dll load time, and read/written to
 // the server.ssv file for savegames
 //
-typedef struct
+typedef struct game_locals_s
 {
 	char		helpmessage1[512];
 	char		helpmessage2[512];
@@ -429,7 +429,7 @@ typedef struct
 // this structure is cleared as each map is entered
 // it is read/written to the level.sav file for savegames
 //
-typedef struct
+typedef struct level_locals_s
 {
 	int			framenum;
 	float		time;
@@ -482,7 +482,7 @@ typedef struct
 // spawn_temp_t is only used to hold entity field values that
 // can be set from the editor, but aren't actualy present
 // in edict_t during gameplay
-typedef struct
+typedef struct spawn_temp_s
 {
 	// world vars
 	char		*sky;
@@ -505,7 +505,7 @@ typedef struct
 } spawn_temp_t;
 
 
-typedef struct
+typedef struct moveinfo_s
 {
 	// fixed data
 	vec3_t		start_origin;
@@ -536,14 +536,14 @@ typedef struct
 } moveinfo_t;
 
 
-typedef struct
+typedef struct mframe_s
 {
 	void	(*aifunc)(edict_t *self, float dist);
 	float	dist;
 	void	(*thinkfunc)(edict_t *self);
 } mframe_t;
 
-typedef struct
+typedef struct mmove_s
 {
 	int			firstframe;
 	int			lastframe;
@@ -551,7 +551,7 @@ typedef struct
 	void		(*endfunc)(edict_t *self);
 } mmove_t;
 
-typedef struct
+typedef struct monsterinfo_s
 {
 	mmove_t		*currentmove;
 	unsigned int	aiflags;		// PGM - unsigned, since we're close to the max
@@ -871,7 +871,7 @@ extern	cvar_t	*bettyammo; /* FS: Zaero specific game dll changes */
 #define FFL_SPAWNTEMP		1
 #define FFL_NOSPAWN			2
 
-typedef enum {
+typedef enum fieldtype_e {
 	F_INT, 
 	F_FLOAT,
 	F_LSTRING,			// string on disk, pointer in memory, TAG_LEVEL
@@ -886,7 +886,7 @@ typedef enum {
 	F_IGNORE
 } fieldtype_t;
 
-typedef struct
+typedef struct field_s
 {
 	char	*name;
 	int		ofs;
@@ -1369,7 +1369,7 @@ void ai_schoolSideStepLeft (edict_t *self, float dist); /* FS: Zaero specific ga
 #define COOP_BACKPACK	2 /* FS: Coop: For respawn */
 
 // client data that stays across multiple level loads
-typedef struct
+typedef struct client_persistant_s
 {
 	char		userinfo[MAX_INFO_STRING];
 	char		netname[16];
@@ -1437,7 +1437,7 @@ typedef struct
 } client_persistant_t;
 
 // client data that stays across deathmatch respawns
-typedef struct
+typedef struct client_respawn_s
 {
 	client_persistant_t	coop_respawn;	// what to set client->pers to on a respawn
 	int			enterframe;			// level.framenum the client entered the game
