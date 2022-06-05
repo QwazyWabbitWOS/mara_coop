@@ -4059,7 +4059,7 @@ void parseTargets(edict_t* self) /* FS: Zaero specific */
 	{
 		char* targets[16] = { 0 };
 		char* targPtr, * str;
-		static const char* seperators = ";";
+		static const char* separators = ";";
 		int i;
 
 		// do we have a series of targets to choose from randomly?
@@ -4069,11 +4069,11 @@ void parseTargets(edict_t* self) /* FS: Zaero specific */
 		strcpy(str, self->target);
 
 		// split up the targets
-		targets[0] = strtok_r(str, seperators, &targPtr);
+		targets[0] = strtok_r(str, separators, &targPtr);
 		numTargets = 1;
 		while (numTargets < 16)
 		{
-			targets[numTargets] = strtok_r(NULL, seperators, &targPtr);
+			targets[numTargets] = strtok_r(NULL, separators, &targPtr);
 			if (targets[numTargets] == NULL)
 				break;
 			numTargets++;
