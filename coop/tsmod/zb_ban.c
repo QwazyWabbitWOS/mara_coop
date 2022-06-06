@@ -597,6 +597,10 @@ qboolean ReadBanFile(char *bfname)
 									if(num)
 										{
 											cnewentry->msg = gi.TagMalloc (num + 1, TAG_LEVEL);
+											if (!cnewentry->msg) {
+												gi.error("TagMalloc failed in %s", __func__);
+												return FALSE; // never happens
+											}
 											q2a_strcpy(cnewentry->msg, buffer2);
 										}
 									else

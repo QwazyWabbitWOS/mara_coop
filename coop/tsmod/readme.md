@@ -1,11 +1,46 @@
 
-Version: q2admin1.17.48-tsmod-2
+# Version: q2admin 1.17.48-tsmod-2
 
-This is Q2Admin with R1CH's security patches applied, and a couple tweaks
-to prevent kicking of players for false positives (Q2Admin would think a
-player was a bot when they were merely lagging badly.)
+This is Q2Admin with R1CH's security patches applied, and a couple tweaks to prevent kicking of players for false positives (Q2Admin would think a player was a bot when they were merely lagging badly.)
 
-Original Q2Admin readme.txt follows:
+Versions 1.17.46 and later fix a bug in the way q2admin calculated flood protection thresholds. The bug could cause a player to be kicked for flooding the server when this was not intended. The algorithm now works correctly.
+
+NOTE:
+This version of the dll needs to be placed in the quake2/debug or quake2/release subdirectory with the default name for the dll. It then loads the game dll from
+the quake2/mod folder without needing to rename the game dll to gamex86.real.dll. If you want to keep the renaming convention, set quake2dirsupport = "No" in the
+q2admin.txt file and uncomment the line by removing the leading semicolon. Note: quake2dirsupport is set TRUE by default in the dll.
+<QwazyWabbit>
+
+Assume your game is called mymod. Your dll's would be named and placed as shown below. This has been tested with r1q2, q2pro and q2rtx servers.
+
+## Windows:
+	c:\quake2\release\gamex86.dll - The Q2admin dll
+	c:\quake2\mymod\gamex86.dll - The mymod dll
+## Linux
+	quake2/release/gamex86.so - The q2admin dll
+	quake2/mymod/gamex86.so - The mymod dll
+
+## Using the renaming method under Windows where quake2dirsupport is "No".
+	c:\quake2\mymod\gamex86.dll - The Q2admin dll
+	c:\quake2\mymod\gamex86.real.dll - The mymod dll
+
+## Using the renaming method under Linux where quake2dirsupport is "No".
+	
+	quake2/mymod/gamex86.so - The Q2admin dll
+	quake2/mymod/gamex86.real.so - The mymod dll
+
+# Building on Windows with Visual Studio 2019 or VS2022
+The VS2019 project depends on the existence of a special Q2DIR system environment variable for placement of the DLL directly into your Quake2 path.
+You can set this via CMD or Powershell command lines or via the Settings | Advanced system settings | Environment Variables dialog or run this batch file in an Administrator CMD window.
+
+`@echo off`<br>
+`set Q2DIR=c:\quake2` (where `c:\quake2` represents the root of your Quake2 game tree)<br>
+`end`<br>
+
+This method is used so VS Projects don't have to know the absolute path to the game folder and if Q2DIR does not exist, the build will safely fail before overwriting any game DLLs unexpectedly. This Q2DIR is a ***system*** variable, not a path variable. The projects are configured to output the target files to `$(Q2DIR)\debug\` and `$(Q2DIR)\release\` for all configured modes so performing a Batch Rebuild of all the targets will place all the configured DLL modes and PDB files in those folders for easy use when debugging your game mod with Q2Admin.
+ 
+
+# Original Q2Admin readme.txt:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -189,7 +224,7 @@ server.cfg file.
 
 PLEASE NOTE THAT Q2ADMIN ONLY RUNS WITH THE GLIBC VERSION
 OF QUAKE2 FOR LINUX.  It will run with the non-glibc 
-version but allot of features seam to be broken when
+version but a lot of features seem to be broken when
 running it with that version.  Use at your own risk.
                                                     
 
@@ -4047,8 +4082,8 @@ v1.1 Beta 4    - 4 March     - Allow mute for 0 seconds to unmute someone.
                              - Fixed bugs where the say_person / say_group commands wheren't being logged 
                                in to the chat log.
                              - Changed chat flood protection so that there is a global chat flood protection 
-                               and a client chat flood protection.  The client overrides the global if it is 
-                               set.  If it isn't then the global settings are used.
+                               and a client chat flood protection.Â  The client overrides the global if it is 
+                               set.Â  If it isn't then the global settings are used.
                              - Added chat flood protection settings to include ban. This sets the clients 
                                chat flood protection.
                              - Added clientchatfloodprotect command to the server console / client admin 
@@ -4068,14 +4103,14 @@ v1.1 Beta 5    - 11 March    - Fixed bug where the admin client commands that us
                                didn't work correctly.   This included stuff, say_person and say_group server 
                                admin commands.
                              - Improved support for non-standard console chat in the chat flood protection / 
-                               muting commands.   The only mod so far that I know does this is LMCTF.
+                               muting commands. Â  The only mod so far that I know does this is LMCTF.
 v1.1 Beta 6    - 28 March    - Fixed major problems with the zbot detection feature turned off.
                              - Minor changes to internal features.
 v1.1           - 12 April    - Fixed some internal house-keeping bugs.
-                             - Added support for a different method for generating chat messages.  Adds 
+                             - Added support for a different method for generating chat messages.Â  Adds 
                                support for OSP and any other mod that uses this method for generating 
                                chat messages.
-                             - Renamed q2admin.cfg to q2admin.txt.  This is the make sure that 
+                             - Renamed q2admin.cfg to q2admin.txt.Â  This is the make sure that 
                                q2admin.txt will not be exec'd.
                              - Fixed bug with 'chatfloodprotect' causing a 'SZ_GetSpace: overflow without 
                                allowoverflow set' error.
@@ -4117,7 +4152,7 @@ v1.2 Beta 8    - 28 August   - Added include file support for in banfiles.
 v1.2 Beta 9    - 29 August   - Updated the 'ratbot detect test' to support v2.25 of the ratbot.
 v1.2 Beta 10   - 25 September- Fixed linux clib problem (this fixes the chasm cam problem with the 
                                ServerConfigMod and the Includes in ban files problem).
-                             - Fixed chatflood problem.  This fixes the crash with Superheros2.
+                             - Fixed chatflood problem.Â  This fixes the crash with Superheros2.
                              - Added more warning printouts when bans / chatbans / flood protection / disabled 
                                spawns / voting lines fail.
                              - Fixed change level problems with nitro2 and bw-proxy and reduced the change

@@ -1294,13 +1294,13 @@ char mutedText[8192] = "";
 
 void dprintf_internal (char *fmt, ...)
 {
-	char cbuffer[8192];
+	char cbuffer[8192] = { 0 };
 	va_list arglist;
 	int clienti = lastClientCmd;
 	
 	// convert to string
 	va_start(arglist, fmt);
-	vsprintf(cbuffer, fmt, arglist);
+	vsnprintf(cbuffer, sizeof cbuffer - 1, fmt, arglist);
 	va_end(arglist);
 	
 	if(q2adminrunmode == 0 || !proxyinfo)
@@ -1384,14 +1384,14 @@ void dprintf_internal (char *fmt, ...)
 
 void cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...)
 {
-	char cbuffer[8192];
+	char cbuffer[8192] = { 0 };
 	va_list arglist;
 	char *cp;
 	int clienti = lastClientCmd;
 	
 	// convert to string
 	va_start(arglist, fmt);
-	vsprintf(cbuffer, fmt, arglist);
+	vsnprintf(cbuffer, sizeof cbuffer - 1, fmt, arglist);
 	va_end(arglist);
 	
 	if(q2adminrunmode == 0)
@@ -1502,13 +1502,13 @@ void cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...)
 
 void bprintf_internal(int printlevel, char *fmt,...)
 {
-	char cbuffer[8192];
+	char cbuffer[8192] = { 0 };
 	va_list arglist;
 	int clienti = lastClientCmd;
 	
 	// convert to string
 	va_start(arglist, fmt);
-	vsprintf(cbuffer, fmt, arglist);
+	vsnprintf(cbuffer, sizeof cbuffer - 1, fmt, arglist);
 	va_end(arglist);
 	
 	if(q2adminrunmode == 0)

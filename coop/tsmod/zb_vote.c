@@ -39,9 +39,9 @@ typedef struct
 	}
 votecmd_t;
 
-#define VOTE_SW  0
-#define VOTE_EX  1
-#define VOTE_RE  2
+#define VOTE_SW  0	// Starts with.
+#define VOTE_EX  1	// Exactly matches.
+#define VOTE_RE  2	// Is a regular expression.
 
 votecmd_t votecmds[VOTE_MAXCMDS];
 int maxvote_cmds = 0;

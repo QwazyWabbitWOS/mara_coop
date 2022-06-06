@@ -109,7 +109,7 @@ typedef enum damage_e
 
 typedef enum weaponstate_e
 {
-	WEAPON_READY, 
+	WEAPON_READY,
 	WEAPON_ACTIVATING,
 	WEAPON_DROPPING,
 	WEAPON_FIRING
@@ -253,27 +253,27 @@ typedef enum vote_e	/* FS: Coop: Voting */
 // edict->movetype values
 typedef enum movetype_e
 {
-MOVETYPE_NONE,			// never moves
-MOVETYPE_NOCLIP,		// origin and angles change with no interaction
-MOVETYPE_PUSH,			// no clip to world, push on box contact
-MOVETYPE_STOP,			// no clip to world, stops on box contact
+	MOVETYPE_NONE,			// never moves
+	MOVETYPE_NOCLIP,		// origin and angles change with no interaction
+	MOVETYPE_PUSH,			// no clip to world, push on box contact
+	MOVETYPE_STOP,			// no clip to world, stops on box contact
 
-MOVETYPE_WALK,			// gravity
-MOVETYPE_STEP,			// gravity, special edge handling
-MOVETYPE_FLY,
-MOVETYPE_TOSS,			// gravity
-MOVETYPE_FLYMISSILE,	// extra size to monsters
-MOVETYPE_BOUNCE,
+	MOVETYPE_WALK,			// gravity
+	MOVETYPE_STEP,			// gravity, special edge handling
+	MOVETYPE_FLY,
+	MOVETYPE_TOSS,			// gravity
+	MOVETYPE_FLYMISSILE,	// extra size to monsters
+	MOVETYPE_BOUNCE,
 
-MOVETYPE_WALLBOUNCE,	/* FS: Coop: Xatrix specific */
+	MOVETYPE_WALLBOUNCE,	/* FS: Coop: Xatrix specific */
 
-MOVETYPE_NEWTOSS,		/* FS: Coop: Rogue specific */
+	MOVETYPE_NEWTOSS,		/* FS: Coop: Rogue specific */
 
-/* FS: Zaero specific game dll changes */
-MOVETYPE_BOUNCEFLY,
-MOVETYPE_FREEZE,       // player freeze, used for Zaero Camera
-MOVETYPE_FALLFLOAT,		// falls down slopes and floats in water
-MOVETYPE_RIDE			// basically won't move unless it rides on a MOVETYPE_PUSH entity
+	/* FS: Zaero specific game dll changes */
+	MOVETYPE_BOUNCEFLY,
+	MOVETYPE_FREEZE,       // player freeze, used for Zaero Camera
+	MOVETYPE_FALLFLOAT,		// falls down slopes and floats in water
+	MOVETYPE_RIDE			// basically won't move unless it rides on a MOVETYPE_PUSH entity
 } movetype_t;
 
 
@@ -341,33 +341,33 @@ void Weapon_Generic(edict_t* ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, 
 
 typedef struct gitem_s
 {
-	char		*classname;	// spawning name
-	qboolean	(*pickup)(struct edict_s *ent, struct edict_s *other);
-	void		(*use)(struct edict_s *ent, struct gitem_s *item);
-	void		(*drop)(struct edict_s *ent, struct gitem_s *item);
-	void		(*weaponthink)(struct edict_s *ent);
-	char		*pickup_sound;
-	char		*world_model;
+	char* classname;	// spawning name
+	qboolean(*pickup)(struct edict_s* ent, struct edict_s* other);
+	void		(*use)(struct edict_s* ent, struct gitem_s* item);
+	void		(*drop)(struct edict_s* ent, struct gitem_s* item);
+	void		(*weaponthink)(struct edict_s* ent);
+	char* pickup_sound;
+	char* world_model;
 	int			world_model_flags;
-	char		*view_model;
+	char* view_model;
 
 	// client side info
-	char		*icon;
-	char		*pickup_name;	// for printing on pickup
+	char* icon;
+	char* pickup_name;	// for printing on pickup
 	int			count_width;		// number of digits to display by icon
 
 	int			quantity;		// for ammo how much, for weapons how much is used per shot
-	char		*ammo;			// for weapons
+	char* ammo;			// for weapons
 	int			flags;			// IT_* flags
 
 	int			weapmodel;		// weapon model index (for weapons)
 
-	void		*info;
+	void* info;
 	int			tag;
 
-	char		*precaches;		// string of all models, sounds, and images this item will use
+	char* precaches;		// string of all models, sounds, and images this item will use
 	int			hideFlags; /* FS: Zaero specific game dll changes */
-	char		*weapon;        // weapon used by ammo  /* FS: Zaero specific game dll changes */
+	char* weapon;        // weapon used by ammo  /* FS: Zaero specific game dll changes */
 } gitem_t;
 
 /* FS: Coop: Hint for which rule sets we apply */
@@ -403,7 +403,7 @@ typedef struct game_locals_s
 	int			helpchanged;	// flash F1 icon if non 0, play sound
 								// and increment only if 1, 2, or 3
 
-	gclient_t	*clients;		// [maxclients]
+	gclient_t* clients;		// [maxclients]
 
 	// can't store spawnpoint in level, because
 	// it would get overwritten by the savegame restore
@@ -440,19 +440,19 @@ typedef struct level_locals_s
 
 	// intermission state
 	float		intermissiontime;		// time the intermission was started
-	char		*changemap;
+	char* changemap;
 	int			exitintermission;
 	int			fadeFrames; /* FS: Zaero specific game dll changes */
 	vec3_t		intermission_origin;
 	vec3_t		intermission_angle;
 
-	edict_t		*sight_client;	// changed once each frame for coop games
+	edict_t* sight_client;	// changed once each frame for coop games
 
-	edict_t		*sight_entity;
+	edict_t* sight_entity;
 	int			sight_entity_framenum;
-	edict_t		*sound_entity;
+	edict_t* sound_entity;
 	int			sound_entity_framenum;
-	edict_t		*sound2_entity;
+	edict_t* sound2_entity;
 	int			sound2_entity_framenum;
 
 	int			pic_health;
@@ -466,16 +466,16 @@ typedef struct level_locals_s
 	int			total_monsters;
 	int			killed_monsters;
 
-	edict_t		*current_entity;	// entity running from G_RunFrame
+	edict_t* current_entity;	// entity running from G_RunFrame
 	int			body_que;			// dead bodies
 
 	int			power_cubes;		// ugly necessity for coop
 
 	// ROGUE
-	edict_t		*disguise_violator;
+	edict_t* disguise_violator;
 	int			disguise_violation_framenum;
 	// ROGUE
-	edict_t		*current_coop_checkpoint; /* FS: Coop: Added Info_coop_checkpoint */
+	edict_t* current_coop_checkpoint; /* FS: Coop: Added Info_coop_checkpoint */
 } level_locals_t;
 
 
@@ -485,18 +485,18 @@ typedef struct level_locals_s
 typedef struct spawn_temp_s
 {
 	// world vars
-	char		*sky;
+	char* sky;
 	float		skyrotate;
 	vec3_t		skyaxis;
-	char		*nextmap;
+	char* nextmap;
 
 	int			lip;
 	int			distance;
 	int			height;
-	char		*noise;
+	char* noise;
 	float		pausetime;
-	char		*item;
-	char		*gravity;
+	char* item;
+	char* gravity;
 
 	float		minyaw;
 	float		maxyaw;
@@ -532,45 +532,45 @@ typedef struct moveinfo_s
 	float		next_speed;
 	float		remaining_distance;
 	float		decel_distance;
-	void		(*endfunc)(edict_t *);
+	void		(*endfunc)(edict_t*);
 } moveinfo_t;
 
 
 typedef struct mframe_s
 {
-	void	(*aifunc)(edict_t *self, float dist);
+	void	(*aifunc)(edict_t* self, float dist);
 	float	dist;
-	void	(*thinkfunc)(edict_t *self);
+	void	(*thinkfunc)(edict_t* self);
 } mframe_t;
 
 typedef struct mmove_s
 {
 	int			firstframe;
 	int			lastframe;
-	mframe_t	*frame;
-	void		(*endfunc)(edict_t *self);
+	mframe_t* frame;
+	void		(*endfunc)(edict_t* self);
 } mmove_t;
 
 typedef struct monsterinfo_s
 {
-	mmove_t		*currentmove;
+	mmove_t* currentmove;
 	unsigned int	aiflags;		// PGM - unsigned, since we're close to the max
 	int			nextframe;
 	float		scale;
 
-	void		(*stand)(edict_t *self);
-	void		(*idle)(edict_t *self);
-	void		(*search)(edict_t *self);
-	void		(*walk)(edict_t *self);
-	void		(*run)(edict_t *self);
-	void		(*dodge)(edict_t *self, edict_t *other, float eta, trace_t *tr);
-	void		(*attack)(edict_t *self);
-	void		(*melee)(edict_t *self);
-	void		(*sight)(edict_t *self, edict_t *other);
-	qboolean	(*checkattack)(edict_t *self);
-	void		(*backwalk)(edict_t *self); /* FS: Zaero specific game dll changes */
-	void		(*sidestepright)(edict_t *self); /* FS: Zaero specific game dll changes */
-	void		(*sidestepleft)(edict_t *self); /* FS: Zaero specific game dll changes */
+	void		(*stand)(edict_t* self);
+	void		(*idle)(edict_t* self);
+	void		(*search)(edict_t* self);
+	void		(*walk)(edict_t* self);
+	void		(*run)(edict_t* self);
+	void		(*dodge)(edict_t* self, edict_t* other, float eta, trace_t* tr);
+	void		(*attack)(edict_t* self);
+	void		(*melee)(edict_t* self);
+	void		(*sight)(edict_t* self, edict_t* other);
+	qboolean(*checkattack)(edict_t* self);
+	void		(*backwalk)(edict_t* self); /* FS: Zaero specific game dll changes */
+	void		(*sidestepright)(edict_t* self); /* FS: Zaero specific game dll changes */
+	void		(*sidestepleft)(edict_t* self); /* FS: Zaero specific game dll changes */
 
 	float		pausetime;
 	float		attack_finished;
@@ -587,24 +587,24 @@ typedef struct monsterinfo_s
 	int			power_armor_type;
 	int			power_armor_power;
 
-//ROGUE
-	qboolean	(*blocked)(edict_t *self, float dist);
-//	edict_t		*last_hint;			// last hint_path the monster touched
+	//ROGUE
+	qboolean(*blocked)(edict_t* self, float dist);
+	//	edict_t		*last_hint;			// last hint_path the monster touched
 	float		last_hint_time;		// last time the monster checked for hintpaths.
-	edict_t		*goal_hint;			// which hint_path we're trying to get to
+	edict_t* goal_hint;			// which hint_path we're trying to get to
 	int			medicTries;
-	edict_t		*badMedic1, *badMedic2;	// these medics have declared this monster "unhealable"
-	edict_t		*healer;	// this is who is healing this monster
-	void		(*duck)(edict_t *self, float eta);
-	void		(*unduck)(edict_t *self);
-	void		(*sidestep)(edict_t *self);
+	edict_t* badMedic1, * badMedic2;	// these medics have declared this monster "unhealable"
+	edict_t* healer;	// this is who is healing this monster
+	void		(*duck)(edict_t* self, float eta);
+	void		(*unduck)(edict_t* self);
+	void		(*sidestep)(edict_t* self);
 	//  while abort_duck would be nice, only monsters which duck but don't sidestep would use it .. only the brain
 	//  not really worth it.  sidestep is an implied abort_duck
 //	void		(*abort_duck)(edict_t *self);
 	float		base_height;
 	float		next_duck_time;
 	float		duck_wait_time;
-	edict_t		*last_player_enemy;
+	edict_t* last_player_enemy;
 	// blindfire stuff .. the boolean says whether the monster will do it, and blind_fire_time is the timing
 	// (set in the monster) of the next shot
 	qboolean	blindfire;		// will the monster blindfire?
@@ -613,12 +613,12 @@ typedef struct monsterinfo_s
 	// used by the spawners to not spawn too much and keep track of #s of monsters spawned
 	int			monster_slots;
 	int			monster_used;
-	edict_t		*commander;
+	edict_t* commander;
 	// powerup timers, used by widow, our friend
 	float		quad_framenum;
 	float		invincible_framenum;
 	float		double_framenum;
-//ROGUE
+	//ROGUE
 
 	int flashTime; /* FS: Zaero specific game dll changes */
 	int flashBase; /* FS: Zaero specific game dll changes */
@@ -755,7 +755,7 @@ extern	int lastgibframe;
 extern	int	meansOfDeath;
 
 
-extern	edict_t			*g_edicts;
+extern	edict_t* g_edicts;
 
 #define FOFS(x) (size_t)&(((edict_t *)NULL)->x)
 #define STOFS(x) (size_t)&(((spawn_temp_t *)NULL)->x)
@@ -765,88 +765,88 @@ extern	edict_t			*g_edicts;
 #define random()	((rand () & 0x7fff) / ((float)0x7fff))
 #define crandom()	(2.0 * (random() - 0.5))
 
-extern	cvar_t	*maxentities;
-extern	cvar_t	*deathmatch;
-extern	cvar_t	*coop;
-extern	cvar_t	*coop_item_respawn; /* FS: Coop: Added */
-extern	cvar_t	*coop_checkpoints; /* FS: Coop: Added */
-extern	cvar_t	*sv_vote_enabled; /* FS: Coop: Voting */
-extern	cvar_t	*sv_vote_disallow_flags; /* FS: Coop: Voting */
-extern	cvar_t	*sv_vote_assume_yes; /* FS: Coop: Voting */
-extern	cvar_t	*sv_vote_timer; /* FS: Coop: Voting */
-extern	cvar_t	*sv_vote_private; /* FS: Coop: Voting */
-extern	cvar_t	*sv_vote_chat_commands; /* FS: Coop: Voting */
-extern	cvar_t	*sv_coop_gamemode; /* FS: Coop: Added */
-extern	cvar_t	*sv_coop_gamemode_vote; /* FS: Coop: Added */
-extern	cvar_t	*sv_coop_reset_hack; /* FS: Coop: Gross reset frametime hack shit */
-extern	cvar_t	*sv_coop_maplist; /* FS: External file we need for the map voting */
-extern	cvar_t	*sv_coop_check_player_exit; /* FS: Check player distance to exit a level */
-extern	cvar_t	*sv_coop_summon_time; /* FS: Added */
-extern	cvar_t	*sv_coop_announce_name_change; /* FS: Added */
-extern	cvar_t	*sv_coop_name_timeout; /* FS: Added */
-extern	cvar_t	*sv_coop_blinky_cam_disallowflags; /* FS: Added */
-extern	cvar_t	*sv_drop_timeout; /* FS: Added */
-extern	cvar_t	*sv_spawn_protection; /* FS: Coop: Spawn protection */
-extern	cvar_t	*sv_spawn_protection_time; /* FS: Coop: Spawn protection */
-extern	cvar_t	*motd; /* FS: Coop: Added */
-extern	cvar_t	*adminpass; /* FS: Coop: Admin goodies */
-extern	cvar_t	*vippass; /* FS: Coop: VIP goodies */
-extern	cvar_t	*gamedir; /* FS: Coop: Added */
-extern	cvar_t	*nextserver; /* FS: Coop: Added */
-extern	cvar_t	*coop_cameraoffset; /* FS: Blinky's Coop Camera */
-extern	cvar_t	*dmflags;
-extern	cvar_t	*zdmflags; /* FS: Zaero specific game dll changes */
-extern	cvar_t	*skill;
-extern	cvar_t	*fraglimit;
-extern	cvar_t	*timelimit;
-extern	cvar_t	*password;
-extern	cvar_t	*spectator_password;
-extern	cvar_t	*needpass;
-extern	cvar_t	*g_select_empty;
-extern	cvar_t	*dedicated;
-extern	cvar_t	*motd_time; //QW// Added to force scr_centertime.
-extern	cvar_t	*filterban;
+extern	cvar_t* maxentities;
+extern	cvar_t* deathmatch;
+extern	cvar_t* coop;
+extern	cvar_t* coop_item_respawn; /* FS: Coop: Added */
+extern	cvar_t* coop_checkpoints; /* FS: Coop: Added */
+extern	cvar_t* sv_vote_enabled; /* FS: Coop: Voting */
+extern	cvar_t* sv_vote_disallow_flags; /* FS: Coop: Voting */
+extern	cvar_t* sv_vote_assume_yes; /* FS: Coop: Voting */
+extern	cvar_t* sv_vote_timer; /* FS: Coop: Voting */
+extern	cvar_t* sv_vote_private; /* FS: Coop: Voting */
+extern	cvar_t* sv_vote_chat_commands; /* FS: Coop: Voting */
+extern	cvar_t* sv_coop_gamemode; /* FS: Coop: Added */
+extern	cvar_t* sv_coop_gamemode_vote; /* FS: Coop: Added */
+extern	cvar_t* sv_coop_reset_hack; /* FS: Coop: Gross reset frametime hack shit */
+extern	cvar_t* sv_coop_maplist; /* FS: External file we need for the map voting */
+extern	cvar_t* sv_coop_check_player_exit; /* FS: Check player distance to exit a level */
+extern	cvar_t* sv_coop_summon_time; /* FS: Added */
+extern	cvar_t* sv_coop_announce_name_change; /* FS: Added */
+extern	cvar_t* sv_coop_name_timeout; /* FS: Added */
+extern	cvar_t* sv_coop_blinky_cam_disallowflags; /* FS: Added */
+extern	cvar_t* sv_drop_timeout; /* FS: Added */
+extern	cvar_t* sv_spawn_protection; /* FS: Coop: Spawn protection */
+extern	cvar_t* sv_spawn_protection_time; /* FS: Coop: Spawn protection */
+extern	cvar_t* motd; /* FS: Coop: Added */
+extern	cvar_t* adminpass; /* FS: Coop: Admin goodies */
+extern	cvar_t* vippass; /* FS: Coop: VIP goodies */
+extern	cvar_t* gamedir; /* FS: Coop: Added */
+extern	cvar_t* nextserver; /* FS: Coop: Added */
+extern	cvar_t* coop_cameraoffset; /* FS: Blinky's Coop Camera */
+extern	cvar_t* dmflags;
+extern	cvar_t* zdmflags; /* FS: Zaero specific game dll changes */
+extern	cvar_t* skill;
+extern	cvar_t* fraglimit;
+extern	cvar_t* timelimit;
+extern	cvar_t* password;
+extern	cvar_t* spectator_password;
+extern	cvar_t* needpass;
+extern	cvar_t* g_select_empty;
+extern	cvar_t* dedicated;
+extern	cvar_t* motd_time; //QW// Added to force scr_centertime.
+extern	cvar_t* filterban;
 extern	cvar_t* flashlightmode; //QW/ mode for flashlight code.
 
-extern	cvar_t	*sv_gravity;
-extern	cvar_t	*sv_maxvelocity;
+extern	cvar_t* sv_gravity;
+extern	cvar_t* sv_maxvelocity;
 
-extern	cvar_t	*gun_x, *gun_y, *gun_z;
-extern	cvar_t	*sv_rollspeed;
-extern	cvar_t	*sv_rollangle;
+extern	cvar_t* gun_x, * gun_y, * gun_z;
+extern	cvar_t* sv_rollspeed;
+extern	cvar_t* sv_rollangle;
 
-extern	cvar_t	*run_pitch;
-extern	cvar_t	*run_roll;
-extern	cvar_t	*bob_up;
-extern	cvar_t	*bob_pitch;
-extern	cvar_t	*bob_roll;
+extern	cvar_t* run_pitch;
+extern	cvar_t* run_roll;
+extern	cvar_t* bob_up;
+extern	cvar_t* bob_pitch;
+extern	cvar_t* bob_roll;
 
-extern	cvar_t	*sv_cheats;
-extern	cvar_t	*maxclients;
-extern	cvar_t	*maxspectators;
+extern	cvar_t* sv_cheats;
+extern	cvar_t* maxclients;
+extern	cvar_t* maxspectators;
 
-extern	cvar_t	*flood_msgs;
-extern	cvar_t	*flood_persecond;
-extern	cvar_t	*flood_waitdelay;
+extern	cvar_t* flood_msgs;
+extern	cvar_t* flood_persecond;
+extern	cvar_t* flood_waitdelay;
 
-extern	cvar_t	*sv_maplist;
+extern	cvar_t* sv_maplist;
 
-extern	cvar_t	*plasma_alpha;
+extern	cvar_t* plasma_alpha;
 extern	cvar_t* g_allow_give;
 
 //cvar_t	*clusterlauncher_aplha; //TODO
 
-extern	cvar_t	*sv_stopspeed;		// PGM - this was a define in g_phys.c
+extern	cvar_t* sv_stopspeed;		// PGM - this was a define in g_phys.c
 
 //ROGUE
-extern	cvar_t	*gamerules;
-extern	cvar_t	*huntercam;
-extern	cvar_t	*strong_mines;
-extern	cvar_t	*randomrespawn;
+extern	cvar_t* gamerules;
+extern	cvar_t* huntercam;
+extern	cvar_t* strong_mines;
+extern	cvar_t* randomrespawn;
 
-extern	cvar_t	*grenadeammotype; /* FS: Zaero specific game dll changes */
-extern	cvar_t	*grenadeammo; /* FS: Zaero specific game dll changes */
-extern	cvar_t	*bettyammo; /* FS: Zaero specific game dll changes */
+extern	cvar_t* grenadeammotype; /* FS: Zaero specific game dll changes */
+extern	cvar_t* grenadeammo; /* FS: Zaero specific game dll changes */
+extern	cvar_t* bettyammo; /* FS: Zaero specific game dll changes */
 
 // this is for the count of monsters
 #define ENT_SLOTS_LEFT		(ent->monsterinfo.monster_slots - ent->monsterinfo.monster_used)
@@ -872,7 +872,7 @@ extern	cvar_t	*bettyammo; /* FS: Zaero specific game dll changes */
 #define FFL_NOSPAWN			2
 
 typedef enum fieldtype_e {
-	F_INT, 
+	F_INT,
 	F_FLOAT,
 	F_LSTRING,			// string on disk, pointer in memory, TAG_LEVEL
 	F_GSTRING,			// string on disk, pointer in memory, TAG_GAME
@@ -888,7 +888,7 @@ typedef enum fieldtype_e {
 
 typedef struct field_s
 {
-	char	*name;
+	char* name;
 	int		ofs;
 	fieldtype_t	type;
 	int		flags;
@@ -902,91 +902,91 @@ extern	gitem_t	itemlist[];
 //
 // g_cmds.c
 //
-void Cmd_Help_f (edict_t *ent);
-void Cmd_Score_f (edict_t *ent);
+void Cmd_Help_f(edict_t* ent);
+void Cmd_Score_f(edict_t* ent);
 
 //
 // g_items.c
 //
-void PrecacheItem (gitem_t *it);
-void InitItems (void);
-void SetItemNames (void);
-gitem_t	*FindItem (char *pickup_name);
-gitem_t	*FindItemByClassname (char *classname);
+void PrecacheItem(gitem_t* it);
+void InitItems(void);
+void SetItemNames(void);
+gitem_t* FindItem(char* pickup_name);
+gitem_t* FindItemByClassname(char* classname);
 #define	ITEM_INDEX(x) ((x)-itemlist)
-edict_t *Drop_Item (edict_t *ent, gitem_t *item);
-void SetRespawn (edict_t *ent, float delay);
-void ChangeWeapon (edict_t *ent);
-void SpawnItem (edict_t *ent, gitem_t *item);
-void Think_Weapon (edict_t *ent);
-int ArmorIndex (edict_t *ent);
-int PowerArmorType (edict_t *ent);
-gitem_t	*GetItemByIndex (int index);
-qboolean Add_Ammo (edict_t *ent, gitem_t *item, int count);
-void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane,
-		csurface_t *surf);
-void Spawn_CoopBackpack(edict_t *ent); /* FS: Coop: Spawn a backpack with our stuff */
+edict_t* Drop_Item(edict_t* ent, gitem_t* item);
+void SetRespawn(edict_t* ent, float delay);
+void ChangeWeapon(edict_t* ent);
+void SpawnItem(edict_t* ent, gitem_t* item);
+void Think_Weapon(edict_t* ent);
+int ArmorIndex(edict_t* ent);
+int PowerArmorType(edict_t* ent);
+gitem_t* GetItemByIndex(int index);
+qboolean Add_Ammo(edict_t* ent, gitem_t* item, int count);
+void Touch_Item(edict_t* ent, edict_t* other, cplane_t* plane,
+	csurface_t* surf);
+void Spawn_CoopBackpack(edict_t* ent); /* FS: Coop: Spawn a backpack with our stuff */
 
 //
 // g_utils.c
 //
-qboolean	KillBox (edict_t *ent);
-qboolean MonsterKillBox (edict_t *ent); /* FS: Zaero specific game dll changes */
-qboolean MonsterPlayerKillBox (edict_t *ent); /* FS: Zaero specific game dll changes */
+qboolean	KillBox(edict_t* ent);
+qboolean MonsterKillBox(edict_t* ent); /* FS: Zaero specific game dll changes */
+qboolean MonsterPlayerKillBox(edict_t* ent); /* FS: Zaero specific game dll changes */
 void G_ProjectSource(vec3_t point, vec3_t distance, vec3_t forward,
-		vec3_t right, vec3_t result);
-edict_t *G_Find (edict_t *from, int fieldofs, char *match);
-edict_t *findradius (edict_t *from, vec3_t org, float rad);
-edict_t *G_PickTarget (char *targetname);
-void	G_UseTargets (edict_t *ent, edict_t *activator);
-void	G_SetMovedir (vec3_t angles, vec3_t movedir);
+	vec3_t right, vec3_t result);
+edict_t* G_Find(edict_t* from, int fieldofs, char* match);
+edict_t* findradius(edict_t* from, vec3_t org, float rad);
+edict_t* G_PickTarget(char* targetname);
+void	G_UseTargets(edict_t* ent, edict_t* activator);
+void	G_SetMovedir(vec3_t angles, vec3_t movedir);
 
-void	G_InitEdict (edict_t *e);
-edict_t	*G_Spawn (void);
-void	G_FreeEdict (edict_t *e);
+void	G_InitEdict(edict_t* e);
+edict_t* G_Spawn(void);
+void	G_FreeEdict(edict_t* e);
 
-void	G_TouchTriggers (edict_t *ent);
-void	G_TouchSolids (edict_t *ent);
+void	G_TouchTriggers(edict_t* ent);
+void	G_TouchSolids(edict_t* ent);
 
-char	*G_CopyString (const char *in);
+char* G_CopyString(const char* in);
 
-float	*tv (float x, float y, float z);
-char	*vtos (vec3_t v);
+float* tv(float x, float y, float z);
+char* vtos(vec3_t v);
 
-float vectoyaw (vec3_t vec);
-void vectoangles (vec3_t vec, vec3_t angles);
-edict_t *Find_LikePlayer (edict_t *ent, char *name, qboolean exact); /* FS: People want this for various Tastyspleen-like commands */
-qboolean G_SpawnCheck (int cap); /* FS: Added */
+float vectoyaw(vec3_t vec);
+void vectoangles(vec3_t vec, vec3_t angles);
+edict_t* Find_LikePlayer(edict_t* ent, char* name, qboolean exact); /* FS: People want this for various Tastyspleen-like commands */
+qboolean G_SpawnCheck(int cap); /* FS: Added */
 
 //ROGUE
 void G_ProjectSource2(vec3_t point, vec3_t distance, vec3_t forward, vec3_t right,
-		vec3_t up, vec3_t result);
-float	vectoyaw2 (vec3_t vec);
-void	vectoangles2 (vec3_t vec, vec3_t angles);
-edict_t *findradius2 (edict_t *from, vec3_t org, float rad);
+	vec3_t up, vec3_t result);
+float	vectoyaw2(vec3_t vec);
+void	vectoangles2(vec3_t vec, vec3_t angles);
+edict_t* findradius2(edict_t* from, vec3_t org, float rad);
 //ROGUE
 
 //
 // g_combat.c
 //
-qboolean OnSameTeam (edict_t *ent1, edict_t *ent2);
-qboolean CanDamage (edict_t *targ, edict_t *inflictor);
-void T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
-		vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod);
-void T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage, edict_t *ignore,
-		float radius, int mod);
-char *GetCoopInsult (void); /* FS: Coop: Pick a random insult */
-char *GetProperMonsterName (char *monsterName); /* FS: Coop: Get proper name for classname */
+qboolean OnSameTeam(edict_t* ent1, edict_t* ent2);
+qboolean CanDamage(edict_t* targ, edict_t* inflictor);
+void T_Damage(edict_t* targ, edict_t* inflictor, edict_t* attacker, vec3_t dir,
+	vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod);
+void T_RadiusDamage(edict_t* inflictor, edict_t* attacker, float damage, edict_t* ignore,
+	float radius, int mod);
+char* GetCoopInsult(void); /* FS: Coop: Pick a random insult */
+char* GetProperMonsterName(char* monsterName); /* FS: Coop: Get proper name for classname */
 
 //ROGUE
-void T_RadiusNukeDamage(edict_t *inflictor, edict_t *attacker, float damage,
-		edict_t *ignore, float radius, int mod);
-void T_RadiusClassDamage(edict_t *inflictor, edict_t *attacker, float damage,
-		char *ignoreClass, float radius, int mod);
-void cleanupHealTarget (edict_t *ent);
+void T_RadiusNukeDamage(edict_t* inflictor, edict_t* attacker, float damage,
+	edict_t* ignore, float radius, int mod);
+void T_RadiusClassDamage(edict_t* inflictor, edict_t* attacker, float damage,
+	char* ignoreClass, float radius, int mod);
+void cleanupHealTarget(edict_t* ent);
 //ROGUE
 
-void T_RadiusDamagePosition (vec3_t origin, edict_t *inflictor, edict_t *attacker, float damage, edict_t *ignore, float radius, int mod); /* FS: Zaero specific game dll changes */
+void T_RadiusDamagePosition(vec3_t origin, edict_t* inflictor, edict_t* attacker, float damage, edict_t* ignore, float radius, int mod); /* FS: Zaero specific game dll changes */
 
 // damage flags
 #define DAMAGE_RADIUS			0x00000001	// damage was indirect
@@ -1015,214 +1015,214 @@ void T_RadiusDamagePosition (vec3_t origin, edict_t *inflictor, edict_t *attacke
 //
 // g_monster.c
 //
-void monster_fire_bullet(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int kick, int hspread, int vspread, int flashtype);
-void monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int kick, int hspread, int vspread, int count, int flashtype);
-void monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int flashtype, int effect);
-void monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, int flashtype);
-void monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int flashtype);
-void monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int kick, int flashtype);
-void monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, int kick, float damage_radius, int flashtype);
+void monster_fire_bullet(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int kick, int hspread, int vspread, int flashtype);
+void monster_fire_shotgun(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int kick, int hspread, int vspread, int count, int flashtype);
+void monster_fire_blaster(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int flashtype, int effect);
+void monster_fire_grenade(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, int flashtype);
+void monster_fire_rocket(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int flashtype);
+void monster_fire_railgun(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int kick, int flashtype);
+void monster_fire_bfg(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, int kick, float damage_radius, int flashtype);
 
 /* FS: Coop: Rogue specific */
-void monster_fire_blaster2(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int flashtype, int effect);
-void monster_fire_tracker(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, edict_t *enemy, int flashtype);
-void monster_fire_heat_rogue(edict_t *self, vec3_t start, vec3_t dir, vec3_t offset,
-		int damage, int kick, int flashtype);
-void stationarymonster_start (edict_t *self);	
-void monster_done_dodge (edict_t *self);
+void monster_fire_blaster2(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int flashtype, int effect);
+void monster_fire_tracker(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, edict_t* enemy, int flashtype);
+void monster_fire_heat_rogue(edict_t* self, vec3_t start, vec3_t dir, vec3_t offset,
+	int damage, int kick, int flashtype);
+void stationarymonster_start(edict_t* self);
+void monster_done_dodge(edict_t* self);
 
 /* FS: Coop: Xatrix specific */
-void monster_fire_ionripper (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype, int effect);
-void monster_fire_heat_xatrix (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype);
-void monster_dabeam (edict_t *self);
-void monster_fire_blueblaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype, int effect);
+void monster_fire_ionripper(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype, int effect);
+void monster_fire_heat_xatrix(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype);
+void monster_dabeam(edict_t* self);
+void monster_fire_blueblaster(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, int flashtype, int effect);
 
 
-void M_droptofloor (edict_t *ent);
-void monster_think (edict_t *self);
-void walkmonster_start (edict_t *self);
-void swimmonster_start (edict_t *self);
-void flymonster_start (edict_t *self);
-void AttackFinished (edict_t *self, float time);
-void monster_death_use (edict_t *self);
-void M_CatagorizePosition (edict_t *ent);
-qboolean M_CheckAttack (edict_t *self);
-void M_FlyCheck (edict_t *self);
-void M_CheckGround (edict_t *ent);
+void M_droptofloor(edict_t* ent);
+void monster_think(edict_t* self);
+void walkmonster_start(edict_t* self);
+void swimmonster_start(edict_t* self);
+void flymonster_start(edict_t* self);
+void AttackFinished(edict_t* self, float time);
+void monster_death_use(edict_t* self);
+void M_CatagorizePosition(edict_t* ent);
+qboolean M_CheckAttack(edict_t* self);
+void M_FlyCheck(edict_t* self);
+void M_CheckGround(edict_t* ent);
 
 //
 // g_misc.c
 //
-void ThrowHead (edict_t *self, char *gibname, int damage, int type);
-void ThrowClientHead (edict_t *self, int damage);
-void ThrowGib (edict_t *self, char *gibname, int damage, int type);
-void BecomeExplosion1(edict_t *self);
+void ThrowHead(edict_t* self, char* gibname, int damage, int type);
+void ThrowClientHead(edict_t* self, int damage);
+void ThrowGib(edict_t* self, char* gibname, int damage, int type);
+void BecomeExplosion1(edict_t* self);
 /* XATRIX */
-void ThrowHeadACID (edict_t *self, char *gibname, int damage, int type);
-void ThrowGibACID (edict_t *self, char *gibname, int damage, int type);
+void ThrowHeadACID(edict_t* self, char* gibname, int damage, int type);
+void ThrowGibACID(edict_t* self, char* gibname, int damage, int type);
 
 //
 // g_ai.c
 //
-void AI_SetSightClient (void);
+void AI_SetSightClient(void);
 
-void ai_stand (edict_t *self, float dist);
-void ai_move (edict_t *self, float dist);
-void ai_walk (edict_t *self, float dist);
-void ai_turn (edict_t *self, float dist);
-void ai_run (edict_t *self, float dist);
-void ai_charge (edict_t *self, float dist);
-int range (edict_t *self, edict_t *other);
+void ai_stand(edict_t* self, float dist);
+void ai_move(edict_t* self, float dist);
+void ai_walk(edict_t* self, float dist);
+void ai_turn(edict_t* self, float dist);
+void ai_run(edict_t* self, float dist);
+void ai_charge(edict_t* self, float dist);
+int range(edict_t* self, edict_t* other);
 
-void FoundTarget (edict_t *self);
-qboolean infront (edict_t *self, edict_t *other);
-qboolean visible (edict_t *self, edict_t *other);
-qboolean FacingIdeal(edict_t *self);
-qboolean inweaponLineOfSight (edict_t *self, edict_t *other); /* FS: Zaero specific game dll changes */
+void FoundTarget(edict_t* self);
+qboolean infront(edict_t* self, edict_t* other);
+qboolean visible(edict_t* self, edict_t* other);
+qboolean FacingIdeal(edict_t* self);
+qboolean inweaponLineOfSight(edict_t* self, edict_t* other); /* FS: Zaero specific game dll changes */
 
 //
 // g_weapon.c
 //
-void ThrowDebris (edict_t *self, char *modelname, float speed, vec3_t origin);
-qboolean fire_hit (edict_t *self, vec3_t aim, int damage, int kick);
-void fire_bullet(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int kick, int hspread, int vspread, int mod);
-void fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int kick, int hspread, int vspread, int count, int mod);
-void fire_blaster(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, int effect, qboolean hyper);
-void fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, float timer, float damage_radius);
-void fire_grenade2(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, float timer, float damage_radius, qboolean held);
-void fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, float damage_radius, int radius_damage);
-void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick);
-void fire_bfg(edict_t *self, vec3_t start, vec3_t dir,
-		int damage, int speed, float damage_radius);
+void ThrowDebris(edict_t* self, char* modelname, float speed, vec3_t origin);
+qboolean fire_hit(edict_t* self, vec3_t aim, int damage, int kick);
+void fire_bullet(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int kick, int hspread, int vspread, int mod);
+void fire_shotgun(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int kick, int hspread, int vspread, int count, int mod);
+void fire_blaster(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, int effect, qboolean hyper);
+void fire_grenade(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, float timer, float damage_radius);
+void fire_grenade2(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, float timer, float damage_radius, qboolean held);
+void fire_rocket(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, float damage_radius, int radius_damage);
+void fire_rail(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int kick);
+void fire_bfg(edict_t* self, vec3_t start, vec3_t dir,
+	int damage, int speed, float damage_radius);
 /* FS: Coop: Xatrix specific */
-void fire_ionripper (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, int effect);
-void fire_heat (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
-void fire_blueblaster (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, int effect);
-void fire_plasma (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
+void fire_ionripper(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed, int effect);
+void fire_heat(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
+void fire_blueblaster(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed, int effect);
+void fire_plasma(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage);
 //Plasma rifle mod
-void fire_plasma2(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed);
-void fire_trap (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held);
-void fire_cluster (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius);
+void fire_plasma2(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed);
+void fire_trap(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held);
+void fire_cluster(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius);
 
 //
 // g_ptrail.c
 //
-void PlayerTrail_Init (void);
-void PlayerTrail_Add (vec3_t spot);
-void PlayerTrail_New (vec3_t spot);
-edict_t *PlayerTrail_PickFirst (edict_t *self);
-edict_t *PlayerTrail_PickNext (edict_t *self);
-edict_t	*PlayerTrail_LastSpot (void);
+void PlayerTrail_Init(void);
+void PlayerTrail_Add(vec3_t spot);
+void PlayerTrail_New(vec3_t spot);
+edict_t* PlayerTrail_PickFirst(edict_t* self);
+edict_t* PlayerTrail_PickNext(edict_t* self);
+edict_t* PlayerTrail_LastSpot(void);
 
 //
 // g_client.c
 //
-void respawn (edict_t *ent);
-void BeginIntermission (edict_t *targ);
-void PutClientInServer (edict_t *ent);
-void InitClientPersistant (gclient_t *client);
-void InitClientResp (gclient_t *client);
-void InitBodyQue (void);
-void ClientBeginServerFrame (edict_t *ent);
+void respawn(edict_t* ent);
+void BeginIntermission(edict_t* targ);
+void PutClientInServer(edict_t* ent);
+void InitClientPersistant(gclient_t* client);
+void InitClientResp(gclient_t* client);
+void InitBodyQue(void);
+void ClientBeginServerFrame(edict_t* ent);
 
 //
 // g_player.c
 //
-void player_pain (edict_t *self, edict_t *other, float kick, int damage);
-void player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point);
+void player_pain(edict_t* self, edict_t* other, float kick, int damage);
+void player_die(edict_t* self, edict_t* inflictor, edict_t* attacker,
+	int damage, vec3_t point);
 
 //
 // g_svcmds.c
 //
-void	ServerCommand (void);
-qboolean SV_FilterPacket (char *from);
+void	ServerCommand(void);
+qboolean SV_FilterPacket(char* from);
 
 //
 // p_view.c
 //
-void ClientEndServerFrame (edict_t *ent);
+void ClientEndServerFrame(edict_t* ent);
 
 //
 // p_hud.c
 //
-void MoveClientToIntermission (edict_t *client);
-void G_SetStats (edict_t *ent);
-void G_SetSpectatorStats (edict_t *ent);
-void G_CheckChaseStats (edict_t *ent);
-void ValidateSelectedItem (edict_t *ent);
-void DeathmatchScoreboardMessage (edict_t *client, edict_t *killer);
-void HelpComputerMessage(edict_t *client);
-void InventoryMessage(edict_t *client);
+void MoveClientToIntermission(edict_t* client);
+void G_SetStats(edict_t* ent);
+void G_SetSpectatorStats(edict_t* ent);
+void G_CheckChaseStats(edict_t* ent);
+void ValidateSelectedItem(edict_t* ent);
+void DeathmatchScoreboardMessage(edict_t* client, edict_t* killer);
+void HelpComputerMessage(edict_t* client);
+void InventoryMessage(edict_t* client);
 
 //
 // g_pweapon.c
 //
-void PlayerNoise(edict_t *who, vec3_t where, int type);
+void PlayerNoise(edict_t* who, vec3_t where, int type);
 
 //
 // m_move.c
 //
-qboolean M_CheckBottom (edict_t *ent);
-qboolean M_walkmove (edict_t *ent, float yaw, float dist);
-void M_MoveToGoal (edict_t *ent, float dist);
-void M_ChangeYaw (edict_t *ent);
+qboolean M_CheckBottom(edict_t* ent);
+qboolean M_walkmove(edict_t* ent, float yaw, float dist);
+void M_MoveToGoal(edict_t* ent, float dist);
+void M_ChangeYaw(edict_t* ent);
 
 //
 // g_phys.c
 //
-void G_RunEntity (edict_t *ent);
+void G_RunEntity(edict_t* ent);
 
 //
 // g_main.c
 //
-void SaveClientData (void);
-void FetchClientEntData (edict_t *ent);
+void SaveClientData(void);
+void FetchClientEntData(edict_t* ent);
 
 //
 // g_chase.c
 //
-void UpdateChaseCam(edict_t *ent);
-void ChaseNext(edict_t *ent);
-void ChasePrev(edict_t *ent);
-void GetChaseTarget(edict_t *ent);
+void UpdateChaseCam(edict_t* ent);
+void ChaseNext(edict_t* ent);
+void ChasePrev(edict_t* ent);
+void GetChaseTarget(edict_t* ent);
 
 //
 // p_client.c
 //
-void RemoveAttackingPainDaemons (edict_t *self);
-int P_Clients_Connected (qboolean spectators); /* FS: Coop: Find out how many players are in the game */
+void RemoveAttackingPainDaemons(edict_t* self);
+int P_Clients_Connected(qboolean spectators); /* FS: Coop: Find out how many players are in the game */
 
 //
 // g_vote.c
 //
-void vote_Think (void);
-void vote_Reset (void);
-void vote_command (edict_t *ent);
-void vote_connect (edict_t *ent);
-void vote_disconnect_recalc(edict_t *ent);
-void vote_stop (edict_t *ent);
+void vote_Think(void);
+void vote_Reset(void);
+void vote_command(edict_t* ent);
+void vote_connect(edict_t* ent);
+void vote_disconnect_recalc(edict_t* ent);
+void vote_stop(edict_t* ent);
 
 //
 // g_coop.c
 //
-void CoopGamemodeInit (void);
-int CoopGamemodeExists (const char *gamemode);
+void CoopGamemodeInit(void);
+int CoopGamemodeExists(const char* gamemode);
 
 //====================
 // ROGUE PROTOTYPES
@@ -1231,80 +1231,80 @@ int CoopGamemodeExists (const char *gamemode);
 //
 //extern float nuke_framenum;
 
-void fire_flechette(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, int kick);
-void fire_prox(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed);
-void fire_nuke (edict_t *self, vec3_t start, vec3_t aimdir, int speed);		
-void fire_flame(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed);
-void fire_burst(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed);
-void fire_maintain(edict_t *, edict_t *, vec3_t start, vec3_t aimdir,
-		int damage, int speed);
-void fire_incendiary_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
-		int damage, int speed, float timer, float damage_radius);
-void fire_player_melee(edict_t *self, vec3_t start, vec3_t aim, int reach,
-		int damage, int kick, int quiet, int mod);
-void fire_tesla(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed);
-void fire_blaster2(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
-		int speed, int effect, qboolean hyper);
-void fire_heat_rogue(edict_t *self, vec3_t start, vec3_t aimdir, vec3_t offset,
-		int damage, int kick,
-		qboolean monster);
-void fire_heat_xatrix (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage); /* FS: Coop: Xatrix specific */
-void fire_tracker(edict_t *self, vec3_t start, vec3_t dir, int damage,
-		int speed, edict_t *enemy);
+void fire_flechette(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, int kick);
+void fire_prox(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed);
+void fire_nuke(edict_t* self, vec3_t start, vec3_t aimdir, int speed);
+void fire_flame(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed);
+void fire_burst(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed);
+void fire_maintain(edict_t*, edict_t*, vec3_t start, vec3_t aimdir,
+	int damage, int speed);
+void fire_incendiary_grenade(edict_t* self, vec3_t start, vec3_t aimdir,
+	int damage, int speed, float timer, float damage_radius);
+void fire_player_melee(edict_t* self, vec3_t start, vec3_t aim, int reach,
+	int damage, int kick, int quiet, int mod);
+void fire_tesla(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed);
+void fire_blaster2(edict_t* self, vec3_t start, vec3_t aimdir, int damage,
+	int speed, int effect, qboolean hyper);
+void fire_heat_rogue(edict_t* self, vec3_t start, vec3_t aimdir, vec3_t offset,
+	int damage, int kick,
+	qboolean monster);
+void fire_heat_xatrix(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage); /* FS: Coop: Xatrix specific */
+void fire_tracker(edict_t* self, vec3_t start, vec3_t dir, int damage,
+	int speed, edict_t* enemy);
 
 //
 // g_newai.c
 //
-qboolean blocked_checkshot (edict_t *self, float shotChance);
-qboolean blocked_checkplat (edict_t *self, float dist);
-qboolean blocked_checkjump (edict_t *self, float dist, float maxDown, float maxUp);
-qboolean blocked_checknewenemy (edict_t *self);
-qboolean monsterlost_checkhint (edict_t *self);
-qboolean inback (edict_t *self, edict_t *other);
-float realrange (edict_t *self, edict_t *other);
-edict_t *SpawnBadArea(vec3_t mins, vec3_t maxs, float lifespan, edict_t *owner);
-edict_t *CheckForBadArea(edict_t *ent);
-qboolean MarkTeslaArea(edict_t *self, edict_t *tesla);
-void InitHintPaths (void);
-void PredictAim(edict_t *target, vec3_t start, float bolt_speed, qboolean eye_height,
-		float offset, vec3_t aimdir, vec3_t aimpoint);
-qboolean below (edict_t *self, edict_t *other);
-void drawbbox (edict_t *self);
-void M_MonsterDodge (edict_t *self, edict_t *attacker, float eta, trace_t *tr);
-void monster_duck_down (edict_t *self);
-void monster_duck_hold (edict_t *self);
-void monster_duck_up (edict_t *self);
-qboolean has_valid_enemy (edict_t *self);
-void TargetTesla (edict_t *self, edict_t *tesla);
-void hintpath_stop (edict_t *self);
-edict_t * PickCoopTarget (edict_t *self);
-int CountPlayers (void);
-void monster_jump_start (edict_t *self);
-qboolean monster_jump_finished (edict_t *self);
+qboolean blocked_checkshot(edict_t* self, float shotChance);
+qboolean blocked_checkplat(edict_t* self, float dist);
+qboolean blocked_checkjump(edict_t* self, float dist, float maxDown, float maxUp);
+qboolean blocked_checknewenemy(edict_t* self);
+qboolean monsterlost_checkhint(edict_t* self);
+qboolean inback(edict_t* self, edict_t* other);
+float realrange(edict_t* self, edict_t* other);
+edict_t* SpawnBadArea(vec3_t mins, vec3_t maxs, float lifespan, edict_t* owner);
+edict_t* CheckForBadArea(edict_t* ent);
+qboolean MarkTeslaArea(edict_t* self, edict_t* tesla);
+void InitHintPaths(void);
+void PredictAim(edict_t* target, vec3_t start, float bolt_speed, qboolean eye_height,
+	float offset, vec3_t aimdir, vec3_t aimpoint);
+qboolean below(edict_t* self, edict_t* other);
+void drawbbox(edict_t* self);
+void M_MonsterDodge(edict_t* self, edict_t* attacker, float eta, trace_t* tr);
+void monster_duck_down(edict_t* self);
+void monster_duck_hold(edict_t* self);
+void monster_duck_up(edict_t* self);
+qboolean has_valid_enemy(edict_t* self);
+void TargetTesla(edict_t* self, edict_t* tesla);
+void hintpath_stop(edict_t* self);
+edict_t* PickCoopTarget(edict_t* self);
+int CountPlayers(void);
+void monster_jump_start(edict_t* self);
+qboolean monster_jump_finished(edict_t* self);
 
 
 //
 // g_sphere.c
 //
-void Defender_Launch (edict_t *self);
-void Vengeance_Launch (edict_t *self);
-void Hunter_Launch (edict_t *self);
+void Defender_Launch(edict_t* self);
+void Vengeance_Launch(edict_t* self);
+void Hunter_Launch(edict_t* self);
 
 //
 // g_newdm.c
 //
 void InitGameRules(void);
-edict_t *DoRandomRespawn (edict_t *ent);
-void PrecacheForRandomRespawn (void);
-qboolean Tag_PickupToken (edict_t *ent, edict_t *other);
-void Tag_DropToken (edict_t *ent, gitem_t *item);
-void Tag_PlayerDeath(edict_t *targ, edict_t *inflictor, edict_t *attacker);
-void fire_doppleganger (edict_t *ent, vec3_t start, vec3_t aimdir);
+edict_t* DoRandomRespawn(edict_t* ent);
+void PrecacheForRandomRespawn(void);
+qboolean Tag_PickupToken(edict_t* ent, edict_t* other);
+void Tag_DropToken(edict_t* ent, gitem_t* item);
+void Tag_PlayerDeath(edict_t* targ, edict_t* inflictor, edict_t* attacker);
+void fire_doppleganger(edict_t* ent, vec3_t start, vec3_t aimdir);
 
 //
 // g_radio.c
@@ -1314,19 +1314,19 @@ void stuffcmd(edict_t* ent, char* s); //QW// for use in g_offworld.c
 //
 // g_spawn.c
 //
-edict_t *CreateMonster(vec3_t origin, vec3_t angles, char *classname);
-edict_t *CreateFlyMonster(vec3_t origin, vec3_t angles, vec3_t mins,
-		vec3_t maxs, char *classname);
-edict_t *CreateGroundMonster(vec3_t origin, vec3_t angles, vec3_t mins,
-		vec3_t maxs, char *classname, int height);
+edict_t* CreateMonster(vec3_t origin, vec3_t angles, char* classname);
+edict_t* CreateFlyMonster(vec3_t origin, vec3_t angles, vec3_t mins,
+	vec3_t maxs, char* classname);
+edict_t* CreateGroundMonster(vec3_t origin, vec3_t angles, vec3_t mins,
+	vec3_t maxs, char* classname, int height);
 qboolean FindSpawnPoint(vec3_t startpoint, vec3_t mins, vec3_t maxs,
-		vec3_t spawnpoint, float maxMoveUp);
-qboolean CheckSpawnPoint (vec3_t origin, vec3_t mins, vec3_t maxs);
+	vec3_t spawnpoint, float maxMoveUp);
+qboolean CheckSpawnPoint(vec3_t origin, vec3_t mins, vec3_t maxs);
 qboolean CheckGroundSpawnPoint(vec3_t origin, vec3_t entMins, vec3_t entMaxs,
-		float height, float gravity);
-void DetermineBBox (char *classname, vec3_t mins, vec3_t maxs);
-void SpawnGrow_Spawn (vec3_t startpos, int size);
-void Widowlegs_Spawn (vec3_t startpos, vec3_t angles);
+	float height, float gravity);
+void DetermineBBox(char* classname, vec3_t mins, vec3_t maxs);
+void SpawnGrow_Spawn(vec3_t startpos, int size);
+void Widowlegs_Spawn(vec3_t startpos, vec3_t angles);
 
 // ROGUE PROTOTYPES
 //====================
@@ -1334,24 +1334,24 @@ void Widowlegs_Spawn (vec3_t startpos, vec3_t angles);
 //
 // z_item.c
 //
-qboolean EMPNukeCheck(edict_t	*ent, vec3_t pos); /* FS: Zaero specific game dll changes */
+qboolean EMPNukeCheck(edict_t* ent, vec3_t pos); /* FS: Zaero specific game dll changes */
 
 //
 // z_weapon.c
 //
-void fire_bb (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius); /* FS: Zaero specific game dll changes */
-void fire_flare (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage); /* FS: Zaero specific game dll changes */
+void fire_bb(edict_t* self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius); /* FS: Zaero specific game dll changes */
+void fire_flare(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage); /* FS: Zaero specific game dll changes */
 
 //
 // z_ai.c
 //
-void ai_schoolStand (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolRun (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolWalk (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolCharge (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolBackWalk (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolSideStepRight (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
-void ai_schoolSideStepLeft (edict_t *self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolStand(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolRun(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolWalk(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolCharge(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolBackWalk(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolSideStepRight(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
+void ai_schoolSideStepLeft(edict_t* self, float dist); /* FS: Zaero specific game dll changes */
 
 
 //============================================================================
@@ -1404,9 +1404,9 @@ typedef struct client_persistant_s
 	int			max_empnuke; /* FS: Zaero specific game dll changes */
 	int			max_plasmashield; /* FS: Zaero specific game dll changes */
 
-	gitem_t		*weapon;
-	gitem_t		*lastweapon;
-	gitem_t		*lastweapon2; // this if for inventory hiding items /* FS: Zaero specific game dll changes */
+	gitem_t* weapon;
+	gitem_t* lastweapon;
+	gitem_t* lastweapon2; // this if for inventory hiding items /* FS: Zaero specific game dll changes */
 
 	int			power_cubes;	// used for tracking the cubes in coop games
 	int			score;			// for calculating total unit score in coop games
@@ -1429,8 +1429,8 @@ typedef struct client_persistant_s
 	int			max_mines;
 	int			max_flechettes;
 	int			max_rounds;
-//ROGUE
-//=========
+	//ROGUE
+	//=========
 
 	float visorFrames; /* FS: Zaero specific game dll changes */
 	float name_timeout; /* FS: Added */
@@ -1449,7 +1449,7 @@ typedef struct client_respawn_s
 	qboolean	isVIP; /* FS: Coop: VIP goodies */
 	qboolean	didMotd; /* FS: Coop: MOTD */
 	qboolean	noSummon; /* FS: Blinky Cam */
-    int         radio_power; // Its a toggle that functions as the power
+	int         radio_power; // Its a toggle that functions as the power
 } client_respawn_t;
 
 // this structure is cleared on each PutClientInServer(),
@@ -1467,8 +1467,8 @@ struct gclient_s
 
 	qboolean	showscores;			// set layout stat
 	qboolean inmenu;                /* in menu */
-	pmenuhnd_t *menu;               /* current menu */
-	void		(*menu_update)(edict_t *ent); /* FS: Added */
+	pmenuhnd_t* menu;               /* current menu */
+	void		(*menu_update)(edict_t* ent); /* FS: Added */
 	qboolean	showinventory;		// set layout stat
 	qboolean	showhelp;
 	qboolean	showhelpicon;
@@ -1481,7 +1481,7 @@ struct gclient_s
 
 	qboolean	weapon_thunk;
 
-	gitem_t		*newweapon;
+	gitem_t* newweapon;
 
 	// sum up damage over an entire frame, so
 	// shotgun blasts give a single big kick
@@ -1543,21 +1543,21 @@ struct gclient_s
 
 	float		respawn_time;		// can respawn when time > this
 
-	edict_t		*chase_target;		// player we are chasing
+	edict_t* chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
 	BlinkyClient_t blinky_client; /* FS: Blinky's Coop camera */
 	float menutime;                 /* time to update menu */
 	qboolean menudirty;
 
-//=======
-//ROGUE
+	//=======
+	//ROGUE
 	float		double_framenum;
 	float		ir_framenum;
-//	float		torch_framenum;
+	//	float		torch_framenum;
 	float		nuke_framenum;
 	float		tracker_pain_framenum;
 
-	edict_t		*owned_sphere;		// this points to the player's sphere
+	edict_t* owned_sphere;		// this points to the player's sphere
 //ROGUE
 //=======
 
@@ -1568,9 +1568,9 @@ struct gclient_s
 	int flashTime; /* FS: Zaero specific game dll changes */
 	int flashBase; /* FS: Zaero specific game dll changes */
 
-	edict_t		*zCameraTrack;    // the entity to see through /* FS: Zaero specific game dll changes */
+	edict_t* zCameraTrack;    // the entity to see through /* FS: Zaero specific game dll changes */
 	vec3_t     zCameraOffset;   // offset from camera origin /* FS: Zaero specific game dll changes */
-	edict_t		*zCameraLocalEntity; /* FS: Zaero specific game dll changes */
+	edict_t* zCameraLocalEntity; /* FS: Zaero specific game dll changes */
 	float zCameraStaticFramenum; /* FS: Zaero specific game dll changes */
 
 	qboolean showOrigin; /* FS: Zaero specific game dll changes */
@@ -1596,13 +1596,13 @@ struct gclient_s
 	int		flashtype;
 
 	int             hook_state;
-    edict_t        *hook;
+	edict_t* hook;
 };
 
 struct edict_s
 {
 	entity_state_t	s;
-	struct gclient_s	*client;	// NULL if not a player
+	struct gclient_s* client;	// NULL if not a player
 									// the server expects the first part
 									// of gclient_s to be a player_state_t
 									// but the rest of it is opaque
@@ -1612,7 +1612,7 @@ struct edict_s
 
 	// FIXME: move these fields to a server private sv_entity_t
 	link_t		area;				// linked to a division node or leaf
-	
+
 	int			num_clusters;		// if -1, use headnode instead
 	int			clusternums[MAX_ENT_CLUSTERS];
 	int			headnode;			// unused if num_clusters != -1
@@ -1625,7 +1625,7 @@ struct edict_s
 	vec3_t		absmin, absmax, size;
 	solid_t		solid;
 	int			clipmask;
-	edict_t		*owner;
+	edict_t* owner;
 
 
 	// DO NOT MODIFY ANYTHING ABOVE THIS, THE SERVER
@@ -1635,30 +1635,30 @@ struct edict_s
 	int			movetype;
 	int			flags;
 
-	char		*model;
-	char		*model2; /* FS: Zaero specific game dll changes */
-	char		*model3; /* FS: Zaero specific game dll changes */
-	char		*model4; /* FS: Zaero specific game dll changes */
+	char* model;
+	char* model2; /* FS: Zaero specific game dll changes */
+	char* model3; /* FS: Zaero specific game dll changes */
+	char* model4; /* FS: Zaero specific game dll changes */
 	float		freetime;			// sv.time when the object was freed
-	
+
 	//
 	// only used locally in game, not by server
 	//
-	char		*message;
-	char		*classname;
+	char* message;
+	char* classname;
 	int			spawnflags;
 
 	float		timestamp;
 
 	float		angle;			// set in qe3, -1 = up, -2 = down
-	char		*target;
-	char		*targetname;
-	char		*killtarget;
-	char		*team;
-	char		*pathtarget;
-	char		*deathtarget;
-	char		*combattarget;
-	edict_t		*target_ent;
+	char* target;
+	char* targetname;
+	char* killtarget;
+	char* team;
+	char* pathtarget;
+	char* deathtarget;
+	char* combattarget;
+	edict_t* target_ent;
 
 	float		speed, accel, decel, aspeed; /* FS: Zaero specific game dll changes: aspeed added */
 	vec3_t		movedir;
@@ -1671,21 +1671,21 @@ struct edict_s
 	float		gravity;		// per entity gravity multiplier (1.0 is normal)
 								// use for lowgrav artifact, flares
 
-	edict_t		*goalentity;
-	edict_t		*movetarget;
+	edict_t* goalentity;
+	edict_t* movetarget;
 	float		yaw_speed;
 	float		ideal_yaw;
 
 	float		nextthink;
-	void		(*prethink) (edict_t *ent);
-	void		(*think)(edict_t *self);
-	void		(*blocked)(edict_t *self, edict_t *other);	//move to moveinfo?
-	void (*touch)(edict_t *self, edict_t *other, cplane_t *plane,
-			csurface_t *surf);
-	void		(*use)(edict_t *self, edict_t *other, edict_t *activator);
-	void		(*pain)(edict_t *self, edict_t *other, float kick, int damage);
-	void (*die)(edict_t *self, edict_t *inflictor, edict_t *attacker,
-			int damage, vec3_t point);
+	void		(*prethink) (edict_t* ent);
+	void		(*think)(edict_t* self);
+	void		(*blocked)(edict_t* self, edict_t* other);	//move to moveinfo?
+	void (*touch)(edict_t* self, edict_t* other, cplane_t* plane,
+		csurface_t* surf);
+	void		(*use)(edict_t* self, edict_t* other, edict_t* activator);
+	void		(*pain)(edict_t* self, edict_t* other, float kick, int damage);
+	void (*die)(edict_t* self, edict_t* inflictor, edict_t* attacker,
+		int damage, vec3_t point);
 
 	float		touch_debounce_time;		// are all these legit?  do we need more/less of them?
 	float		pain_debounce_time;
@@ -1701,7 +1701,7 @@ struct edict_s
 
 	float		powerarmor_time;
 
-	char		*map;			// target_changelevel
+	char* map;			// target_changelevel
 
 	int			viewheight;		// height above origin where eyesight is determined
 	int			takedamage;
@@ -1711,17 +1711,17 @@ struct edict_s
 	int			sounds;			//make this a spawntemp var?
 	int			count;
 
-	edict_t		*chain;
-	edict_t		*enemy;
-	edict_t		*oldenemy;
-	edict_t		*activator;
-	edict_t		*groundentity;
+	edict_t* chain;
+	edict_t* enemy;
+	edict_t* oldenemy;
+	edict_t* activator;
+	edict_t* groundentity;
 	int			groundentity_linkcount;
-	edict_t		*teamchain;
-	edict_t		*teammaster;
+	edict_t* teamchain;
+	edict_t* teammaster;
 
-	edict_t		*mynoise;		// can go in client only
-	edict_t		*mynoise2;
+	edict_t* mynoise;		// can go in client only
+	edict_t* mynoise2;
 
 	int			noise_index;
 	int			noise_index2;
@@ -1748,13 +1748,13 @@ struct edict_s
 
 	int			style;			// also used as areaportal number
 
-	gitem_t		*item;			// for bonus items
+	gitem_t* item;			// for bonus items
 
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
 
-	char		*musictrack;	// Knightmare- for specifying OGG or CD track
+	char* musictrack;	// Knightmare- for specifying OGG or CD track
 
 	int			orders; /* FS: Coop: Xatrix specific */
 //=========
@@ -1762,16 +1762,16 @@ struct edict_s
 	int			plat2flags;
 	vec3_t		offset;
 	vec3_t		gravityVector;
-	edict_t		*bad_area;
-	edict_t		*hint_chain;
-	edict_t		*monster_hint_chain;
-	edict_t		*target_hint_chain;
+	edict_t* bad_area;
+	edict_t* hint_chain;
+	edict_t* monster_hint_chain;
+	edict_t* target_hint_chain;
 	int			hint_chain_id;
-//ROGUE
-//=========
+	//ROGUE
+	//=========
 
 	int			coopBackpackInventory[MAX_ITEMS]; /* FS: Coop: Spawn a backpack with our stuff */
-	char		*coopBackpackNetname; /* FS: Coop: Spawn a backpack with our stuff */
+	char* coopBackpackNetname; /* FS: Coop: Spawn a backpack with our stuff */
 	int			coopBackpackMaxHealth; /* FS: Coop: Backpack max health */
 	int			coopBackpackAmmoUpgrade; /* FS: Coop: Backpack bandolier and ammo packs */
 
@@ -1785,32 +1785,32 @@ struct edict_s
 	// for func_door, also used by monster_autocannon, and misc_securitycamera
 	int active;
 	int seq;
-	
+
 	// between level saves/loads
 	int spawnflags2;
 	int oldentnum;
-	
+
 	// titan laser
-	edict_t *laser;
+	edict_t* laser;
 
 	float weaponsound_time;
 
 	// schooling info
-	edict_t *zRaduisList, *zSchoolChain;
+	edict_t* zRaduisList, * zSchoolChain;
 	float zDistance;
 
 	// this is for MOVETYPE_RIDE
-	edict_t *rideWith[2];
+	edict_t* rideWith[2];
 	vec3_t rideWithOffset[2];
 
 	// camera number
 	vec3_t mangle;
-	
+
 	// time left for the visor (stored if a visor is dropped)
 	int visorFrames;
 
 	// monster team
-	char *mteam;
+	char* mteam;
 
 	// for random func_timer targets
 	char targets[16][MAX_QPATH];
@@ -1822,7 +1822,7 @@ struct edict_s
 	float bossFireTimeout;
 	int bossFireCount;
 
-	edict_t		*hook_laser;
+	edict_t* hook_laser;
 };
 
 //zaero debug includes (need type info)
@@ -1853,36 +1853,36 @@ typedef struct dm_game_rs
 {
 	void		(*GameInit)(void);
 	void		(*PostInitSetup)(void);
-	void		(*ClientBegin) (edict_t *ent);
-	void		(*SelectSpawnPoint) (edict_t *ent, vec3_t origin, vec3_t angles);
-	void		(*PlayerDeath)(edict_t *targ, edict_t *inflictor, edict_t *attacker);
-	void		(*Score)(edict_t *attacker, edict_t *victim, int scoreChange);
-	void		(*PlayerEffects)(edict_t *ent);
-	void		(*DogTag)(edict_t *ent, edict_t *killer, char **pic);
-	void		(*PlayerDisconnect)(edict_t *ent);
-	int			(*ChangeDamage)(edict_t *targ, edict_t *attacker, int damage, int mod);
-	int			(*ChangeKnockback)(edict_t *targ, edict_t *attacker, int knockback, int mod);
+	void		(*ClientBegin) (edict_t* ent);
+	void		(*SelectSpawnPoint) (edict_t* ent, vec3_t origin, vec3_t angles);
+	void		(*PlayerDeath)(edict_t* targ, edict_t* inflictor, edict_t* attacker);
+	void		(*Score)(edict_t* attacker, edict_t* victim, int scoreChange);
+	void		(*PlayerEffects)(edict_t* ent);
+	void		(*DogTag)(edict_t* ent, edict_t* killer, char** pic);
+	void		(*PlayerDisconnect)(edict_t* ent);
+	int			(*ChangeDamage)(edict_t* targ, edict_t* attacker, int damage, int mod);
+	int			(*ChangeKnockback)(edict_t* targ, edict_t* attacker, int knockback, int mod);
 	int			(*CheckDMRules)(void);
 } dm_game_rt;
 
 extern dm_game_rt	DMGame;
 
-void Tag_GameInit (void);
-void Tag_PostInitSetup (void);
-void Tag_PlayerDeath (edict_t *targ, edict_t *inflictor, edict_t *attacker);
-void Tag_Score (edict_t *attacker, edict_t *victim, int scoreChange);
-void Tag_PlayerEffects (edict_t *ent);
-void Tag_DogTag (edict_t *ent, edict_t *killer, char **pic);
-void Tag_PlayerDisconnect (edict_t *ent);
-int  Tag_ChangeDamage (edict_t *targ, edict_t *attacker, int damage, int mod);
+void Tag_GameInit(void);
+void Tag_PostInitSetup(void);
+void Tag_PlayerDeath(edict_t* targ, edict_t* inflictor, edict_t* attacker);
+void Tag_Score(edict_t* attacker, edict_t* victim, int scoreChange);
+void Tag_PlayerEffects(edict_t* ent);
+void Tag_DogTag(edict_t* ent, edict_t* killer, char** pic);
+void Tag_PlayerDisconnect(edict_t* ent);
+int  Tag_ChangeDamage(edict_t* targ, edict_t* attacker, int damage, int mod);
 
-void DBall_GameInit (void);
-void DBall_ClientBegin (edict_t *ent);
-void DBall_SelectSpawnPoint (edict_t *ent, vec3_t origin, vec3_t angles);
-int  DBall_ChangeKnockback (edict_t *targ, edict_t *attacker, int knockback, int mod);
-int  DBall_ChangeDamage (edict_t *targ, edict_t *attacker, int damage, int mod);
-void DBall_PostInitSetup (void);
-int  DBall_CheckDMRules (void);
+void DBall_GameInit(void);
+void DBall_ClientBegin(edict_t* ent);
+void DBall_SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles);
+int  DBall_ChangeKnockback(edict_t* targ, edict_t* attacker, int knockback, int mod);
+int  DBall_ChangeDamage(edict_t* targ, edict_t* attacker, int damage, int mod);
+void DBall_PostInitSetup(void);
+int  DBall_CheckDMRules(void);
 //void Tag_PlayerDeath (edict_t *targ, edict_t *inflictor, edict_t *attacker);
 //void Tag_Score (edict_t *attacker, edict_t *victim, int scoreChange);
 //void Tag_PlayerEffects (edict_t *ent);

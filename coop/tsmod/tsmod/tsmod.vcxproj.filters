@@ -87,7 +87,4 @@
     </None>
     <None Include="..\GNUmakefile" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\readme.txt" />
-  </ItemGroup>
 </Project>

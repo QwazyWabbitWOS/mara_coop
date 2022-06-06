@@ -116,16 +116,15 @@
     <CustomBuild Include="q2adminvote.txt">
       <Filter>Configuration Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="readme.txt">
-      <Filter>Configuration Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="q2admin.def">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="GNUmakefile" />
-    <None Include="BSDmakefile" />
+    <None Include="readme.md">
+      <Filter>Configuration Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="zbot.rc">

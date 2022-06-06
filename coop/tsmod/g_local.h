@@ -8,7 +8,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the GNU General Public License for more details.
 
@@ -39,8 +39,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /* Use our local regex.c and .h on Windows but
    Posix library regex on *nix systems.
-   This makes it 64-bit clean on GNU Linux */
-/* Added __GNUC__ condition for MinGW64 to use its own regex lib. //QW// */
+   This makes it 64-bit clean on GNU Linux
+ */
+ /* Added __GNUC__ condition for MinGW64 to use its own regex lib. //QW// */
 #if defined _WIN32 && !defined __GNUC__
 #include "regex.h"
 #else
@@ -113,10 +114,8 @@ typedef enum
 {
 	DAMAGE_NO,
 	DAMAGE_YES,   // will take damage if hit
-	DAMAGE_AIM   // auto targeting recognizes this
-}
-
-damage_t;
+	DAMAGE_AIM    // auto targeting recognizes this
+} damage_t;
 
 typedef enum
 {
@@ -124,9 +123,7 @@ typedef enum
 	WEAPON_ACTIVATING,
 	WEAPON_DROPPING,
 	WEAPON_FIRING
-}
-
-weaponstate_t;
+} weaponstate_t;
 
 typedef enum
 {
@@ -136,9 +133,7 @@ typedef enum
 	AMMO_GRENADES,
 	AMMO_CELLS,
 	AMMO_SLUGS
-}
-
-ammo_t;
+} ammo_t;
 
 //deadflag
 #define DEAD_NO     0
@@ -226,9 +221,7 @@ typedef enum
 	MOVETYPE_TOSS,   // gravity
 	MOVETYPE_FLYMISSILE, // extra size to monsters
 	MOVETYPE_BOUNCE
-}
-
-movetype_t;
+} movetype_t;
 
 // this structure is left intact through an entire game
 // it should be initialized at dll load time, and read/written to
@@ -239,7 +232,7 @@ typedef struct
 	char  helpmessage2[512];
 	int   helpchanged; // flash F1 icon if non 0, play sound
 	// and increment only if 1, 2, or 3
-	gclient_t *clients;  // [maxclients]
+	gclient_t* clients;  // [maxclients]
 
 	// can't store spawnpoint in level, because
 	// it would get overwritten by the savegame restore
@@ -256,9 +249,7 @@ typedef struct
 	int   num_items;
 
 	qboolean autosaved;
-	}
-	
-game_locals_t;
+} game_locals_t;
 
 // this structure is cleared as each map is entered
 // it is read/written to the level.sav file for savegames
@@ -273,18 +264,18 @@ typedef struct
 
 	// intermission state
 	float  intermissiontime;  // time the intermission was started
-	char  *changemap;
+	char* changemap;
 	int   exitintermission;
 	vec3_t  intermission_origin;
 	vec3_t  intermission_angle;
 
-	edict_t  *sight_client; // changed once each frame for coop games
+	edict_t* sight_client; // changed once each frame for coop games
 
-	edict_t  *sight_entity;
+	edict_t* sight_entity;
 	int   sight_entity_framenum;
-	edict_t  *sound_entity;
+	edict_t* sound_entity;
 	int   sound_entity_framenum;
-	edict_t  *sound2_entity;
+	edict_t* sound2_entity;
 	int   sound2_entity_framenum;
 
 	int   pic_health;
@@ -298,12 +289,10 @@ typedef struct
 	int   total_monsters;
 	int   killed_monsters;
 
-	edict_t  *current_entity; // entity running from G_RunFrame
+	edict_t* current_entity; // entity running from G_RunFrame
 	int   body_que;   // dead bodies
 	int   power_cubes;  // ugly necessity for coop
-	}
-	
-level_locals_t;
+} level_locals_t;
 
 extern game_locals_t   game;
 extern level_locals_t   level;
@@ -348,19 +337,15 @@ typedef enum {
 	F_ITEM,    // index on disk, pointer in memory
 	F_CLIENT,   // index on disk, pointer in memory
 	F_IGNORE
-}
-
-fieldtype_t;
+} fieldtype_t;
 
 typedef struct
-	{
-		char *name;
-		int  ofs;
-		fieldtype_t type;
-		int  flags;
-	}
-	
-field_t;
+{
+	char* name;
+	int  ofs;
+	fieldtype_t type;
+	int  flags;
+} field_t;
 
 // damage flags
 #define DAMAGE_RADIUS			0x00000001 // damage was indirect
@@ -399,7 +384,7 @@ struct gclient_s
 struct edict_s
 {
 	entity_state_t  s;
-	struct gclient_s *client; // NULL if not a player
+	struct gclient_s* client; // NULL if not a player
 	// the server expects the first part
 	// of gclient_s to be a player_state_t
 	// but the rest of it is opaque
@@ -421,7 +406,7 @@ struct edict_s
 	vec3_t  absmin, absmax, size;
 	solid_t  solid;
 	int   clipmask;
-	edict_t  *owner;
+	edict_t* owner;
 
 	// DO NOT MODIFY ANYTHING ABOVE THIS, THE SERVER
 	// EXPECTS THE FIELDS IN THAT ORDER!
@@ -462,7 +447,7 @@ struct chatflood_s
 
 typedef struct banstruct
 {
-	regex_t    *r;
+	regex_t* r;
 	qboolean   exclude;
 	byte    type;
 	byte    loadType;
@@ -470,16 +455,14 @@ typedef struct banstruct
 	byte    subnetmask;
 	char    nick[80];
 	char    password[80];
-	char    *msg;
+	char* msg;
 	long    maxnumberofconnects;
 	long    numberofconnects;
 	long    bannum;
 	float    timeout;
 	struct chatflood_s floodinfo;
-	struct banstruct *next;
-}
-
-baninfo_t;
+	struct banstruct* next;
+} baninfo_t;
 
 #define NOTUSED   0
 #define NICKALL   1
@@ -493,13 +476,13 @@ baninfo_t;
 
 typedef struct chatbanstruct
 {
-	regex_t     *r;
+	regex_t* r;
 	byte     type;
 	byte     loadType;
 	long     bannum;
 	char     chat[256];
-	char     *msg;
-	struct chatbanstruct *next;
+	char* msg;
+	struct chatbanstruct* next;
 } chatbaninfo_t;
 
 #define CNOTUSED  0
@@ -511,7 +494,7 @@ typedef struct cmdqueue_s
 	byte     command;
 	float     timeout;
 	unsigned long   data;
-	char     *str;
+	char* str;
 } CMDQUEUE;
 
 //*** UPDATE START ***
@@ -547,7 +530,7 @@ typedef struct proxyinfo_s
 	int    maxfps;
 	int    cl_pitchspeed;
 	float   cl_anglespeedkey;
-	baninfo_t  *baninfo;
+	baninfo_t* baninfo;
 	long   namechangetimeout;
 	int    namechangecount;
 	long   skinchangetimeout;
@@ -555,7 +538,7 @@ typedef struct proxyinfo_s
 	long   chattimeout;
 	int    chatcount;
 	char   userinfo[MAX_INFO_STRING + 45];
-	FILE   *stuffFile;
+	FILE* stuffFile;
 	int    impulsesgenerated;
 	char   lastcmd[8192];
 	struct   chatflood_s floodinfo;
@@ -569,16 +552,16 @@ typedef struct proxyinfo_s
 	int    msg;
 
 	// used to test the alias (and connect) command with random strings
-	char   hack_teststring1[RANDOM_STRING_LENGTH+1];
-	char   hack_teststring2[RANDOM_STRING_LENGTH+1];
-	char   hack_teststring3[RANDOM_STRING_LENGTH+1];
-	char   hack_timescale[RANDOM_STRING_LENGTH+1];
+	char   hack_teststring1[RANDOM_STRING_LENGTH + 1];
+	char   hack_teststring2[RANDOM_STRING_LENGTH + 1];
+	char   hack_teststring3[RANDOM_STRING_LENGTH + 1];
+	char   hack_timescale[RANDOM_STRING_LENGTH + 1];
 	int    hacked_disconnect;
 	byte   hacked_disconnect_ip[4];
 	int    checked_hacked_exe;
 
 	// used to test the variables check list
-	char   hack_checkvar[RANDOM_STRING_LENGTH+1];
+	char   hack_checkvar[RANDOM_STRING_LENGTH + 1];
 	int    checkvar_idx;
 
 	//*** UPDATE START ***
@@ -781,7 +764,7 @@ enum zb_logtypesenum
 /* //QwazyWabbit//
  proxyinfo[client].retries is unsigned char
  and MAXSTARTTRY was set at 500. Let's set
- it to something reachable for that type. 
+ it to something reachable for that type.
  Note: MAXDETECTRETRIES for RatBot detection
  is much smaller. I have no idea what's
  appropriate here, the 500 value goes back to
@@ -793,7 +776,7 @@ enum zb_logtypesenum
 #define getEntOffset(ent)  (((char *)ent - (char *)globals.edicts) / globals.edict_size)
 #define getEnt(entnum)   (edict_t *)((char *)globals.edicts + (globals.edict_size * (entnum)))
 
-// where the command can't be run?
+ // where the command can't be run?
 #define CMDWHERE_CFGFILE  0x01
 #define CMDWHERE_CLIENTCONSOLE 0x02
 #define CMDWHERE_SERVERCONSOLE 0x04
@@ -804,23 +787,23 @@ enum zb_logtypesenum
 #define CMDTYPE_NUMBER   2
 #define CMDTYPE_STRING   3
 
-typedef void     CMDRUNFUNC(int startarg, edict_t *ent, int client);
-typedef void     CMDINITFUNC(char *arg);
+typedef void     CMDRUNFUNC(int startarg, edict_t* ent, int client);
+typedef void     CMDINITFUNC(char* arg);
 
 typedef struct
 {
-	char    *cmdname;
+	char* cmdname;
 	byte    cmdwhere;
 	byte    cmdtype;
-	void    *datapoint;
-	CMDRUNFUNC   *runfunc;
-	CMDINITFUNC   *initfunc;
+	void* datapoint;
+	CMDRUNFUNC* runfunc;
+	CMDINITFUNC* initfunc;
 } zbotcmd_t;
 
 extern game_import_t gi;
 extern game_export_t globals;
-extern game_export_t *dllglobals;
-extern cvar_t   *rcon_password, *gamedir, *maxclients, *logfile, *rconpassword, *port, *q2admintxt, *q2adminbantxt; // UPDATE
+extern game_export_t* dllglobals;
+extern cvar_t* rcon_password, * gamedir, * maxclients, * logfile, * rconpassword, * port, * q2admintxt, * q2adminbantxt; // UPDATE
 
 extern char    dllname[512];
 extern char    zbotuserdisplay[256];
@@ -882,7 +865,7 @@ extern int    proxy_nitro2;
 extern int    q2adminrunmode;
 extern int    maxMsgLevel;
 
-extern char    *zbotversion;
+extern char* zbotversion;
 extern char    zbotmotd[256];
 extern char    motd[4096];
 extern char    clientVoteCommand[256];
@@ -950,8 +933,8 @@ extern int    skinChangeFloodProtectSilence;
 
 extern struct   chatflood_s floodinfo;
 
-extern baninfo_t  *banhead;
-extern chatbaninfo_t *cbanhead;
+extern baninfo_t* banhead;
+extern chatbaninfo_t* cbanhead;
 
 extern qboolean   IPBanning_Enable;
 extern qboolean   NickBanning_Enable;
@@ -964,11 +947,11 @@ extern qboolean   timescaledetect;
 
 extern char    defaultBanMsg[256];
 extern char    defaultChatBanMsg[256];
-extern char    *currentBanMsg;
+extern char* currentBanMsg;
 
-extern proxyinfo_t   *proxyinfo;
-extern proxyinfo_t   *proxyinfoBase;
-extern proxyreconnectinfo_t *reconnectproxyinfo;
+extern proxyinfo_t* proxyinfo;
+extern proxyinfo_t* proxyinfoBase;
+extern proxyreconnectinfo_t* reconnectproxyinfo;
 extern zbotcmd_t   zbotCommands[];
 
 extern int    clientsidetimeout;
@@ -977,7 +960,7 @@ extern int    lframenum;
 
 extern float   ltime;
 
-extern char    *impulsemessages[];
+extern char* impulsemessages[];
 extern char    cmdpassedvote[2048];
 extern char    cl_pitchspeed_kickmsg[256];
 extern char    cl_anglespeedkey_kickmsg[256];
@@ -1004,7 +987,7 @@ extern int    checkvar_poll_time;
 typedef struct
 {
 	long    reconnecttimeout;
-		unsigned int     retrylistidx;
+	unsigned int     retrylistidx;
 	char    userinfo[MAX_INFO_STRING + 45];
 } reconnect_info;
 
@@ -1079,26 +1062,26 @@ countperformancetimer##instance = 0; \
 // zb_clib.c
 #ifdef Q2ADMINCLIB
 
-char *q2a_strcpy( char *strDestination, const char *strSource );
-char *q2a_strncpy( char *strDest, const char *strSource, size_t count );
-char *q2a_strcat( char *strDestination, const char *strSource );
-char *q2a_strstr( const char *string, const char *strCharSet );
-char *q2a_strchr( const char *string, int c );
-int  q2a_strcmp( const char *string1, const char *string2 );
-size_t q2a_strlen( const char *string );
+char* q2a_strcpy(char* strDestination, const char* strSource);
+char* q2a_strncpy(char* strDest, const char* strSource, size_t count);
+char* q2a_strcat(char* strDestination, const char* strSource);
+char* q2a_strstr(const char* string, const char* strCharSet);
+char* q2a_strchr(const char* string, int c);
+int  q2a_strcmp(const char* string1, const char* string2);
+size_t q2a_strlen(const char* string);
 
-int  q2a_atoi( const char *string );
-double q2a_atof( const char *string );
+int  q2a_atoi(const char* string);
+double q2a_atof(const char* string);
 
-int  q2a_memcmp( const void *buf1, const void *buf2, size_t count );
-void *q2a_memcpy( void *dest, const void *src, size_t count );
-void *q2a_memmove( void *dest, const void *src, size_t count );
-void *q2a_memset( void *dest, int c, size_t count );
+int  q2a_memcmp(const void* buf1, const void* buf2, size_t count);
+void* q2a_memcpy(void* dest, const void* src, size_t count);
+void* q2a_memmove(void* dest, const void* src, size_t count);
+void* q2a_memset(void* dest, int c, size_t count);
 
 #else
 
 #define q2a_strcpy   strcpy
-#define q2a_strncpy   strncpy
+#define q2a_strncpy  strncpy
 #define q2a_strcat   strcat
 #define q2a_strcmp   strcmp
 #define q2a_strstr   strstr
@@ -1110,173 +1093,173 @@ void *q2a_memset( void *dest, int c, size_t count );
 
 #define q2a_memcmp   memcmp
 #define q2a_memcpy   memcpy
-#define q2a_memmove   memmove
+#define q2a_memmove  memmove
 #define q2a_memset   memset
 
 #endif
 
 // zb_cmd.c
 void  readCfgFiles(void);
-void  ClientCommand (edict_t *ent);
-void  ServerCommand (void);
-void  dprintf_internal (char *fmt, ...);
-void  cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...);
-void  bprintf_internal(int printlevel, char *fmt, ...);
-void  AddCommandString_internal(char *text);
-void  stuffNextLine(edict_t *ent, int client);
-char  *getArgs(void);
-int   getClientsFromArg(int client, edict_t *ent, char *cp, char **text);
-edict_t  *getClientFromArg(int client, edict_t *ent, int *cleintret, char *cp, char **text);
+void  ClientCommand(edict_t* ent);
+void  ServerCommand(void);
+void  dprintf_internal(char* fmt, ...);
+void  cprintf_internal(edict_t* ent, int printlevel, char* fmt, ...);
+void  bprintf_internal(int printlevel, char* fmt, ...);
+void  AddCommandString_internal(char* text);
+void  stuffNextLine(edict_t* ent, int client);
+char* getArgs(void);
+int   getClientsFromArg(int client, edict_t* ent, char* cp, char** text);
+edict_t* getClientFromArg(int client, edict_t* ent, int* cleintret, char* cp, char** text);
 
 // zb_util.c
-void  stuffcmd(edict_t *e, char *s);
-int   Q_stricmp (const char *s1, const char *s2);
-char  *Info_ValueForKey (char *s, char *key);
+void  stuffcmd(edict_t* e, char* s);
+int   Q_stricmp(const char* s1, const char* s2);
+char* Info_ValueForKey(char* s, char* key);
 void  copyDllInfo(void);
-int   breakLine(char *buffer, char *buff1, char *buff2, int buff2size);
-int   startContains(char *src, char *cmp);
-int   stringContains(char *buff1, char *buff2);
-int   isBlank(char *buff1);
-char  *processstring(char *output, char *input, int max, char end);
-qboolean getLogicalValue(char *arg);
-int   getLastLine(char *buffer, FILE *dumpfile, long *fpos);
-void  q_strupr(char *c);
+int   breakLine(char* buffer, char* buff1, char* buff2, int buff2size);
+int   startContains(char* src, char* cmp);
+int   stringContains(char* buff1, char* buff2);
+int   isBlank(char* buff1);
+char* processstring(char* output, char* input, int max, char end);
+qboolean getLogicalValue(char* arg);
+int   getLastLine(char* buffer, FILE* dumpfile, long* fpos);
+void  q_strupr(char* c);
 
 // zb_ban.c
-void  banRun(int startarg, edict_t *ent, int client);
-void  reloadbanfileRun(int startarg, edict_t *ent, int client);
+void  banRun(int startarg, edict_t* ent, int client);
+void  reloadbanfileRun(int startarg, edict_t* ent, int client);
 void  readBanLists(void);
-int   checkCheckIfBanned(edict_t *ent, int client);
-void  listbansRun(int startarg, edict_t *ent, int client);
-void  displayNextBan(edict_t *ent, int client, long bannum);
-void  delbanRun(int startarg, edict_t *ent, int client);
-void  chatbanRun(int startarg, edict_t *ent, int client);
-int   checkCheckIfChatBanned(char *txt);
-void  listchatbansRun(int startarg, edict_t *ent, int client);
-void  displayNextChatBan(edict_t *ent, int client, long chatbannum);
-void  delchatbanRun(int startarg, edict_t *ent, int client);
+int   checkCheckIfBanned(edict_t* ent, int client);
+void  listbansRun(int startarg, edict_t* ent, int client);
+void  displayNextBan(edict_t* ent, int client, long bannum);
+void  delbanRun(int startarg, edict_t* ent, int client);
+void  chatbanRun(int startarg, edict_t* ent, int client);
+int   checkCheckIfChatBanned(char* txt);
+void  listchatbansRun(int startarg, edict_t* ent, int client);
+void  displayNextChatBan(edict_t* ent, int client, long chatbannum);
+void  delchatbanRun(int startarg, edict_t* ent, int client);
 void  freeBanLists(void);
 
 // zb_lrcon.c
 void  readLRconLists(void);
-void  reloadlrconfileRun(int startarg, edict_t *ent, int client);
-void  run_lrcon(edict_t *ent, int client);
-void  listlrconsRun(int startarg, edict_t *ent, int client);
-void  displayNextLRCon(edict_t *ent, int client, long lrconnum);
-void  lrconRun(int startarg, edict_t *ent, int client);
-void  lrconDelRun(int startarg, edict_t *ent, int client);
+void  reloadlrconfileRun(int startarg, edict_t* ent, int client);
+void  run_lrcon(edict_t* ent, int client);
+void  listlrconsRun(int startarg, edict_t* ent, int client);
+void  displayNextLRCon(edict_t* ent, int client, long lrconnum);
+void  lrconRun(int startarg, edict_t* ent, int client);
+void  lrconDelRun(int startarg, edict_t* ent, int client);
 void  freeLRconLists(void);
-void  lrcon_reset_rcon_password(int, edict_t *, int);
+void  lrcon_reset_rcon_password(int, edict_t*, int);
 void  check_lrcon_password(void);
 
 // zb_init.c
-void  InitGame (void);
-void  SpawnEntities (char *mapname, char *entities, char *spawnpoint);
-qboolean ClientConnect (edict_t *ent, char *userinfo);
-void  ClientUserinfoChanged (edict_t *ent, char *userinfo);
-void  ClientDisconnect (edict_t *ent);
-void  ClientBegin (edict_t *ent);
-void  WriteGame (char *filename, qboolean autosave);
-void  ReadGame (char *filename);
-void  WriteLevel (char *filename);
-void  ReadLevel (char *filename);
+void  InitGame(void);
+void  SpawnEntities(char* mapname, char* entities, char* spawnpoint);
+qboolean ClientConnect(edict_t* ent, char* userinfo);
+void  ClientUserinfoChanged(edict_t* ent, char* userinfo);
+void  ClientDisconnect(edict_t* ent);
+void  ClientBegin(edict_t* ent);
+void  WriteGame(char* filename, qboolean autosave);
+void  ReadGame(char* filename);
+void  WriteLevel(char* filename);
+void  ReadLevel(char* filename);
 
 // zb_zbot.c
-int   checkForOverflows(edict_t *ent, int client);
-void  serverLogZBot(edict_t *ent, int client);
-void  ClientThink (edict_t *ent, usercmd_t *ucmd);
-void  G_RunFrame (void);
-void  Pmove_internal (pmove_t *pmove);
-void  generateRandomString(char *buffer, int length);
-void  reloadWhoisFileRun(int startarg, edict_t *ent, int client);	//UPDATE
-void  reloadLoginFileRun(int startarg, edict_t *ent, int client);	//UPDATE
+int   checkForOverflows(edict_t* ent, int client);
+void  serverLogZBot(edict_t* ent, int client);
+void  ClientThink(edict_t* ent, usercmd_t* ucmd);
+void  G_RunFrame(void);
+void  Pmove_internal(pmove_t* pmove);
+void  generateRandomString(char* buffer, int length);
+void  reloadWhoisFileRun(int startarg, edict_t* ent, int client);	//UPDATE
+void  reloadLoginFileRun(int startarg, edict_t* ent, int client);	//UPDATE
 
 // zb_msgqueue.c
-void  addCmdQueue(int client, byte command, float timeout, unsigned long data, char *str);
-qboolean getCommandFromQueue(int client, byte *command, unsigned long *data, char **str);
+void  addCmdQueue(int client, byte command, float timeout, unsigned long data, char* str);
+qboolean getCommandFromQueue(int client, byte* command, unsigned long* data, char** str);
 void  removeClientCommand(int client, byte command);
 void  removeClientCommands(int client);
 
 // zb_log.c
 void  loadLogList(void);
 qboolean isLogEvent(enum zb_logtypesenum ltype);
-void  logEvent(enum zb_logtypesenum ltype, int client, edict_t *ent, char *message, int number, float number2);
-void  displaylogfileRun(int startarg, edict_t *ent, int client);
-void  displayLogFileCont(edict_t *ent, int client, long logfilereadpos);
-void  clearlogfileRun(int startarg, edict_t *ent, int client);
-void  logfileRun(int startarg, edict_t *ent, int client);
-void  displayLogFileListCont(edict_t *ent, int client, long logfilenum);
-void  logeventRun(int startarg, edict_t *ent, int client);
-void  displayLogEventListCont(edict_t *ent, int client, long logevent, qboolean onetimeonly);
+void  logEvent(enum zb_logtypesenum ltype, int client, edict_t* ent, char* message, int number, float number2);
+void  displaylogfileRun(int startarg, edict_t* ent, int client);
+void  displayLogFileCont(edict_t* ent, int client, long logfilereadpos);
+void  clearlogfileRun(int startarg, edict_t* ent, int client);
+void  logfileRun(int startarg, edict_t* ent, int client);
+void  displayLogFileListCont(edict_t* ent, int client, long logfilenum);
+void  logeventRun(int startarg, edict_t* ent, int client);
+void  displayLogEventListCont(edict_t* ent, int client, long logevent, qboolean onetimeonly);
 
 // zb_flood.c
 void  freeFloodLists(void);
 void  readFloodLists(void);
-void  reloadFloodFileRun(int startarg, edict_t *ent, int client);
-void  nameChangeFloodProtectInit(char *arg);
-void  nameChangeFloodProtectRun(int startarg, edict_t *ent, int client);
-void  chatFloodProtectInit(char *arg);
-void  chatFloodProtectRun(int startarg, edict_t *ent, int client);
-void  muteRun(int startarg, edict_t *ent, int client);
-void  clientchatfloodprotectRun(int startarg, edict_t *ent, int client);
-qboolean checkForMute(int client, edict_t *ent, qboolean displayMsg);
+void  reloadFloodFileRun(int startarg, edict_t* ent, int client);
+void  nameChangeFloodProtectInit(char* arg);
+void  nameChangeFloodProtectRun(int startarg, edict_t* ent, int client);
+void  chatFloodProtectInit(char* arg);
+void  chatFloodProtectRun(int startarg, edict_t* ent, int client);
+void  muteRun(int startarg, edict_t* ent, int client);
+void  clientchatfloodprotectRun(int startarg, edict_t* ent, int client);
+qboolean checkForMute(int client, edict_t* ent, qboolean displayMsg);
 qboolean checkForFlood(int client);
-qboolean checkforfloodcmds(char *cp);
-void  listfloodsRun(int startarg, edict_t *ent, int client);
-void  displayNextFlood(edict_t *ent, int client, long floodcmd);
-void  floodcmdRun(int startarg, edict_t *ent, int client);
-void  floodDelRun(int startarg, edict_t *ent, int client);
-void  skinChangeFloodProtectInit(char *arg);
-void  skinChangeFloodProtectRun(int startarg, edict_t *ent, int client);
+qboolean checkforfloodcmds(char* cp);
+void  listfloodsRun(int startarg, edict_t* ent, int client);
+void  displayNextFlood(edict_t* ent, int client, long floodcmd);
+void  floodcmdRun(int startarg, edict_t* ent, int client);
+void  floodDelRun(int startarg, edict_t* ent, int client);
+void  skinChangeFloodProtectInit(char* arg);
+void  skinChangeFloodProtectRun(int startarg, edict_t* ent, int client);
 
 // zb_spawn.c
-qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag);
-qboolean checkDisabledEntities(char *classname);
+qboolean ReadSpawnFile(char* spawnname, qboolean onelevelflag);
+qboolean checkDisabledEntities(char* classname);
 void  freeSpawnLists(void);
 void  freeOneLevelSpawnLists(void);
 void  readSpawnLists(void);
-void  reloadSpawnFileRun(int startarg, edict_t *ent, int client);
-void  listspawnsRun(int startarg, edict_t *ent, int client);
-void  displayNextSpawn(edict_t *ent, int client, long floodcmd);
-void  spawncmdRun(int startarg, edict_t *ent, int client);
-void  spawnDelRun(int startarg, edict_t *ent, int client);
-void  linkentity_internal(edict_t *ent);
-void  unlinkentity_internal(edict_t *ent);
+void  reloadSpawnFileRun(int startarg, edict_t* ent, int client);
+void  listspawnsRun(int startarg, edict_t* ent, int client);
+void  displayNextSpawn(edict_t* ent, int client, long floodcmd);
+void  spawncmdRun(int startarg, edict_t* ent, int client);
+void  spawnDelRun(int startarg, edict_t* ent, int client);
+void  linkentity_internal(edict_t* ent);
+void  unlinkentity_internal(edict_t* ent);
 
 // zb_vote.c
 void  freeVoteLists(void);
 void  readVoteLists(void);
-void  reloadVoteFileRun(int startarg, edict_t *ent, int client);
-void  listvotesRun(int startarg, edict_t *ent, int client);
-void  displayNextVote(edict_t *ent, int client, long floodcmd);
-void  votecmdRun(int startarg, edict_t *ent, int client);
-void  voteDelRun(int startarg, edict_t *ent, int client);
-qboolean checkVoteCommand(char *votecmd);
-void  run_vote(edict_t *ent, int client);
+void  reloadVoteFileRun(int startarg, edict_t* ent, int client);
+void  listvotesRun(int startarg, edict_t* ent, int client);
+void  displayNextVote(edict_t* ent, int client, long floodcmd);
+void  votecmdRun(int startarg, edict_t* ent, int client);
+void  voteDelRun(int startarg, edict_t* ent, int client);
+qboolean checkVoteCommand(char* votecmd);
+void  run_vote(edict_t* ent, int client);
 void  checkOnVoting(void);
 
 // zb_zbotcheck.c
-qboolean zbc_ZbotCheck(int client, usercmd_t *ucmd);
+qboolean zbc_ZbotCheck(int client, usercmd_t* ucmd);
 
 // zb_disable.c
 void  freeDisableLists(void);
 void  readDisableLists(void);
-void  reloadDisableFileRun(int startarg, edict_t *ent, int client);
-void  listdisablesRun(int startarg, edict_t *ent, int client);
-void  displayNextDisable(edict_t *ent, int client, long floodcmd);
-void  disablecmdRun(int startarg, edict_t *ent, int client);
-void  disableDelRun(int startarg, edict_t *ent, int client);
-qboolean checkDisabledCommand(char *cmd);
+void  reloadDisableFileRun(int startarg, edict_t* ent, int client);
+void  listdisablesRun(int startarg, edict_t* ent, int client);
+void  displayNextDisable(edict_t* ent, int client, long floodcmd);
+void  disablecmdRun(int startarg, edict_t* ent, int client);
+void  disableDelRun(int startarg, edict_t* ent, int client);
+qboolean checkDisabledCommand(char* cmd);
 
 // zb_checkvar.c
 void  readCheckVarLists(void);
-void  reloadCheckVarFileRun(int startarg, edict_t *ent, int client);
-void  listcheckvarsRun(int startarg, edict_t *ent, int client);
-void  displayNextCheckvar(edict_t *ent, int client, long checkvarcmd);
-void  checkvarcmdRun(int startarg, edict_t *ent, int client);
-void  checkvarDelRun(int startarg, edict_t *ent, int client);
-void  checkVariableTest(edict_t *ent, int client, int idx);
-void  checkVariableValid(edict_t *ent, int client, char *value);
+void  reloadCheckVarFileRun(int startarg, edict_t* ent, int client);
+void  listcheckvarsRun(int startarg, edict_t* ent, int client);
+void  displayNextCheckvar(edict_t* ent, int client, long checkvarcmd);
+void  checkvarcmdRun(int startarg, edict_t* ent, int client);
+void  checkvarDelRun(int startarg, edict_t* ent, int client);
+void  checkVariableTest(edict_t* ent, int client, int idx);
+void  checkVariableValid(edict_t* ent, int client, char* value);
 
 // Pooy's shit
 extern char  client_msg[256];
@@ -1295,7 +1278,7 @@ typedef struct
 	int   level;
 } admin_type;
 
-#define Q2ADMINVERSION   "1.17.48-Strosspot"
+#define Q2ADMINVERSION   "1.17.48-tsmod-2"
 #define DEFAULTQ2AVER   "1.0"
 #define DEFAULTQ2AMSG   "\nThis server requires %s anti cheat client.\n"
 #define MAX_ADMINS    128
@@ -1321,12 +1304,12 @@ extern int num_admins;
 extern int num_q2a_admins;
 
 void Read_Admin_cfg(void);
-void List_Admin_Commands(edict_t *ent,int client);
-int get_admin_level(char *givenpass,char *givenname);
-int get_bypass_level(char *givenpass,char *givenname);
+void List_Admin_Commands(edict_t* ent, int client);
+int get_admin_level(char* givenpass, char* givenname);
+int get_bypass_level(char* givenpass, char* givenname);
 
-void ADMIN_dumpuser(edict_t *ent,int client,int user,qboolean check);
-int  ADMIN_process_command(edict_t *ent,int client);
+void ADMIN_dumpuser(edict_t* ent, int client, int user, qboolean check);
+int  ADMIN_process_command(edict_t* ent, int client);
 
 extern int   client_map_cfg;
 extern qboolean  do_franck_check;
@@ -1344,7 +1327,7 @@ typedef struct priv_s
 } priv_t;
 
 extern   priv_t private_commands[PRIVATE_COMMANDS];
-void   stuff_private_commands(int client,edict_t *ent);
+void   stuff_private_commands(int client, edict_t* ent);
 
 typedef struct user_dyn_s
 {
@@ -1368,19 +1351,19 @@ extern int   timers_max_seconds;
 qboolean   can_do_new_cmds(int client);
 void    whois_write_file(void);
 void    whois_read_file(void);
-void    whois_getid(int client,edict_t *ent);
-void    whois(int client,edict_t *ent);
-void    whois_adduser(int client,edict_t *ent);
-void    whois_newname(int client,edict_t *ent);
-void    whois_update_seen(int client,edict_t *ent);
-void    whois_dumpdetails(int client,edict_t *ent,int userid);
-void    timer_action(int client,edict_t *ent);
-void    timer_stop(int client,edict_t *ent);
-void    timer_start(int client,edict_t *ent);
+void    whois_getid(int client, edict_t* ent);
+void    whois(int client, edict_t* ent);
+void    whois_adduser(int client, edict_t* ent);
+void    whois_newname(int client, edict_t* ent);
+void    whois_update_seen(int client, edict_t* ent);
+void    whois_dumpdetails(int client, edict_t* ent, int userid);
+void    timer_action(int client, edict_t* ent);
+void    timer_stop(int client, edict_t* ent);
+void    timer_start(int client, edict_t* ent);
 
 typedef struct block_model_s
 {
-	char   *model_name;
+	char* model_name;
 } block_model;
 
 extern block_model block_models[MAX_BLOCK_MODELS];

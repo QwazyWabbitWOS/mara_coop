@@ -46,12 +46,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-/*
 #include <assert.h>
-*/
 #include <math.h>
 
-#if defined _WIN32
+//QwazyWabbit// 
+// From VS2015 with linkage to Visual Studio platform toolset v140 or later
+// snprintf is C99 standard compliant and always '\0' terminates.
+// We can now use the standard library function as long as we take care to
+// link to the correct C runtime and not the older CRT libraries.
+// Even so, usage in q2admin explicitly zero terminates the strings.
+#if defined _WIN32 && _MSC_VER < 1900
 //r1ch
 #define	snprintf _snprintf
 #endif
@@ -117,7 +121,7 @@ char *strtok_r(char *s, const char *delim, char **last);
 #define MAX_TOKEN_CHARS  128  // max length of an individual token
 
 #define MAX_QPATH   64  // max length of a quake game pathname
-#define MAX_OSPATH   256  // max length of a filesystem pathname
+#define MAX_OSPATH   260  // max length of a filesystem pathname
 
 //
 // per-level limits
@@ -233,7 +237,7 @@ void AddPointToBounds (vec3_t v, vec3_t mins, vec3_t maxs);
 int VectorCompare (vec3_t v1, vec3_t v2);
 vec_t VectorLength (vec3_t v);
 void CrossProduct (vec3_t v1, vec3_t v2, vec3_t cross);
-vec_t VectorNormalize (vec3_t v);		// returns vector length
+vec_t VectorNormalize (vec3_t v);  // returns vector length
 vec_t VectorNormalize2 (vec3_t v, vec3_t out);
 void VectorInverse (vec3_t v);
 void VectorScale (vec3_t in, vec_t scale, vec3_t out);
@@ -244,7 +248,7 @@ void R_ConcatTransforms (float in1[3][4], float in2[3][4], float out[3][4]);
 
 void AngleVectors (vec3_t angles, vec3_t forward, vec3_t right, vec3_t up);
 int BoxOnPlaneSide (vec3_t emins, vec3_t emaxs, struct cplane_s *plane);
-float	anglemod(float a);
+float anglemod(float a);
 float LerpAngle (float a1, float a2, float frac);
 
 #define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
@@ -363,7 +367,7 @@ CVARS (console variables)
 */
 
 #ifndef CVAR
-#define	CVAR
+#define CVAR
 
 #define	CVAR_ARCHIVE	1	// set to cause it to be saved to vars.rc
 #define	CVAR_USERINFO	2	// added to userinfo  when changed
@@ -974,6 +978,11 @@ ELEMENTS COMMUNICATED ACROSS THE NET
 #define CS_GENERAL			(CS_PLAYERSKINS+MAX_CLIENTS)
 #define	MAX_CONFIGSTRINGS	(CS_GENERAL+MAX_GENERAL)
 
+//QW// The 2080 magic number comes from q_shared.h of the original game.
+// No game mod can go over this 2080 limit.
+#if (MAX_CONFIGSTRINGS > 2080)
+	#error MAX_CONFIGSTRINGS > 2080
+#endif
 
 //==============================================
 
@@ -1025,7 +1034,7 @@ entity_state_t;
 
 // player_state_t is the information needed in addition to pmove_state_t
 // to rendered a view.  There will only be 10 player_state_t sent each second,
-// but the number of pmove_state_t changes will be reletive to client
+// but the number of pmove_state_t changes will be relative to client
 // frame rates
 typedef struct
 	{
