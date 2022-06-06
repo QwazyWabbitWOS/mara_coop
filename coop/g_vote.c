@@ -1249,9 +1249,10 @@ void vote_progress(edict_t* ent)
 
 	if (bVoteInProgress)
 	{
+		float remainder = voteTimer - level.time;
 		gi.cprintf(ent, PRINT_HIGH,
-			"A vote is in progress for %s: %s! Yes; %i, No %i. Time remaining: %1.0f seconds.\n",
-			voteType, whatAreWeVotingFor, voteYes, voteNo, voteTimer - level.time);
+			"A vote is in progress for %s: %s! Yes; %i, No %i. Time remaining: %.0f seconds.\n",
+			voteType, whatAreWeVotingFor, voteYes, voteNo, remainder);
 	}
 	else
 	{
