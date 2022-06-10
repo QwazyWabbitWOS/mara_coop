@@ -98,7 +98,7 @@ depend:
 	$(CC) -MM $(GAME_OBJS:.o=.c)
 
 depends:
-	$(CC) $(CFLAGS) -MM *.c > dependencies
+	$(CC) $(CFLAGS) -MM *.c > .depends
 
 all:
 	make clean
