@@ -344,7 +344,7 @@ void DeathmatchScoreboard(edict_t* ent) /* FS: Coop: Xatrix */
 void
 HelpComputerMessage(edict_t* ent)
 {
-	char string[1024];
+	char string[1024] = { 0 };
 	char* sk;
 
 	if (!ent)
