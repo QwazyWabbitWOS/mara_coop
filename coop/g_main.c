@@ -593,12 +593,17 @@ G_RunFrame(void)
 
 }
 
-void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Reset everything to avoid the integer to float overflow timer bullshit */
+/*
+  FS: Some of the grossest shit of all time.
+  Reset everything to avoid the integer to float overflow timer bullshit
+  */
+void G_ResetTimer_Hack(void)
 {
 	int i;
 	edict_t* ent;
 
-	if (sv_coop_reset_hack->value && (level.time > 10800.0f) && !P_Clients_Connected(true)) /* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
+	/* FS: Every 3 hours reset the timers.  The game seems to start fucking up around 4 hours of idleness */
+	if (sv_coop_reset_hack->value && (level.time > 10800.0f) && !P_Clients_Connected(true))
 	{
 		gi.cprintf(NULL, PRINT_HIGH, "Resetting timers...\n");
 
@@ -633,19 +638,19 @@ void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Rese
 			if (ent->monsterinfo.search_time)
 			{
 				gi.dprintf("Set search_time for %s: %f\n", className, ent->monsterinfo.search_time);
-				ent->monsterinfo.search_time = level.time + 0.1f;
+				ent->monsterinfo.search_time = level.time + FRAMETIME;
 				setSearch = true;
 			}
 
 			if (ent->monsterinfo.trail_time)
 			{
 				gi.dprintf("Set trail_time for %s: %f\n", className, ent->monsterinfo.trail_time);
-				ent->monsterinfo.trail_time = level.time + 0.1f;
+				ent->monsterinfo.trail_time = level.time + FRAMETIME;
 			}
 			if (ent->monsterinfo.idle_time)
 			{
 				gi.dprintf("Set idle_time for %s: %f\n", className, ent->monsterinfo.idle_time);
-				ent->monsterinfo.idle_time = level.time + 0.1f;
+				ent->monsterinfo.idle_time = level.time + FRAMETIME;
 				setIdle = true;
 			}
 
@@ -659,25 +664,25 @@ void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Rese
 			if (ent->monsterinfo.last_hint_time)
 			{
 				gi.dprintf("Set last_hint_time for %s: %f\n", className, ent->monsterinfo.last_hint_time);
-				ent->monsterinfo.last_hint_time = level.time + 0.1f;
+				ent->monsterinfo.last_hint_time = level.time + FRAMETIME;
 			}
 
 			if (ent->monsterinfo.next_duck_time)
 			{
 				gi.dprintf("Set next_duck_time for %s: %f\n", className, ent->monsterinfo.next_duck_time);
-				ent->monsterinfo.next_duck_time = level.time + 0.1f;
+				ent->monsterinfo.next_duck_time = level.time + FRAMETIME;
 			}
 
 			if (ent->monsterinfo.duck_wait_time)
 			{
 				gi.dprintf("Set duck_wait_time for %s: %f\n", className, ent->monsterinfo.duck_wait_time);
-				ent->monsterinfo.duck_wait_time = level.time + 0.1f;
+				ent->monsterinfo.duck_wait_time = level.time + FRAMETIME;
 			}
 
 			if (ent->monsterinfo.blind_fire_delay)
 			{
 				gi.dprintf("Set blind_fire_delay for %s: %f\n", className, ent->monsterinfo.blind_fire_delay);
-				ent->monsterinfo.blind_fire_delay = level.time + 0.1f;
+				ent->monsterinfo.blind_fire_delay = level.time + FRAMETIME;
 			}
 
 			if (ent->monsterinfo.quad_framenum)
@@ -721,37 +726,37 @@ void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Rese
 			if (ent->touch_debounce_time)
 			{
 				gi.dprintf("Set touch_debounce_time for %s: %f\n", className, ent->touch_debounce_time);
-				ent->touch_debounce_time = level.time + 0.1f;
+				ent->touch_debounce_time = level.time + FRAMETIME;
 			}
 
 			if (ent->pain_debounce_time)
 			{
 				gi.dprintf("Set pain_debounce_time for %s: %f\n", className, ent->pain_debounce_time);
-				ent->pain_debounce_time = level.time + 0.1f;
+				ent->pain_debounce_time = level.time + FRAMETIME;
 			}
 
 			if (ent->damage_debounce_time)
 			{
 				gi.dprintf("Set damage_debounce_time for %s: %f\n", className, ent->damage_debounce_time);
-				ent->damage_debounce_time = level.time + 0.1f;
+				ent->damage_debounce_time = level.time + FRAMETIME;
 			}
 
 			if (ent->fly_sound_debounce_time)
 			{
 				gi.dprintf("Set fly_sound_debounce_time for %s: %f\n", className, ent->fly_sound_debounce_time);
-				ent->fly_sound_debounce_time = level.time + 0.1f;
+				ent->fly_sound_debounce_time = level.time + FRAMETIME;
 			}
 
 			if (ent->last_move_time)
 			{
 				gi.dprintf("Set last_move_time for %s: %f\n", className, ent->last_move_time);
-				ent->last_move_time = 0.1f;
+				ent->last_move_time = FRAMETIME;
 			}
 
 			if (ent->timestamp)
 			{
 				gi.dprintf("Set timestamp for %s: %f\n", className, ent->timestamp);
-				ent->timestamp = level.time + 0.1f;
+				ent->timestamp = level.time + FRAMETIME;
 			}
 
 			if (ent->think)
@@ -759,7 +764,7 @@ void G_ResetTimer_Hack(void) /* FS: Some of the grossest shit of all time.  Rese
 				if (ent->nextthink)
 				{
 					gi.dprintf("Set nextthink for %s: %f\n", className, ent->nextthink);
-					ent->nextthink = level.time + 0.1f;
+					ent->nextthink = level.time + FRAMETIME;
 				}
 			}
 

@@ -1374,7 +1374,7 @@ gunner_duck(edict_t* self, float eta) /* FS: Coop: Rogue specific */
 	}
 	else
 	{
-		self->monsterinfo.duck_wait_time = level.time + eta + (0.1f * (3 - skill->value));
+		self->monsterinfo.duck_wait_time = level.time + eta + (FRAMETIME * (3 - skill->value));
 	}
 
 	/* has to be done immediately otherwise he can get stuck */

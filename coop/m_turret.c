@@ -545,7 +545,7 @@ TurretFire(edict_t* self)
 			chance = random();
 
 			/* ramp chance. easy - 50%, avg - 60%, hard - 70%, nightmare - 80% */
-			chance += (3 - skill->value) * 0.1f;
+			chance += (3 - skill->value) * FRAMETIME;
 
 			if (chance < 0.8)
 			{
