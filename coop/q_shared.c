@@ -1026,7 +1026,7 @@ void Com_strcpy(char* dest, int destSize, const char* src)
 		return;
 	}
 
-	strncpy(dest, src, destSize - 1);
+	strncpy(dest, src, (size_t)destSize - 1);
 	dest[destSize - 1] = 0;
 }
 
@@ -1319,7 +1319,7 @@ void Q_strncpyz(char* dst, const char* src, int dstSize)
 		return;
 	}
 
-	strncpy(dst, src, dstSize - 1);
+	strncpy(dst, src, (size_t)dstSize - 1);
 	dst[dstSize - 1] = 0;
 }
 
