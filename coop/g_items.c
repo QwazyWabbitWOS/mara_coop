@@ -4709,7 +4709,8 @@ SetItemNames(void)
 	for (i = 0; i < game.num_items; i++)
 	{
 		it = &itemlist[i];
-		gi.configstring(CS_ITEMS + i, it->pickup_name);
+		if(i != 0) //QW avoid redundant update of configstring, index 0 is always empty
+			gi.configstring(CS_ITEMS + i, it->pickup_name);
 	}
 
 	jacket_armor_index = ITEM_INDEX(FindItem("Jacket Armor"));

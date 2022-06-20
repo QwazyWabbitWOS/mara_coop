@@ -1677,7 +1677,7 @@ SP_misc_explobox(edict_t* self)
 
 	self->model = "models/objects/barrels/tris.md2";
 	self->s.modelindex = gi.modelindex(self->model);
-	VectorSet(self->mins, -16, -16, 0);
+	VectorSet(self->mins, -16, -16, -8);
 	VectorSet(self->maxs, 16, 16, 40);
 
 	if (!self->mass)

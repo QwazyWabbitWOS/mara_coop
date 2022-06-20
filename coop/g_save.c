@@ -209,7 +209,6 @@ field_t clientfields[] = {
 void
 InitGame(void)
 {
-	gi.dprintf("Game is starting up.\n");
 	gi.dprintf("==== Game is %s built on %s. ====\n", GAMEVERSION, __DATE__);
 
 	gun_x = gi.cvar("gun_x", "0", 0);
