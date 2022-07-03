@@ -129,11 +129,6 @@ trigger_teleport_use(edict_t* self, edict_t* other /* unused */, edict_t* activa
 void
 SP_trigger_teleport(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!self->target)
 	{
 		gi.dprintf("In %s: teleporter without a target.\n", __func__);
