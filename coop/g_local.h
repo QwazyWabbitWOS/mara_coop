@@ -379,7 +379,7 @@ typedef enum gametype_e
 	zaero_coop
 } gametype_t;
 
-#define MAX_GAMEMODES		128
+#define MAX_GAMEMODES		256
 #define GAMEMODE_ERROR		-2
 #define GAMEMODE_AVAILABLE	-1
 
@@ -440,6 +440,7 @@ typedef struct level_locals_s
 
 	// intermission state
 	float		intermissiontime;		// time the intermission was started
+	float		intermissionupdate;		// Phatman: seconds at last update
 	char* changemap;
 	int			exitintermission;
 	int			fadeFrames; /* FS: Zaero specific game dll changes */
@@ -790,6 +791,13 @@ extern	cvar_t* sv_spawn_protection; /* FS: Coop: Spawn protection */
 extern	cvar_t* sv_spawn_protection_time; /* FS: Coop: Spawn protection */
 extern	cvar_t* motd; /* FS: Coop: Added */
 extern	cvar_t* adminpass; /* FS: Coop: Admin goodies */
+extern  cvar_t  *checkpoints_password; /* Phatman: Coop: Password to edit checkpoints */
+extern  cvar_t  *home_gamemode; /* Phatman: Coop: Go to this game mode after any game mode has finished */
+extern  cvar_t  *cycle_gamemode; /* Phatman: Coop: Game mode to go to after the final one */
+extern	cvar_t	*victory_pcx; /* Phatman: Overrides victory.pcx */
+extern	cvar_t	*readiness_timer; /* Phatman: Intermission readiness timeout in seconds */
+extern  cvar_t  *playlist_current; /* Phatman: Current playlist index */
+extern  cvar_t  *playlist_random; /* Phatman: Randomize playlist */
 extern	cvar_t* vippass; /* FS: Coop: VIP goodies */
 extern	cvar_t* gamedir; /* FS: Coop: Added */
 extern	cvar_t* nextserver; /* FS: Coop: Added */
@@ -919,6 +927,7 @@ void SetRespawn(edict_t* ent, float delay);
 void ChangeWeapon(edict_t* ent);
 void SpawnItem(edict_t* ent, gitem_t* item);
 void Think_Weapon(edict_t* ent);
+void Think_Airstrike (edict_t *ent);
 int ArmorIndex(edict_t* ent);
 int PowerArmorType(edict_t* ent);
 gitem_t* GetItemByIndex(int index);
@@ -1169,6 +1178,8 @@ void ValidateSelectedItem(edict_t* ent);
 void DeathmatchScoreboardMessage(edict_t* client, edict_t* killer);
 void HelpComputerMessage(edict_t* client);
 void InventoryMessage(edict_t* client);
+void MapSummaryMessage(void);
+float ReadinessTime(void);
 
 //
 // g_pweapon.c
@@ -1223,6 +1234,7 @@ void vote_stop(edict_t* ent);
 //
 void CoopGamemodeInit(void);
 int CoopGamemodeExists(const char* gamemode);
+int CoopGamemodeCount ();
 
 //====================
 // ROGUE PROTOTYPES
@@ -1422,6 +1434,8 @@ typedef struct client_persistant_s
 	qboolean	didMotd; /* FS: Coop: MOTD */
 	qboolean	noSummon; /* FS: Blinky Cam */
 
+	int			scanner_active; /* Phatman: Scanner tutorial by Yaya */
+
 //=========
 //ROGUE
 	int			max_tesla;
@@ -1585,11 +1599,12 @@ struct gclient_s
 	float dropTimeout; /* FS: Added */
 
 	// AirStrike Variables
-	qboolean airstrike_called; 	// TRUE if Airstrike called
-	vec3_t airstrike_start; 	// Position of Targeted Entity
-	vec3_t airstrike_targetdir; // Position of Targeted Entity
-	float airstrike_time; 		// Timer for incoming missiles
-	int airstrike_type; 		// 1=Rocket, 2=Cluster
+	int		airstrike_called; 	// TRUE if Airstrike called
+	vec3_t	airstrike_start; 	// Position of Targeted Entity
+	vec3_t	airstrike_targetdir; // Position of Targeted Entity
+	vec3_t	airstrike_entry;
+	float	airstrike_time;
+	int		airstrike_type; 		// 1=Rocket, 2=Cluster
 
 	// flashlight
 	edict_t* flashlight;
@@ -1597,6 +1612,9 @@ struct gclient_s
 
 	int             hook_state;
 	edict_t* hook;
+	edict_t        *offworld; /* Phatman: Offworld transport */
+	qboolean       ready; // Phatman: Ready signal for intermissions
+	float          last_ready; // Phatman: Ready signal limiter
 };
 
 struct edict_s

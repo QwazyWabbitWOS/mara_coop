@@ -44,6 +44,13 @@ cvar_t* sv_spawn_protection; /* FS: Coop: Spawn protection */
 cvar_t* sv_spawn_protection_time; /* FS: Coop: Spawn protection */
 cvar_t* motd; /* FS: Coop: Added */
 cvar_t* adminpass; /* FS: Coop: Admin goodies */
+cvar_t *checkpoints_password; /* Phatman: Coop: Password to edit checkpoints */
+cvar_t *home_gamemode; /* Phatman: Coop: Go to this game mode after any game mode has finished */
+cvar_t *cycle_gamemode; /* Phatman: Coop: Game mode to go to after the final one */
+cvar_t *victory_pcx; /* Phatman: Overrides victory.pcx */
+cvar_t *playlist_current; /* Phatman: Current playlist index */
+cvar_t *playlist_random; /* Phatman: Randomize playlist */
+cvar_t *readiness_timer; /* Phatman: Intermission readiness timeout in seconds */
 cvar_t* vippass; /* FS: Coop: VIP goodies */
 cvar_t* gamedir; /* FS: Coop: Added */
 cvar_t* nextserver; /* FS: Coop: Added */
@@ -609,6 +616,8 @@ void G_ResetTimer_Hack(void)
 
 		level.framenum = 55; /* FS: Dont start at 0, advance it a bit */
 		level.time = level.framenum * FRAMETIME;
+		if (level.intermissiontime) /* Phatman: This fixes the issue when the intermission gets stuck after idling with no players */
+			level.intermissiontime = level.time;
 		lastgibframe = 0;
 
 		ent = &g_edicts[0];

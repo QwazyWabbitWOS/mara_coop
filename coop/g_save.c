@@ -266,6 +266,20 @@ InitGame(void)
 	//gi.cvar_setdescription("sv_spawn_protection_time", "Time (in seconds) for spawn protection.  Requires sv_spawn_protection to be enabled.");
 	adminpass = gi.cvar("adminpass", "", 0);
 	//gi.cvar_setdescription("adminpass", "Administator password for special commands.  Not related to RCON.");
+	checkpoints_password = gi.cvar("checkpoints_password", "", 0);
+	//gi.cvar_setdescription("checkpoints_password", "Password required to edit checkpoints.");
+	home_gamemode = gi.cvar("home_gamemode", "", 0);
+	//gi.cvar_setdescription("home_gamemode", "Go to this game mode after any game mode has finished.");
+	cycle_gamemode = gi.cvar("cycle_gamemode", "", 0);
+	//gi.cvar_setdescription("cycle_gamemode", "Game mode to go to after the last game mode in the list has finished.");
+	victory_pcx = gi.cvar("victory_pcx", "", 0);
+	//gi.cvar_setdescription("victory_pcx", "File name without extension in the pics directory for victories.");
+	playlist_current = gi.cvar("playlist_current", "0", 0);
+	//gi.cvar_setdescription("playlist_current", "Index of the current playlist sound file.");
+	playlist_random = gi.cvar("playlist_random", "0", 0);
+	//gi.cvar_setdescription("playlist_random", "Randomize the playlist.");
+	readiness_timer = gi.cvar("readiness_timer", "10", 0);
+	//gi.cvar_setdescription("readiness_timer", "Intermission readiness timeout in seconds.");
 	vippass = gi.cvar("vippass", "", 0);
 	//gi.cvar_setdescription("vippass", "VIP password for cheating and special commands.  Not related to RCON.");
 	gamedir = gi.cvar("gamedir", "", 0); /* FS: Coop: Added */
@@ -375,6 +389,7 @@ InitGame(void)
 	game.maxclients = maxclients->value;
 	game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]), TAG_GAME);
 	globals.num_edicts = game.maxclients + 1;
+	plasma_alpha = gi.cvar("plasma_alpha", "0", CVAR_ARCHIVE);
 
 	if (gamerules) /* FS: Coop: Rogue specific */
 	{
