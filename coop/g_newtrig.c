@@ -134,6 +134,20 @@ SP_trigger_teleport(edict_t* self)
 		return;
 	}
 
+	if (!self->target)
+	{
+		gi.dprintf("In %s: teleporter without a target.\n", __func__);
+		G_FreeEdict(self);
+		return;
+	}
+
+	if (!self->model)
+	{
+		gi.dprintf("In %s: teleporter without a model.\n", __func__);
+		G_FreeEdict(self);
+		return;
+	}
+
 	if (!self->wait)
 	{
 		self->wait = 0.2f;
