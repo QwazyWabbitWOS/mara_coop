@@ -2578,130 +2578,130 @@ gitem_t itemlist[] = {
 		/* icon */		"i_bodyarmor",
 		/* pickup */	"Body Armor",
 		/* width */		3,
-				0,
-				NULL,
-				IT_ARMOR,
-				0,
-				&bodyarmor_info,
-				ARMOR_BODY,
-				/* precache */ ""
-					},
+		0,
+		NULL,
+		IT_ARMOR,
+		0,
+		&bodyarmor_info,
+		ARMOR_BODY,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_armor_combat (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_armor_combat",
-			Pickup_Armor,
-			NULL,
-			NULL,
-			NULL,
-			"misc/ar1_pkup.wav",
-			"models/items/armor/combat/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_combatarmor",
-			/* pickup */	"Combat Armor",
-			/* width */		3,
-					0,
-					NULL,
-					IT_ARMOR,
-					0,
-					&combatarmor_info,
-					ARMOR_COMBAT,
-					/* precache */ ""
-						},
+	{
+		"item_armor_combat",
+		Pickup_Armor,
+		NULL,
+		NULL,
+		NULL,
+		"misc/ar1_pkup.wav",
+		"models/items/armor/combat/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_combatarmor",
+		/* pickup */	"Combat Armor",
+		/* width */		3,
+		0,
+		NULL,
+		IT_ARMOR,
+		0,
+		&combatarmor_info,
+		ARMOR_COMBAT,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_armor_jacket (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_armor_jacket",
-			Pickup_Armor,
-			NULL,
-			NULL,
-			NULL,
-			"misc/ar1_pkup.wav",
-			"models/items/armor/jacket/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_jacketarmor",
-			/* pickup */	"Jacket Armor",
-			/* width */		3,
-					0,
-					NULL,
-					IT_ARMOR,
-					0,
-					&jacketarmor_info,
-					ARMOR_JACKET,
-					/* precache */ ""
-						},
+	{
+		"item_armor_jacket",
+		Pickup_Armor,
+		NULL,
+		NULL,
+		NULL,
+		"misc/ar1_pkup.wav",
+		"models/items/armor/jacket/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_jacketarmor",
+		/* pickup */	"Jacket Armor",
+		/* width */		3,
+		0,
+		NULL,
+		IT_ARMOR,
+		0,
+		&jacketarmor_info,
+		ARMOR_JACKET,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_armor_shard (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_armor_shard",
-			Pickup_Armor,
-			NULL,
-			NULL,
-			NULL,
-			"misc/ar2_pkup.wav",
-			"models/items/armor/shard/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_jacketarmor",
-			/* pickup */	"Armor Shard",
-			/* width */		3,
-					0,
-					NULL,
-					IT_ARMOR,
-					0,
-					NULL,
-					ARMOR_SHARD,
-					/* precache */ ""
-						},
+	{
+		"item_armor_shard",
+		Pickup_Armor,
+		NULL,
+		NULL,
+		NULL,
+		"misc/ar2_pkup.wav",
+		"models/items/armor/shard/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_jacketarmor",
+		/* pickup */	"Armor Shard",
+		/* width */		3,
+		0,
+		NULL,
+		IT_ARMOR,
+		0,
+		NULL,
+		ARMOR_SHARD,
+		/* precache */ ""
+	},
 
 
 	/*QUAKED item_power_screen (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_power_screen",
-			Pickup_PowerArmor,
-			Use_PowerArmor,
-			Drop_PowerArmor,
-			NULL,
-			"misc/ar3_pkup.wav",
-			"models/items/armor/screen/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_powerscreen",
-			/* pickup */	"Power Screen",
-			/* width */		0,
-					60,
-					NULL,
-					IT_ARMOR,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_power_screen",
+		Pickup_PowerArmor,
+		Use_PowerArmor,
+		Drop_PowerArmor,
+		NULL,
+		"misc/ar3_pkup.wav",
+		"models/items/armor/screen/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_powerscreen",
+		/* pickup */	"Power Screen",
+		/* width */		0,
+		60,
+		NULL,
+		IT_ARMOR,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_power_shield (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_power_shield",
-			Pickup_PowerArmor,
-			Use_PowerArmor,
-			Drop_PowerArmor,
-			NULL,
-			"misc/ar3_pkup.wav",
-			"models/items/armor/shield/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_powershield",
-			/* pickup */	"Power Shield",
-			/* width */		0,
-					60,
-					NULL,
-					IT_ARMOR,
-					0,
-					NULL,
-					0,
-					/* precache */ "misc/power2.wav misc/power1.wav"
-						},
+	{
+		"item_power_shield",
+		Pickup_PowerArmor,
+		Use_PowerArmor,
+		Drop_PowerArmor,
+		NULL,
+		"misc/ar3_pkup.wav",
+		"models/items/armor/shield/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_powershield",
+		/* pickup */	"Power Shield",
+		/* width */		0,
+		60,
+		NULL,
+		IT_ARMOR,
+		0,
+		NULL,
+		0,
+		/* precache */ "misc/power2.wav misc/power1.wav"
+	},
 
 
 	//
@@ -2717,183 +2717,183 @@ gitem_t itemlist[] = {
 		NULL,
 		Action_Push,
 		/* pickup sound */	NULL,
-				NULL, 0,
-				"models/weapons/v_hand/tris.md2",
-				/* icon */		NULL,
-				/* pickup */	"Push",
-						0,
-						0,
-						NULL,
-						IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
-						WEAP_NONE,
-						NULL,
-						0,
-						/* precache */ "weapons/push/contact.wav",// weapons/push/grunt.wav",
-						/* hide flags */ HIDE_FROM_INVENTORY | HIDE_DONT_KEEP | HIDE_FROM_SELECTION
-							},
+		NULL, 0,
+		"models/weapons/v_hand/tris.md2",
+		/* icon */		NULL,
+		/* pickup */	"Push",
+		0,
+		0,
+		NULL,
+		IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+		WEAP_NONE,
+		NULL,
+		0,
+		/* precache */ "weapons/push/contact.wav",// weapons/push/grunt.wav",
+		/* hide flags */ HIDE_FROM_INVENTORY | HIDE_DONT_KEEP | HIDE_FROM_SELECTION
+	},
 
 	/*QUAKED weapon_flaregun (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_flaregun", /* FS: Zaero specific game dll changes */
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_FlareGun,
-			"misc/w_pkup.wav",
-			"models/weapons/g_flare/tris.md2", EF_ROTATE,
-			"models/weapons/v_flare/tris.md2",
-			/* icon */		"w_flare",
-			/* pickup */	"Flare Gun",
-					0,
-					1,
-					"Flares",
-					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
-					WEAP_BLASTER,
-					NULL,
-					0,
-					/* precache */ "models/weapons/v_flare/tris.md2 models/objects/flare/tris.md2 weapons/flare/shoot.wav weapons/flare/flarehis.wav"
-						},
+	{
+		"weapon_flaregun", /* FS: Zaero specific game dll changes */
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_FlareGun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_flare/tris.md2", EF_ROTATE,
+		"models/weapons/v_flare/tris.md2",
+		/* icon */		"w_flare",
+		/* pickup */	"Flare Gun",
+		0,
+		1,
+		"Flares",
+		IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+		WEAP_BLASTER,
+		NULL,
+		0,
+		/* precache */ "models/weapons/v_flare/tris.md2 models/objects/flare/tris.md2 weapons/flare/shoot.wav weapons/flare/flarehis.wav"
+	},
 
 	/* weapon_blaster (.3 .3 1) (-16 -16 -16) (16 16 16)
 	always owned, never in the world
 	*/
-		{
-			"weapon_blaster",
-			NULL,
-			Use_Weapon2, /* FS: Coop: Rogue specific */
-			NULL,
-			Weapon_Blaster,
-			"misc/w_pkup.wav",
-			NULL, 0,
-			"models/weapons/v_blast/tris.md2",
-			/* icon */		"w_blaster",
-			/* pickup */	"Blaster",
-					0,
-					0,
-					NULL,
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_BLASTER,
-					NULL,
-					0,
-					/* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
-						},
+	{
+		"weapon_blaster",
+		NULL,
+		Use_Weapon2, /* FS: Coop: Rogue specific */
+		NULL,
+		Weapon_Blaster,
+		"misc/w_pkup.wav",
+		NULL, 0,
+		"models/weapons/v_blast/tris.md2",
+		/* icon */		"w_blaster",
+		/* pickup */	"Blaster",
+		0,
+		0,
+		NULL,
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_BLASTER,
+		NULL,
+		0,
+		/* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
+	},
 
 	/*QUAKED weapon_clusterlauncher  (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
 	// Cluster Launcher mod
 	{
-			"weapon_clusterlauncher",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_ClusterLauncher,
-			"misc/w_pkup.wav",
-			"models/weapons/g_plaunch/tris.md2", EF_ROTATE,
-			"models/weapons/v_plaunch/tris.md2",
-			/* icon */        "w_proxlaunch",
-			/* pickup */    "Cluster Launcher",
-					0,
-					5,
-					"Grenades",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_GRENADELAUNCHER,
-					NULL,
-					0,
-					/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
-						},
+		"weapon_clusterlauncher",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_ClusterLauncher,
+		"misc/w_pkup.wav",
+		"models/weapons/g_plaunch/tris.md2", EF_ROTATE,
+		"models/weapons/v_plaunch/tris.md2",
+		/* icon */        "w_proxlaunch",
+		/* pickup */    "Cluster Launcher",
+		0,
+		5,
+		"Grenades",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_GRENADELAUNCHER,
+		NULL,
+		0,
+		/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
+	},
 
 	/*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_shotgun",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_Shotgun,
-			"misc/w_pkup.wav",
-			"models/weapons/g_shotg/tris.md2", EF_ROTATE,
-			"models/weapons/v_shotg/tris.md2",
-			/* icon */		"w_shotgun",
-			/* pickup */	"Shotgun",
-					0,
-					1,
-					"Shells",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_SHOTGUN,
-					NULL,
-					0,
-					/* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
-						},
+	{
+		"weapon_shotgun",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Shotgun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_shotg/tris.md2", EF_ROTATE,
+		"models/weapons/v_shotg/tris.md2",
+		/* icon */		"w_shotgun",
+		/* pickup */	"Shotgun",
+		0,
+		1,
+		"Shells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_SHOTGUN,
+		NULL,
+		0,
+		/* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
+	},
 
 	/*QUAKED weapon_supershotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_supershotgun",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_SuperShotgun,
-			"misc/w_pkup.wav",
-			"models/weapons/g_shotg2/tris.md2", EF_ROTATE,
-			"models/weapons/v_shotg2/tris.md2",
-			/* icon */		"w_sshotgun",
-			/* pickup */	"Super Shotgun",
-					0,
-					2,
-					"Shells",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_SUPERSHOTGUN,
-					NULL,
-					0,
-					"weapons/sshotf1b.wav"
-				},
+	{
+		"weapon_supershotgun",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_SuperShotgun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_shotg2/tris.md2", EF_ROTATE,
+		"models/weapons/v_shotg2/tris.md2",
+		/* icon */		"w_sshotgun",
+		/* pickup */	"Super Shotgun",
+		0,
+		2,
+		"Shells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_SUPERSHOTGUN,
+		NULL,
+		0,
+		"weapons/sshotf1b.wav"
+	},
 
 	/*QUAKED weapon_machinegun (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_machinegun",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_Machinegun,
-			"misc/w_pkup.wav",
-			"models/weapons/g_machn/tris.md2", EF_ROTATE,
-			"models/weapons/v_machn/tris.md2",
-			/* icon */		"w_machinegun",
-			/* pickup */	"Machinegun",
-					0,
-					1,
-					"Bullets",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_MACHINEGUN,
-					NULL,
-					0,
-					/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
-						},
+	{
+		"weapon_machinegun",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Machinegun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_machn/tris.md2", EF_ROTATE,
+		"models/weapons/v_machn/tris.md2",
+		/* icon */		"w_machinegun",
+		/* pickup */	"Machinegun",
+		0,
+		1,
+		"Bullets",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_MACHINEGUN,
+		NULL,
+		0,
+		/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
+	},
 
 	/*QUAKED weapon_chaingun (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_chaingun",
-			Pickup_Weapon,
-			Use_Weapon2, /* FS: Coop: Rogue specific */
-			Drop_Weapon,
-			Weapon_Chaingun,
-			"misc/w_pkup.wav",
-			"models/weapons/g_chain/tris.md2", EF_ROTATE,
-			"models/weapons/v_chain/tris.md2",
-			/* icon */		"w_chaingun",
-			/* pickup */	"Chaingun",
-					0,
-					1,
-					"Bullets",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_CHAINGUN,
-					NULL,
-					0,
-					/* precache */ "weapons/chngnu1a.wav weapons/chngnl1a.wav weapons/machgf3b.wav` weapons/chngnd1a.wav"
-						},
+	{
+		"weapon_chaingun",
+		Pickup_Weapon,
+		Use_Weapon2, /* FS: Coop: Rogue specific */
+		Drop_Weapon,
+		Weapon_Chaingun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_chain/tris.md2", EF_ROTATE,
+		"models/weapons/v_chain/tris.md2",
+		/* icon */		"w_chaingun",
+		/* pickup */	"Chaingun",
+		0,
+		1,
+		"Bullets",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_CHAINGUN,
+		NULL,
+		0,
+		/* precache */ "weapons/chngnu1a.wav weapons/chngnl1a.wav weapons/machgf3b.wav` weapons/chngnd1a.wav"
+	},
 
 	/* QUAKED weapon_etf_rifle (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -2919,100 +2919,98 @@ gitem_t itemlist[] = {
 
 	/*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_grenades",
-			Pickup_Ammo,
-			Use_Weapon,
-			Drop_Ammo,
-			Weapon_Grenade,
-			"misc/am_pkup.wav",
-			"models/items/ammo/grenades/medium/tris.md2", 0,
-			"models/weapons/v_handgr/tris.md2",
-			/* icon */		"a_grenades",
-			/* pickup */	"Grenades",
-			/* width */		3,
-					5,
-					"grenades",
-					IT_AMMO | IT_WEAPON,
-					WEAP_GRENADES,
-					NULL,
-					AMMO_GRENADES,
-					/* precache */ "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
-						},
+	{
+		"ammo_grenades",
+		Pickup_Ammo,
+		Use_Weapon,
+		Drop_Ammo,
+		Weapon_Grenade,
+		"misc/am_pkup.wav",
+		"models/items/ammo/grenades/medium/tris.md2", 0,
+		"models/weapons/v_handgr/tris.md2",
+		/* icon */		"a_grenades",
+		/* pickup */	"Grenades",
+		/* width */		3,
+		5,
+		"grenades",
+		IT_AMMO | IT_WEAPON,
+		WEAP_GRENADES,
+		NULL,
+		AMMO_GRENADES,
+		/* precache */ "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
+	},
 
 	/*QUAKED ammo_ired (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_ired", /* FS: Zaero specific game dll changes */
-			Pickup_Ammo,
-			Use_Weapon,
-			Drop_Ammo,
-			Weapon_LaserTripBomb,
-			"misc/am_pkup.wav",
-			"models/items/ammo/ireds/tris.md2", 0,
-			"models/weapons/v_ired/tris.md2",
-			/* icon */		"w_ired",
-			/* pickup */	"IRED",
-			/* width */		3,
-					3,
-					"IRED",
-					IT_AMMO | IT_ZAERO | IT_WEAPON,
-					WEAP_GRENADES,
-					NULL,
-					AMMO_LASERTRIPBOMB,
-					/* precache */ "models/weapons/v_ired/hand.md2 models/objects/ired/tris.md2 modes/objects models/objects/shrapnel/tris.md2 "
-						"weapons/ired/las_set.wav weapons/ired/las_arm.wav "
-	/*"weapons/ired/las_tink.wav "weapons/ired/las_trig.wav "*/
-	/*"weapons/ired/las_glow.wav"*/,
+	{
+		"ammo_ired", /* FS: Zaero specific game dll changes */
+		Pickup_Ammo,
+		Use_Weapon,
+		Drop_Ammo,
+		Weapon_LaserTripBomb,
+		"misc/am_pkup.wav",
+		"models/items/ammo/ireds/tris.md2", 0,
+		"models/weapons/v_ired/tris.md2",
+		/* icon */		"w_ired",
+		/* pickup */	"IRED",
+		/* width */		3,
+		3,
+		"IRED",
+		IT_AMMO | IT_ZAERO | IT_WEAPON,
+		WEAP_GRENADES,
+		NULL,
+		AMMO_LASERTRIPBOMB,
+		/* precache */ "models/weapons/v_ired/hand.md2 models/objects/ired/tris.md2 modes/objects models/objects/shrapnel/tris.md2 weapons/ired/las_set.wav weapons/ired/las_arm.wav "
+		//"weapons/ired/las_tink.wav "weapons/ired/las_trig.wav weapons/ired/las_glow.wav"
 	},
 
 	/*QUAKED ammo_trap (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_trap",
-			Pickup_Ammo,
-			Use_Weapon,
-			Drop_Ammo,
-			Weapon_Trap,
-			"misc/am_pkup.wav",
-			"models/weapons/g_trap/tris.md2", EF_ROTATE,
-			"models/weapons/v_trap/tris.md2",
-			/* icon */		"a_trap",
-			/* pickup */	"Trap",
-			/* width */		3,
-					1,
-					"trap",
-					IT_AMMO | IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
-					0,
-					NULL,
-					AMMO_TRAP,
-					/* precache */ "weapons/trapcock.wav weapons/traploop.wav weapons/trapsuck.wav weapons/trapdown.wav"
-					// "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
-						},
+	{
+		"ammo_trap",
+		Pickup_Ammo,
+		Use_Weapon,
+		Drop_Ammo,
+		Weapon_Trap,
+		"misc/am_pkup.wav",
+		"models/weapons/g_trap/tris.md2", EF_ROTATE,
+		"models/weapons/v_trap/tris.md2",
+		/* icon */		"a_trap",
+		/* pickup */	"Trap",
+		/* width */		3,
+		1,
+		"trap",
+		IT_AMMO | IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
+		0,
+		NULL,
+		AMMO_TRAP,
+		/* precache */ "weapons/trapcock.wav weapons/traploop.wav weapons/trapsuck.wav weapons/trapdown.wav"
+		// "weapons/hgrent1a.wav weapons/hgrena1b.wav weapons/hgrenc1b.wav weapons/hgrenb1a.wav weapons/hgrenb2a.wav "
+	},
 
 
 	/*QUAKED weapon_grenadelauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_grenadelauncher",
-			Pickup_Weapon,
-			Use_Weapon2, /* FS: Coop: Rogue specific */
-			Drop_Weapon,
-			Weapon_GrenadeLauncher,
-			"misc/w_pkup.wav",
-			"models/weapons/g_launch/tris.md2", EF_ROTATE,
-			"models/weapons/v_launch/tris.md2",
-			/* icon */		"w_glauncher",
-			/* pickup */	"Grenade Launcher",
-					0,
-					1,
-					"Grenades",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_GRENADELAUNCHER,
-					NULL,
-					0,
-					/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
-						},
+	{
+		"weapon_grenadelauncher",
+		Pickup_Weapon,
+		Use_Weapon2, /* FS: Coop: Rogue specific */
+		Drop_Weapon,
+		Weapon_GrenadeLauncher,
+		"misc/w_pkup.wav",
+		"models/weapons/g_launch/tris.md2", EF_ROTATE,
+		"models/weapons/v_launch/tris.md2",
+		/* icon */		"w_glauncher",
+		/* pickup */	"Grenade Launcher",
+		0,
+		1,
+		"Grenades",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_GRENADELAUNCHER,
+		NULL,
+		0,
+		/* precache */ "models/objects/grenade/tris.md2 weapons/grenlf1a.wav weapons/grenlr1b.wav weapons/grenlb1b.wav"
+	},
 
 	/* QUAKED weapon_proxlauncher (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3038,193 +3036,191 @@ gitem_t itemlist[] = {
 
 	/*QUAKED weapon_rocketlauncher (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_rocketlauncher",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_RocketLauncher,
-			"misc/w_pkup.wav",
-			"models/weapons/g_rocket/tris.md2", EF_ROTATE,
-			"models/weapons/v_rocket/tris.md2",
-			/* icon */		"w_rlauncher",
-			/* pickup */	"Rocket Launcher",
-					0,
-					1,
-					"Rockets",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_ROCKETLAUNCHER,
-					NULL,
-					0,
-					/* precache */ "models/objects/rocket/tris.md2 weapons/rockfly.wav weapons/rocklf1a.wav weapons/rocklr1b.wav models/objects/debris2/tris.md2"
-						},
+	{
+		"weapon_rocketlauncher",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_RocketLauncher,
+		"misc/w_pkup.wav",
+		"models/weapons/g_rocket/tris.md2", EF_ROTATE,
+		"models/weapons/v_rocket/tris.md2",
+		/* icon */		"w_rlauncher",
+		/* pickup */	"Rocket Launcher",
+		0,
+		1,
+		"Rockets",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_ROCKETLAUNCHER,
+		NULL,
+		0,
+		/* precache */ "models/objects/rocket/tris.md2 weapons/rockfly.wav weapons/rocklf1a.wav weapons/rocklr1b.wav models/objects/debris2/tris.md2"
+	},
 
 	/*QUAKED weapon_hyperblaster (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_hyperblaster",
-			Pickup_Weapon,
-			Use_Weapon2, /* FS: Coop: Xatrix and Rogue specific */
-			Drop_Weapon,
-			Weapon_HyperBlaster,
-			"misc/w_pkup.wav",
-			"models/weapons/g_hyperb/tris.md2", EF_ROTATE,
-			"models/weapons/v_hyperb/tris.md2",
-			/* icon */		"w_hyperblaster",
-			/* pickup */	"HyperBlaster",
-					0,
-					1,
-					"Cells",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_HYPERBLASTER,
-					NULL,
-					0,
-					/* precache */ "weapons/hyprbu1a.wav weapons/hyprbl1a.wav weapons/hyprbf1a.wav weapons/hyprbd1a.wav misc/lasfly.wav"
-						},
+	{
+		"weapon_hyperblaster",
+		Pickup_Weapon,
+		Use_Weapon2, /* FS: Coop: Xatrix and Rogue specific */
+		Drop_Weapon,
+		Weapon_HyperBlaster,
+		"misc/w_pkup.wav",
+		"models/weapons/g_hyperb/tris.md2", EF_ROTATE,
+		"models/weapons/v_hyperb/tris.md2",
+		/* icon */		"w_hyperblaster",
+		/* pickup */	"HyperBlaster",
+		0,
+		1,
+		"Cells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_HYPERBLASTER,
+		NULL,
+		0,
+		/* precache */ "weapons/hyprbu1a.wav weapons/hyprbl1a.wav weapons/hyprbf1a.wav weapons/hyprbd1a.wav misc/lasfly.wav"
+	},
 
 	/*QUAKED weapon_boomer (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-
-		{
-			"weapon_boomer", /* FS: Coop: Xatrix specific */
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_Ionripper,
-			"misc/w_pkup.wav",
-			"models/weapons/g_boom/tris.md2", EF_ROTATE,
-			"models/weapons/v_boomer/tris.md2",
-			/* icon */	"w_ripper",
-			/* pickup */ "Ionripper",
-					0,
-					2,
-					"Cells",
-					IT_WEAPON | IT_XATRIX,
-					WEAP_BOOMER,
-					NULL,
-					0,
-					/* precache */ "weapons/rg_hum.wav weapons/rippfire.wav"
-						},
+	{
+		"weapon_boomer", /* FS: Coop: Xatrix specific */
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Ionripper,
+		"misc/w_pkup.wav",
+		"models/weapons/g_boom/tris.md2", EF_ROTATE,
+		"models/weapons/v_boomer/tris.md2",
+		/* icon */	"w_ripper",
+		/* pickup */ "Ionripper",
+		0,
+		2,
+		"Cells",
+		IT_WEAPON | IT_XATRIX,
+		WEAP_BOOMER,
+		NULL,
+		0,
+		/* precache */ "weapons/rg_hum.wav weapons/rippfire.wav"
+	},
 	// END 14-APR-98
 
 		/* QUAKED weapon_plasmabeam (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
-		{
-			"weapon_plasmabeam", /* FS: Coop: Rogue specific */
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_Heatbeam,
-			"misc/w_pkup.wav",
-			"models/weapons/g_beamer/tris.md2", EF_ROTATE,
-			"models/weapons/v_beamer/tris.md2",
-			"w_heatbeam",
-			"Plasma Beam",
-			0,
-			2,
-			"Cells",
-			IT_WEAPON | IT_ROGUE,
-			WEAP_PLASMA,
-			NULL,
-			0,
-			"models/weapons/v_beamer2/tris.md2 weapons/bfg__l1a.wav models/proj/beam/tris.md2", /* FS: Missing beam precache */
-		},
+	{
+		"weapon_plasmabeam", /* FS: Coop: Rogue specific */
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Heatbeam,
+		"misc/w_pkup.wav",
+		"models/weapons/g_beamer/tris.md2", EF_ROTATE,
+		"models/weapons/v_beamer/tris.md2",
+		"w_heatbeam",
+		"Plasma Beam",
+		0,
+		2,
+		"Cells",
+		IT_WEAPON | IT_ROGUE,
+		WEAP_PLASMA,
+		NULL,
+		0,
+		"models/weapons/v_beamer2/tris.md2 weapons/bfg__l1a.wav models/proj/beam/tris.md2", /* FS: Missing beam precache */
+	},
 
-		/*QUAKED weapon_railgun (.3 .3 1) (-16 -16 -16) (16 16 16)
-		*/
-			{
-				"weapon_railgun",
-				Pickup_Weapon,
-				Use_Weapon2, /* FS: Coop: Xatrix specific */
-				Drop_Weapon,
-				Weapon_Railgun,
-				"misc/w_pkup.wav",
-				"models/weapons/g_rail/tris.md2", EF_ROTATE,
-				"models/weapons/v_rail/tris.md2",
-				/* icon */		"w_railgun",
-				/* pickup */	"Railgun",
-						0,
-						1,
-						"Slugs",
-						IT_WEAPON | IT_STAY_COOP,
-						WEAP_RAILGUN,
-						NULL,
-						0,
-						/* precache */ "weapons/rg_hum.wav"
-							},
+	/*QUAKED weapon_railgun (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
+	{
+		"weapon_railgun",
+		Pickup_Weapon,
+		Use_Weapon2, /* FS: Coop: Xatrix specific */
+		Drop_Weapon,
+		Weapon_Railgun,
+		"misc/w_pkup.wav",
+		"models/weapons/g_rail/tris.md2", EF_ROTATE,
+		"models/weapons/v_rail/tris.md2",
+		/* icon */		"w_railgun",
+		/* pickup */	"Railgun",
+		0,
+		1,
+		"Slugs",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_RAILGUN,
+		NULL,
+		0,
+		/* precache */ "weapons/rg_hum.wav"
+	},
 
 	// RAFAEL 14-APR-98
 	/*QUAKED weapon_phalanx (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-
-		{
-			"weapon_phalanx",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_Phalanx,
-			"misc/w_pkup.wav",
-			"models/weapons/g_shotx/tris.md2", EF_ROTATE,
-			"models/weapons/v_shotx/tris.md2",
-			/* icon */	"w_phallanx",
-			/* pickup */ "Phalanx",
-					0,
-					1,
-					"Mag Slug",
-					IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
-					WEAP_PHALANX,
-					NULL,
-					0,
-					/* precache */ "weapons/plasshot.wav"
-						},
+	{
+		"weapon_phalanx",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Phalanx,
+		"misc/w_pkup.wav",
+		"models/weapons/g_shotx/tris.md2", EF_ROTATE,
+		"models/weapons/v_shotx/tris.md2",
+		/* icon */	"w_phallanx",
+		/* pickup */ "Phalanx",
+		0,
+		1,
+		"Mag Slug",
+		IT_WEAPON | IT_XATRIX, /* FS: Coop: Xatrix specific */
+		WEAP_PHALANX,
+		NULL,
+		0,
+		/* precache */ "weapons/plasshot.wav"
+	},
 
 	/*QUAKED weapon_sniperrifle (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_sniperrifle",  /* FS: Zaero specific game dll changes */
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_SniperRifle,
-			"misc/w_pkup.wav",
-			"models/weapons/g_sniper/tris.md2", EF_ROTATE,
-			"models/weapons/v_sniper/tris.md2",
-			/* icon */		"w_sniper",
-			/* pickup */	"Sniper Rifle",
-					0,
-					3,
-					"Slugs",
-					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
-					WEAP_RAILGUN,
-					NULL,
-					0,
-					/* precache */ "models/weapons/v_sniper/scope/tris.md2 models/weapons/v_sniper/dmscope/tris.md2 weapons/sniper/beep.wav weapons/sniper/fire.wav "
-					/*"weapons/sniper/snip_act.wav weapons/sniper/snip_bye.wav"*/,
-					HIDE_FROM_SELECTION
-				},
+	{
+		"weapon_sniperrifle",  /* FS: Zaero specific game dll changes */
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_SniperRifle,
+		"misc/w_pkup.wav",
+		"models/weapons/g_sniper/tris.md2", EF_ROTATE,
+		"models/weapons/v_sniper/tris.md2",
+		/* icon */		"w_sniper",
+		/* pickup */	"Sniper Rifle",
+		0,
+		3,
+		"Slugs",
+		IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+		WEAP_RAILGUN,
+		NULL,
+		0,
+		/* precache */ "models/weapons/v_sniper/scope/tris.md2 models/weapons/v_sniper/dmscope/tris.md2 weapons/sniper/beep.wav weapons/sniper/fire.wav "
+		/*"weapons/sniper/snip_act.wav weapons/sniper/snip_bye.wav"*/,
+		HIDE_FROM_SELECTION
+	},
 
 
 	/*QUAKED weapon_bfg (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_bfg",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_BFG,
-			"misc/w_pkup.wav",
-			"models/weapons/g_bfg/tris.md2", EF_ROTATE,
-			"models/weapons/v_bfg/tris.md2",
-			/* icon */		"w_bfg",
-			/* pickup */	"BFG10K",
-					0,
-					50,
-					"Cells",
-					IT_WEAPON | IT_STAY_COOP,
-					WEAP_BFG,
-					NULL,
-					0,
-					/* precache */ "sprites/s_bfg1.sp2 sprites/s_bfg2.sp2 sprites/s_bfg3.sp2 weapons/bfg__f1y.wav weapons/bfg__l1a.wav weapons/bfg__x1b.wav weapons/bfg_hum.wav"
-						},
+	{
+		"weapon_bfg",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_BFG,
+		"misc/w_pkup.wav",
+		"models/weapons/g_bfg/tris.md2", EF_ROTATE,
+		"models/weapons/v_bfg/tris.md2",
+		/* icon */		"w_bfg",
+		/* pickup */	"BFG10K",
+		0,
+		50,
+		"Cells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_BFG,
+		NULL,
+		0,
+		/* precache */ "sprites/s_bfg1.sp2 sprites/s_bfg2.sp2 sprites/s_bfg3.sp2 weapons/bfg__f1y.wav weapons/bfg__l1a.wav weapons/bfg__x1b.wav weapons/bfg_hum.wav"
+	},
 
 	/* QUAKED weapon_chainfist (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3272,80 +3268,81 @@ gitem_t itemlist[] = {
 
 	/*QUAKED weapon_soniccannon  (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"weapon_soniccannon",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_SonicCannon,
-			"misc/w_pkup.wav",
-			"models/weapons/g_sonic/tris.md2", EF_ROTATE,
-			"models/weapons/v_sonic/tris.md2",
-			/* icon */		"w_sonic",
-			/* pickup */	"Sonic Cannon",
-					0,
-					1,
-					"Cells",
-					IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
-					WEAP_HYPERBLASTER,
-					NULL,
-					0,
-					/* precache */ "weapons/sonic/sc_warm.wav weapons/sonic/sc_cool.wav weapons/sonic/sc_fire.wav" // weapons/sonic/sc_act.wav weapons/sonic/sc_dact.wav  
-						},
+	{
+		"weapon_soniccannon",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_SonicCannon,
+		"misc/w_pkup.wav",
+		"models/weapons/g_sonic/tris.md2", EF_ROTATE,
+		"models/weapons/v_sonic/tris.md2",
+		/* icon */		"w_sonic",
+		/* pickup */	"Sonic Cannon",
+		0,
+		1,
+		"Cells",
+		IT_WEAPON | IT_ZAERO | IT_STAY_COOP,
+		WEAP_HYPERBLASTER,
+		NULL,
+		0,
+		/* precache */ "weapons/sonic/sc_warm.wav weapons/sonic/sc_cool.wav weapons/sonic/sc_fire.wav" // weapons/sonic/sc_act.wav weapons/sonic/sc_dact.wav  
+	},
 
 	/*QUAKED ammo_a2k (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_a2k", /* FS: Zaero specific game dll changes */
-			Pickup_A2k,
-			Use_Weapon,
-			Drop_Ammo,
-			Weapon_A2k,
-			"misc/am_pkup.wav",
-			"models/weapons/g_a2k/tris.md2", 0,
-			"models/weapons/v_a2k/tris.md2",
-			/* icon */		"w_a2k",
-			/* pickup */	"A2K",
-			/* width */		1,
-					1,
-					"A2k",
-					IT_POWERUP | IT_ZAERO,
-					WEAP_NONE,
-					NULL,
-					AMMO_A2K,
-					/* precache */ "weapons/a2k/countdn.wav weapons/a2k/ak_exp01.wav",
-							HIDE_FROM_SELECTION
-						},
+	{
+		"ammo_a2k", /* FS: Zaero specific game dll changes */
+		Pickup_A2k,
+		Use_Weapon,
+		Drop_Ammo,
+		Weapon_A2k,
+		"misc/am_pkup.wav",
+		"models/weapons/g_a2k/tris.md2", 0,
+		"models/weapons/v_a2k/tris.md2",
+		/* icon */		"w_a2k",
+		/* pickup */	"A2K",
+		/* width */		1,
+		1,
+		"A2k",
+		IT_POWERUP | IT_ZAERO,
+		WEAP_NONE,
+		NULL,
+		AMMO_A2K,
+		/* precache */ "weapons/a2k/countdn.wav weapons/a2k/ak_exp01.wav",
+		HIDE_FROM_SELECTION
+	},
 
 	/*QUAKED weapon_plasmarifle (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
 	// Marsilainen's Plasma Rifle mod
-		{
-			"weapon_plasmarifle",
-			Pickup_Weapon,
-			Use_Weapon,
-			Drop_Weapon,
-			Weapon_PlasmaRifle,
-			"misc/w_pkup.wav",
-			"models/weapons/g_plasmr/tris.md2", EF_ROTATE,
-			"models/weapons/v_plasmr/tris.md2",
-			"w_plasmarifle",
-			"Plasma Rifle",
-			0,
-			2,
-			"Cells",
-			IT_WEAPON | IT_STAY_COOP,
-			WEAP_PLASMARIFLE,
-			NULL,
-			0,
-			"weapons/plsmfire.wav weapons/plsmexpl.wav"
-		},
+	{
+		"weapon_plasmarifle",
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_PlasmaRifle,
+		"misc/w_pkup.wav",
+		"models/weapons/g_plasmr/tris.md2", EF_ROTATE,
+		"models/weapons/v_plasmr/tris.md2",
+		"w_plasmarifle",
+		"Plasma Rifle",
+		0,
+		2,
+		"Cells",
+		IT_WEAPON | IT_STAY_COOP,
+		WEAP_PLASMARIFLE,
+		NULL,
+		0,
+		"weapons/plsmfire.wav weapons/plsmexpl.wav"
+	},
+
 	//
 	// AMMO ITEMS
 	//
 
-/*QUAKED ammo_flares (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
+	/*QUAKED ammo_flares (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
 	{
 		"ammo_flares", /* FS: Zaero specific game dll changes */
 		Pickup_Ammo,
@@ -3358,152 +3355,152 @@ gitem_t itemlist[] = {
 		/* icon */		"a_flares",
 		/* pickup */	"Flares",
 		/* width */		3,
-				3,
-				NULL,
-				IT_AMMO | IT_ZAERO,
-				0,
-				NULL,
-				AMMO_FLARES,
-				/* precache */ ""
-					},
+		3,
+		NULL,
+		IT_AMMO | IT_ZAERO,
+		0,
+		NULL,
+		AMMO_FLARES,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_shells",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/items/ammo/shells/medium/tris.md2", 0,
-			NULL,
-			/* icon */		"a_shells",
-			/* pickup */	"Shells",
-			/* width */		3,
-					10,
-					NULL,
-					IT_AMMO,
-					0,
-					NULL,
-					AMMO_SHELLS,
-					/* precache */ ""
-						},
+	{
+		"ammo_shells",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/items/ammo/shells/medium/tris.md2", 0,
+		NULL,
+		/* icon */		"a_shells",
+		/* pickup */	"Shells",
+		/* width */		3,
+		10,
+		NULL,
+		IT_AMMO,
+		0,
+		NULL,
+		AMMO_SHELLS,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_bullets",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/items/ammo/bullets/medium/tris.md2", 0,
-			NULL,
-			/* icon */		"a_bullets",
-			/* pickup */	"Bullets",
-			/* width */		3,
-					50,
-					NULL,
-					IT_AMMO,
-					0,
-					NULL,
-					AMMO_BULLETS,
-					/* precache */ ""
-						},
+	{
+		"ammo_bullets",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/items/ammo/bullets/medium/tris.md2", 0,
+		NULL,
+		/* icon */		"a_bullets",
+		/* pickup */	"Bullets",
+		/* width */		3,
+		50,
+		NULL,
+		IT_AMMO,
+		0,
+		NULL,
+		AMMO_BULLETS,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_cells",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/items/ammo/cells/medium/tris.md2", 0,
-			NULL,
-			/* icon */		"a_cells",
-			/* pickup */	"Cells",
-			/* width */		3,
-					50,
-					NULL,
-					IT_AMMO,
-					0,
-					NULL,
-					AMMO_CELLS,
-					/* precache */ ""
-						},
+	{
+		"ammo_cells",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/items/ammo/cells/medium/tris.md2", 0,
+		NULL,
+		/* icon */		"a_cells",
+		/* pickup */	"Cells",
+		/* width */		3,
+		50,
+		NULL,
+		IT_AMMO,
+		0,
+		NULL,
+		AMMO_CELLS,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_rockets",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/items/ammo/rockets/medium/tris.md2", 0,
-			NULL,
-			/* icon */		"a_rockets",
-			/* pickup */	"Rockets",
-			/* width */		3,
-					5,
-					NULL,
-					IT_AMMO,
-					0,
-					NULL,
-					AMMO_ROCKETS,
-					/* precache */ ""
-						},
+	{
+		"ammo_rockets",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/items/ammo/rockets/medium/tris.md2", 0,
+		NULL,
+		/* icon */		"a_rockets",
+		/* pickup */	"Rockets",
+		/* width */		3,
+		5,
+		NULL,
+		IT_AMMO,
+		0,
+		NULL,
+		AMMO_ROCKETS,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_slugs",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/items/ammo/slugs/medium/tris.md2", 0,
-			NULL,
-			/* icon */		"a_slugs",
-			/* pickup */	"Slugs",
-			/* width */		3,
-					10,
-					NULL,
-					IT_AMMO,
-					0,
-					NULL,
-					AMMO_SLUGS,
-					/* precache */ ""
-						},
+	{
+		"ammo_slugs",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/items/ammo/slugs/medium/tris.md2", 0,
+		NULL,
+		/* icon */		"a_slugs",
+		/* pickup */	"Slugs",
+		/* width */		3,
+		10,
+		NULL,
+		IT_AMMO,
+		0,
+		NULL,
+		AMMO_SLUGS,
+		/* precache */ ""
+	},
 
 	/*QUAKED ammo_empnuke (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_empnuke", /* FS: Zaero specific game dll changes */
-			Pickup_Ammo,
-			Use_Weapon,
-			Drop_Ammo,
-			Weapon_EMPNuke,
-			"misc/am_pkup.wav",
-			"models/weapons/g_enuke/tris.md2", EF_ROTATE,
-			"models/weapons/v_enuke/tris.md2",
-			/* icon */		"w_enuke",
-			/* pickup */	"EMPNuke",
-			/* width */		3,
-					1,
-					"EMPNuke",
-					IT_AMMO | IT_ZAERO,
-					0,
-					NULL,
-					AMMO_EMPNUKE,
-					/* precache */ "items/empnuke/emp_trg.wav"  //items/empnuke/emp_act.wav items/empnuke/emp_spin.wav items/empnuke/emp_idle.wav 
-						},
+	{
+		"ammo_empnuke", /* FS: Zaero specific game dll changes */
+		Pickup_Ammo,
+		Use_Weapon,
+		Drop_Ammo,
+		Weapon_EMPNuke,
+		"misc/am_pkup.wav",
+		"models/weapons/g_enuke/tris.md2", EF_ROTATE,
+		"models/weapons/v_enuke/tris.md2",
+		/* icon */		"w_enuke",
+		/* pickup */	"EMPNuke",
+		/* width */		3,
+		1,
+		"EMPNuke",
+		IT_AMMO | IT_ZAERO,
+		0,
+		NULL,
+		AMMO_EMPNUKE,
+		/* precache */ "items/empnuke/emp_trg.wav"  //items/empnuke/emp_act.wav items/empnuke/emp_spin.wav items/empnuke/emp_idle.wav 
+	},
 
 	/* QUAKED ammo_flechettes (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -3616,32 +3613,33 @@ gitem_t itemlist[] = {
 
 	/*QUAKED ammo_magslug (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_magslug",
-			Pickup_Ammo,
-			NULL,
-			Drop_Ammo,
-			NULL,
-			"misc/am_pkup.wav",
-			"models/objects/ammo/tris.md2", 0,
-			NULL,
-			/* icon */		"a_mslugs",
-			/* pickup */	"Mag Slug",
-			/* width */		3,
-					10,
-					NULL,
-					IT_AMMO | IT_XATRIX, /* FS: Coop: Xatrix specific */
-					0,
-					NULL,
-					AMMO_MAGSLUG,
-					/* precache */ ""
-						},
+	{
+		"ammo_magslug",
+		Pickup_Ammo,
+		NULL,
+		Drop_Ammo,
+		NULL,
+		"misc/am_pkup.wav",
+		"models/objects/ammo/tris.md2", 0,
+		NULL,
+		/* icon */		"a_mslugs",
+		/* pickup */	"Mag Slug",
+		/* width */		3,
+		10,
+		NULL,
+		IT_AMMO | IT_XATRIX, /* FS: Coop: Xatrix specific */
+		0,
+		NULL,
+		AMMO_MAGSLUG,
+		/* precache */ ""
+	},
 
 	//
 	// POWERUP ITEMS
 	//
-/*QUAKED item_quad (.3 .3 1) (-16 -16 -16) (16 16 16)
-*/
+
+	/*QUAKED item_quad (.3 .3 1) (-16 -16 -16) (16 16 16)
+	*/
 	{
 		"item_quad",
 		Pickup_Powerup,
@@ -3654,272 +3652,271 @@ gitem_t itemlist[] = {
 		/* icon */		"p_quad",
 		/* pickup */	"Quad Damage",
 		/* width */		2,
-				60,
-				NULL,
-				IT_POWERUP,
-				0,
-				NULL,
-				0,
-				/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
-					},
+		60,
+		NULL,
+		IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/damage.wav items/damage2.wav items/damage3.wav"
+	},
 
 	/*QUAKED item_quadfire (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_quadfire",
-			Pickup_Powerup,
-			Use_QuadFire,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/quadfire/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_quadfire",
-
-			/* pickup */	"DualFire Damage",
-			/* width */		2,
-					60,
-					NULL,
-					IT_POWERUP | IT_XATRIX, /* FS: Coop: Xatrix specific */
-					0,
-					NULL,
-					0,
-					/* precache */ "items/quadfire1.wav items/quadfire2.wav items/quadfire3.wav"
-						},
+	{
+		"item_quadfire",
+		Pickup_Powerup,
+		Use_QuadFire,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/quadfire/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_quadfire",
+		/* pickup */	"DualFire Damage",
+		/* width */		2,
+		60,
+		NULL,
+		IT_POWERUP | IT_XATRIX, /* FS: Coop: Xatrix specific */
+		0,
+		NULL,
+		0,
+		/* precache */ "items/quadfire1.wav items/quadfire2.wav items/quadfire3.wav"
+	},
 
 
 	/*QUAKED item_invulnerability (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_invulnerability",
-			Pickup_Powerup,
-			Use_Invulnerability,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/invulner/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_invulnerability",
-			/* pickup */	"Invulnerability",
-			/* width */		2,
-					300,
-					NULL,
-					IT_POWERUP,
-					0,
-					NULL,
-					0,
-					/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
-						},
+	{
+		"item_invulnerability",
+		Pickup_Powerup,
+		Use_Invulnerability,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/invulner/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_invulnerability",
+		/* pickup */	"Invulnerability",
+		/* width */		2,
+		300,
+		NULL,
+		IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/protect.wav items/protect2.wav items/protect4.wav"
+	},
 
 	/*QUAKED item_silencer (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_silencer",
-			Pickup_Powerup,
-			Use_Silencer,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/silencer/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_silencer",
-			/* pickup */	"Silencer",
-			/* width */		2,
-					60,
-					NULL,
-					IT_POWERUP,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_silencer",
+		Pickup_Powerup,
+		Use_Silencer,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/silencer/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_silencer",
+		/* pickup */	"Silencer",
+		/* width */		2,
+		60,
+		NULL,
+		IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_breather (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_breather",
-			Pickup_Powerup,
-			Use_Breather,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/breather/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_rebreather",
-			/* pickup */	"Rebreather",
-			/* width */		2,
-					60,
-					NULL,
-					IT_STAY_COOP | IT_POWERUP,
-					0,
-					NULL,
-					0,
-					/* precache */ "items/airout.wav"
-						},
+	{
+		"item_breather",
+		Pickup_Powerup,
+		Use_Breather,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/breather/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_rebreather",
+		/* pickup */	"Rebreather",
+		/* width */		2,
+		60,
+		NULL,
+		IT_STAY_COOP | IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/airout.wav"
+	},
 
 	/*QUAKED item_enviro (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_enviro",
-			Pickup_Powerup,
-			Use_Envirosuit,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/enviro/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_envirosuit",
-			/* pickup */	"Environment Suit",
-			/* width */		2,
-					60,
-					NULL,
-					IT_STAY_COOP | IT_POWERUP,
-					0,
-					NULL,
-					0,
-					/* precache */ "items/airout.wav"
-						},
+	{
+		"item_enviro",
+		Pickup_Powerup,
+		Use_Envirosuit,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/enviro/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_envirosuit",
+		/* pickup */	"Environment Suit",
+		/* width */		2,
+		60,
+		NULL,
+		IT_STAY_COOP | IT_POWERUP,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/airout.wav"
+	},
 
 	/*QUAKED item_visor (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_visor", /* FS: Zaero specific game dll changes */
-			Pickup_Visor,
-			Use_Visor,
-			Drop_Visor,
-			NULL,
-			"items/pkup.wav",
-			"models/items/visor/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_visor",
-			/* pickup */	"Visor",
-			/* width */		1,
-					30,
-					"Cells",
-					IT_STAY_COOP | IT_POWERUP | IT_ZAERO,
-					0,
-					NULL,
-					0,
-					/* precache */ "items/visor/act.wav items/visor/deact.wav"// items/visor/next.wav"
-						},
+	{
+		"item_visor", /* FS: Zaero specific game dll changes */
+		Pickup_Visor,
+		Use_Visor,
+		Drop_Visor,
+		NULL,
+		"items/pkup.wav",
+		"models/items/visor/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_visor",
+		/* pickup */	"Visor",
+		/* width */		1,
+		30,
+		"Cells",
+		IT_STAY_COOP | IT_POWERUP | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/visor/act.wav items/visor/deact.wav"// items/visor/next.wav"
+	},
 
 
 	/*QUAKED ammo_plasmashield (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"ammo_plasmashield", /* FS: Zaero specific game dll changes */
-			Pickup_Ammo,
-			Use_PlasmaShield,
-			Drop_Ammo,
-			NULL,
-			"misc/ar3_pkup.wav",
-			"models/items/plasma/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_plasma",
-			/* pickup */	"Plasma Shield",
-			/* width */		1,
-					5,
-					"",
-					IT_AMMO | IT_ZAERO,
-					0,
-					NULL,
-					AMMO_PLASMASHIELD,
-					/* precache */ "items/plasmashield/psactive.wav sprites/plasmashield_fixed.sp2"
-						},
+	{
+		"ammo_plasmashield", /* FS: Zaero specific game dll changes */
+		Pickup_Ammo,
+		Use_PlasmaShield,
+		Drop_Ammo,
+		NULL,
+		"misc/ar3_pkup.wav",
+		"models/items/plasma/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_plasma",
+		/* pickup */	"Plasma Shield",
+		/* width */		1,
+		5,
+		"",
+		IT_AMMO | IT_ZAERO,
+		0,
+		NULL,
+		AMMO_PLASMASHIELD,
+		/* precache */ "items/plasmashield/psactive.wav sprites/plasmashield_fixed.sp2"
+	},
 
 	/*QUAKED item_ancient_head (.3 .3 1) (-16 -16 -16) (16 16 16)
 	Special item that gives +2 to maximum health
 	*/
-		{
-			"item_ancient_head",
-			Pickup_AncientHead,
-			NULL,
-			NULL,
-			NULL,
-			"items/pkup.wav",
-			"models/items/c_head/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_fixme",
-			/* pickup */	"Ancient Head",
-			/* width */		2,
-					60,
-					NULL,
-					0,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_ancient_head",
+		Pickup_AncientHead,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/c_head/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_fixme",
+		/* pickup */	"Ancient Head",
+		/* width */		2,
+		60,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_adrenaline (.3 .3 1) (-16 -16 -16) (16 16 16)
 	gives +1 to maximum health
 	*/
-		{
-			"item_adrenaline",
-			Pickup_Adrenaline,
-			NULL,
-			NULL,
-			NULL,
-			"items/pkup.wav",
-			"models/items/adrenal/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_adrenaline",
-			/* pickup */	"Adrenaline",
-			/* width */		2,
-					60,
-					NULL,
-					0,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_adrenaline",
+		Pickup_Adrenaline,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/adrenal/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_adrenaline",
+		/* pickup */	"Adrenaline",
+		/* width */		2,
+		60,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_bandolier (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_bandolier",
-			Pickup_Bandolier,
-			NULL,
-			NULL,
-			NULL,
-			"items/pkup.wav",
-			"models/items/band/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"p_bandolier",
-			/* pickup */	"Bandolier",
-			/* width */		2,
-					60,
-					NULL,
-					0,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_bandolier",
+		Pickup_Bandolier,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/band/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"p_bandolier",
+		/* pickup */	"Bandolier",
+		/* width */		2,
+		60,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"item_pack",
-			Pickup_Pack,
-			NULL,
-			NULL,
-			NULL,
-			"items/pkup.wav",
-			"models/items/pack/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_pack",
-			/* pickup */	"Ammo Pack",
-			/* width */		2,
-					180,
-					NULL,
-					0,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"item_pack",
+		Pickup_Pack,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/pack/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_pack",
+		/* pickup */	"Ammo Pack",
+		/* width */		2,
+		180,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/* QUAKED item_ir_goggles (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -4101,9 +4098,10 @@ gitem_t itemlist[] = {
 	//
 	// KEYS
 	//
-/*QUAKED key_data_cd (0 .5 .8) (-16 -16 -16) (16 16 16)
-key for computer centers
-*/
+
+	/*QUAKED key_data_cd (0 .5 .8) (-16 -16 -16) (16 16 16)
+	key for computer centers
+	*/
 	{
 		"key_data_cd",
 		Pickup_Key,
@@ -4123,223 +4121,223 @@ key for computer centers
 		NULL,
 		0,
 		/* precache */ ""
-			},
+	},
 
 	/*QUAKED key_power_cube (0 .5 .8) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN NO_TOUCH
 	warehouse circuits
 	*/
-		{
-			"key_power_cube",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/power/tris.md2", EF_ROTATE,
-			NULL,
-			"k_powercube",
-			"Power Cube",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_power_cube",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/power/tris.md2", EF_ROTATE,
+		NULL,
+		"k_powercube",
+		"Power Cube",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_pyramid (0 .5 .8) (-16 -16 -16) (16 16 16)
 	key for the entrance of jail3
 	*/
-		{
-			"key_pyramid",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/pyramid/tris.md2", EF_ROTATE,
-			NULL,
-			"k_pyramid",
-			"Pyramid Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_pyramid",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/pyramid/tris.md2", EF_ROTATE,
+		NULL,
+		"k_pyramid",
+		"Pyramid Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_data_spinner (0 .5 .8) (-16 -16 -16) (16 16 16)
 	key for the city computer
 	*/
-		{
-			"key_data_spinner",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/spinner/tris.md2", EF_ROTATE,
-			NULL,
-			"k_dataspin",
-			"Data Spinner",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_data_spinner",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/spinner/tris.md2", EF_ROTATE,
+		NULL,
+		"k_dataspin",
+		"Data Spinner",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_pass (0 .5 .8) (-16 -16 -16) (16 16 16)
 	security pass for the security level
 	*/
-		{
-			"key_pass",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/pass/tris.md2", EF_ROTATE,
-			NULL,
-			"k_security",
-			"Security Pass",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_pass",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/pass/tris.md2", EF_ROTATE,
+		NULL,
+		"k_security",
+		"Security Pass",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_blue_key (0 .5 .8) (-16 -16 -16) (16 16 16)
 	normal door key - blue
 	*/
-		{
-			"key_blue_key",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/key/tris.md2", EF_ROTATE,
-			NULL,
-			"k_bluekey",
-			"Blue Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_blue_key",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/key/tris.md2", EF_ROTATE,
+		NULL,
+		"k_bluekey",
+		"Blue Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_red_key (0 .5 .8) (-16 -16 -16) (16 16 16)
 	normal door key - red
 	*/
-		{
-			"key_red_key",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/red_key/tris.md2", EF_ROTATE,
-			NULL,
-			"k_redkey",
-			"Red Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_red_key",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/red_key/tris.md2", EF_ROTATE,
+		NULL,
+		"k_redkey",
+		"Red Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_green_key (0 .5 .8) (-16 -16 -16) (16 16 16)
 	normal door key - blue
 	*/
-		{
-			"key_green_key",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/green_key/tris.md2", EF_ROTATE,
-			NULL,
-			"k_green",
-			"Green Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_XATRIX, /* FS: Coop: Xatrix specific */
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_green_key",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/green_key/tris.md2", EF_ROTATE,
+		NULL,
+		"k_green",
+		"Green Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_XATRIX, /* FS: Coop: Xatrix specific */
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_commander_head (0 .5 .8) (-16 -16 -16) (16 16 16)
 	tank commander's head
 	*/
-		{
-			"key_commander_head",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/monsters/commandr/head/tris.md2", EF_GIB,
-			NULL,
-			/* icon */		"k_comhead",
-			/* pickup */	"Commander's Head",
-			/* width */		2,
-					0,
-					NULL,
-					IT_STAY_COOP | IT_KEY,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"key_commander_head",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/monsters/commandr/head/tris.md2", EF_GIB,
+		NULL,
+		/* icon */		"k_comhead",
+		/* pickup */	"Commander's Head",
+		/* width */		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_airstrike_target (0 .5 .8) (-16 -16 -16) (16 16 16)
 	tank commander's head
 	*/
-		{
-			"key_airstrike_target",
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/target/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_airstrike",
-			/* pickup */	"Airstrike Marker",
-			/* width */		2,
-					0,
-					NULL,
-					IT_STAY_COOP | IT_KEY,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{
+		"key_airstrike_target",
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/target/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_airstrike",
+		/* pickup */	"Airstrike Marker",
+		/* width */		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/* QUAKED key_nuke_container (.3 .3 1) (-16 -16 -16) (16 16 16) TRIGGER_SPAWN */
 	{
@@ -4391,188 +4389,188 @@ key for computer centers
 	/*QUAKED key_landing_arena (0 .5 .8) (-16 -16 -16) (16 16 16)
 	landing arena key - blue
 	*/
-		{
-			"key_landing_area", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/key/tris.md2", EF_ROTATE,
-			NULL,
-			"k_bluekey",
-			"Airfield Pass",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_landing_area", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/key/tris.md2", EF_ROTATE,
+		NULL,
+		"k_bluekey",
+		"Airfield Pass",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_lab (0 .5 .8) (-16 -16 -16) (16 16 16)
 	security pass for the laboratory
 	*/
-		{
-			"key_lab", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/pass/tris.md2", EF_ROTATE,
-			NULL,
-			"k_security",
-			"Laboratory Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_lab", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/pass/tris.md2", EF_ROTATE,
+		NULL,
+		"k_security",
+		"Laboratory Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_clearancepass (0 .5 .8) (-16 -16 -16) (16 16 16)
 	security pass for the security level
 	*/
-		{
-			"key_clearancepass", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/pass/tris.md2", EF_ROTATE,
-			NULL,
-			"k_security",
-			"Clearance Pass",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_clearancepass", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/pass/tris.md2", EF_ROTATE,
+		NULL,
+		"k_security",
+		"Clearance Pass",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_energy (0 .5 .8) (-16 -16 -16) (16 16 16)
 	security pass for the security level
 	*/
-		{
-			"key_energy", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/energy/tris.md2", EF_ROTATE,
-			NULL,
-			"k_energy",
-			"Energy Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_energy", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/energy/tris.md2", EF_ROTATE,
+		NULL,
+		"k_energy",
+		"Energy Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_lava (0 .5 .8) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"key_lava", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/lava/tris.md2", EF_ROTATE,
-			NULL,
-			"k_lava",
-			"Lava Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_lava", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/lava/tris.md2", EF_ROTATE,
+		NULL,
+		"k_lava",
+		"Lava Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/*QUAKED key_slime (0 .5 .8) (-16 -16 -16) (16 16 16)
 	*/
-		{
-			"key_slime", /* FS: Zaero specific game dll changes */
-			Pickup_Key,
-			NULL,
-			Drop_General,
-			NULL,
-			"items/pkup.wav",
-			"models/items/keys/slime/tris.md2", EF_ROTATE,
-			NULL,
-			"k_slime",
-			"Slime Key",
-			2,
-			0,
-			NULL,
-			IT_STAY_COOP | IT_KEY | IT_ZAERO,
-			0,
-			NULL,
-			0,
-			/* precache */ ""
-				},
+	{
+		"key_slime", /* FS: Zaero specific game dll changes */
+		Pickup_Key,
+		NULL,
+		Drop_General,
+		NULL,
+		"items/pkup.wav",
+		"models/items/keys/slime/tris.md2", EF_ROTATE,
+		NULL,
+		"k_slime",
+		"Slime Key",
+		2,
+		0,
+		NULL,
+		IT_STAY_COOP | IT_KEY | IT_ZAERO,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
-				{
-					NULL,
-					Pickup_Health,
-					NULL,
-					NULL,
-					NULL,
-					"items/pkup.wav",
-					NULL, 0,
-					NULL,
-					/* icon */		"i_health",
-					/* pickup */	"Health",
-					/* width */		3,
-							0,
-							NULL,
-							0,
-							0,
-							NULL,
-							0,
-							/* precache */ "items/s_health.wav items/n_health.wav items/l_health.wav items/m_health.wav"
-								},
+	{
+		NULL,
+		Pickup_Health,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		NULL, 0,
+		NULL,
+		/* icon */		"i_health",
+		/* pickup */	"Health",
+		/* width */		3,
+		0,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ "items/s_health.wav items/n_health.wav items/l_health.wav items/m_health.wav"
+	},
 
 	/*QUAKED item_pack (.3 .3 1) (-16 -16 -16) (16 16 16)
 	*/
-		{ /* FS: Coop: Spawn a backpack with our stuff */
-			NULL,
-			Pickup_CoopBackpack,
-			NULL,
-			NULL,
-			NULL,
-			"items/pkup.wav",
-			"models/items/pack/tris.md2", EF_ROTATE,
-			NULL,
-			/* icon */		"i_pack",
-			/* pickup */	"Coop Backpack",
-			/* width */		2,
-					180,
-					NULL,
-					0,
-					0,
-					NULL,
-					0,
-					/* precache */ ""
-						},
+	{ /* FS: Coop: Spawn a backpack with our stuff */
+		NULL,
+		Pickup_CoopBackpack,
+		NULL,
+		NULL,
+		NULL,
+		"items/pkup.wav",
+		"models/items/pack/tris.md2", EF_ROTATE,
+		NULL,
+		/* icon */		"i_pack",
+		/* pickup */	"Coop Backpack",
+		/* width */		2,
+		180,
+		NULL,
+		0,
+		0,
+		NULL,
+		0,
+		/* precache */ ""
+	},
 
 	/* end of list marker */
 	{NULL}
@@ -4709,7 +4707,7 @@ SetItemNames(void)
 	for (i = 0; i < game.num_items; i++)
 	{
 		it = &itemlist[i];
-		if(i != 0) //QW avoid redundant update of configstring, index 0 is always empty
+		if (i != 0) //QW avoid redundant update of configstring, index 0 is always empty
 			gi.configstring(CS_ITEMS + i, it->pickup_name);
 	}
 
