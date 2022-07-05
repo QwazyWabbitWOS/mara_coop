@@ -134,7 +134,7 @@ static qboolean firstStart = true;
 void
 ShutdownGame(void)
 {
-	gi.dprintf("==== ShutdownGame ====\n");
+	gi.dprintf("==== ShutdownGame %s ====\n", GAMEVERSION);
 
 	gi.FreeTags(TAG_LEVEL);
 	gi.FreeTags(TAG_GAME);

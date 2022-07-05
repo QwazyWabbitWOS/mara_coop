@@ -1073,6 +1073,7 @@ typedef enum
 
 #define	MAX_STATS				32
 
+#define	LAYOUT_MAX_LENGTH		1400
 
 // dmflags->value flags
 #define	DF_NO_HEALTH		0x00000001	// 1

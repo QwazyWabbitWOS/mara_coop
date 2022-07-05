@@ -76,15 +76,10 @@ void SP_misc_securitycamera(edict_t* self)
 {
 	vec3_t offset = { 0 }, forward, up;
 
-	if (!self)
-	{
-		return;
-	}
-
 	// no message? error
 	if (!self->message)
 	{
-		gi.error("misc_securitycamera w/o message");
+		gi.dprintf("%s: misc_securitycamera w/o message", __func__);
 		G_FreeEdict(self);
 		return;
 	}
@@ -565,11 +560,6 @@ void setupCrate(edict_t* self)
 
 void SP_misc_crate(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate64.md2");
 	VectorSet(self->mins, -32, -32, 0);
@@ -581,11 +571,6 @@ void SP_misc_crate(edict_t* self)
 
 void SP_misc_crate_medium(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate48.md2");
 	VectorSet(self->mins, -24, -24, 0);
@@ -597,11 +582,6 @@ void SP_misc_crate_medium(edict_t* self)
 
 void SP_misc_crate_small(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	// setup specific to this size
 	self->s.modelindex = gi.modelindex("models/objects/crate/crate32.md2");
 	VectorSet(self->mins, -16, -16, 0);
@@ -727,11 +707,6 @@ void SP_func_barrier(edict_t* self)
 
 void SP_misc_seat(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->s.modelindex = gi.modelindex("models/objects/seat/tris.md2");
 	VectorSet(self->mins, -16, -16, 0);
 	VectorSet(self->maxs, 16, 16, 40);

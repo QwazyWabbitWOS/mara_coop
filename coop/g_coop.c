@@ -889,8 +889,7 @@ void CoopVoteMap(edict_t* ent, pmenuhnd_t* p /* unused */)
 	votemapmenu = gi.TagMalloc(size, TAG_LEVEL);
 	if (!votemapmenu)
 	{
-		gi.error("CoopVoteMap:  Failed allocating memory.\n");
-		return;
+		GameError("%s:  Failed allocating memory.\n", __func__);
 	}
 	memset((pmenu_t*)votemapmenu, 0, size);
 	CoopUpdateVoteMapMenu(ent);
@@ -1594,7 +1593,7 @@ void CoopGamemodeInit(void)
 
 			if ((gamemode[0]) && (CoopGamemodeExists(gamemode) == GAMEMODE_AVAILABLE))
 			{
-				gi.dprintf("CoopGamemodeInit: Adding %s %s %s\n", mapname, gamemode, realgamemode);
+				gi.dprintf("%s: Adding %s %s %s\n", __func__, mapname, gamemode, realgamemode);
 				CoopGamemodeAdd(gamemode, realgamemode, mapname);
 			}
 		}
@@ -1629,8 +1628,7 @@ void CoopGamemodeAdd(const char* gamemode, const char* realgamemode, const char*
 		return;
 
 	if (gamemode_index > MAX_GAMEMODES - 1) {
-		gi.error("Can't add gamemode %s to voting list.  Limit %d reached.", gamemode, MAX_GAMEMODES);
-		return;
+		GameError("%s: Can't add gamemode %s to voting list.  Limit %d reached.", __func__, gamemode, MAX_GAMEMODES);
 	}
 
 	Com_sprintf(gamemode_array[gamemode_index].gamemode, sizeof(gamemode_array[gamemode_index].gamemode), "%s", gamemode);
@@ -1658,8 +1656,7 @@ void CoopVoteGamemodeDynamic(edict_t* ent, pmenuhnd_t* p /* unused */)
 	votegamemodemenu = gi.TagMalloc(size, TAG_LEVEL);
 	if (!votegamemodemenu)
 	{
-		gi.error("CoopVoteGamemodeDynamic:  Failed allocating memory.\n");
-		return;
+		GameError("%s:  Failed allocating memory.\n", __func__);
 	}
 	memset((pmenu_t*)votegamemodemenu, 0, size);
 

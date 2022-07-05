@@ -2183,8 +2183,7 @@ droptofloor(edict_t* ent)
 		}
 		else
 		{
-			gi.dprintf("droptofloor: %s startsolid at %s\n",
-				ent->classname, vtos(ent->s.origin));
+			gi.dprintf("%s: %s startsolid at %s\n", __func__, ent->classname, vtos(ent->s.origin));
 			G_FreeEdict(ent);
 			return;
 		}
@@ -2296,7 +2295,7 @@ PrecacheItem(gitem_t* it)
 
 		if ((len >= MAX_QPATH) || (len < 5))
 		{
-			gi.error("PrecacheItem: %s has bad precache string", it->classname);
+			GameError("%s: %s has bad precache string", __func__, it->classname);
 		}
 		else
 		{
@@ -4582,11 +4581,6 @@ gitem_t itemlist[] = {
 void
 SP_item_health(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value && ((int)dmflags->value & DF_NO_HEALTH))
 	{
 		G_FreeEdict(self);
@@ -4605,11 +4599,6 @@ SP_item_health(edict_t* self)
 void
 SP_item_health_small(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value && ((int)dmflags->value & DF_NO_HEALTH))
 	{
 		G_FreeEdict(self);
@@ -4627,11 +4616,6 @@ SP_item_health_small(edict_t* self)
 */
 void SP_item_health_large(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value && ((int)dmflags->value & DF_NO_HEALTH))
 	{
 		G_FreeEdict(self);
@@ -4650,11 +4634,6 @@ void SP_item_health_large(edict_t* self)
 void
 SP_item_health_mega(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value && ((int)dmflags->value & DF_NO_HEALTH))
 	{
 		G_FreeEdict(self);
@@ -4670,11 +4649,6 @@ SP_item_health_mega(edict_t* self)
 
 void SP_item_foodcube(edict_t* self) /* FS: Coop: Xatrix specific */
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value && ((int)dmflags->value & DF_NO_HEALTH))
 	{
 		G_FreeEdict(self);
@@ -4808,14 +4782,14 @@ void Spawn_CoopBackpack(edict_t* ent)
 
 	if (!ent || !ent->client)
 	{
-		gi.dprintf("Spawn_CoopBackpack: ent or ent->client is NULL!\n");
+		gi.dprintf("%s: ent or ent->client is NULL!\n", __func__);
 		return;
 	}
 
 	it = FindItem("Coop Backpack");
 	if (!it)
 	{
-		gi.dprintf("Spawn_CoopBackpack: Can't find Coop Backpack.\n");
+		gi.dprintf("%s: Can't find Coop Backpack.\n", __func__);
 		return;
 	}
 
@@ -4833,14 +4807,13 @@ void Spawn_CoopBackpack(edict_t* ent)
 	backpack->coopBackpackMaxHealth = ent->max_health;
 	backpack->coopBackpackNetname = gi.TagMalloc((int)strlen(ent->client->pers.netname) + 1, TAG_GAME);
 	if (!backpack) {
-		gi.error("TagMalloc failed in %s\n", __func__);
-		return;
+		GameError("%s: TagMalloc failed.\n", __func__);
 	}
 	strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
 
 	backpack->coopBackpackAmmoUpgrade = ent->client->pers.ammoUpgrade;
 
-	gi.dprintf("Spawn_CoopBackpack: Spawn Coop Back for %s.\n", ent->client->pers.netname);
+	gi.dprintf("%s: Spawn Coop Back for %s.\n", __func__, ent->client->pers.netname);
 }
 
 qboolean

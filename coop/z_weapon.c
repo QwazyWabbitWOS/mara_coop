@@ -669,11 +669,6 @@ void Weapon_LaserTripBomb(edict_t* ent)
 
 void SP_misc_lasertripbomb(edict_t* bomb)
 {
-	if (!bomb)
-	{
-		return;
-	}
-
 	// precache
 	gi.soundindex("weapons/ired/las_set.wav");
 	gi.soundindex("weapons/ired/las_arm.wav");

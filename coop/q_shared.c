@@ -1304,18 +1304,15 @@ Safe strncpy that ensures a trailing zero
 void Q_strncpyz(char* dst, const char* src, int dstSize)
 {
 	if (!dst) {
-		//	Com_Error (ERR_FATAL, "Q_strncpyz: NULL dst");
-		//	Com_Printf ("Q_strncpyz: NULL dst\n");
+		Com_Printf ("%s: NULL dst\n", __func__);
 		return;
 	}
 	if (!src) {
-		//	Com_Error (ERR_FATAL, "Q_strncpyz: NULL src");
-		//	Com_Printf ("Q_strncpyz: NULL src\n");
+		Com_Printf ("%s: NULL src\n", __func__);
 		return;
 	}
 	if (dstSize < 1) {
-		//	Com_Error (ERR_FATAL, "Q_strncpyz: dstSize < 1");
-		//	Com_Printf ("Q_strncpyz: dstSize < 1\n");
+		Com_Printf ("%s: dstSize < 1\n", __func__);
 		return;
 	}
 
@@ -1333,18 +1330,15 @@ Safe strncat that ensures a trailing zero
 void Q_strncatz(char* dst, const char* src, int dstSize)
 {
 	if (!dst) {
-		//	Com_Error (ERR_FATAL, "Q_strncatz: NULL dst");
-		//	Com_Printf ("Q_strncatz: NULL dst\n");
+		Com_Printf ("%s: NULL dst\n", __func__);
 		return;
 	}
 	if (!src) {
-		//	Com_Error (ERR_FATAL, "Q_strncatz: NULL src");
-		//	Com_Printf ("Q_strncatz: NULL src\n");
+		Com_Printf ("%s: NULL src\n", __func__);
 		return;
 	}
 	if (dstSize < 1) {
-		//	Com_Error (ERR_FATAL, "Q_strncatz: dstSize < 1");
-		//	Com_Printf ("Q_strncatz: dstSize < 1\n");
+		Com_Printf ("%s: dstSize < 1\n", __func__);
 		return;
 	}
 

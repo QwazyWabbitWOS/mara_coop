@@ -54,17 +54,14 @@ PMenu_Open(edict_t* ent, pmenu_t* entries, pmenu_t* header, int cur, int num, in
 	hnd = gi.TagMalloc(sizeof(*hnd), TAG_LEVEL);
 	if (!hnd)
 	{
-		gi.error("PMenu_Open:  Failed allocating memory.\n");
-		return NULL;
+		GameError("%s:  Failed allocating memory.\n", __func__);
 	}
 
 	hnd->arg = arg;
 	hnd->entries = gi.TagMalloc(sizeof(pmenu_t) * num, TAG_LEVEL);
 	if (!hnd->entries)
 	{
-		gi.error("PMenu_Open:  Failed allocating memory.\n");
-		gi.TagFree(hnd);
-		return NULL;
+		GameError("%s:  Failed allocating memory.\n", __func__);
 	}
 	hnd->menutype = menutype;
 	memcpy(hnd->entries, entries, sizeof(pmenu_t) * num);
@@ -74,10 +71,7 @@ PMenu_Open(edict_t* ent, pmenu_t* entries, pmenu_t* header, int cur, int num, in
 		hnd->header = gi.TagMalloc(sizeof(pmenu_t) * numheader, TAG_LEVEL);
 		if (!hnd->header)
 		{
-			gi.error("PMenu_Open:  Failed allocating memory.\n");
-			gi.TagFree(hnd->entries);
-			gi.TagFree(hnd);
-			return NULL;
+			GameError("%s:  Failed allocating memory.\n", __func__);
 		}
 		memcpy(hnd->header, header, sizeof(pmenu_t) * numheader);
 
@@ -208,7 +202,7 @@ PMenu_UpdateEntry(pmenu_t* entry, const char* text, int align,
 void
 PMenu_Do_Update(edict_t* ent)
 {
-	char string[1400];
+	char string[LAYOUT_MAX_LENGTH];
 	int i;
 	pmenu_t* p;
 	int x;
@@ -218,7 +212,7 @@ PMenu_Do_Update(edict_t* ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("%s: ent has no menu\n", __func__);
 		return;
 	}
 
@@ -297,7 +291,7 @@ PMenu_Update(edict_t* ent)
 {
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("%s: ent has no menu\n", __func__);
 		return;
 	}
 
@@ -323,7 +317,7 @@ PMenu_Next(edict_t* ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("%s: ent has no menu\n", __func__);
 		return;
 	}
 
@@ -366,7 +360,7 @@ PMenu_Prev(edict_t* ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("%s: ent has no menu\n", __func__);
 		return;
 	}
 
@@ -411,7 +405,7 @@ PMenu_Select(edict_t* ent)
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("%s: ent has no menu\n", __func__);
 		return;
 	}
 
@@ -433,7 +427,7 @@ PMenu_Select(edict_t* ent)
 void
 PMenu_Do_Scrolling_Update(edict_t* ent) /* FS */
 {
-	char string[1400];
+	char string[LAYOUT_MAX_LENGTH];
 	int i, z, pos, scroll_lines;
 	pmenu_t* p;
 	int x;
@@ -443,7 +437,7 @@ PMenu_Do_Scrolling_Update(edict_t* ent) /* FS */
 
 	if (!ent->client->menu)
 	{
-		gi.dprintf("warning:  ent has no menu\n");
+		gi.dprintf("$s: ent has no menu\n", __func__);
 		return;
 	}
 

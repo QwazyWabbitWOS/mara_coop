@@ -846,11 +846,6 @@ insane_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* attacker /* 
 void
 SP_misc_insane(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

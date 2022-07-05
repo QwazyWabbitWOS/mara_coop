@@ -811,11 +811,6 @@ void monster_autocannon_act(edict_t* self)
 
 void monster_autocannon_use(edict_t* self, edict_t* other, edict_t* activator)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	// on/off or berserk toggle?
 	if (self->spawnflags & AC_SF_BERSERK_TOGGLE)
 	{
@@ -838,11 +833,6 @@ void SP_monster_autocannon(edict_t* self)
 {
 	edict_t* base, * turret;
 	vec3_t offset = { 0 };
-
-	if (!self)
-	{
-		return;
-	}
 
 	if (deathmatch->value)
 	{
@@ -966,14 +956,10 @@ void SP_monster_autocannon(edict_t* self)
 
 void SP_monster_autocannon_floor(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
 
 	if (self->style == 1)
 	{
-		gi.error("monster_autocannon_floor does not permit bullet style");
+		gi.dprintf("monster_autocannon_floor does not permit bullet style\n");
 		G_FreeEdict(self);
 		return;
 	}

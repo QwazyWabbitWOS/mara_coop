@@ -641,7 +641,7 @@ ED_ParseEdict(char* data, edict_t* ent)
 
 		if (!data)
 		{
-			gi.error("ED_ParseEntity: EOF without closing brace");
+			GameError("%s: EOF without closing brace", __func__);
 		}
 
 		strncpy(keyname, com_token, sizeof(keyname) - 1);
@@ -651,12 +651,12 @@ ED_ParseEdict(char* data, edict_t* ent)
 
 		if (!data)
 		{
-			gi.error("ED_ParseEntity: EOF without closing brace");
+			GameError("%s: EOF without closing brace", __func__);
 		}
 
 		if (com_token[0] == '}')
 		{
-			gi.error("ED_ParseEntity: closing brace without data");
+			GameError("%s: closing brace without data", __func__);
 		}
 
 		init = true;
@@ -900,10 +900,7 @@ SpawnEntities(char* mapname, char* entities, char* spawnpoint)
 		}
 
 		if (com_token[0] != '{')
-		{
-			gi.error("ED_LoadFromFile: found %s when expecting {", com_token);
-			return;
-		}
+			GameError("%s: found %s when expecting {", __func__, com_token);
 
 		if (!ent)
 		{
@@ -2190,8 +2187,7 @@ int G_SpawnCheckpoints(edict_t* ent)
 
 		if (com_token[0] != '{')
 		{
-			gi.error("ED_LoadFromFile: found %s when expecting {", com_token);
-			return 0;
+			GameError("%s: found %s when expecting {", __func__, com_token);
 		}
 
 		if (!ent)

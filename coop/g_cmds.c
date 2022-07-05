@@ -1725,19 +1725,49 @@ void sayCmd_CheckVote(edict_t* ent, char* voteChat)
 	}
 }
 
-void
-Cmd_Say_f(edict_t* ent, qboolean team, qboolean arg0)
+// MrG{DRGN}
+// Mute spammy players.
+qboolean CheckFlood(edict_t* ent)
 {
-	int i, j;
-	edict_t* other;
-	char* p;
-	char text[2048];
+	int	i;
 	gclient_t* cl;
 
-	if (!ent)
-	{
-		return;
+	if (flood_msgs->value) {
+		cl = ent->client;
+
+		if (level.time < cl->flood_locktill) {
+			gi.cprintf(ent, PRINT_HIGH, "You can't talk for %d more seconds\n",
+				(int)(cl->flood_locktill - level.time));
+			return true;
+		}
+
+		i = cl->flood_whenhead - flood_msgs->value + 1;
+
+		if (i < 0)
+		{
+			i = ((int)sizeof(cl->flood_when) / (int)sizeof(cl->flood_when[0])) + i;
+		}
+
+		if ((size_t)cl->flood_when[i] && level.time - cl->flood_when[i] < flood_persecond->value)
+		{
+			cl->flood_locktill = level.time + flood_waitdelay->value;
+			gi.cprintf(ent, PRINT_CHAT, "Flood protection:  You can't talk for %d seconds.\n",
+				(int)flood_waitdelay->value);
+			return true;
+		}
+
+		cl->flood_whenhead = (((size_t)cl->flood_whenhead + 1) % (sizeof(cl->flood_when) / sizeof(cl->flood_when[0])));
+		cl->flood_when[cl->flood_whenhead] = level.time;
 	}
+	return false;
+}
+
+void Cmd_Say_f(edict_t* ent, qboolean team, qboolean arg0)
+{
+	int j;
+	edict_t* other;
+	char* p;
+	char text[LAYOUT_MAX_LENGTH] = { 0 };
 
 	if ((gi.argc() < 2) && !arg0)
 	{
@@ -1751,19 +1781,19 @@ Cmd_Say_f(edict_t* ent, qboolean team, qboolean arg0)
 
 	if (team)
 	{
-		Com_sprintf(text, sizeof(text), "(%s): ", ent->client->pers.netname);
+		Com_sprintf(text, sizeof text, "(%s): ", ent->client->pers.netname);
 	}
 	else
 	{
-		Com_sprintf(text, sizeof(text), "%s: ", ent->client->pers.netname);
+		Com_sprintf(text, sizeof text, "%s: ", ent->client->pers.netname);
 	}
 
 	if (arg0)
 	{
 		p = strchr(text, 0); /*  for sayCmd_CheckVote()  */
-		strcat(text, gi.argv(0));
-		strcat(text, " ");
-		strcat(text, gi.args());
+		Q_strncatz(text, gi.argv(0), sizeof text);
+		Q_strncatz(text, " ", sizeof text);
+		Q_strncatz(text, gi.args(), sizeof text);
 	}
 	else
 	{
@@ -1775,49 +1805,19 @@ Cmd_Say_f(edict_t* ent, qboolean team, qboolean arg0)
 			p[strlen(p) - 1] = 0;
 		}
 
-		strcat(text, p);
+		Q_strncatz(text, p, sizeof text);
 	}
-
-	/* don't let text be too long for malicious reasons */
+	
+	/* Prevent maliciously long text */
 	if (strlen(text) > 150)
 	{
 		text[150] = 0;
 	}
 
-	strcat(text, "\n");
+	Q_strncatz(text, "\n", sizeof text);
 
-	if (flood_msgs->value)
-	{
-		cl = ent->client;
-
-		if (level.time < cl->flood_locktill)
-		{
-			gi.cprintf(ent, PRINT_HIGH, "You can't talk for %d more seconds\n",
-				(int)(cl->flood_locktill - level.time));
-			return;
-		}
-
-		i = cl->flood_whenhead - flood_msgs->value + 1;
-
-		if (i < 0)
-		{
-			i = (sizeof(cl->flood_when) / sizeof(cl->flood_when[0])) + i;
-		}
-
-		if (cl->flood_when[i] &&
-			(level.time - cl->flood_when[i] < flood_persecond->value))
-		{
-			cl->flood_locktill = level.time + flood_waitdelay->value;
-			gi.cprintf(ent, PRINT_CHAT,
-				"Flood protection:  You can't talk for %d seconds.\n",
-				(int)flood_waitdelay->value);
-			return;
-		}
-
-		cl->flood_whenhead = (cl->flood_whenhead + 1) % (sizeof(cl->flood_when) /
-			sizeof(cl->flood_when[0]));
-		cl->flood_when[cl->flood_whenhead] = level.time;
-	}
+	if (CheckFlood(ent))
+		return;
 
 	if (dedicated->value)
 	{
@@ -1881,7 +1881,7 @@ Cmd_PlayerList_f(edict_t* ent)
 {
 	int i;
 	char string[80];
-	char text[1400] = { 0 };
+	char text[LAYOUT_MAX_LENGTH] = { 0 };
 	edict_t* e2;
 
 	if (!ent)
@@ -2123,16 +2123,16 @@ void Cmd_DeleteCheckpoints_f(edict_t* ent) /* FS: Added */
 	remove(fileName);
 }
 
+//QW// This functionality doesn't need to be in the mod if server is using
+// Q2admin-tsmod-2 for Wallfly or other purposes.
+// Simply set say_person_enable "Yes" in the q2admin.txt configuration file.
 void
 Cmd_SayPerson_f(edict_t* ent) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
 {
-	int i;
 	edict_t* other;
 	char* p;
-	char text[2048], entHeader[2048];
-	gclient_t* cl;
-	//qboolean bIsPlayerNum = false;
-	//qboolean bIsSearch = false;
+	char text[LAYOUT_MAX_LENGTH] = { 0 };
+	char entHeader[LAYOUT_MAX_LENGTH] = { 0 };
 
 	if (!ent)
 	{
@@ -2146,7 +2146,7 @@ Cmd_SayPerson_f(edict_t* ent) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
 	}
 
 	Com_sprintf(text, sizeof(text), "(%s)(private message) ", ent->client->pers.netname);
-	Com_sprintf(entHeader, sizeof(entHeader), "(%s)(private message to: ", ent->client->pers.netname);
+	Com_sprintf(entHeader, sizeof entHeader, "(%s)(private message to: ", ent->client->pers.netname);
 
 	p = gi.args();
 
@@ -2217,57 +2217,39 @@ Cmd_SayPerson_f(edict_t* ent) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
 		p[strlen(p) - 1] = 0;
 	}
 
-	strcat(text, p);
+	Q_strncatz(text, p, sizeof text);
+
+	//QW// NOTE: Original "say" command permits only 150 chars. 
+	// Q2admin uses 2100 byte buffer because it implicitly trusts Wallfly.
+	// This was resized by FS so it could accept text from WallFly when it responds to 'say goto'
+	// user commands, this pushes a long list of servers in a direct message to
+	// that client. r1q2ded and q2proded both buffer/fragment/reassemble those messages.
+	// Since this mod is now ported back to those engines, we can dispense with
+	// this limitation and let Q_strncatz and FloodProtect do their jobs.
+	// Without knowing the reason for the request for this function, I'll just
+	// leave it in for now. I don't trust users to use reasonable care and not
+	// abuse this size but at least the buffer is safe. (I hope...)
 
 	/* don't let text be too long for malicious reasons */
-	if (strlen(text) > 2000) /* FS: This is unfortunate, but this is what TSAdmin uses and wallfly can hit about 512 sometimes... */
-	{
-		text[2000] = 0;
-	}
+	//if (strlen(text) > 2000) /* FS: This is unfortunate, but this is what TSAdmin uses and wallfly can hit about 512 sometimes... */
+	//if (strlen(text) > 2000)
+	//{
+	//	text[2000] = 0;
+	//}
 
-	strcat(text, "\n");
+	Q_strncatz(text, "\n", sizeof text);
 
-	strcat(entHeader, other->client->pers.netname);
-	strcat(entHeader, ") ");
-	strcat(entHeader, p);
-	if (strlen(entHeader) > 2000) /* FS: This is unfortunate, but this is what TSAdmin uses and wallfly can hit about 512 sometimes... */
-	{
-		entHeader[2000] = 0;
-	}
-	strcat(entHeader, "\n");
+	Q_strncatz(entHeader, other->client->pers.netname, sizeof entHeader);
+	Q_strncatz(entHeader, ") ", sizeof entHeader);
+	Q_strncatz(entHeader, p, sizeof entHeader);
+	//if (strlen(entHeader) > sizeof entHeader)
+	//{
+	//	entHeader[sizeof entHeader - 1] = 0;
+	//}
+	Q_strncatz(entHeader, "\n", sizeof entHeader);
 
-	if (flood_msgs->value)
-	{
-		cl = ent->client;
-
-		if (level.time < cl->flood_locktill)
-		{
-			gi.cprintf(ent, PRINT_HIGH, "You can't talk for %d more seconds\n",
-				(int)(cl->flood_locktill - level.time));
-			return;
-		}
-
-		i = cl->flood_whenhead - flood_msgs->value + 1;
-
-		if (i < 0)
-		{
-			i = (sizeof(cl->flood_when) / sizeof(cl->flood_when[0])) + i;
-		}
-
-		if (cl->flood_when[i] &&
-			(level.time - cl->flood_when[i] < flood_persecond->value))
-		{
-			cl->flood_locktill = level.time + flood_waitdelay->value;
-			gi.cprintf(ent, PRINT_CHAT,
-				"Flood protection:  You can't talk for %d seconds.\n",
-				(int)flood_waitdelay->value);
-			return;
-		}
-
-		cl->flood_whenhead = (cl->flood_whenhead + 1) % (sizeof(cl->flood_when) /
-			sizeof(cl->flood_when[0]));
-		cl->flood_when[cl->flood_whenhead] = level.time;
-	}
+	if (CheckFlood(ent))
+		return;
 
 	if (dedicated->value)
 	{
@@ -2286,8 +2268,6 @@ Plasma rifle
 
 void Cmd_Plasma_f(edict_t* ent)
 {
-
-
 	gi.cprintf(ent, PRINT_HIGH, "\nHot Plasma!\n");
 	gi.cprintf(ent, PRINT_HIGH, "Quake 2 Plasma Rifle mod by marsilainen \n\n");
 
@@ -2298,13 +2278,13 @@ void Cmd_Plasma_f(edict_t* ent)
 	gi.cprintf(ent, PRINT_HIGH, "0 : opaque plasma \n");
 	gi.cprintf(ent, PRINT_HIGH, "1 : translucent plasma \n");
 	gi.cprintf(ent, PRINT_HIGH, "2 : translucent plasma, opaque explosions \n");
-
 }
 
 void Get_Target_Position(edict_t* ent, vec3_t endpos);
 
 //======================================================
-void Cmd_Airstrike_f(edict_t* ent, char* cmd) {
+void Cmd_Airstrike_f(edict_t* ent, char* cmd)
+{
 	int index;
 	vec3_t start = { 0,0,0 }, forward = { 0,0,0 }, world_up = { 0,0,0 }, end = { 0,0,0 };
 	trace_t tr;
@@ -2671,10 +2651,10 @@ void ClientCommand(edict_t* ent)
 	{
 		Cmd_Runrun_f(ent);
 	}
-	else if (Q_stricmp(cmd, "say_person") == 0) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
-	{
-		Cmd_SayPerson_f(ent);
-	}
+	//else if (Q_stricmp(cmd, "say_person") == 0) /* FS: Tastyspleen/Q2Admin stuff.  By request. */
+	//{
+	//	Cmd_SayPerson_f(ent);
+	//}
 	else if (bVoteInProgress && !ent->hasVoted)
 	{
 		if (!Q_stricmp(cmd, "yes") || !Q_stricmp(cmd, "agree"))

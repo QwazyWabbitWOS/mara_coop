@@ -280,11 +280,6 @@ SP_CreateUnnamedSpawn(edict_t* self)
 void
 SP_info_player_start(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	/* Call function to hack unnamed spawn points */
 	self->think = SP_CreateUnnamedSpawn;
 	self->nextthink = level.time + FRAMETIME;
@@ -310,11 +305,6 @@ SP_info_player_start(edict_t* self)
 void
 SP_info_player_deathmatch(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -331,11 +321,6 @@ SP_info_player_deathmatch(edict_t* self)
 void
 SP_info_player_coop(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!coop->value)
 	{
 		G_FreeEdict(self);
@@ -393,11 +378,6 @@ SP_info_player_coop(edict_t* self)
 void
 SP_info_player_coop_lava(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!coop->value)
 	{
 		G_FreeEdict(self);
@@ -426,11 +406,6 @@ SP_info_coop_checkpoint_touch(edict_t* self, edict_t* other, cplane_t* plane, cs
 void
 SP_info_coop_checkpoint(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if ((!coop->value) || (coop->value && !coop_checkpoints->value))
 	{
 		G_FreeEdict(self);
@@ -1935,8 +1910,7 @@ SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 
 			if (!spot)
 			{
-				gi.error("Couldn't find spawn point %s\n", game.spawnpoint);
-				return;
+				GameError("%s: Couldn't find spawn point %s\n", __func__, game.spawnpoint);
 			}
 		}
 	}

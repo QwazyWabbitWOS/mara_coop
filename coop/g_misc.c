@@ -647,7 +647,7 @@ SP_path_corner(edict_t* self)
 
 	if (!self->targetname)
 	{
-		gi.dprintf("path_corner with no targetname at %s\n", vtos(
+		gi.dprintf("%s: path_corner with no targetname at %s\n", __func__, vtos(
 			self->s.origin));
 		G_FreeEdict(self);
 		return;
@@ -771,11 +771,6 @@ SP_point_combat(edict_t* self)
 void
 TH_viewthing(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->s.frame = (ent->s.frame + 1) % 7;
 	ent->nextthink = level.time + FRAMETIME;
 }
@@ -783,13 +778,7 @@ TH_viewthing(edict_t* ent)
 void
 SP_viewthing(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	gi.dprintf("viewthing spawned\n");
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	ent->s.renderfx = RF_FRAMELERP;
@@ -819,11 +808,6 @@ SP_viewthing(edict_t* ent)
 void
 SP_info_null(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	G_FreeEdict(self);
 }
 
@@ -835,11 +819,6 @@ SP_info_null(edict_t* self)
 void
 SP_info_notnull(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	VectorCopy(self->s.origin, self->absmin);
 	VectorCopy(self->s.origin, self->absmax);
 }
@@ -878,11 +857,6 @@ light_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* unus
 void
 SP_light(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	/* no targeted lights in deathmatch, because they cause global messages */
 	if (!self->targetname || deathmatch->value)
 	{
@@ -951,11 +925,6 @@ func_wall_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /* 
 void
 SP_func_wall(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->movetype = MOVETYPE_PUSH;
 	gi.setmodel(self, self->model);
 
@@ -1072,11 +1041,6 @@ func_object_use(edict_t* self, edict_t* other /* unused */, edict_t* activator /
 void
 SP_func_object(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	gi.setmodel(self, self->model);
 
 	self->mins[0] += 1;
@@ -1304,11 +1268,6 @@ func_explosive_spawn(edict_t* self, edict_t* other /* unused */, edict_t* activa
 void
 SP_func_explosive_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{
 		/* auto-remove for deathmatch */
@@ -1376,11 +1335,6 @@ SP_func_explosive_rogue(edict_t* self) /* FS: Coop: Rogue specific */
 void
 SP_func_explosive(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (game.gametype == rogue_coop) /* FS: Coop: Rogue specific */
 	{
 		SP_func_explosive_rogue(self);
@@ -1648,11 +1602,6 @@ barrel_start(edict_t* self) /* FS: Coop: Rogue specific */
 void
 SP_misc_explobox(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{
 		/* auto-remove for deathmatch */
@@ -1758,11 +1707,6 @@ void misc_blackhole_transparent(edict_t* ent)
 void
 SP_misc_blackhole(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_NOT;
 	VectorSet(ent->mins, -64, -64, 0);
@@ -1804,11 +1748,6 @@ misc_eastertank_think(edict_t* self)
 void
 SP_misc_eastertank(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	VectorSet(ent->mins, -32, -32, -16);
@@ -1845,11 +1784,6 @@ misc_easterchick_think(edict_t* self)
 void
 SP_misc_easterchick(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	VectorSet(ent->mins, -32, -32, 0);
@@ -1886,11 +1820,6 @@ misc_easterchick2_think(edict_t* self)
 void
 SP_misc_easterchick2(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	VectorSet(ent->mins, -32, -32, 0);
@@ -1959,11 +1888,6 @@ commander_body_drop(edict_t* self)
 void
 SP_monster_commander_body(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->movetype = MOVETYPE_NONE;
 	self->solid = SOLID_BBOX;
 	self->model = "models/monsters/commandr/tris.md2";
@@ -2004,11 +1928,6 @@ misc_banner_think(edict_t* ent)
 void
 SP_misc_banner(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_NOT;
 
@@ -2069,11 +1988,6 @@ misc_deadsoldier_die(edict_t* self, edict_t* inflictor /* unused */, edict_t* at
 void
 SP_misc_deadsoldier(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{
 		/* auto-remove for deathmatch */
@@ -2150,14 +2064,9 @@ misc_viper_use(edict_t* self, edict_t* other, edict_t* activator)
 void
 SP_misc_viper(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (!ent->target)
 	{
-		gi.dprintf("misc_viper without a target at %s\n", vtos(ent->absmin));
+		gi.dprintf("%s: misc_viper without a target at %s\n", __func__, vtos(ent->absmin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -2231,14 +2140,9 @@ SP_misc_viper(edict_t* ent)
 void
 SP_misc_crashviper(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (!ent->target)
 	{
-		gi.dprintf("misc_viper without a target at %s\n", vtos(ent->absmin));
+		gi.dprintf("%s: misc_viper without a target at %s\n", __func__, vtos(ent->absmin));
 		G_FreeEdict(ent);
 		return;
 	}
@@ -2271,11 +2175,6 @@ SP_misc_crashviper(edict_t* ent) /* FS: Coop: Xatrix specific */
 void
 SP_misc_bigviper(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	VectorSet(ent->mins, -176, -120, -24);
@@ -2361,11 +2260,6 @@ misc_viper_bomb_use(edict_t* self, edict_t* other /* unused */, edict_t* activat
 void
 SP_misc_viper_bomb(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->movetype = MOVETYPE_NONE;
 	self->solid = SOLID_NOT;
 	VectorSet(self->mins, -8, -8, -8);
@@ -2420,11 +2314,6 @@ misc_viper_missile_use(edict_t* self, edict_t* other, edict_t* activator) /* FS:
 void
 SP_misc_viper_missile(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->movetype = MOVETYPE_NONE;
 	self->solid = SOLID_NOT;
 	VectorSet(self->mins, -8, -8, -8);
@@ -2471,11 +2360,6 @@ misc_strogg_ship_use(edict_t* self, edict_t* other /* unused */, edict_t* activa
 void
 SP_misc_strogg_ship(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (!ent->target)
 	{
 		gi.dprintf("%s without a target at %s\n", ent->classname,
@@ -2511,11 +2395,6 @@ SP_misc_strogg_ship(edict_t* ent)
 void
 SP_misc_transport(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (!ent->target)
 	{
 		gi.dprintf("%s without a target at %s\n", ent->classname,
@@ -2585,11 +2464,6 @@ misc_satellite_dish_use(edict_t* self, edict_t* other /* unused */, edict_t* act
 void
 SP_misc_satellite_dish(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	VectorSet(ent->mins, -64, -64, -8); //QW// fix "not on quantization boundary" from r1q2ded (was 0)
@@ -2605,11 +2479,6 @@ SP_misc_satellite_dish(edict_t* ent)
 void
 SP_light_mine1(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	ent->s.modelindex =
@@ -2623,11 +2492,6 @@ SP_light_mine1(edict_t* ent)
 void
 SP_light_mine2(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	ent->s.modelindex =
@@ -2643,11 +2507,6 @@ SP_light_mine2(edict_t* ent)
 void
 SP_misc_gib_arm(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	gi.setmodel(ent, "models/objects/gibs/arm/tris.md2");
 	ent->solid = SOLID_NOT;
 	ent->s.effects |= EF_GIB;
@@ -2671,11 +2530,6 @@ SP_misc_gib_arm(edict_t* ent)
 void
 SP_misc_gib_leg(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	gi.setmodel(ent, "models/objects/gibs/leg/tris.md2");
 	ent->solid = SOLID_NOT;
 	ent->s.effects |= EF_GIB;
@@ -2699,11 +2553,6 @@ SP_misc_gib_leg(edict_t* ent)
 void
 SP_misc_gib_head(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	gi.setmodel(ent, "models/objects/gibs/head/tris.md2");
 	ent->solid = SOLID_NOT;
 	ent->s.effects |= EF_GIB;
@@ -2732,11 +2581,6 @@ SP_misc_gib_head(edict_t* ent)
 void
 SP_target_character(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->movetype = MOVETYPE_PUSH;
 	gi.setmodel(self, self->model);
 	self->solid = SOLID_BSP;
@@ -3148,11 +2992,6 @@ SP_misc_teleporter(edict_t* ent)
 {
 	edict_t* trig;
 
-	if (!ent)
-	{
-		return;
-	}
-
 	if (!ent->target)
 	{
 		gi.dprintf("teleporter without a target.\n");
@@ -3197,11 +3036,6 @@ SP_misc_teleporter(edict_t* ent)
 void
 SP_misc_teleporter_dest(edict_t* ent)
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	if (game.gametype == rogue_coop) /* FS: Coop: New skins.  Make sure we download them. */
 	{
 		gi.setmodel(ent, "models/objects/dmspot2/tris.md2");
@@ -3239,11 +3073,6 @@ amb4_think(edict_t* ent) /* FS: Coop: Xatrix specific */
 void
 SP_misc_amb4(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->think = amb4_think;
 	ent->nextthink = level.time + 1;
 	amb4sound = gi.soundindex("world/amb4.wav");
@@ -3287,11 +3116,6 @@ use_nuke(edict_t* self, edict_t* other, edict_t* activator) /* FS: Coop: Xatrix 
 void
 SP_misc_nuke(edict_t* ent) /* FS: Coop: Xatrix specific */
 {
-	if (!ent)
-	{
-		return;
-	}
-
 	ent->use = use_nuke;
 }
 

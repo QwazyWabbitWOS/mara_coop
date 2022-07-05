@@ -21,14 +21,8 @@ void SP_sound_echo(edict_t* self)
 /*QUAKED load_mirrorlevel (1 0 0) (-16 -16 -16) (16 16 16)
  "target" the mapname of the mirror map to this one.
 */
-
 void SP_load_mirrorlevel(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	G_FreeEdict(self);
 }
 
@@ -265,11 +259,6 @@ void Use_CommDish(edict_t* ent, edict_t* other /* unused */, edict_t* activator 
 
 void SP_misc_commdish(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{	// auto-remove for deathmatch
 		G_FreeEdict(self);

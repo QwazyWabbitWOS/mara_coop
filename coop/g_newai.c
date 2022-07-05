@@ -990,11 +990,6 @@ hint_path_touch(edict_t* self, edict_t* other, cplane_t* plane /* unused */,
 void
 SP_hint_path(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

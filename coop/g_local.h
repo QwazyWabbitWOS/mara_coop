@@ -939,6 +939,16 @@ void Spawn_CoopBackpack(edict_t* ent); /* FS: Coop: Spawn a backpack with our st
 //
 // g_utils.c
 //
+
+#if defined _WIN32
+//
+// Define a noreturn wrapper for gi.error
+//
+__declspec(noreturn) void GameError(char* fmt, ...);
+#else
+__attribute__((noreturn)) void GameError(char* fmt, ...);
+#endif
+
 qboolean	KillBox(edict_t* ent);
 qboolean MonsterKillBox(edict_t* ent); /* FS: Zaero specific game dll changes */
 qboolean MonsterPlayerKillBox(edict_t* ent); /* FS: Zaero specific game dll changes */
@@ -1078,6 +1088,7 @@ void BecomeExplosion1(edict_t* self);
 /* XATRIX */
 void ThrowHeadACID(edict_t* self, char* gibname, int damage, int type);
 void ThrowGibACID(edict_t* self, char* gibname, int damage, int type);
+void SP_misc_teleporter_dest(edict_t* ent);
 
 //
 // g_ai.c
