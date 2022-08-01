@@ -578,10 +578,8 @@ ED_ParseField(const char* key, const char* value, edict_t* ent)
 			case F_VECTOR:
 				if (sscanf(value, "%f %f %f", &vec[0], &vec[1], &vec[2]) != 3) {
 					gi.dprintf("WARNING: Vector field incomplete in %s, map: %s, field: %s\n", __func__, level.mapname, f->name);
-					VectorClear(vec);
 				}
-				else
-					((float*)(b + f->ofs))[0] = vec[0];
+				((float*)(b + f->ofs))[0] = vec[0];
 				((float*)(b + f->ofs))[1] = vec[1];
 				((float*)(b + f->ofs))[2] = vec[2];
 				break;
@@ -607,7 +605,7 @@ ED_ParseField(const char* key, const char* value, edict_t* ent)
 		}
 	}
 
-	gi.dprintf("%s is not a field\n", key);
+	gi.dprintf("%s: %s is not a field\n", __func__, key);
 }
 
 /*
@@ -641,7 +639,7 @@ ED_ParseEdict(char* data, edict_t* ent)
 
 		if (!data)
 		{
-			GameError("%s: EOF without closing brace", __func__);
+			gi.error("%s: EOF without closing brace", __func__);
 		}
 
 		strncpy(keyname, com_token, sizeof(keyname) - 1);
@@ -651,12 +649,12 @@ ED_ParseEdict(char* data, edict_t* ent)
 
 		if (!data)
 		{
-			GameError("%s: EOF without closing brace", __func__);
+			gi.error("%s: EOF without closing brace", __func__);
 		}
 
 		if (com_token[0] == '}')
 		{
-			GameError("%s: closing brace without data", __func__);
+			gi.error("%s: closing brace without data", __func__);
 		}
 
 		init = true;
@@ -900,7 +898,7 @@ SpawnEntities(char* mapname, char* entities, char* spawnpoint)
 		}
 
 		if (com_token[0] != '{')
-			GameError("%s: found %s when expecting {", __func__, com_token);
+			gi.error("%s: found %s when expecting {", __func__, com_token);
 
 		if (!ent)
 		{
@@ -1947,11 +1945,6 @@ widowlegs_think(edict_t* self) /* FS: Coop: Rogue specific */
 	vec3_t point;
 	vec3_t f, r, u;
 
-	if (!self)
-	{
-		return;
-	}
-
 	if (self->s.frame == 17)
 	{
 		VectorSet(offset, 11.77f, -7.24f, 23.31f);
@@ -2187,7 +2180,7 @@ int G_SpawnCheckpoints(edict_t* ent)
 
 		if (com_token[0] != '{')
 		{
-			GameError("%s: found %s when expecting {", __func__, com_token);
+			gi.error("%s: found %s when expecting {", __func__, com_token);
 		}
 
 		if (!ent)

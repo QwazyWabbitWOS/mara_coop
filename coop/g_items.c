@@ -2295,7 +2295,8 @@ PrecacheItem(gitem_t* it)
 
 		if ((len >= MAX_QPATH) || (len < 5))
 		{
-			GameError("%s: %s has bad precache string", __func__, it->classname);
+			gi.error("%s: %s has bad precache string", __func__, it->classname);
+			abort();
 		}
 		else
 		{
@@ -4807,7 +4808,8 @@ void Spawn_CoopBackpack(edict_t* ent)
 	backpack->coopBackpackMaxHealth = ent->max_health;
 	backpack->coopBackpackNetname = gi.TagMalloc((int)strlen(ent->client->pers.netname) + 1, TAG_GAME);
 	if (!backpack) {
-		GameError("%s: TagMalloc failed.\n", __func__);
+		gi.error("%s: TagMalloc failed.\n", __func__);
+		abort();
 	}
 	strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
 

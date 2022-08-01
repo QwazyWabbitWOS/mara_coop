@@ -839,7 +839,8 @@ SV_Physics_Pusher(edict_t* ent)
 
 	if (pushed_p > &pushed[MAX_EDICTS - 1])
 	{
-		GameError("%s: pushed_p > &pushed[MAX_EDICTS-1], memory corrupted", __func__);
+		gi.error("%s: pushed_p > &pushed[MAX_EDICTS-1], memory corrupted", __func__);
+		abort();
 	}
 
 	if (part)
@@ -1494,7 +1495,7 @@ G_RunEntity(edict_t* ent)
 		SV_Physics_Ride(ent);
 		break;
 	default:
-		GameError("%s: bad movetype %i", __func__, (int)ent->movetype);
+		gi.error("%s: bad movetype %i", __func__, (int)ent->movetype);
 	}
 
 	if ((game.gametype == rogue_coop) && (ent->movetype == MOVETYPE_STEP)) /* FS: Coop: Rogue specific */

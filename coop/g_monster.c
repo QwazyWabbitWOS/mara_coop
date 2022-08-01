@@ -1112,11 +1112,6 @@ monster_triggered_spawn_use(edict_t* self, edict_t* other /* unused */, edict_t*
 void
 monster_triggered_start(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->solid = SOLID_NOT;
 	self->movetype = MOVETYPE_NONE;
 	self->svflags |= SVF_NOCLIENT;
@@ -1364,11 +1359,6 @@ monster_start_go(edict_t* self)
 void
 walkmonster_start_go(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!(self->spawnflags & 2) && (level.time < 1))
 	{
 		M_droptofloor(self);
@@ -1408,11 +1398,6 @@ walkmonster_start_go(edict_t* self)
 void
 walkmonster_start(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->think = walkmonster_start_go;
 	monster_start(self);
 }
@@ -1420,11 +1405,6 @@ walkmonster_start(edict_t* self)
 void
 flymonster_start_go(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!M_walkmove(self, 0, 0))
 	{
 		gi.dprintf("%s in solid at %s\n", self->classname, vtos(self->s.origin));
@@ -1448,11 +1428,6 @@ flymonster_start_go(edict_t* self)
 void
 flymonster_start(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->flags |= FL_FLY;
 	self->think = flymonster_start_go;
 	monster_start(self);
@@ -1461,11 +1436,6 @@ flymonster_start(edict_t* self)
 void
 swimmonster_start_go(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	if (!self->yaw_speed)
 	{
 		self->yaw_speed = 10;
@@ -1484,11 +1454,6 @@ swimmonster_start_go(edict_t* self)
 void
 swimmonster_start(edict_t* self)
 {
-	if (!self)
-	{
-		return;
-	}
-
 	self->flags |= FL_SWIM;
 	self->think = swimmonster_start_go;
 	monster_start(self);
@@ -1499,10 +1464,6 @@ void stationarymonster_start_go(edict_t* self); /* FS: Coop: Rogue specific */
 void
 stationarymonster_triggered_spawn(edict_t* self) /* FS: Coop: Rogue specific */
 {
-	if (!self)
-	{
-		return;
-	}
 
 	KillBox(self);
 

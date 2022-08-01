@@ -160,7 +160,7 @@ functionList_t functionList[] = {
 };
 
 /*
- * Prtotypes for forward
+ * Prototypes for forward
  * declaration for all game
  * mmove_t functions.
  */
@@ -384,6 +384,8 @@ InitGame(void)
 	g_edicts = gi.TagMalloc(game.maxentities * sizeof(g_edicts[0]), TAG_GAME);
 	globals.edicts = g_edicts;
 	globals.max_edicts = game.maxentities;
+	gi.dprintf("%s entities allocated. (%i bytes)\n", maxentities->string, game.maxentities * sizeof(g_edicts[0]));
+	gi.dprintf("Size of an entity: %i bytes\n", sizeof(g_edicts[0]));
 
 	/* initialize all clients for this game */
 	game.maxclients = maxclients->value;
@@ -595,7 +597,8 @@ WriteField1(FILE* f /* unused */, field_t* field, byte* base)
 				z = 5 / i;
 #endif
 #endif
-				GameError("%s: function not in list, can't save game", __func__);
+				gi.error("%s: function not in list, can't save game", __func__);
+				abort();
 			}
 			else
 				len = (int)strlen(func->funcStr) + 1;
@@ -614,7 +617,10 @@ WriteField1(FILE* f /* unused */, field_t* field, byte* base)
 			mmove = GetMmoveByAddress(*(mmove_t**)p);
 
 			if (!mmove)
-				GameError("%s: mmove not in list, can't save game", __func__);
+			{
+				gi.error("%s: mmove not in list, can't save game", __func__);
+				abort();
+			}
 			else
 				len = (int)strlen(mmove->mmoveStr) + 1;
 		}
@@ -622,7 +628,7 @@ WriteField1(FILE* f /* unused */, field_t* field, byte* base)
 		*(int*)p = len;
 		break;
 	default:
-		GameError("%s: unknown field type", __func__);
+		gi.error("%s: unknown field type", __func__);
 	}
 }
 
@@ -659,8 +665,10 @@ WriteField2(FILE* f, field_t* field, byte* base)
 			func = GetFunctionByAddress(*(byte**)p);
 
 			if (!func)
-				GameError("%s: function not in list, can't save game", __func__);
-
+			{
+				gi.error("%s: function not in list, can't save game", __func__);
+				abort();
+			}
 			len = (int)strlen(func->funcStr) + 1;
 			fwrite(func->funcStr, len, 1, f);
 		}
@@ -673,7 +681,7 @@ WriteField2(FILE* f, field_t* field, byte* base)
 			mmove = GetMmoveByAddress(*(mmove_t**)p);
 
 			if (!mmove)
-				GameError("%s: mmove not in list, can't save game", __func__);
+				gi.error("%s: mmove not in list, can't save game", __func__);
 			else
 			{
 				len = (int)strlen(mmove->mmoveStr) + 1;
@@ -787,7 +795,7 @@ ReadField(FILE* f, field_t* field, byte* base)
 		{
 			if (len > sizeof(funcStr))
 			{
-				GameError("%s: function name is longer than buffer (%i chars)", __func__, (int)sizeof(funcStr));
+				gi.error("%s: function name is longer than buffer (%i chars)", __func__, (int)sizeof(funcStr));
 			}
 			else {
 				count = fread(funcStr, len, 1, f);
@@ -796,7 +804,7 @@ ReadField(FILE* f, field_t* field, byte* base)
 			}
 			if ((*(byte**)p = FindFunctionByName(funcStr)) == NULL)
 			{
-				GameError("%s: function %s not found in table, can't load game", __func__, funcStr);
+				gi.error("%s: function %s not found in table, can't load game", __func__, funcStr);
 			}
 
 		}
@@ -812,7 +820,7 @@ ReadField(FILE* f, field_t* field, byte* base)
 		{
 			if (len > sizeof(funcStr))
 			{
-				GameError("%s: mmove name is longer than buffer (%i chars)", __func__, (int)sizeof(funcStr));
+				gi.error("%s: mmove name is longer than buffer (%i chars)", __func__, (int)sizeof(funcStr));
 			}
 			else {
 				count = fread(funcStr, len, 1, f);
@@ -822,13 +830,13 @@ ReadField(FILE* f, field_t* field, byte* base)
 
 			if ((*(mmove_t**)p = FindMmoveByName(funcStr)) == NULL)
 			{
-				GameError("%s: mmove %s not found in table, can't load game", __func__, funcStr);
+				gi.error("%s: mmove %s not found in table, can't load game", __func__, funcStr);
 			}
 		}
 		break;
 
 	default:
-		GameError("%s: unknown field type", __func__);
+		gi.error("%s: unknown field type", __func__);
 	}
 }
 
@@ -911,7 +919,7 @@ WriteGame(const char* filename, qboolean autosave)
 
 	if (!f)
 	{
-		GameError("%s: couldn't open %s", __func__, filename);
+		gi.error("%s: couldn't open %s", __func__, filename);
 	}
 
 	else
@@ -967,7 +975,7 @@ ReadGame(const char* filename)
 
 	if (!f)
 	{
-		GameError("%s: couldn't open %s", __func__, filename);
+		gi.error("%s: couldn't open %s", __func__, filename);
 	}
 	else
 	{
@@ -988,22 +996,22 @@ ReadGame(const char* filename)
 		if (strcmp(str_ver, SAVEGAMEVER) != 0)
 		{
 			fclose(f);
-			GameError("%s: Savegame from an incompatible version.\n", __func__);
+			gi.error("%s: Savegame from an incompatible version.\n", __func__);
 		}
 		else if (strcmp(str_game, GAMEVERSION) != 0)
 		{
 			fclose(f);
-			GameError("%s: Savegame from an other game.so.\n", __func__);
+			gi.error("%s: Savegame from an other game.so.\n", __func__);
 		}
 		else if (strcmp(str_os, OS) != 0)
 		{
 			fclose(f);
-			GameError("%s: Savegame from an other os.\n", __func__);
+			gi.error("%s: Savegame from an other os.\n", __func__);
 		}
 		else if (strcmp(str_arch, G_ARCH) != 0)
 		{
 			fclose(f);
-			GameError("%s: Savegame from another architecure.\n", __func__);
+			gi.error("%s: Savegame from another architecure.\n", __func__);
 		}
 
 		g_edicts = gi.TagMalloc(game.maxentities * sizeof(g_edicts[0]), TAG_GAME);
@@ -1100,7 +1108,7 @@ WriteLevel(const char* filename)
 
 	if (!f)
 	{
-		GameError("%s: Couldn't open %s", __func__, filename);
+		gi.error("%s: Couldn't open %s", __func__, filename);
 	}
 
 	else
@@ -1198,7 +1206,7 @@ ReadLevel(const char* filename)
 
 	if (!f)
 	{
-		GameError("%s: Couldn't open %s", __func__, filename);
+		gi.error("%s: Couldn't open %s", __func__, filename);
 	}
 
 	/* free any dynamic memory allocated by
@@ -1217,7 +1225,7 @@ ReadLevel(const char* filename)
 	if (i != sizeof(edict_t))
 	{
 		fclose(f);
-		GameError("%s: mismatched edict size", __func__);
+		gi.error("%s: mismatched edict size", __func__);
 	}
 
 	/* load the level locals */
@@ -1229,7 +1237,7 @@ ReadLevel(const char* filename)
 		if (fread(&entnum, sizeof(entnum), 1, f) != 1)
 		{
 			fclose(f);
-			GameError("%s: failed to read entnum", __func__);
+			gi.error("%s: failed to read entnum", __func__);
 		}
 
 		if (entnum == -1)

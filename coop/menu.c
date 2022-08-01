@@ -54,14 +54,14 @@ PMenu_Open(edict_t* ent, pmenu_t* entries, pmenu_t* header, int cur, int num, in
 	hnd = gi.TagMalloc(sizeof(*hnd), TAG_LEVEL);
 	if (!hnd)
 	{
-		GameError("%s:  Failed allocating memory.\n", __func__);
+		gi.error("%s:  Failed allocating memory.\n", __func__);
 	}
 
 	hnd->arg = arg;
 	hnd->entries = gi.TagMalloc(sizeof(pmenu_t) * num, TAG_LEVEL);
 	if (!hnd->entries)
 	{
-		GameError("%s:  Failed allocating memory.\n", __func__);
+		gi.error("%s:  Failed allocating memory.\n", __func__);
 	}
 	hnd->menutype = menutype;
 	memcpy(hnd->entries, entries, sizeof(pmenu_t) * num);
@@ -71,7 +71,7 @@ PMenu_Open(edict_t* ent, pmenu_t* entries, pmenu_t* header, int cur, int num, in
 		hnd->header = gi.TagMalloc(sizeof(pmenu_t) * numheader, TAG_LEVEL);
 		if (!hnd->header)
 		{
-			GameError("%s:  Failed allocating memory.\n", __func__);
+			gi.error("%s:  Failed allocating memory.\n", __func__);
 		}
 		memcpy(hnd->header, header, sizeof(pmenu_t) * numheader);
 
