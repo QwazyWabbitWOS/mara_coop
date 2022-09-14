@@ -1911,6 +1911,7 @@ SelectSpawnPoint(edict_t* ent, vec3_t origin, vec3_t angles)
 			if (!spot)
 			{
 				gi.error("%s: Couldn't find spawn point %s\n", __func__, game.spawnpoint);
+				abort();
 			}
 		}
 	}

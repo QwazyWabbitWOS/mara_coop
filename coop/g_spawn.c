@@ -897,9 +897,10 @@ SpawnEntities(char* mapname, char* entities, char* spawnpoint)
 			break;
 		}
 
-		if (com_token[0] != '{')
+		if (com_token[0] != '{') {
 			gi.error("%s: found %s when expecting {", __func__, com_token);
-
+			abort();
+		}
 		if (!ent)
 		{
 			ent = g_edicts;
@@ -2143,7 +2144,7 @@ int G_SpawnCheckpoints(edict_t* ent)
 	fseek(f, 0, SEEK_END);
 	fileSize = ftell(f);
 	fseek(f, 0, SEEK_SET);
-	fileBuffer = (char*)gi.TagMalloc((int)((sizeof(char) * (size_t)(fileSize + 2))), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
+	fileBuffer = (char*)gi.TagMalloc((int)((sizeof(char) * (size_t)(fileSize + 2LL))), TAG_LEVEL); /* FS: In case we have to add a newline terminator */
 	if (!fileBuffer)
 	{
 		gi.cprintf(NULL, PRINT_CHAT, "G_SpawnCheckpoints: can't allocate memory for fileBuffer!\n");
@@ -2181,6 +2182,7 @@ int G_SpawnCheckpoints(edict_t* ent)
 		if (com_token[0] != '{')
 		{
 			gi.error("%s: found %s when expecting {", __func__, com_token);
+			abort();
 		}
 
 		if (!ent)
