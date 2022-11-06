@@ -301,7 +301,7 @@ InitGame(void)
 	needpass = gi.cvar("needpass", "0", CVAR_SERVERINFO);
 	filterban = gi.cvar("filterban", "1", 0);
 	motd_time = gi.cvar("motd_time", "5", 0);
-	flashlightmode = gi.cvar("flashlightmode", "1", 0);
+	flashlightmode = gi.cvar("flashlightmode", "0", 0);
 
 	g_select_empty = gi.cvar("g_select_empty", "0", CVAR_ARCHIVE);
 
