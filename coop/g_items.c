@@ -173,22 +173,13 @@ qboolean Coop_Respawn(void) /* FS: Coop */
 void DoRespawn(edict_t* ent)
 {
 	if (!ent)
-	{
-		gi.dprintf("NULL ent passed to %s\n", __func__);
 		return;
-	}
 
 	if (ent->team)
 	{
 		edict_t* master;
 		unsigned	count;
 		unsigned	choice;
-
-		if (ent == NULL)
-		{
-			gi.dprintf("NULL ent passed to %s\n", __func__);
-			return;
-		}
 
 		master = ent->teammaster;
 		if (master == NULL)
@@ -4807,12 +4798,7 @@ void Spawn_CoopBackpack(edict_t* ent)
 
 	backpack->coopBackpackMaxHealth = ent->max_health;
 	backpack->coopBackpackNetname = gi.TagMalloc((int)strlen(ent->client->pers.netname) + 1, TAG_GAME);
-	if (!backpack) {
-		gi.error("%s: TagMalloc failed.\n", __func__);
-		abort();
-	}
 	strcpy(backpack->coopBackpackNetname, ent->client->pers.netname);
-
 	backpack->coopBackpackAmmoUpgrade = ent->client->pers.ammoUpgrade;
 
 	gi.dprintf("%s: Spawn Coop Back for %s.\n", __func__, ent->client->pers.netname);
