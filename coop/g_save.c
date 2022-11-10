@@ -981,17 +981,9 @@ ReadGame(const char* filename)
 	{
 		/* Sanity checks */
 		count = fread(str_ver, sizeof(str_ver), 1, f);
-		if (count)
-			; // don't worry, be happy
 		count = fread(str_game, sizeof(str_game), 1, f);
-		if (count)
-			; // don't worry, be happy
 		count = fread(str_os, sizeof(str_os), 1, f);
-		if (count)
-			; // don't worry, be happy
 		count = fread(str_arch, sizeof(str_arch), 1, f);
-		if (count)
-			; // don't worry, be happy
 
 		if (strcmp(str_ver, SAVEGAMEVER) != 0)
 		{
