@@ -1010,8 +1010,7 @@ ReadGame(const char* filename)
 		globals.edicts = g_edicts;
 
 		count = fread(&game, sizeof(game), 1, f);
-		if (count)
-			; // don't worry, be happy
+
 		game.clients = gi.TagMalloc(game.maxclients * sizeof(game.clients[0]), TAG_GAME);
 
 		for (i = 0; i < game.maxclients; i++)
