@@ -1,13 +1,18 @@
-
 //****************************************************
 //		Flashlight
 //****************************************************
 
 #include "g_local.h"
+#include "flashlight.h"
 
 void FlashlightReset(edict_t* self)
 {
-	if (self->owner->client && self->owner->client->flashlight)
+	if (!self)
+	{
+		return;
+	}
+
+	if (self->owner && self->owner->client && self->owner->client->flashlight)
 	{
 		float volume = 1.0f;
 
@@ -17,6 +22,7 @@ void FlashlightReset(edict_t* self)
 		self->owner->client->flashlight = NULL;
 		self->owner->client->flashtype = 0;
 	}
+
 	G_FreeEdict(self);
 }
 
@@ -25,7 +31,13 @@ void flashlight_think(edict_t* self)
 	vec3_t	forward, right, up, offset = { 0 }, start, end;
 	trace_t	tr;
 	int content = (CONTENTS_SOLID | CONTENTS_MONSTER | CONTENTS_DEADMONSTER);
-	if (level.intermissiontime || !self->owner->inuse || self->owner->deadflag)
+
+	if (!self || !self->inuse)
+	{
+		return;
+	}
+
+	if (level.intermissiontime || !self->owner || !self->owner->inuse || self->owner->deadflag)
 	{
 		FlashlightReset(self);
 		return;
@@ -64,6 +76,10 @@ void flashlight_think(edict_t* self)
 
 void Use_Flashlight(edict_t* player)
 {
+	if (!player || !player->client || !player->inuse)
+	{
+		return;
+	}
 	if (player->client->flashlight)
 	{
 		if (player->client->flashtype == 0)
@@ -123,9 +139,15 @@ void Use_Flashlight(edict_t* player)
 
 void Cmd_Flashlight(edict_t* ent)
 {
-
-	if (!ent->client || ent->health <= 0)
+	if (!ent || !ent->inuse || !ent->client || ent->health <= 0)
 		return;
+
+	if (ent->client->pers.spectator || ent->client->blinky_client.cam_target) /* FS: Coop: No spectators and cheats, please */
+	{
+		gi.cprintf(ent, PRINT_HIGH,
+				"Spectators can't use this command.\n");
+		return;
+	}
 
 	if (ent->client->flashlight == NULL)
 	{
@@ -138,4 +160,3 @@ void Cmd_Flashlight(edict_t* ent)
 		FlashlightReset(ent->client->flashlight);
 	}
 }
-
