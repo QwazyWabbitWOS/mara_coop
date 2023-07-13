@@ -57,7 +57,6 @@ SP_FixCoopSpots(edict_t* self)
 			{
 				self->targetname = spot->targetname;
 			}
-
 			return;
 		}
 	}
@@ -437,7 +436,7 @@ SP_info_coop_checkpoint(edict_t* self)
  * as well as yaw. 'pitch yaw roll'
  */
 void
-SP_info_player_intermission(void)
+SP_info_player_intermission(edict_t* ent)
 {
 	/* This function cannot be removed
 	 * since the info_player_intermission

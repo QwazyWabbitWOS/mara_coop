@@ -70,7 +70,7 @@ extern void VoteMenuOpen(edict_t* ent);
 
 pmenu_t creditsmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Programming", PMENU_ALIGN_CENTER, NULL},
@@ -96,7 +96,7 @@ static const int jmenu_motd = 15;
 
 pmenu_t joinmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -118,7 +118,7 @@ pmenu_t joinmenu[] = {
 
 pmenu_t nochasemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
@@ -129,7 +129,7 @@ pmenu_t nochasemenu[] = {
 
 pmenu_t votemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
@@ -152,7 +152,7 @@ pmenu_t votemenu[] = {
 
 pmenu_t votegamemodemenuheader[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Gamemode", PMENU_ALIGN_CENTER, NULL},
@@ -171,7 +171,7 @@ pmenu_t* votegamemodemenu = NULL;
 
 pmenu_t voteskillmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Difficulty", PMENU_ALIGN_CENTER, NULL},
@@ -191,7 +191,7 @@ pmenu_t voteskillmenu[] = {
 #define MOTDMENU_MAXLINES ((MOTDMENU_END)-(MOTDMENU_START))
 pmenu_t motdmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -214,7 +214,7 @@ pmenu_t motdmenu[] = {
 #define BLINKYMENU_SUMMON 10
 pmenu_t blinkymenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Blinky Camera", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -237,7 +237,7 @@ pmenu_t blinkymenu[] = {
 #define SUMMONMENU_START 6
 pmenu_t summonmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Summon Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -260,7 +260,7 @@ pmenu_t summonmenu[] = {
 #define TELEPORTMENU_START 6
 pmenu_t teleportmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Teleport to Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -283,7 +283,7 @@ pmenu_t teleportmenu[] = {
 #define CHASEMENU_START 6
 pmenu_t chasemenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Chase Cam Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -306,7 +306,7 @@ pmenu_t chasemenu[] = {
 #define PLAYERKICKMENU_START 6
 pmenu_t playerkickmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Kick Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -329,7 +329,7 @@ pmenu_t playerkickmenu[] = {
 #define PLAYERBANMENU_START 6
 pmenu_t playerbanmenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Ban Player", PMENU_ALIGN_CENTER, NULL}, /* 4 */
@@ -351,7 +351,7 @@ pmenu_t playerbanmenu[] = {
 
 pmenu_t votemapheadermenu[] = {
 	{"*Quake II", PMENU_ALIGN_CENTER, NULL},
-	{"Strosspot & Phatman", PMENU_ALIGN_CENTER, NULL},
+	{"Strosspot", PMENU_ALIGN_CENTER, NULL},
 	{"*Custom Coop", PMENU_ALIGN_CENTER, NULL},
 	{NULL, PMENU_ALIGN_CENTER, NULL},
 	{"*Maps", PMENU_ALIGN_CENTER, NULL},

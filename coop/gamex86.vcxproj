@@ -146,6 +146,7 @@
     <ClInclude Include="p_hook.h" />
     <ClInclude Include="p_radio.h" />
     <ClInclude Include="q_shared.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="z_anim.h" />
     <ClInclude Include="z_boss.h" />
     <ClInclude Include="z_handler.h" />
@@ -156,6 +157,9 @@
     <None Include="game.def" />
     <None Include="GNUmakefile" />
     <None Include="makeheaders.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
