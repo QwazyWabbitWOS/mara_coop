@@ -946,9 +946,9 @@ void Spawn_CoopBackpack(edict_t* ent); /* FS: Coop: Spawn a backpack with our st
 //
 // Define a noreturn wrapper for gi.error
 //
-__declspec(noreturn) void GameError(char* fmt, ...);
-#else
-__attribute__((noreturn)) void GameError(char* fmt, ...);
+//__declspec(noreturn) void GameError(char* fmt, ...);
+//#else
+//__attribute__((noreturn)) void GameError(char* fmt, ...);
 #endif
 
 qboolean	KillBox(edict_t* ent);

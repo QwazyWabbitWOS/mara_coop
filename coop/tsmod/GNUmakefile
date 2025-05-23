@@ -79,6 +79,6 @@ depends:
 all:
 	make clean
 	make depends
-	make
+	make -j
 
 -include .depends
